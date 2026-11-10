@@ -123,7 +123,6 @@
     <div>🖱️ Right click + drag: Pan</div>
     <div>🖱️ Scroll: Zoom</div>
     <br>
-    <div style="color: #888;">Or click on a child object to select it in inspector</div>
   </div>
   
   <div class="controls">
@@ -184,6 +183,7 @@
           manager._dead = true;
           manager.dispose();
           manager.renderer?.domElement?.remove();
+          manager.renderer?.dispose(); // free the WebGL context, browsers cap them ~16
         }
         if (inspector?.inspectorPanel) inspector.inspectorPanel.remove();
 
@@ -243,6 +243,7 @@
             });
           }
           manager.character = gltf.scene;
+          manager.characterParts = {}; // stale parts would snap the model to y=0 every frame
           manager.scene.add(gltf.scene);
           inspector.character = manager.character;
           inspector.selectedObject = null;
@@ -261,7 +262,7 @@
       inspectorVisible = !inspectorVisible;
       inspectorEl.textContent = inspectorVisible ? 'Inspector ON' : 'Inspector OFF';
       inspectorEl.classList.toggle('active', inspectorVisible);
-      if (inspector.inspectorPanel) {
+      if (inspector?.inspectorPanel) {
         inspector.inspectorPanel.style.display = inspectorVisible ? 'block' : 'none';
       }
     });

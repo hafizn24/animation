@@ -23,7 +23,8 @@ inspector.selectObject(2);
 assert.strictEqual(inspector.selectedObject, char.children[2], 'selection works');
 
 manager.resetScene();
-assert.strictEqual(manager.character, null, 'resetScene clears character');
+assert.ok(manager.character, 'resetScene rebuilds character');
+assert.strictEqual(manager.character.children.length, 7, 'rebuilt character has 7 part groups');
 assert.strictEqual(manager.scene.children.filter(c => c.isLight).length, 2, 'resetScene restores 2 lights');
 
 assert.strictEqual(inspector.sanitize('abc'), 'NaN', 'sanitize NaN');
