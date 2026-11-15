@@ -132,6 +132,7 @@
       <option value="coach">Coach Tracksuit</option>
       <option value="soccer">Soccer Jersey</option>
       <option value="casual">Casual Sweater</option>
+      <option value="stadium">⚽ Stadium (The Oaks)</option>
     </select>
     <button id="btn-procedural">Load Selected</button>
     <button id="btn-gltf">Load GLTF File</button>
@@ -152,14 +153,16 @@
       suit: () => import('./characters/character-suit.js').then(m => m.SuitOutfitApp),
       coach: () => import('./characters/character-coach.js').then(m => m.SoccerCoachOutfitApp),
       soccer: () => import('./characters/character-soccer.js').then(m => m.SoccerOutfitApp),
-      casual: () => import('./characters/character-casual.js').then(m => m.AnotherCasualOutfitApp)
+      casual: () => import('./characters/character-casual.js').then(m => m.AnotherCasualOutfitApp),
+      stadium: () => import('./environments/stadium.js').then(m => m.StadiumApp)
     };
     const characterLabels = {
       default: 'Default Hoodie',
       suit: 'Three-Piece Suit',
       coach: 'Coach Tracksuit',
       soccer: 'Soccer Jersey',
-      casual: 'Casual Sweater'
+      casual: 'Casual Sweater',
+      stadium: 'Stadium – The Oaks'
     };
 
     const container = document.getElementById('canvas-container');

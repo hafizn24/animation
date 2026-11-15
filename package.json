@@ -1,1 +1,15 @@
-{"name":"3d-character-viewer","version":"1.0.0","type":"module","scripts":{"start":"npx serve ."},"dependencies":{"three":"^0.162.0"}}
+{
+  "name": "3d-character-viewer",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "npx live-server --port=3000 --watch=. --open=index.html",
+    "serve": "npx serve ."
+  },
+  "dependencies": {
+    "three": "^0.162.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
