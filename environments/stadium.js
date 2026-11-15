@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { createBroadcastProps } from './stadium-props.js';
 
 /**
  * StadiumApp – Procedural 3D model of a small English non-league football ground
@@ -184,28 +183,8 @@ export class StadiumApp {
       adBoardBlue: this.createStdMaterial(0x1a3a6b, { roughness: 0.5 }),
       scoreboard:  this.createStdMaterial(0x222222, { roughness: 0.5 }),
       red:         this.createStdMaterial(0xcc2222, { roughness: 0.7 }),
-      yellow:      this.createStdMaterial(0xf5b041, { roughness: 0.6 }),
       windowGlass: this.createStdMaterial(0x6699cc, { roughness: 0.2, metalness: 0.1, transparent: true, opacity: 0.5 }),
       black:       this.createStdMaterial(0x111111),
-      darkGrey:    this.createStdMaterial(0x222222, { roughness: 0.7 }),
-      lensGlass:   this.createStdMaterial(0x0a1020, { roughness: 0.1, metalness: 0.9 }),
-      floodlightEmissive: new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        emissive: 0xfffaed,
-        emissiveIntensity: 2.2,
-        roughness: 0.2
-      }),
-      ledEmissive: new THREE.MeshStandardMaterial({
-        color: 0xffffff,
-        emissive: 0x2244aa,
-        emissiveIntensity: 0.9,
-        roughness: 0.3
-      }),
-      foamWhite: this.createStdMaterial(0xf8f9fa, { roughness: 0.9, transparent: true, opacity: 0.85 }),
-      bluePlastic: this.createStdMaterial(0x1b4f72, { roughness: 0.5 }),
-      orangeCone: this.createStdMaterial(0xe67e22, { roughness: 0.6 }),
-      silverMetal: this.createStdMaterial(0xd5dbdb, { roughness: 0.25, metalness: 0.8 }),
-      whiteboardFrame: this.createStdMaterial(0x95a5a6, { roughness: 0.4, metalness: 0.6 }),
     };
 
     // Pitch dimensions (roughly to non-league scale, in meters)
@@ -898,59 +877,22 @@ export class StadiumApp {
     root.add(scoreGroup);
 
     // ============================
-    // 9. CORNER FLAGS (WITH SPRING BASES)
+    // 9. CORNER FLAGS
     // ============================
-    const flagGroup = new THREE.Group();
-    flagGroup.name = 'CornerFlags';
-    const flagPoleGeom = new THREE.CylinderGeometry(0.015, 0.015, 1.5, 12);
-    const flagGeom = new THREE.PlaneGeometry(0.38, 0.26);
+    const flagPoleGeom = new THREE.CylinderGeometry(0.02, 0.02, 1.6, 8);
+    const flagGeom = new THREE.PlaneGeometry(0.35, 0.25);
 
     [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(([cx, cz]) => {
-      const singleFlag = new THREE.Group();
-      singleFlag.position.set(cx * halfW, 0, cz * halfH);
-
-      // Ground turf socket collar
-      const socketGeom = new THREE.CylinderGeometry(0.04, 0.05, 0.04, 12);
-      const socket = new THREE.Mesh(socketGeom, mat.black);
-      socket.position.y = 0.02;
-      singleFlag.add(socket);
-
-      // Flexible spring coil base
-      const springGeom = new THREE.CylinderGeometry(0.026, 0.026, 0.12, 10);
-      const spring = new THREE.Mesh(springGeom, mat.darkGrey);
-      spring.position.y = 0.08;
-      singleFlag.add(spring);
-
-      // Yellow/fluorescent flexible pole
-      const flagPole = new THREE.Mesh(flagPoleGeom, mat.yellow);
-      flagPole.position.y = 0.82;
+      const flagPole = new THREE.Mesh(flagPoleGeom, mat.metal);
+      flagPole.position.set(cx * halfW, 0.8, cz * halfH);
       flagPole.castShadow = true;
-      singleFlag.add(flagPole);
+      root.add(flagPole);
 
-      // Vibrant red & yellow checkered flag cloth
-      const flagCanvas = document.createElement('canvas');
-      flagCanvas.width = 128;
-      flagCanvas.height = 128;
-      const fctx = flagCanvas.getContext('2d');
-      fctx.fillStyle = '#cc2222';
-      fctx.fillRect(0, 0, 128, 128);
-      fctx.fillStyle = '#f1c40f';
-      fctx.fillRect(0, 0, 64, 64);
-      fctx.fillRect(64, 64, 64, 64);
-      const flagTex = new THREE.CanvasTexture(flagCanvas);
-      flagTex.colorSpace = THREE.SRGBColorSpace;
-
-      const cFlagMat = this.createStdMaterial(0xffffff, { roughness: 0.6, side: THREE.DoubleSide });
-      cFlagMat.map = flagTex;
-
-      const flag = new THREE.Mesh(flagGeom, cFlagMat);
-      flag.position.set(cx * 0.19, 1.42, 0);
+      const flag = new THREE.Mesh(flagGeom, mat.red);
+      flag.position.set(cx * halfW + 0.18, 1.45, cz * halfH);
       flag.castShadow = true;
-      singleFlag.add(flag);
-
-      flagGroup.add(singleFlag);
+      root.add(flag);
     });
-    root.add(flagGroup);
 
     // ============================
     // 10. DUGOUTS (near side)
@@ -1076,22 +1018,6 @@ export class StadiumApp {
     treePositions.forEach(([tx, tz, ts]) => createTree(tx, tz, ts));
 
     // ============================
-    // 13. BROADCAST EQUIPMENT, PITCHSIDE HARDWARE & MEDIA SUITE
-    // (Imported from separate modular file: environments/stadium-props.js)
-    // ============================
-    const broadcastParts = createBroadcastProps(root, {
-      pitchW,
-      pitchH,
-      halfW,
-      halfH,
-      lineY,
-      railOffset,
-      standZ,
-      clubX,
-      clubZ,
-    });
-
-    // ============================
     // STORE PARTS & FINALIZE
     // ============================
     this.characterParts = {
@@ -1100,7 +1026,6 @@ export class StadiumApp {
       clubhouse: clubGroup,
       scoreboard: scoreGroup,
       ads: adBoardGroup,
-      ...broadcastParts,
     };
 
     this.character = root;
