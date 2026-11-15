@@ -5,13 +5,17 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
  * NewOwnerApp – The new owner of Oakhaven United FC.
  *
  * Built from the "PIPIN – Special Characters Collection" sheet:
- *   1. Swept brown hair with a full quiff
+ *   1. Faceless head
  *   2. Navy knitted sweater with ribbed collar, cuffs and hem
  *   3. Blue jeans and white trainers
  *   4. Brown leather messenger bag worn across the body
  *   5. Props – car keys, a document and a coffee cup
  *   6. Poses – idle, three dynamic walk poses, handshake,
  *      presenting a document, coffee and keys
+ *
+ * The body rig follows characters/character-default.js exactly, so the New
+ * Owner shares the same proportions and joint positions as every other
+ * character in the viewer.
  */
 export class NewOwnerApp {
   constructor(container) {
@@ -33,13 +37,10 @@ export class NewOwnerApp {
         sweater: 0x2b3550,      // Navy knit
         sweaterDark: 0x212a41,  // Ribbed trim
         jeans: 0x4a6a8a,        // Blue jeans
-        jeansDark: 0x3b5670,    // Denim pocket / seam
+        jeansDark: 0x3b5670,    // Denim cuff / pocket
         shoes: 0xf2f2ee,        // White trainers
-        sole: 0xe2e2dc,         // Trainer sole
-        hair: 0x5b3a25,         // Brown hair
-        hairDark: 0x41291a,     // Darker hair shade
-        skin: 0xf6f4ef,
-        leather: 0x7a4423       // Messenger bag leather
+        leather: 0x7a4423,      // Messenger bag leather
+        skin: 0xf1e5d4
       },
       charcoalOwner: {
         sweater: 0x3c3c42,
@@ -47,11 +48,8 @@ export class NewOwnerApp {
         jeans: 0x2f3640,
         jeansDark: 0x262c34,
         shoes: 0xe8e4dc,
-        sole: 0xd6d2ca,
-        hair: 0x5a4028,
-        hairDark: 0x402c1c,
-        skin: 0xf6f4ef,
-        leather: 0x2f2f33
+        leather: 0x2f2f33,
+        skin: 0xf1e5d4
       }
     };
 
@@ -60,8 +58,8 @@ export class NewOwnerApp {
       idle: {
         head: { x: 0, y: 0, z: 0 },
         torso: { x: 0, y: 0, z: 0 },
-        leftArm: { x: 0.06, y: 0, z: -0.30 },
-        rightArm: { x: 0.06, y: 0, z: 0.30 },
+        leftArm: { x: 0.06, y: 0, z: -0.32 },
+        rightArm: { x: 0.06, y: 0, z: 0.32 },
         leftLeg: { x: 0, y: 0, z: 0 },
         rightLeg: { x: 0, y: 0, z: 0 },
         props: { bag: true }
@@ -69,8 +67,8 @@ export class NewOwnerApp {
       walkA: {
         head: { x: 0.03, y: -0.06, z: 0 },
         torso: { x: 0.04, y: -0.12, z: 0 },
-        leftArm: { x: -0.46, y: 0, z: -0.28 },
-        rightArm: { x: 0.38, y: 0, z: 0.26 },
+        leftArm: { x: -0.46, y: 0, z: -0.30 },
+        rightArm: { x: 0.38, y: 0, z: 0.28 },
         leftLeg: { x: 0.52, y: 0, z: 0 },
         rightLeg: { x: -0.38, y: 0, z: 0 },
         props: { bag: true }
@@ -78,8 +76,8 @@ export class NewOwnerApp {
       walkB: {
         head: { x: 0.02, y: 0.08, z: 0 },
         torso: { x: 0.04, y: 0.14, z: 0 },
-        leftArm: { x: 0.40, y: 0, z: -0.26 },
-        rightArm: { x: -0.48, y: 0, z: 0.28 },
+        leftArm: { x: 0.40, y: 0, z: -0.28 },
+        rightArm: { x: -0.48, y: 0, z: 0.30 },
         leftLeg: { x: -0.42, y: 0, z: 0 },
         rightLeg: { x: 0.56, y: 0, z: 0 },
         props: { bag: true }
@@ -248,14 +246,11 @@ export class NewOwnerApp {
 
     this.materials = {
       skin: this.createToonMaterial(palette.skin),
-      hair: this.createToonMaterial(palette.hair),
-      hairDark: this.createToonMaterial(palette.hairDark),
       sweater: this.createToonMaterial(palette.sweater),
       sweaterDark: this.createToonMaterial(palette.sweaterDark),
       jeans: this.createToonMaterial(palette.jeans),
       jeansDark: this.createToonMaterial(palette.jeansDark),
       shoes: this.createToonMaterial(palette.shoes),
-      sole: this.createToonMaterial(palette.sole),
       leather: this.createToonMaterial(palette.leather),
       leatherDark: this.createToonMaterial(0x4d2a13),
       gold: this.createToonMaterial(0xd9a441),
@@ -266,7 +261,7 @@ export class NewOwnerApp {
 
     this.props = {};
 
-    // ==================== 1. SWEPT BROWN HAIR & HEAD ====================
+    // ==================== 1. FACELESS HEAD & NECK ====================
     const headGroup = new THREE.Group();
     headGroup.name = 'Head';
     headGroup.position.set(0, 1.95, 0);
@@ -275,39 +270,6 @@ export class NewOwnerApp {
     const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
-
-    // Hair cap – covers the crown
-    const capGeom = new THREE.SphereGeometry(0.487, 28, 20, 0, Math.PI * 2, 0, Math.PI * 0.42);
-    const cap = this.createOutlinedMesh(capGeom, this.materials.hair, 0.022);
-    cap.position.y = 0.345;
-    headGroup.add(cap);
-
-    // Swept quiff – volume brushed back off the forehead
-    const quiff = this.createOutlinedMesh(new THREE.SphereGeometry(0.31, 20, 16), this.materials.hair, 0.025);
-    quiff.position.set(0.03, 0.60, 0.17);
-    quiff.scale.set(1.02, 0.74, 1.06);
-    headGroup.add(quiff);
-
-    const sweep = this.createOutlinedMesh(new THREE.SphereGeometry(0.22, 16, 14), this.materials.hairDark, 0.025);
-    sweep.position.set(-0.17, 0.53, 0.27);
-    sweep.scale.set(1.25, 0.52, 0.85);
-    sweep.rotation.z = 0.5;
-    headGroup.add(sweep);
-
-    // Sideburns
-    [-1, 1].forEach((dir) => {
-      const burn = this.createOutlinedMesh(new THREE.BoxGeometry(0.07, 0.16, 0.1), this.materials.hair, 0.025);
-      burn.position.set(dir * 0.42, 0.3, 0.04);
-      headGroup.add(burn);
-    });
-
-    // Ears
-    [-1, 1].forEach((dir) => {
-      const ear = this.createOutlinedMesh(new THREE.SphereGeometry(0.085, 12, 12), this.materials.skin, 0.03);
-      ear.position.set(dir * 0.44, 0.33, -0.02);
-      ear.scale.set(0.7, 1, 0.85);
-      headGroup.add(ear);
-    });
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
     const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.025);
@@ -320,32 +282,37 @@ export class NewOwnerApp {
     torsoGroup.name = 'Torso';
     torsoGroup.position.set(0, 1.45, 0);
 
-    const sweaterGeom = new THREE.CylinderGeometry(0.30, 0.35, 0.72, 24);
-    const sweater = this.createOutlinedMesh(sweaterGeom, this.materials.sweater, 0.028);
-    sweater.scale.set(1.08, 1, 0.78);
-    torsoGroup.add(sweater);
+    const torsoGeom = new THREE.CylinderGeometry(0.30, 0.36, 0.72, 24);
+    const torso = this.createOutlinedMesh(torsoGeom, this.materials.sweater, 0.028);
+    torso.scale.set(1.08, 1, 0.78);
+    torsoGroup.add(torso);
 
     // Ribbed crew collar
-    const collarGeom = new THREE.TorusGeometry(0.17, 0.055, 10, 22);
+    const collarGeom = new THREE.TorusGeometry(0.22, 0.09, 16, 24);
     const collar = this.createOutlinedMesh(collarGeom, this.materials.sweaterDark, 0.03);
-    collar.position.set(0, 0.36, 0);
-    collar.rotation.x = Math.PI / 2;
-    collar.scale.set(1.15, 1.1, 1);
+    collar.position.set(0, 0.40, -0.02);
+    collar.rotation.x = Math.PI / 2 + 0.15;
+    collar.scale.set(1.1, 1.15, 0.9);
     torsoGroup.add(collar);
 
+    // Kangaroo pocket
+    const pocketGeom = new THREE.BoxGeometry(0.36, 0.17, 0.08);
+    const pocket = this.createOutlinedMesh(pocketGeom, this.materials.sweaterDark, 0.025);
+    pocket.position.set(0, -0.18, 0.25);
+    torsoGroup.add(pocket);
+
     // Ribbed hem
-    const hemGeom = new THREE.TorusGeometry(0.345, 0.05, 10, 24);
+    const hemGeom = new THREE.TorusGeometry(0.355, 0.05, 10, 24);
     const hem = this.createOutlinedMesh(hemGeom, this.materials.sweaterDark, 0.03);
     hem.position.set(0, -0.34, 0);
     hem.rotation.x = Math.PI / 2;
-    hem.scale.set(1.08, 0.78, 1);
+    hem.scale.set(1.06, 0.78, 1);
     torsoGroup.add(hem);
 
-    // Knit shoulder yoke
     const shoulderGeom = new THREE.SphereGeometry(0.32, 24, 16);
     const shoulders = this.createOutlinedMesh(shoulderGeom, this.materials.sweater, 0.025);
     shoulders.position.y = 0.26;
-    shoulders.scale.set(1.14, 0.52, 0.78);
+    shoulders.scale.set(1.12, 0.55, 0.78);
     torsoGroup.add(shoulders);
 
     // ==================== 3. MESSENGER BAG & STRAP ====================
@@ -360,34 +327,42 @@ export class NewOwnerApp {
     bagGroup.add(strap);
 
     const bagBody = this.createOutlinedMesh(new THREE.BoxGeometry(0.34, 0.27, 0.14), this.materials.leather, 0.025);
-    bagBody.position.set(0.28, -0.30, 0.05);
+    bagBody.position.set(0.40, -0.30, 0.14);
     bagGroup.add(bagBody);
 
     const flap = this.createOutlinedMesh(new THREE.BoxGeometry(0.36, 0.14, 0.03), this.materials.leatherDark, 0.025);
-    flap.position.set(0.28, -0.20, 0.125);
+    flap.position.set(0.40, -0.20, 0.215);
     bagGroup.add(flap);
 
-    const buckle = this.createOutlinedMesh(new THREE.BoxGeometry(0.07, 0.05, 0.03), this.materials.gold, 0.03);
-    buckle.position.set(0.28, -0.25, 0.145);
-    bagGroup.add(buckle);
+    const bagBuckle = this.createOutlinedMesh(new THREE.BoxGeometry(0.07, 0.05, 0.03), this.materials.gold, 0.03);
+    bagBuckle.position.set(0.40, -0.25, 0.235);
+    bagGroup.add(bagBuckle);
 
     group.add(torsoGroup);
     this.props.bag = bagGroup;
 
-    // ==================== 4. JEANS PELVIS ====================
+    // ==================== 4. BELT & PELVIS ====================
     const pelvisGroup = new THREE.Group();
     pelvisGroup.name = 'Pelvis';
     pelvisGroup.position.set(0, 1.04, 0);
 
-    const beltGeom = new THREE.CylinderGeometry(0.35, 0.35, 0.1, 24);
-    const belt = this.createOutlinedMesh(beltGeom, this.materials.leatherDark, 0.02);
+    const beltGeom = new THREE.CylinderGeometry(0.355, 0.355, 0.10, 24);
+    const belt = this.createOutlinedMesh(beltGeom, this.materials.leatherDark, 0.025);
     belt.scale.set(1.06, 1, 0.78);
     pelvisGroup.add(belt);
 
-    const buckleGeom = new THREE.BoxGeometry(0.07, 0.05, 0.03);
-    const beltBuckle = this.createOutlinedMesh(buckleGeom, this.materials.gold, 0.03);
-    beltBuckle.position.set(0, 0, 0.28);
-    pelvisGroup.add(beltBuckle);
+    const buckleGeom = new THREE.CylinderGeometry(0.065, 0.065, 0.05, 20);
+    const buckle = this.createOutlinedMesh(buckleGeom, this.materials.gold, 0.04);
+    buckle.rotation.x = Math.PI / 2;
+    buckle.position.set(0, 0, 0.27);
+    pelvisGroup.add(buckle);
+
+    const loopGeom = new THREE.BoxGeometry(0.035, 0.11, 0.03);
+    [-0.18, 0.18].forEach((xPos) => {
+      const loop = new THREE.Mesh(loopGeom, this.materials.black);
+      loop.position.set(xPos, 0, 0.26);
+      pelvisGroup.add(loop);
+    });
 
     const hipsGeom = new THREE.CylinderGeometry(0.35, 0.34, 0.18, 24);
     const hips = this.createOutlinedMesh(hipsGeom, this.materials.jeans, 0.025);
@@ -395,12 +370,13 @@ export class NewOwnerApp {
     hips.scale.set(1.05, 1, 0.76);
     pelvisGroup.add(hips);
 
-    const pocketGeom = new THREE.BoxGeometry(0.13, 0.13, 0.04);
+    // Denim hip pockets
+    const jeanPocketGeom = new THREE.BoxGeometry(0.13, 0.13, 0.04);
     [-1, 1].forEach((dir) => {
-      const pocket = this.createOutlinedMesh(pocketGeom, this.materials.jeansDark, 0.025);
-      pocket.position.set(dir * 0.2, -0.08, 0.25);
-      pocket.rotation.z = dir * 0.2;
-      pelvisGroup.add(pocket);
+      const jeanPocket = this.createOutlinedMesh(jeanPocketGeom, this.materials.jeansDark, 0.025);
+      jeanPocket.position.set(dir * 0.2, -0.08, 0.25);
+      jeanPocket.rotation.z = dir * 0.2;
+      pelvisGroup.add(jeanPocket);
     });
     group.add(pelvisGroup);
 
@@ -409,24 +385,18 @@ export class NewOwnerApp {
       const dir = isLeft ? -1 : 1;
       const armPivot = new THREE.Group();
       armPivot.name = isLeft ? 'LeftArm' : 'RightArm';
-      armPivot.position.set(dir * 0.40, 1.74, 0);
+      armPivot.position.set(dir * 0.34, 1.74, 0);
 
-      const sleeveGeom = new THREE.CylinderGeometry(0.11, 0.14, 0.6, 16);
+      const sleeveGeom = new THREE.CylinderGeometry(0.11, 0.15, 0.62, 16);
       const sleeve = this.createOutlinedMesh(sleeveGeom, this.materials.sweater, 0.03);
       sleeve.position.y = -0.28;
       armPivot.add(sleeve);
 
-      // Rounded shoulder cap blending the sleeve into the sweater
-      const shoulderCap = this.createOutlinedMesh(new THREE.SphereGeometry(0.14, 16, 12), this.materials.sweater, 0.04);
-      shoulderCap.position.y = 0.02;
-      shoulderCap.scale.set(1, 0.85, 1);
-      armPivot.add(shoulderCap);
-
-      const cuffGeom = new THREE.TorusGeometry(0.125, 0.045, 10, 18);
-      const cuff = this.createOutlinedMesh(cuffGeom, this.materials.sweaterDark, 0.03);
-      cuff.rotation.x = Math.PI / 2;
-      cuff.position.y = -0.58;
-      armPivot.add(cuff);
+      const sleeveCuffGeom = new THREE.TorusGeometry(0.115, 0.035, 12, 20);
+      const sleeveCuff = this.createOutlinedMesh(sleeveCuffGeom, this.materials.sweaterDark, 0.03);
+      sleeveCuff.rotation.x = Math.PI / 2;
+      sleeveCuff.position.y = -0.58;
+      armPivot.add(sleeveCuff);
 
       const handGroup = new THREE.Group();
       handGroup.name = 'Hand';
@@ -461,7 +431,7 @@ export class NewOwnerApp {
       handGroup.add(watchBand);
 
       armPivot.add(handGroup);
-      armPivot.rotation.z = dir * 0.30;
+      armPivot.rotation.z = dir * 0.32;
 
       // ---- Props carried in the right hand ----
       if (!isLeft) {
@@ -528,36 +498,27 @@ export class NewOwnerApp {
       legPivot.name = isLeft ? 'LeftLeg' : 'RightLeg';
       legPivot.position.set(dir * 0.18, 0.90, 0);
 
-      const pantGeom = new THREE.CylinderGeometry(0.145, 0.155, 0.66, 18);
+      const pantGeom = new THREE.CylinderGeometry(0.145, 0.155, 0.62, 18);
       const pant = this.createOutlinedMesh(pantGeom, this.materials.jeans, 0.03);
-      pant.position.y = -0.32;
+      pant.position.y = -0.30;
       legPivot.add(pant);
 
-      const cuffGeom = new THREE.CylinderGeometry(0.16, 0.16, 0.1, 20);
+      const cuffGeom = new THREE.CylinderGeometry(0.17, 0.17, 0.11, 20);
       const cuff = this.createOutlinedMesh(cuffGeom, this.materials.jeansDark, 0.03);
-      cuff.position.y = -0.63;
+      cuff.position.y = -0.60;
       legPivot.add(cuff);
 
-      // Trainer sole
-      const soleGeom = new THREE.BoxGeometry(0.22, 0.05, 0.34);
-      const sole = this.createOutlinedMesh(soleGeom, this.materials.sole, 0.03);
-      sole.position.set(0, -0.85, 0.06);
-      legPivot.add(sole);
+      const trainerShaftGeom = new THREE.CylinderGeometry(0.135, 0.15, 0.22, 18);
+      const trainerShaft = this.createOutlinedMesh(trainerShaftGeom, this.materials.shoes, 0.03);
+      trainerShaft.position.y = -0.74;
+      legPivot.add(trainerShaft);
 
-      // Trainer upper
-      const upperGeom = new THREE.CapsuleGeometry(0.115, 0.16, 12, 16);
-      const upper = this.createOutlinedMesh(upperGeom, this.materials.shoes, 0.03);
-      upper.rotation.x = Math.PI / 2;
-      upper.position.set(0, -0.78, 0.05);
-      upper.scale.set(1.05, 1.0, 0.8);
-      legPivot.add(upper);
-
-      // Laces
-      for (let l = 0; l < 3; l++) {
-        const lace = this.createOutlinedMesh(new THREE.BoxGeometry(0.16, 0.012, 0.02), this.materials.white, 0.03);
-        lace.position.set(0, -0.72, -0.03 + l * 0.06);
-        legPivot.add(lace);
-      }
+      const trainerFootGeom = new THREE.CapsuleGeometry(0.13, 0.16, 12, 16);
+      const trainerFoot = this.createOutlinedMesh(trainerFootGeom, this.materials.shoes, 0.03);
+      trainerFoot.rotation.x = Math.PI / 2;
+      trainerFoot.position.set(0, -0.82, 0.07);
+      trainerFoot.scale.set(1.12, 1.0, 0.85);
+      legPivot.add(trainerFoot);
 
       return legPivot;
     };
@@ -630,11 +591,8 @@ export class NewOwnerApp {
     this.materials.jeans.color.setHex(palette.jeans);
     this.materials.jeansDark.color.setHex(palette.jeansDark);
     this.materials.shoes.color.setHex(palette.shoes);
-    this.materials.sole.color.setHex(palette.sole);
-    this.materials.hair.color.setHex(palette.hair);
-    this.materials.hairDark.color.setHex(palette.hairDark);
-    this.materials.skin.color.setHex(palette.skin);
     this.materials.leather.color.setHex(palette.leather);
+    this.materials.skin.color.setHex(palette.skin);
   }
 
   setWalking(walking) {
