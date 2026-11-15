@@ -133,6 +133,8 @@
       <option value="soccer">Soccer Jersey</option>
       <option value="casual">Casual Sweater</option>
       <option value="stadium">⚽ Stadium (The Oaks)</option>
+      <option value="locker">🚿 Locker Room</option>
+      <option value="office">🏢 Manager Office</option>
     </select>
     <button id="btn-procedural">Load Selected</button>
     <button id="btn-gltf">Load GLTF File</button>
@@ -154,7 +156,9 @@
       coach: () => import('./characters/character-coach.js').then(m => m.SoccerCoachOutfitApp),
       soccer: () => import('./characters/character-soccer.js').then(m => m.SoccerOutfitApp),
       casual: () => import('./characters/character-casual.js').then(m => m.AnotherCasualOutfitApp),
-      stadium: () => import('./environments/stadium.js').then(m => m.StadiumApp)
+      stadium: () => import('./environments/stadium.js').then(m => m.StadiumApp),
+      locker: () => import('./environments/locker-room.js').then(m => m.LockerRoomApp),
+      office: () => import('./environments/manager-office.js').then(m => m.ManagerOfficeApp)
     };
     const characterLabels = {
       default: 'Default Hoodie',
@@ -162,7 +166,9 @@
       coach: 'Coach Tracksuit',
       soccer: 'Soccer Jersey',
       casual: 'Casual Sweater',
-      stadium: 'Stadium – The Oaks'
+      stadium: 'Stadium – The Oaks',
+      locker: 'Locker Room',
+      office: 'Manager Office'
     };
 
     const container = document.getElementById('canvas-container');
@@ -271,8 +277,13 @@
     });
 
     document.getElementById('btn-reset').addEventListener('click', () => {
-      manager.camera.position.set(3, 2, 3);
-      manager.controls.target.set(0, 1, 0);
+      if (manager?.homeCamera) {
+        manager.camera.position.set(...manager.homeCamera);
+        manager.controls.target.set(...manager.homeTarget);
+      } else {
+        manager.camera.position.set(3, 2, 3);
+        manager.controls.target.set(0, 1, 0);
+      }
       manager.controls.update();
     });
 

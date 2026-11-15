@@ -53,8 +53,10 @@ export class StadiumApp {
   setupCamera() {
     const aspect = this.container.clientWidth / this.container.clientHeight;
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 500);
-    // Bird's-eye-ish view matching photo angle
-    this.camera.position.set(-30, 22, 40);
+    // Bird's-eye-ish view showing the pitch, grandstand and clubhouse complex
+    this.camera.position.set(-42, 27, -30);
+    this.homeCamera = [-42, 27, -30];
+    this.homeTarget = [-8, 2, 27];
   }
 
   setupRenderer() {
@@ -71,8 +73,10 @@ export class StadiumApp {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
-    this.controls.target.set(0, 2, 0);
+    this.controls.target.set(-8, 2, 27);
     this.controls.maxPolarAngle = Math.PI / 2.05;  // prevent going underground
+    this.controls.minDistance = 10;
+    this.controls.maxDistance = 140;
   }
 
   addLights() {
@@ -80,9 +84,10 @@ export class StadiumApp {
     const ambient = new THREE.AmbientLight(0xffffff, 1.6);
     this.scene.add(ambient);
 
-    // Sun
+    // Sun – low afternoon light from the south-west so the clubhouse and
+    // grandstand facades (which face the pitch) are lit
     const sun = new THREE.DirectionalLight(0xfff5e6, 2.0);
-    sun.position.set(30, 40, 20);
+    sun.position.set(-45, 50, -32);
     sun.castShadow = true;
     sun.shadow.mapSize.width = 4096;
     sun.shadow.mapSize.height = 4096;
@@ -97,7 +102,7 @@ export class StadiumApp {
 
     // Fill light from opposite side
     const fill = new THREE.DirectionalLight(0xb0d0ff, 0.6);
-    fill.position.set(-20, 15, -10);
+    fill.position.set(35, 22, 30);
     this.scene.add(fill);
 
     // Hemisphere for nice outdoor feeling
@@ -129,6 +134,24 @@ export class StadiumApp {
       metalness: opts.metalness ?? 0.0,
       ...opts,
     });
+  }
+
+  /**
+   * Builds a CanvasTexture from a 2D drawing callback.
+   * @param {number} width  texture width in px
+   * @param {number} height texture height in px
+   * @param {Function} draw receives (ctx, width, height)
+   */
+  makeCanvasTexture(width, height, draw) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    draw(ctx, width, height);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    return texture;
   }
 
   /* ------------------------------------------------------------------ */
@@ -184,8 +207,21 @@ export class StadiumApp {
       scoreboard:  this.createStdMaterial(0x222222, { roughness: 0.5 }),
       red:         this.createStdMaterial(0xcc2222, { roughness: 0.7 }),
       windowGlass: this.createStdMaterial(0x6699cc, { roughness: 0.2, metalness: 0.1, transparent: true, opacity: 0.5 }),
+      officeGlass: this.createStdMaterial(0xffe0aa, {
+        roughness: 0.15, metalness: 0.1, emissive: 0xffcf85, emissiveIntensity: 0.55,
+        transparent: true, opacity: 0.85,
+      }),
+      lampGlass:   this.createStdMaterial(0xffffff, {
+        roughness: 0.25, emissive: 0xfff6dd, emissiveIntensity: 2.4,
+      }),
+      tarmac:      this.createStdMaterial(0x3c3f42, { roughness: 0.95 }),
+      gravel:      this.createStdMaterial(0x8d8578, { roughness: 1.0 }),
       black:       this.createStdMaterial(0x111111),
     };
+
+    // Players' tunnel – cut through the far touchline railing, north-west side
+    const tunnelX = -29.5;
+    const TUNNEL_GAP = 4.4;
 
     // Pitch dimensions (roughly to non-league scale, in meters)
     const pitchW = 64;   // width (touchline)
@@ -377,8 +413,9 @@ export class StadiumApp {
 
     // Near touchline (front, facing viewer in the photo – south side)
     createRailingSegment(-halfW - railOffset, -halfH - railOffset, halfW + railOffset, -halfH - railOffset);
-    // Far touchline
-    createRailingSegment(-halfW - railOffset, halfH + railOffset, halfW + railOffset, halfH + railOffset);
+    // Far touchline (split to leave a gap for the players' tunnel)
+    createRailingSegment(-halfW - railOffset, halfH + railOffset, tunnelX - TUNNEL_GAP / 2, halfH + railOffset);
+    createRailingSegment(tunnelX + TUNNEL_GAP / 2, halfH + railOffset, halfW + railOffset, halfH + railOffset);
     // Left goal line
     createRailingSegment(-halfW - railOffset, -halfH - railOffset, -halfW - railOffset, halfH + railOffset);
     // Right goal line
@@ -669,15 +706,8 @@ export class StadiumApp {
     signLabelMat.map = signTexture;
     const signLabel = new THREE.Mesh(signLabelGeom, signLabelMat);
     signLabel.position.set(0, standHeight + 0.85, standZ - 2.44);
+    signLabel.rotation.y = Math.PI;   // face the pitch
     roofGroup.add(signLabel);
-
-    // Tree logo on the sign (green circle)
-    const treeLogo = new THREE.Mesh(
-      new THREE.CircleGeometry(0.3, 24),
-      mat.signWhite
-    );
-    treeLogo.position.set(-standLength / 2 + 2, standHeight + 0.85, standZ - 2.46);
-    roofGroup.add(treeLogo);
 
     standGroup.add(roofGroup);
 
@@ -693,86 +723,286 @@ export class StadiumApp {
     root.add(standGroup);
 
     // ============================
-    // 6. CLUBHOUSE (left of grandstand)
+    // 6. CLUBHOUSE COMPLEX
+    //    Two-storey clubhouse with the manager's office overlooking the
+    //    pitch, a single storey locker-room wing and the players' tunnel.
     // ============================
     const clubGroup = new THREE.Group();
-    const clubX = -standLength / 2 - 8;
-    const clubZ = standZ + 0.5;
+    clubGroup.name = 'Clubhouse';
+    const clubX = -standLength / 2 - 8;    // -26
+    const clubZ = standZ + 4;              // 59.5
 
-    // Main building
-    const clubBodyGeom = new THREE.BoxGeometry(12, 4, 5);
-    const clubBody = new THREE.Mesh(clubBodyGeom, mat.brick);
-    clubBody.position.set(clubX, 2, clubZ);
+    const CLUB_W = 15;      // along X
+    const CLUB_D = 5.5;     // along Z
+    const CLUB_H = 3.8;     // ground storey
+    const OFFICE_H = 3.2;   // upper storey – manager's office
+    const clubFrontZ = clubZ - CLUB_D / 2;
+
+    // --- Ground storey ---
+    const clubBody = new THREE.Mesh(new THREE.BoxGeometry(CLUB_W, CLUB_H, CLUB_D), mat.brick);
+    clubBody.position.set(clubX, CLUB_H / 2, clubZ);
     clubBody.castShadow = true;
     clubBody.receiveShadow = true;
     clubGroup.add(clubBody);
 
-    // Clubhouse roof
-    const clubRoofGeom = new THREE.BoxGeometry(12.5, 0.2, 5.5);
-    const clubRoof = new THREE.Mesh(clubRoofGeom, mat.concreteDark);
-    clubRoof.position.set(clubX, 4.1, clubZ);
-    clubRoof.castShadow = true;
-    clubGroup.add(clubRoof);
+    // Stone plinth around the base
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(CLUB_W + 0.3, 0.5, CLUB_D + 0.3), mat.concreteDark);
+    plinth.position.set(clubX, 0.25, clubZ);
+    plinth.castShadow = true;
+    plinth.receiveShadow = true;
+    clubGroup.add(plinth);
 
-    // Sloped roof top
-    const roofShape = new THREE.Shape();
-    roofShape.moveTo(-6.5, 0);
-    roofShape.lineTo(6.5, 0);
-    roofShape.lineTo(6.5, 1.5);
-    roofShape.lineTo(-6.5, 1.5);
-    roofShape.closePath();
-    // Simple pitched roof using a prism-ish box
-    const pitchedRoof = new THREE.Mesh(
-      new THREE.BoxGeometry(12.5, 1.8, 5.5),
+    // --- Upper storey – manager's office (set back to leave a balcony) ---
+    const OFFICE_W = CLUB_W - 1.5;
+    const OFFICE_D = CLUB_D - 0.8;
+    const officeBlock = new THREE.Mesh(new THREE.BoxGeometry(OFFICE_W, OFFICE_H, OFFICE_D), mat.brick);
+    officeBlock.position.set(clubX + 0.4, CLUB_H + OFFICE_H / 2, clubZ + 0.4);
+    officeBlock.castShadow = true;
+    officeBlock.receiveShadow = true;
+    clubGroup.add(officeBlock);
+
+    // Office string course
+    const stringCourse = new THREE.Mesh(
+      new THREE.BoxGeometry(CLUB_W + 0.2, 0.16, CLUB_D + 0.2),
+      mat.concrete
+    );
+    stringCourse.position.set(clubX, CLUB_H - 0.08, clubZ);
+    clubGroup.add(stringCourse);
+
+    // --- Pitched roof over the office block ---
+    const ridgeY = CLUB_H + OFFICE_H + 1.7;
+    const officeFrontZ = clubZ + 0.4 - OFFICE_D / 2;
+    const officeBackZ = clubZ + 0.4 + OFFICE_D / 2;
+    const slope = Math.sqrt(Math.pow(OFFICE_D / 2, 2) + Math.pow(1.7, 2));
+    const roofAngle = Math.atan2(1.7, OFFICE_D / 2);
+
+    const roofFront = new THREE.Mesh(
+      new THREE.BoxGeometry(OFFICE_W + 0.7, 0.22, slope),
       mat.brickDark
     );
-    pitchedRoof.position.set(clubX, 5.0, clubZ);
-    pitchedRoof.castShadow = true;
-    clubGroup.add(pitchedRoof);
+    roofFront.position.set(clubX + 0.4, CLUB_H + OFFICE_H + 0.85, officeFrontZ + OFFICE_D / 4);
+    roofFront.rotation.x = -roofAngle;
+    roofFront.castShadow = true;
+    clubGroup.add(roofFront);
 
-    // Windows on the front face
-    for (let w = 0; w < 3; w++) {
-      const winGeom = new THREE.PlaneGeometry(1.6, 1.2);
-      const win = new THREE.Mesh(winGeom, mat.windowGlass);
-      win.position.set(clubX - 4 + w * 4, 2.5, clubZ - 2.52);
-      clubGroup.add(win);
+    const roofBack = new THREE.Mesh(
+      new THREE.BoxGeometry(OFFICE_W + 0.7, 0.22, slope),
+      mat.brickDark
+    );
+    roofBack.position.set(clubX + 0.4, CLUB_H + OFFICE_H + 0.85, officeBackZ - OFFICE_D / 4);
+    roofBack.rotation.x = roofAngle;
+    roofBack.castShadow = true;
+    clubGroup.add(roofBack);
 
-      // Window frame
-      const frameGeom = new THREE.BoxGeometry(1.8, 1.4, 0.08);
-      const frame = new THREE.Mesh(frameGeom, mat.concrete);
-      frame.position.set(clubX - 4 + w * 4, 2.5, clubZ - 2.53);
+    const ridgeCap = new THREE.Mesh(
+      new THREE.BoxGeometry(OFFICE_W + 0.9, 0.18, 0.45),
+      mat.concreteDark
+    );
+    ridgeCap.position.set(clubX + 0.4, ridgeY + 0.06, clubZ + 0.4);
+    ridgeCap.castShadow = true;
+    clubGroup.add(ridgeCap);
+
+    // Gable end walls
+    const gableShape = new THREE.Shape();
+    gableShape.moveTo(-OFFICE_D / 2, 0);
+    gableShape.lineTo(OFFICE_D / 2, 0);
+    gableShape.lineTo(0, 1.7);
+    gableShape.closePath();
+    const gableGeom = new THREE.ExtrudeGeometry(gableShape, { depth: 0.3, bevelEnabled: false });
+    [-1, 1].forEach(side => {
+      const gable = new THREE.Mesh(gableGeom, mat.brick);
+      gable.rotation.y = Math.PI / 2;
+      gable.position.set(clubX + 0.4 + side * (OFFICE_W / 2) - (side > 0 ? 0 : 0.3), CLUB_H + OFFICE_H, clubZ + 0.4);
+      gable.castShadow = true;
+      clubGroup.add(gable);
+    });
+
+    // --- Manager's office bay window ---
+    const bayZ = officeFrontZ;
+    const bay = new THREE.Mesh(new THREE.BoxGeometry(8.4, 1.9, 0.6), mat.brick);
+    bay.position.set(clubX + 0.4, CLUB_H + 1.35, bayZ - 0.3);
+    bay.castShadow = true;
+    clubGroup.add(bay);
+
+    [-2.9, 0, 2.9].forEach(dx => {
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(2.6, 1.7, 0.08), mat.concrete);
+      frame.position.set(clubX + 0.4 + dx, CLUB_H + 1.35, bayZ - 0.62);
       clubGroup.add(frame);
-    }
 
-    // Door
-    const doorGeom = new THREE.PlaneGeometry(1.2, 2.2);
-    const door = new THREE.Mesh(doorGeom, mat.woodDark);
-    door.position.set(clubX + 3, 1.1, clubZ - 2.52);
-    clubGroup.add(door);
+      const glass = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 1.5), mat.officeGlass);
+      glass.position.set(clubX + 0.4 + dx, CLUB_H + 1.35, bayZ - 0.67);
+      glass.rotation.y = Math.PI;      // face the pitch
+      clubGroup.add(glass);
 
-    // Clubhouse sign
-    const clubSignCanvas = document.createElement('canvas');
-    clubSignCanvas.width = 512;
-    clubSignCanvas.height = 64;
-    const clubSignCtx = clubSignCanvas.getContext('2d');
-    clubSignCtx.fillStyle = '#5c4a32';
-    clubSignCtx.fillRect(0, 0, 512, 64);
-    clubSignCtx.fillStyle = '#ffffff';
-    clubSignCtx.font = 'bold 28px Arial, sans-serif';
-    clubSignCtx.textAlign = 'center';
-    clubSignCtx.textBaseline = 'middle';
-    clubSignCtx.fillText('OAKHAVEN UTD CLUBHOUSE', 256, 22);
-    clubSignCtx.font = '22px Arial, sans-serif';
-    clubSignCtx.fillText('REFRESHMENTS', 256, 48);
-    const clubSignTex = new THREE.CanvasTexture(clubSignCanvas);
-    clubSignTex.colorSpace = THREE.SRGBColorSpace;
+      // Window mullion
+      const mullion = new THREE.Mesh(new THREE.BoxGeometry(0.1, 1.6, 0.1), mat.concrete);
+      mullion.position.set(clubX + 0.4 + dx, CLUB_H + 1.35, bayZ - 0.68);
+      clubGroup.add(mullion);
+    });
 
-    const clubSignGeom = new THREE.PlaneGeometry(8, 1);
-    const clubSignMat = this.createStdMaterial(0xffffff);
-    clubSignMat.map = clubSignTex;
-    const clubSignMesh = new THREE.Mesh(clubSignGeom, clubSignMat);
-    clubSignMesh.position.set(clubX, 3.8, clubZ - 2.53);
+    // Balcony in front of the office
+    const balcony = new THREE.Mesh(new THREE.BoxGeometry(8.8, 0.18, 1.4), mat.concrete);
+    balcony.position.set(clubX + 0.4, CLUB_H - 0.09, bayZ - 0.7);
+    balcony.castShadow = true;
+    balcony.receiveShadow = true;
+    clubGroup.add(balcony);
+
+    // Balcony railings
+    const railGroup = new THREE.Group();
+    const railY = CLUB_H + 0.55;
+    const railFrontZ = bayZ - 1.38;
+    [-1, 1].forEach(side => {
+      const rail = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 8.8, 8), mat.metalRail);
+      rail.rotation.z = Math.PI / 2;
+      rail.position.set(clubX + 0.4, railY, railFrontZ);
+      railGroup.add(rail);
+
+      const sideRail = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 1.4, 8), mat.metalRail);
+      sideRail.rotation.x = Math.PI / 2;
+      sideRail.position.set(clubX + 0.4 + side * 4.35, railY, bayZ - 0.7);
+      railGroup.add(sideRail);
+
+      for (let p = 0; p <= 6; p++) {
+        const post = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 1.0, 6), mat.metalRail);
+        post.position.set(clubX + 0.4 - 4.35 + p * (8.7 / 6), CLUB_H + 0.42, railFrontZ);
+        railGroup.add(post);
+      }
+    });
+    clubGroup.add(railGroup);
+
+    // Balcony sign board
+    const officeSignTex = this.makeCanvasTexture(1024, 128, (ctx, w, h) => {
+      ctx.fillStyle = '#1a4a30';
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = '#e8d9a8';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(8, 8, w - 16, h - 16);
+      ctx.fillStyle = '#f4f1e4';
+      ctx.font = 'bold 54px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText("MANAGER'S OFFICE", w / 2, h / 2 + 2);
+    });
+    const officeSignMat = this.createStdMaterial(0xffffff, { roughness: 0.75, map: officeSignTex });
+    const officeSign = new THREE.Mesh(new THREE.PlaneGeometry(7.4, 0.9), officeSignMat);
+    officeSign.position.set(clubX + 0.4, CLUB_H + OFFICE_H - 0.5, officeFrontZ - 0.07);
+    officeSign.rotation.y = Math.PI;   // face the pitch
+    clubGroup.add(officeSign);
+
+    // Balcony door onto the office
+    const balconyDoor = new THREE.Mesh(new THREE.BoxGeometry(0.9, 2.0, 0.1), mat.woodDark);
+    balconyDoor.position.set(clubX + 0.4 + 4.95, CLUB_H + 1.05, bayZ - 0.05);
+    clubGroup.add(balconyDoor);
+
+    // --- Ground floor windows & entrance ---
+    [1.4, 4.0].forEach(dx => {
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(1.9, 1.5, 0.08), mat.concrete);
+      frame.position.set(clubX + dx, 2.1, clubFrontZ - 0.05);
+      clubGroup.add(frame);
+
+      const glass = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 1.3), mat.windowGlass);
+      glass.position.set(clubX + dx, 2.1, clubFrontZ - 0.1);
+      glass.rotation.y = Math.PI;      // face the pitch
+      clubGroup.add(glass);
+
+      const mullion = new THREE.Mesh(new THREE.BoxGeometry(0.09, 1.4, 0.09), mat.concrete);
+      mullion.position.set(clubX + dx, 2.1, clubFrontZ - 0.11);
+      clubGroup.add(mullion);
+    });
+
+    // Entrance door with a small canopy
+    const entrance = new THREE.Mesh(new THREE.BoxGeometry(1.3, 2.3, 0.12), mat.woodDark);
+    entrance.position.set(clubX + 6.4, 1.15, clubFrontZ - 0.07);
+    clubGroup.add(entrance);
+    const canopy = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.14, 1.0), mat.concreteDark);
+    canopy.position.set(clubX + 6.4, 2.45, clubFrontZ - 0.5);
+    canopy.castShadow = true;
+    clubGroup.add(canopy);
+
+    // Clubhouse sign above the ground floor (below the balcony overhang)
+    const clubSignTex = this.makeCanvasTexture(1024, 112, (ctx, w, h) => {
+      ctx.fillStyle = '#5c4a32';
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = '#d8c79a';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(8, 8, w - 16, h - 16);
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 62px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('OAKHAVEN UTD CLUBHOUSE', w / 2, h * 0.54);
+    });
+    const clubSignMat = this.createStdMaterial(0xffffff, { roughness: 0.8, map: clubSignTex });
+    const clubSignMesh = new THREE.Mesh(new THREE.PlaneGeometry(5.4, 0.59), clubSignMat);
+    clubSignMesh.position.set(clubX + 2.7, 3.22, clubFrontZ - 0.06);
+    clubSignMesh.rotation.y = Math.PI;   // face the pitch
     clubGroup.add(clubSignMesh);
+
+    // --- Locker room wing (single storey, in front of the clubhouse) ---
+    const WING_W = 7.5;
+    const WING_D = 3.8;
+    const WING_H = 3.3;
+    const wingFrontZ = clubFrontZ - WING_D;
+    const wingZ = wingFrontZ + WING_D / 2;
+    const wingX = clubX - 3.75;
+
+    const wingBody = new THREE.Mesh(new THREE.BoxGeometry(WING_W, WING_H, WING_D), mat.brick);
+    wingBody.position.set(wingX, WING_H / 2, wingZ);
+    wingBody.castShadow = true;
+    wingBody.receiveShadow = true;
+    clubGroup.add(wingBody);
+
+    // Shallow pitched roof on the wing
+    const wingSlope = Math.sqrt(Math.pow(WING_D / 2, 2) + Math.pow(0.75, 2));
+    const wingAngle = Math.atan2(0.75, WING_D / 2);
+    const wingRoofFront = new THREE.Mesh(
+      new THREE.BoxGeometry(WING_W + 0.5, 0.2, wingSlope),
+      mat.brickDark
+    );
+    wingRoofFront.position.set(wingX, WING_H + 0.375, wingFrontZ + WING_D / 4);
+    wingRoofFront.rotation.x = -wingAngle;
+    wingRoofFront.castShadow = true;
+    clubGroup.add(wingRoofFront);
+    const wingRoofBack = new THREE.Mesh(
+      new THREE.BoxGeometry(WING_W + 0.5, 0.2, wingSlope),
+      mat.brickDark
+    );
+    wingRoofBack.position.set(wingX, WING_H + 0.375, wingFrontZ + (WING_D * 3) / 4);
+    wingRoofBack.rotation.x = wingAngle;
+    wingRoofBack.castShadow = true;
+    clubGroup.add(wingRoofBack);
+    const wingRidge = new THREE.Mesh(new THREE.BoxGeometry(WING_W + 0.6, 0.14, 0.34), mat.concreteDark);
+    wingRidge.position.set(wingX, WING_H + 0.82, wingZ);
+    clubGroup.add(wingRidge);
+
+    // Locker room windows flanking the tunnel mouth
+    [-2.2, 2.2].forEach(dx => {
+      const frame = new THREE.Mesh(new THREE.BoxGeometry(1.4, 1.0, 0.08), mat.concrete);
+      frame.position.set(wingX + dx, 2.0, wingFrontZ - 0.05);
+      clubGroup.add(frame);
+      const glass = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 0.8), mat.windowGlass);
+      glass.position.set(wingX + dx, 2.0, wingFrontZ - 0.1);
+      glass.rotation.y = Math.PI;      // face the pitch
+      clubGroup.add(glass);
+    });
+
+    // "LOCKER ROOM" sign on the tunnel lintel
+    const lockerSignTex = this.makeCanvasTexture(512, 96, (ctx, w, h) => {
+      ctx.fillStyle = '#22303f';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#e8eef2';
+      ctx.font = 'bold 50px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('LOCKER ROOM', w / 2, h * 0.54);
+    });
+    const lockerSign = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.4, 0.64),
+      this.createStdMaterial(0xffffff, { roughness: 0.8, map: lockerSignTex })
+    );
+    lockerSign.position.set(tunnelX, 2.86, wingFrontZ - 0.32);
+    lockerSign.rotation.y = Math.PI;   // face the pitch
+    clubGroup.add(lockerSign);
 
     root.add(clubGroup);
 
@@ -817,6 +1047,7 @@ export class StadiumApp {
       adLabelMat.map = adTex;
       const adLabel = new THREE.Mesh(adLabelGeom, adLabelMat);
       adLabel.position.set(-standLength / 2 + 4 + i * 8.5, adY, adZ - 0.05);
+      adLabel.rotation.y = Math.PI;   // face the pitch
       adBoardGroup.add(adLabel);
     });
 
@@ -1009,13 +1240,359 @@ export class StadiumApp {
       [halfW + 10, -15, 1.2],
       [halfW + 12, 20, 1.0],
       [halfW + 8, 40, 0.8],
-      // Trees behind clubhouse
-      [clubX - 8, clubZ + 6, 1.1],
-      [clubX - 2, clubZ + 8, 1.0],
-      [clubX + 5, clubZ + 7, 0.9],
+      // Trees along the western boundary and beside the car park
+      [-46, 56, 1.1],
+      [-45, 62, 1.0],
+      [-44, 68, 0.9],
+      [-42, 74, 1.0],
+      [clubX + 8, clubZ + 6, 1.0],
     ];
 
     treePositions.forEach(([tx, tz, ts]) => createTree(tx, tz, ts));
+
+    // ============================
+    // 13. PLAYERS' TUNNEL
+    //     Links the locker room wing to the pitch, cutting through the
+    //     far touchline railing.
+    // ============================
+    const tunnelGroup = new THREE.Group();
+    tunnelGroup.name = 'PlayersTunnel';
+    root.add(tunnelGroup);
+
+    const tunnelLen = wingFrontZ - halfH;      // wing front down to the touchline
+    const tunnelZ = (wingFrontZ + halfH) / 2;
+    const tunnelW = 3.6;
+
+    // Side walls
+    [-1, 1].forEach(side => {
+      const wall = new THREE.Mesh(new THREE.BoxGeometry(0.32, 2.7, tunnelLen + 0.4), mat.brick);
+      wall.position.set(tunnelX + side * (tunnelW / 2 + 0.16), 1.35, tunnelZ);
+      wall.castShadow = true;
+      wall.receiveShadow = true;
+      tunnelGroup.add(wall);
+
+      // Wall coping
+      const coping = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.14, tunnelLen + 0.5), mat.concreteDark);
+      coping.position.set(tunnelX + side * (tunnelW / 2 + 0.16), 2.76, tunnelZ);
+      coping.castShadow = true;
+      tunnelGroup.add(coping);
+    });
+
+    // Tunnel roof
+    const tunnelRoof = new THREE.Mesh(
+      new THREE.BoxGeometry(tunnelW + 1.0, 0.28, tunnelLen + 0.6),
+      mat.concreteDark
+    );
+    tunnelRoof.position.set(tunnelX, 2.92, tunnelZ);
+    tunnelRoof.castShadow = true;
+    tunnelRoof.receiveShadow = true;
+    tunnelGroup.add(tunnelRoof);
+
+    // Dark opening at the locker room end
+    const tunnelMouth = new THREE.Mesh(
+      new THREE.BoxGeometry(tunnelW, 2.6, 0.35),
+      this.createStdMaterial(0x15171a, { roughness: 1.0 })
+    );
+    tunnelMouth.position.set(tunnelX, 1.3, wingFrontZ - 0.12);
+    tunnelGroup.add(tunnelMouth);
+
+    // Brick surround framing the tunnel mouth
+    [-1, 1].forEach(side => {
+      const jamb = new THREE.Mesh(new THREE.BoxGeometry(0.5, 3.1, 0.28), mat.brick);
+      jamb.position.set(tunnelX + side * (tunnelW / 2 + 0.25), 1.55, wingFrontZ - 0.16);
+      jamb.castShadow = true;
+      tunnelGroup.add(jamb);
+    });
+    const tunnelLintel = new THREE.Mesh(new THREE.BoxGeometry(tunnelW + 1.0, 0.5, 0.28), mat.brick);
+    tunnelLintel.position.set(tunnelX, 2.85, wingFrontZ - 0.16);
+    tunnelLintel.castShadow = true;
+    tunnelGroup.add(tunnelLintel);
+
+    // Pitch-side portal
+    const portalLintel = new THREE.Mesh(
+      new THREE.BoxGeometry(tunnelW + 1.0, 0.3, 0.3),
+      mat.concrete
+    );
+    portalLintel.position.set(tunnelX, 2.62, halfH + 0.15);
+    portalLintel.castShadow = true;
+    tunnelGroup.add(portalLintel);
+
+    // "PLAYERS' TUNNEL" sign hanging under the portal
+    const tunnelSignTex = this.makeCanvasTexture(512, 88, (ctx, w, h) => {
+      ctx.fillStyle = '#1a4a30';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#f4f1e4';
+      ctx.font = 'bold 46px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText("PLAYERS' TUNNEL", w / 2, h * 0.54);
+    });
+    const tunnelSign = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.0, 0.52),
+      this.createStdMaterial(0xffffff, { roughness: 0.8, map: tunnelSignTex })
+    );
+    tunnelSign.position.set(tunnelX, 2.25, halfH + 0.02);
+    tunnelSign.rotation.y = Math.PI;   // face the pitch
+    tunnelGroup.add(tunnelSign);
+
+    // ============================
+    // 14. FLOODLIGHTS
+    // ============================
+    const floodGroup = new THREE.Group();
+    floodGroup.name = 'Floodlights';
+    root.add(floodGroup);
+
+    const createFloodlight = (x, z) => {
+      const pylon = new THREE.Group();
+      pylon.name = `Floodlight_${x}_${z}`;
+      pylon.position.set(x, 0, z);
+      floodGroup.add(pylon);
+
+      // Tapered mast
+      const mastHeight = 18;
+      const mast = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.22, 0.9, mastHeight, 10),
+        mat.metal
+      );
+      mast.position.y = mastHeight / 2;
+      mast.castShadow = true;
+      pylon.add(mast);
+
+      // Lattice bracing rings
+      for (let b = 0; b < 6; b++) {
+        const by = 2.4 + b * 2.8;
+        const r = 0.9 - (by / mastHeight) * 0.68;
+        const ring = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.1, 10), mat.metalDark);
+        ring.position.y = by;
+        pylon.add(ring);
+      }
+
+      // Head frame with lamp array, aimed at the centre circle
+      const head = new THREE.Group();
+      head.position.y = mastHeight + 0.45;
+      pylon.add(head);
+
+      const backing = new THREE.Mesh(new THREE.BoxGeometry(6.6, 1.9, 0.16), mat.metalDark);
+      backing.castShadow = true;
+      head.add(backing);
+
+      for (let row = 0; row < 2; row++) {
+        for (let i = 0; i < 6; i++) {
+          const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.6, 0.22), mat.lampGlass);
+          lamp.position.set(-2.65 + i * 1.06, row === 0 ? 0.45 : -0.45, 0.16);
+          head.add(lamp);
+
+          // Lamp hood
+          const hood = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.72, 0.3), mat.metal);
+          hood.position.set(-2.65 + i * 1.06, row === 0 ? 0.5 : -0.4, 0.26);
+          head.add(hood);
+        }
+      }
+
+      // Support arms from the mast to the head
+      [-1, 1].forEach(side => {
+        const arm = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 1.3), mat.metal);
+        arm.position.set(side * 3.2, -0.1, -0.5);
+        arm.rotation.x = 0.5;
+        head.add(arm);
+      });
+
+      // Aim the array at the centre of the pitch
+      head.lookAt(0, 2, 0);
+    };
+
+    createFloodlight(-halfW - 16, -halfH - 18);
+    createFloodlight(halfW + 16, -halfH - 18);
+    createFloodlight(-halfW - 16, halfH + 20);
+    createFloodlight(halfW + 16, halfH + 20);
+
+    // ============================
+    // 15. CAR PARK
+    // ============================
+    const carParkGroup = new THREE.Group();
+    carParkGroup.name = 'CarPark';
+    root.add(carParkGroup);
+
+    const parkX = clubX - 1;
+    const parkZ = clubZ + 11;
+
+    const tarmac = new THREE.Mesh(new THREE.PlaneGeometry(18, 9), mat.tarmac);
+    tarmac.rotation.x = -Math.PI / 2;
+    tarmac.position.set(parkX, 0.02, parkZ);
+    tarmac.receiveShadow = true;
+    carParkGroup.add(tarmac);
+
+    // Gravel apron
+    const apron = new THREE.Mesh(new THREE.PlaneGeometry(30, 16), mat.gravel);
+    apron.rotation.x = -Math.PI / 2;
+    apron.position.set(parkX, 0.005, parkZ);
+    apron.receiveShadow = true;
+    carParkGroup.add(apron);
+
+    const createCar = (x, z, rot, color) => {
+      const car = new THREE.Group();
+      car.position.set(x, 0, z);
+      car.rotation.y = rot;
+      carParkGroup.add(car);
+
+      const body = new THREE.Mesh(
+        new THREE.BoxGeometry(1.8, 0.66, 4.2),
+        this.createStdMaterial(color, { roughness: 0.35, metalness: 0.35 })
+      );
+      body.position.y = 0.66;
+      body.castShadow = true;
+      car.add(body);
+
+      const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.62, 0.6, 2.0), mat.windowGlass);
+      cabin.position.set(0, 1.26, -0.2);
+      cabin.castShadow = true;
+      car.add(cabin);
+
+      [[-0.85, -1.35], [0.85, -1.35], [-0.85, 1.35], [0.85, 1.35]].forEach(([ox, oz]) => {
+        const wheel = new THREE.Mesh(new THREE.CylinderGeometry(0.33, 0.33, 0.22, 12), mat.black);
+        wheel.rotation.z = Math.PI / 2;
+        wheel.position.set(ox, 0.33, oz);
+        wheel.castShadow = true;
+        car.add(wheel);
+      });
+
+      // Head lights & tail lights
+      [-0.6, 0.6].forEach(ox => {
+        const head = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.16, 0.08), mat.signWhite);
+        head.position.set(ox, 0.72, -2.11);
+        car.add(head);
+        const tail = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.16, 0.08), mat.red);
+        tail.position.set(ox, 0.72, 2.11);
+        car.add(tail);
+      });
+    };
+
+    const carColors = [0x8c1f1f, 0x1f3d70, 0xd8d8d8, 0x2b2b2b, 0x2f6b3d, 0xb8b2a4];
+    for (let i = 0; i < 6; i++) {
+      createCar(parkX - 7.5 + i * 3.0, parkZ - 1.2, 0, carColors[i]);
+    }
+    createCar(parkX - 5.5, parkZ + 2.6, Math.PI, carColors[2]);
+    createCar(parkX + 3.5, parkZ + 2.6, Math.PI, carColors[3]);
+
+    // Car park sign
+    const signPost = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 3.2, 8), mat.metal);
+    signPost.position.set(parkX + 9.5, 1.6, parkZ - 4);
+    signPost.castShadow = true;
+    carParkGroup.add(signPost);
+
+    const parkSignTex = this.makeCanvasTexture(512, 128, (ctx, w, h) => {
+      ctx.fillStyle = '#1a4a30';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#f4f1e4';
+      ctx.font = 'bold 44px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('OAKHAVEN UNITED', w / 2, h * 0.34);
+      ctx.font = '34px Arial, sans-serif';
+      ctx.fillText('PLAYERS & SPECTATORS', w / 2, h * 0.68);
+    });
+    const parkSign = new THREE.Mesh(
+      new THREE.PlaneGeometry(3.4, 0.85),
+      this.createStdMaterial(0xffffff, { roughness: 0.8, map: parkSignTex })
+    );
+    parkSign.position.set(parkX + 9.5, 2.9, parkZ - 4.05);
+    parkSign.rotation.y = Math.PI;   // face the pitch
+    carParkGroup.add(parkSign);
+
+    // ============================
+    // 16. CLUB CREST & FLAGS
+    // ============================
+    const crestGroup = new THREE.Group();
+    crestGroup.name = 'ClubCrest';
+    root.add(crestGroup);
+
+    const crestTexture = this.makeCanvasTexture(256, 256, (ctx, w, h) => {
+      // Shield
+      ctx.fillStyle = '#14532d';
+      ctx.beginPath();
+      ctx.moveTo(w * 0.5, h * 0.06);
+      ctx.lineTo(w * 0.9, h * 0.22);
+      ctx.lineTo(w * 0.9, h * 0.58);
+      ctx.quadraticCurveTo(w * 0.9, h * 0.85, w * 0.5, h * 0.96);
+      ctx.quadraticCurveTo(w * 0.1, h * 0.85, w * 0.1, h * 0.58);
+      ctx.lineTo(w * 0.1, h * 0.22);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.strokeStyle = '#e8d9a8';
+      ctx.lineWidth = 10;
+      ctx.stroke();
+
+      // Oak tree
+      ctx.strokeStyle = '#f4f1e4';
+      ctx.lineWidth = 12;
+      ctx.beginPath();
+      ctx.moveTo(w * 0.5, h * 0.72);
+      ctx.lineTo(w * 0.5, h * 0.42);
+      ctx.stroke();
+
+      ctx.fillStyle = '#f4f1e4';
+      ctx.beginPath();
+      ctx.arc(w * 0.5, h * 0.36, w * 0.19, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(w * 0.35, h * 0.45, w * 0.12, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(w * 0.65, h * 0.45, w * 0.12, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Acorns
+      ctx.fillStyle = '#e8d9a8';
+      ctx.beginPath();
+      ctx.arc(w * 0.36, h * 0.6, w * 0.05, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(w * 0.64, h * 0.6, w * 0.05, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Banner with initials
+      ctx.fillStyle = '#14532d';
+      ctx.fillRect(w * 0.16, h * 0.76, w * 0.68, h * 0.14);
+      ctx.fillStyle = '#f4f1e4';
+      ctx.font = `bold ${Math.round(h * 0.11)}px Arial, sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('OAKHAVEN UTD', w * 0.5, h * 0.83);
+    });
+
+    const crestMat = this.createStdMaterial(0xffffff, { roughness: 0.75, map: crestTexture });
+    [-1, 1].forEach(side => {
+      const crest = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.6), crestMat);
+      crest.position.set(side * (standLength / 2 - 1.4), standHeight + 0.85, standZ - 2.46);
+      crest.rotation.y = Math.PI;     // face the pitch
+      crestGroup.add(crest);
+    });
+
+    // Club flags on poles behind the grandstand
+    [-12, 0, 12].forEach((fx, i) => {
+      const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 9, 8), mat.metal);
+      pole.position.set(fx, 4.5, standZ + 5.5);
+      pole.castShadow = true;
+      crestGroup.add(pole);
+
+      const flagTexture = this.makeCanvasTexture(256, 160, (ctx, w, h) => {
+        ctx.fillStyle = i % 2 === 0 ? '#14532d' : '#f4f1e4';
+        ctx.fillRect(0, 0, w, h);
+        ctx.fillStyle = i % 2 === 0 ? '#f4f1e4' : '#14532d';
+        ctx.font = 'bold 60px Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('OU', w / 2, h / 2);
+      });
+      const flag = new THREE.Mesh(
+        new THREE.PlaneGeometry(2.2, 1.4),
+        this.createStdMaterial(0xffffff, { roughness: 0.9, map: flagTexture, side: THREE.DoubleSide })
+      );
+      flag.position.set(fx + 1.1, 7.6, standZ + 5.5);
+      flag.castShadow = true;
+      crestGroup.add(flag);
+    });
 
     // ============================
     // STORE PARTS & FINALIZE
@@ -1024,6 +1601,10 @@ export class StadiumApp {
       pitch: pitchPlane,
       grandstand: standGroup,
       clubhouse: clubGroup,
+      tunnel: tunnelGroup,
+      floodlights: floodGroup,
+      carPark: carParkGroup,
+      crest: crestGroup,
       scoreboard: scoreGroup,
       ads: adBoardGroup,
     };
