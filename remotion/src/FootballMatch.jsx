@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AbsoluteFill, continueRender, delayRender, useCurrentFrame, useVideoConfig } from 'remotion';
 import * as THREE from 'three';
-import { createMatchScene } from './scene/MatchScene.js';
+import { createMatchdayScene } from './scene/MatchdayScene.js';
 
 /**
  * FootballMatch – 10 second cinematic football sequence.
  * One hard cut every three seconds (4 shots at 30fps).
+ *
+ * Built from the project's own stadium and character rigs.
  */
 export const FootballMatch = () => {
   const frame = useCurrentFrame();
@@ -31,7 +33,7 @@ export const FootballMatch = () => {
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-    engineRef.current = createMatchScene(renderer);
+    engineRef.current = createMatchdayScene(renderer);
     continueRender(bootHandle);
 
     return () => {

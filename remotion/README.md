@@ -3,7 +3,27 @@
 A 10 second cinematic football sequence built with [Remotion](https://remotion.dev) and
 Three.js, for Oakhaven United FC.
 
-**`out/matchday.mp4`** – 1920×1080, 30fps, 10.000s, H.264.
+- **`out/matchday-v2.mp4`** – the current cut. 1920×1080, 30fps, 10.000s, H.264.
+- `out/matchday.mp4` – the first pass, rendered with a purpose-built set of models.
+
+## Built from the project, not beside it
+
+`matchday-v2.mp4` reuses the assets that already live in this repository rather than
+a parallel set of models:
+
+| Asset | Used for |
+|---|---|
+| `environments/stadium.js` | The Oaks – pitch, markings, goals, hoardings, grandstand, clubhouse with the lit manager's office, floodlights, club flags |
+| `characters/character-soccer.js` | the squad and the keeper, in the real `soccerRedWhite` / `awayBlueWhite` kits |
+| `characters/character-coach.js` | the coach on the touchline |
+| `characters/character-suit.js` | the referee |
+| `characters/character-chairman.js` | the chairman in the directors' area |
+| `characters/character-new-owner.js` | the new owner beside him |
+
+The characters keep their own toon materials and back-side outline meshes – they are
+only scaled to human size and posed for the match. The stadium keeps its own
+materials; the lights are re-graded at runtime for an evening kick off and a crowd
+is added to the terrace.
 
 ## The cut
 
@@ -21,7 +41,7 @@ One hard cut every three seconds (four shots):
 ```bash
 npm install
 npm run studio        # interactive preview
-npm run render        # writes out/matchday.mp4
+npm run render        # writes out/matchday-v2.mp4
 npm run render:still  # writes out/still.png
 ```
 
@@ -34,12 +54,7 @@ frame number – there is no `Math.random`, no `Date.now` and no clock.
   the 2.39:1 letterbox, the opening title and the one frame flash that masks each cut.
   The 3D scene is built once and drawn inside a `delayRender` window so Remotion waits
   for the frame to be finished before capturing it.
-- `src/scene/MatchScene.js` – the stadium lighting, the ball choreography, the player
-  scripts and the camera shot list.
-- `src/scene/stadium.js` – pitch, line markings, goals, hoardings, stands, crowd
-  (one instanced mesh) and floodlights.
-- `src/scene/player.js` – the stylised footballer and its run/kick cycle.
-- `src/scene/textures.js` – every texture is drawn procedurally to a canvas.
-
-All the geometry and textures are procedural, matching the rest of the project –
-there are no external assets.
+- `src/scene/MatchdayScene.js` – assembles The Oaks and the cast, then drives the ball
+  choreography, the player scripts and the camera shot list.
+- `src/scene/textures.js` – the few textures that are not already in the project
+  (dusk sky, ball, hoardings, crest) are all drawn procedurally to a canvas.

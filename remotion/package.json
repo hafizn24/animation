@@ -6,7 +6,7 @@
   "description": "Remotion project – 10 second cinematic football match for Oakhaven United FC",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render FootballMatch out/matchday.mp4",
+    "render": "remotion render FootballMatch out/matchday-v2.mp4",
     "render:still": "remotion still FootballMatch out/still.png"
   },
   "dependencies": {
