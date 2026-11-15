@@ -127,16 +127,20 @@
   
   <div class="controls">
     <select id="character-selector">
-      <option value="default">Default Hoodie</option>
-      <option value="suit">Three-Piece Suit</option>
-      <option value="coach">Coach Tracksuit</option>
-      <option value="soccer">Soccer Jersey</option>
-      <option value="casual">Casual Sweater</option>
-      <option value="stadium">⚽ Stadium (The Oaks)</option>
-      <option value="chairman">🎩 The Chairman</option>
-      <option value="newowner">💼 The New Owner</option>
-      <option value="locker">🚿 Locker Room</option>
-      <option value="office">🏢 Manager Office</option>
+      <optgroup label="Characters">
+        <option value="default">Default Hoodie</option>
+        <option value="suit">Three-Piece Suit</option>
+        <option value="coach">Coach Tracksuit</option>
+        <option value="soccer">Soccer Jersey</option>
+        <option value="casual">Casual Sweater</option>
+        <option value="chairman">The Chairman</option>
+        <option value="newowner">The New Owner</option>
+      </optgroup>
+      <optgroup label="Environments">
+        <option value="stadium">⚽ Stadium (The Oaks)</option>
+        <option value="locker">🚿 Locker Room</option>
+        <option value="office">🏢 Manager Office</option>
+      </optgroup>
     </select>
     <button id="btn-procedural">Load Selected</button>
     <button id="btn-gltf">Load GLTF File</button>

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { createHairstyle, HAIR_STYLES } from './character-hair.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export class AnotherCasualOutfitApp {
@@ -14,6 +15,10 @@ export class AnotherCasualOutfitApp {
     this.animations = {};
     this.clock = new THREE.Clock();
     this.isWalking = false;
+
+    this.headRadius = 0.46;   // head sphere radius the hair is built around
+    this.headOffsetY = 0;  // vertical offset of the head centre
+    this.hairStyle = 'long';
 
     this.outfits = {
       beigeSweater: {
@@ -166,6 +171,7 @@ export class AnotherCasualOutfitApp {
     const knitTex = this.createCableKnitTexture(palette.sweater, palette.knitRibbing);
 
     this.materials = {
+      hair: this.createToonMaterial(0x8a4a2a),
       white: this.createToonMaterial(0xffffff),
       sweaterKnit: this.createToonMaterial(0xffffff, knitTex),
       knitRibbing: this.createToonMaterial(palette.knitRibbing),
@@ -178,12 +184,17 @@ export class AnotherCasualOutfitApp {
 
     // ==================== 1. FACELESS HEAD & NECK ====================
     const headGroup = new THREE.Group();
+    headGroup.name = 'Head';
     headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.46, 32, 32);
     const head = this.createOutlinedMesh(headGeom, this.materials.white, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
+
+    // Hairstyle
+    this.hairGroup = this.buildHairstyle(this.hairStyle);
+    headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
     const neck = this.createOutlinedMesh(neckGeom, this.materials.white, 0.025);
@@ -193,6 +204,7 @@ export class AnotherCasualOutfitApp {
 
     // ==================== 2. CABLE-KNIT SWEATER (NO HOOD) ====================
     const torsoGroup = new THREE.Group();
+    torsoGroup.name = 'Torso';
     torsoGroup.position.set(0, 1.45, 0);
 
     // Main Knit Sweater Torso
@@ -227,6 +239,7 @@ export class AnotherCasualOutfitApp {
 
     // ==================== 3. TAN BELT & LIGHT-WASH JEANS PELVIS ====================
     const pelvisGroup = new THREE.Group();
+    pelvisGroup.name = 'Pelvis';
     pelvisGroup.position.set(0, 1.04, 0);
 
     const beltGeom = new THREE.CylinderGeometry(0.355, 0.355, 0.10, 24);
@@ -271,25 +284,14 @@ export class AnotherCasualOutfitApp {
       armPivot.add(sleeveCuff);
 
       const handGroup = new THREE.Group();
+      handGroup.name = 'Hand';
       handGroup.position.set(0, -0.68, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
       const palm = this.createOutlinedMesh(palmGeom, this.materials.white, 0.035);
-      palm.scale.set(1.0, 1.05, 0.65);
+      palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
-      const fingerGeom = new THREE.CapsuleGeometry(0.028, 0.09, 8, 8);
-      [-0.35, -0.12, 0.12, 0.35].forEach((spreadAngle) => {
-        const finger = this.createOutlinedMesh(fingerGeom, this.materials.white, 0.04);
-        finger.position.set(Math.sin(spreadAngle) * 0.11, -Math.cos(spreadAngle) * 0.11 - 0.02, 0);
-        finger.rotation.z = spreadAngle;
-        handGroup.add(finger);
-      });
-
-      const thumb = this.createOutlinedMesh(fingerGeom, this.materials.white, 0.04);
-      thumb.position.set(-dir * 0.11, -0.02, 0.02);
-      thumb.rotation.z = -dir * 0.75;
-      handGroup.add(thumb);
 
       armPivot.add(handGroup);
       armPivot.rotation.z = dir * 0.32;
@@ -339,6 +341,40 @@ export class AnotherCasualOutfitApp {
     this.character = group;
     this.scene.add(this.character);
     return group;
+  }
+
+  /**
+   * Builds a hairstyle for the head rig using the shared style library.
+   * @param {string} style one of HAIR_STYLES
+   */
+  buildHairstyle(style) {
+    return createHairstyle(style, this.materials.hair,
+      (geometry, material, thickness) => this.createOutlinedMesh(geometry, material, thickness),
+      this.headRadius, this.headOffsetY);
+  }
+
+  /**
+   * Swaps the character's hairstyle.
+   * @param {string} style one of HAIR_STYLES
+   */
+  changeHairStyle(style) {
+    if (!HAIR_STYLES.includes(style)) {
+      console.warn(`Hair style "${style}" not found.`);
+      return;
+    }
+    this.hairStyle = style;
+
+    const head = this.characterParts.head;
+    if (!head) return;
+
+    if (this.hairGroup) {
+      head.remove(this.hairGroup);
+      this.hairGroup.traverse((child) => {
+        if (child.isMesh) child.geometry.dispose();
+      });
+    }
+    this.hairGroup = this.buildHairstyle(style);
+    head.add(this.hairGroup);
   }
 
   changeOutfit(outfitName) {

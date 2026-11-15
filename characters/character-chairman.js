@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { createHairstyle, HAIR_STYLES } from './character-hair.js';
 
 /**
  * ChairmanApp – The Chairman of Oakhaven United FC.
@@ -32,6 +33,10 @@ export class ChairmanApp {
     this.currentPose = 'idle';
 
     // Outfit palettes
+    this.headRadius = 0.46;   // head sphere radius the hair is built around
+    this.headOffsetY = 0;  // vertical offset of the head centre
+    this.hairStyle = 'receding';
+
     this.outfits = {
       boardroomGrey: {
         jacket: 0x6e7276,      // Charcoal grey jacket
@@ -233,6 +238,7 @@ export class ChairmanApp {
     const palette = this.outfits.boardroomGrey;
 
     this.materials = {
+      hair: this.createToonMaterial(0xb9b7b0),
       skin: this.createToonMaterial(palette.skin),
       jacket: this.createToonMaterial(palette.jacket),
       vest: this.createToonMaterial(palette.vest),
@@ -259,6 +265,10 @@ export class ChairmanApp {
     const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
+
+    // Hairstyle
+    this.hairGroup = this.buildHairstyle(this.hairStyle);
+    headGroup.add(this.hairGroup);
 
     // Round gold spectacles – seated on the face
     const rimGeom = new THREE.TorusGeometry(0.085, 0.013, 8, 20);
@@ -415,21 +425,9 @@ export class ChairmanApp {
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
       const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.035);
-      palm.scale.set(1.0, 1.05, 0.65);
+      palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
-      const fingerGeom = new THREE.CapsuleGeometry(0.028, 0.09, 8, 8);
-      [-0.35, -0.12, 0.12, 0.35].forEach((spreadAngle) => {
-        const finger = this.createOutlinedMesh(fingerGeom, this.materials.skin, 0.04);
-        finger.position.set(Math.sin(spreadAngle) * 0.11, -Math.cos(spreadAngle) * 0.11 - 0.02, 0);
-        finger.rotation.z = spreadAngle;
-        handGroup.add(finger);
-      });
-
-      const thumb = this.createOutlinedMesh(fingerGeom, this.materials.skin, 0.04);
-      thumb.position.set(-dir * 0.11, -0.02, 0.02);
-      thumb.rotation.z = -dir * 0.75;
-      handGroup.add(thumb);
 
       // Gold wristwatch
       const watchBand = this.createOutlinedMesh(
@@ -610,6 +608,40 @@ export class ChairmanApp {
     Object.keys(this.props || {}).forEach((key) => {
       this.props[key].visible = !!(pose.props && pose.props[key]);
     });
+  }
+
+  /**
+   * Builds a hairstyle for the head rig using the shared style library.
+   * @param {string} style one of HAIR_STYLES
+   */
+  buildHairstyle(style) {
+    return createHairstyle(style, this.materials.hair,
+      (geometry, material, thickness) => this.createOutlinedMesh(geometry, material, thickness),
+      this.headRadius, this.headOffsetY);
+  }
+
+  /**
+   * Swaps the character's hairstyle.
+   * @param {string} style one of HAIR_STYLES
+   */
+  changeHairStyle(style) {
+    if (!HAIR_STYLES.includes(style)) {
+      console.warn(`Hair style "${style}" not found.`);
+      return;
+    }
+    this.hairStyle = style;
+
+    const head = this.characterParts.head;
+    if (!head) return;
+
+    if (this.hairGroup) {
+      head.remove(this.hairGroup);
+      this.hairGroup.traverse((child) => {
+        if (child.isMesh) child.geometry.dispose();
+      });
+    }
+    this.hairGroup = this.buildHairstyle(style);
+    head.add(this.hairGroup);
   }
 
   changeOutfit(outfitName) {
