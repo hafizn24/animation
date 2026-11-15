@@ -133,6 +133,8 @@
       <option value="soccer">Soccer Jersey</option>
       <option value="casual">Casual Sweater</option>
       <option value="stadium">⚽ Stadium (The Oaks)</option>
+      <option value="chairman">🎩 The Chairman</option>
+      <option value="newowner">💼 The New Owner</option>
       <option value="locker">🚿 Locker Room</option>
       <option value="office">🏢 Manager Office</option>
     </select>
@@ -157,6 +159,8 @@
       soccer: () => import('./characters/character-soccer.js').then(m => m.SoccerOutfitApp),
       casual: () => import('./characters/character-casual.js').then(m => m.AnotherCasualOutfitApp),
       stadium: () => import('./environments/stadium.js').then(m => m.StadiumApp),
+      chairman: () => import('./characters/character-chairman.js').then(m => m.ChairmanApp),
+      newowner: () => import('./characters/character-new-owner.js').then(m => m.NewOwnerApp),
       locker: () => import('./environments/locker-room.js').then(m => m.LockerRoomApp),
       office: () => import('./environments/manager-office.js').then(m => m.ManagerOfficeApp)
     };
@@ -167,6 +171,8 @@
       soccer: 'Soccer Jersey',
       casual: 'Casual Sweater',
       stadium: 'Stadium – The Oaks',
+      chairman: 'The Chairman',
+      newowner: 'The New Owner',
       locker: 'Locker Room',
       office: 'Manager Office'
     };
