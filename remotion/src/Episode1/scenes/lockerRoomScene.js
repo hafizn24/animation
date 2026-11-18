@@ -36,7 +36,7 @@ export const createLockerRoomScene = (renderer, size) => createSceneDirector(ren
       position: [2.8, 0, -1.6],
       rotationY: -0.75,
       animate: ({ t, parts }) => {
-        const lean = smooth(clamp((t - 5) / 4, 0, 1));
+        const lean = smooth(clamp((t - 3) / 3, 0, 1));
         if (parts.torso) parts.torso.rotation.x = 0.1 * lean;
         if (parts.head) parts.head.rotation.x = 0.14 * lean;
       },
@@ -52,7 +52,7 @@ export const createLockerRoomScene = (renderer, size) => createSceneDirector(ren
         if (parts.rightLeg) parts.rightLeg.rotation.x = -1.35;
         if (parts.torso) parts.torso.rotation.x = 0.28;
         if (parts.head) parts.head.rotation.x = 0.3;
-        const shrug = clamp((t - 9) / 2, 0, 1);
+        const shrug = clamp((t - 6.5) / 2, 0, 1);
         if (parts.leftArm) parts.leftArm.rotation.z = -0.2 - shrug * 0.35;
         if (parts.rightArm) parts.rightArm.rotation.z = 0.2 + shrug * 0.35;
       },
@@ -89,9 +89,9 @@ export const createLockerRoomScene = (renderer, size) => createSceneDirector(ren
     ease: smooth,
     keys: [
       [0, [5.6, 3.2, 8.8], [0, 1.4, -1.4], 78],
-      [6, [4.2, 2.8, 6.2], [1.0, 1.3, -1.8], 76],
-      [12, [2.8, 2.4, 3.6], [2.0, 1.3, -1.6], 72],
-      [18, [2.2, 2.2, 2.4], [1.8, 1.3, -1.6], 70],
+      [4, [4.2, 2.8, 6.2], [1.0, 1.3, -1.8], 76],
+      [8, [2.8, 2.4, 3.6], [2.0, 1.3, -1.6], 72],
+      [12, [2.2, 2.2, 2.4], [1.8, 1.3, -1.6], 70],
     ],
   },
 });

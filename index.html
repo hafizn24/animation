@@ -140,6 +140,8 @@
         <option value="stadium">⚽ Stadium (Buluh FC)</option>
         <option value="locker">🚿 Locker Room</option>
         <option value="office">🏢 Manager Office</option>
+        <option value="boardroom">🏛️ Lender Boardroom</option>
+        <option value="tunnel">🚇 Players Tunnel</option>
       </optgroup>
     </select>
     <button id="btn-procedural">Load Selected</button>
@@ -166,7 +168,9 @@
       chairman: () => import('./characters/character-chairman.js').then(m => m.ChairmanApp),
       newowner: () => import('./characters/character-new-owner.js').then(m => m.NewOwnerApp),
       locker: () => import('./environments/locker-room.js').then(m => m.LockerRoomApp),
-      office: () => import('./environments/manager-office.js').then(m => m.ManagerOfficeApp)
+      office: () => import('./environments/manager-office.js').then(m => m.ManagerOfficeApp),
+      boardroom: () => import('./environments/lender-boardroom.js').then(m => m.LenderBoardroomApp),
+      tunnel: () => import('./environments/players-tunnel.js').then(m => m.PlayersTunnelApp)
     };
     const characterLabels = {
       default: 'Default Hoodie',
@@ -178,7 +182,9 @@
       chairman: 'The Chairman',
       newowner: 'The New Owner',
       locker: 'Locker Room',
-      office: 'Manager Office'
+      office: 'Manager Office',
+      boardroom: 'Lender Boardroom',
+      tunnel: 'Players Tunnel'
     };
 
     const container = document.getElementById('canvas-container');

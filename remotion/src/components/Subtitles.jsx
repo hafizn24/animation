@@ -51,7 +51,7 @@ export const Subtitles = ({ lines }) => {
           style={{
             color: '#f7f4ea',
             fontFamily: 'Arial, Helvetica, sans-serif',
-            fontSize: active.emphasis ? 44 : 39,
+            fontSize: active.emphasis ? 40 : 36,
             lineHeight: 1.28,
             fontWeight: active.emphasis ? 'bold' : 500,
             letterSpacing: 0.4,

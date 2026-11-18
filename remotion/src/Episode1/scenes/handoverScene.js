@@ -46,11 +46,11 @@ export const createHandoverScene = (renderer, size) => createSceneDirector(rende
       position: [0.8, 0, -2.4],
       rotationY: 0.05,
       animate: ({ t, rig, parts }) => {
-        const offer = smooth(clamp((t - 3.5) / 2.5, 0, 1));
+        const offer = smooth(clamp((t - 2.5) / 2, 0, 1));
         if (parts.rightArm) parts.rightArm.rotation.x = -0.55 * offer;
         if (parts.rightArm) parts.rightArm.rotation.z = 0.32 - 0.18 * offer;
 
-        const stand = smooth(clamp((t - 12.5) / 2.5, 0, 1));
+        const stand = smooth(clamp((t - 9) / 2.5, 0, 1));
         rig.position.y = stand * 0.05;
         if (parts.torso) parts.torso.rotation.x = -0.05 * stand;
       },
@@ -63,7 +63,7 @@ export const createHandoverScene = (renderer, size) => createSceneDirector(rende
       position: [-1.1, 0, 3.0],
       rotationY: 0.12,
       animate: ({ t, parts }) => {
-        const reach = smooth(clamp((t - 7.5) / 2.5, 0, 1)) * (1 - smooth(clamp((t - 11) / 2, 0, 1)));
+        const reach = smooth(clamp((t - 5.5) / 2, 0, 1)) * (1 - smooth(clamp((t - 8.5) / 2, 0, 1)));
         if (parts.rightArm) parts.rightArm.rotation.x = -0.8 * reach;
         if (parts.rightArm) parts.rightArm.rotation.z = 0.32 - 0.2 * reach;
         if (parts.head) parts.head.rotation.x = 0.16 * smooth(clamp((t - 2) / 3, 0, 1));
@@ -75,8 +75,8 @@ export const createHandoverScene = (renderer, size) => createSceneDirector(rende
     ease: smooth,
     keys: [
       [0, [-2.8, 2.0, 5.2], [0.6, 1.3, -2.2], 74],
-      [8, [-2.5, 1.95, 4.5], [0.7, 1.3, -2.3], 72],
-      [18, [-2.2, 1.9, 3.9], [0.8, 1.3, -2.4], 68],
+      [5, [-2.5, 1.95, 4.5], [0.7, 1.3, -2.3], 72],
+      [12, [-2.2, 1.9, 3.9], [0.8, 1.3, -2.4], 68],
     ],
   },
 });
