@@ -1,11 +1,11 @@
-# Episode 1 Master Production Plan: "The Oaks" (Remotion 3D Animated)
+# Episode 1 Master Production Plan: "The Gamble" (Buluh FC — Remotion 3D)
 
 ## 1. Core Profile & Story Framework
-* **Protagonist**: **The Ambitious Underdog** (New Owner model in navy sweater & messenger bag). An obsessive football purist who poured his life savings into buying his hometown team, believing his vision and determination can rebuild the club from the mud.
-* **The Club**: **Oakhaven United FC** ("The Oaks"), 6th Division (National League North/South level).
-* **Format**: **Cinematic 3D Video via Remotion** (using Three.js procedural sets and rigs).
-* **Audio / Dialogue Style**: **No TTS (Text-to-Speech)**. Communicated entirely through **stylized cinematic subtitles, kinetic lower-thirds, environmental foley, and dramatic soundtrack cues**.
-* **Total Target Run-time**: ~60 to 90 seconds (concise, high-impact pilot sequence of 5 distinct scenes).
+* **Protagonist**: **The Ambitious Underdog** (New Owner model in navy sweater & messenger bag). An obsessive football purist who poured his life savings into buying his hometown club, believing his vision and determination can rebuild it from the mud.
+* **The Club**: **Buluh FC**, 6th Division (National League North/South level).
+* **Format**: **Vertical 3D video via Remotion** — 720×1280, 9:16, 30fps, for TikTok and YouTube Shorts. Full-bleed frame with soft platform safe-area tint, no hard letterbox.
+* **Audio / Dialogue Style**: **No TTS (Text-to-Speech)**. Communicated entirely through **stylised cinematic subtitles, kinetic lower-thirds, environmental foley, and dramatic soundtrack cues**.
+* **Total Target Run-time**: ~84 seconds (80s of story + 4s title card), 5 distinct scenes.
 
 ---
 
@@ -24,66 +24,70 @@
 
 ## 3. Scene-by-Scene Shot List & Subtitle Script
 
-### Scene 1: The Gamble (Duration: ~15s / 450 frames @ 30fps)
+### Scene 1: The Gamble (Duration: 15s / 450 frames @ 30fps)
 * **Environment**: `stadium.js` (Dawn, mist, overcast skies, empty stands)
-* **Camera**: Low slow-tracking shot following the New Owner walking onto the worn pitch with his messenger bag.
-* **Action**: Stops at the center circle, looking up at the aged wooden grandstand.
+* **Camera**: Low slow-tracking vertical shot following the New Owner walking onto the worn pitch with his messenger bag.
+* **Action**: Stops at the centre circle, looking up at the aged wooden grandstand.
 * **On-Screen Subtitles / Narrative**:
-  > *"Ten years of savings. Every penny I ever earned."*  
-  > *"Everyone said buying a 6th division club was financial suicide."*  
+  > *"Ten years of savings. Every penny I ever earned."*
+  > *"Everyone said buying a sixth-division club was financial suicide."*
   > *"They were probably right. But this is home."*
 
 ---
 
-### Scene 2: The Sinking Ship (Duration: ~15s / 450 frames)
-* **Environment**: `stadium.js` (Matchday / Pitchside)
-* **Camera**: Dynamic side tracking along the touchline, cutting to Coach blowing whistle, then to players beaten on the pitch.
-* **Action**: Scoreboard reveals `Oakhaven 0 - 3 Guest`. Coach slumps his shoulders. Players with hands on hips, head down.
+### Scene 2: The Sinking Ship (Duration: 15s / 450 frames)
+* **Environment**: `stadium.js` (Matchday / pitchside)
+* **Camera**: Dynamic side tracking along the touchline, ending on the scoreboard.
+* **Action**: Scoreboard reveals `BULUH 0 - 3 GUEST`. Coach slumps his shoulders. Players with hands on hips, heads down.
 * **On-Screen Subtitles / Narrative**:
-  > *"6th Division. 19th place. Winless in seven games."*  
-  > *"The pitch is falling apart, and the team stopped believing weeks ago."*
+  > *"Sixth division. Nineteenth place. Winless in seven."*
+  > *"The pitch is falling apart."*
+  > *"And the team stopped believing weeks ago."*
 
 ---
 
-### Scene 3: The Cold Truth (Duration: ~18s / 540 frames)
+### Scene 3: The Cold Truth (Duration: 18s / 540 frames)
 * **Environment**: `locker-room.js` (Flickering fluorescent strip lights, worn benches)
 * **Camera**: Dolly through the doorway past hanging jerseys into the quiet locker room.
 * **Action**: New Owner steps in to speak. Coach doesn't even look up while untying his boots; players pack bags in stony silence.
 * **On-Screen Subtitles / Narrative**:
-  > **Owner**: *"I know it’s been tough. But things change starting today."*  
-  > **Coach**: *"With respect, boss... words don't pay the electric bill. Or the lads' wages."*
+  > **Owner**: *"I know it has been tough. But things change starting today."*
+  > **Coach**: *"With respect, boss... words do not pay the electric bill. Or the lads’ wages."*
+  > *"Silence."*
 
 ---
 
-### Scene 4: The Handover (Duration: ~18s / 540 frames)
+### Scene 4: The Handover (Duration: 18s / 540 frames)
 * **Environment**: `manager-office.js` (Warm desk lamp, rain on window)
 * **Camera**: Over-the-shoulder medium shot across the mahogany desk.
 * **Action**: Chairman slides the brass keys and thick transfer deeds across the table. He grips his cane and stands up.
 * **On-Screen Subtitles / Narrative**:
-  > **Chairman**: *"It's your headache now, son. Try not to drown."*  
+  > **Chairman**: *"It’s your headache now, son. Try not to drown."*
   > **Owner**: *"I will turn this club around. Whatever it takes."*
+  > *"He signs."*
 
 ---
 
-### Scene 5: The Cliffhanger (Duration: ~14s / 420 frames)
+### Scene 5: The Cliffhanger (Duration: 14s / 420 frames)
 * **Environment**: `manager-office.js` (Darkened room, single desk lamp on)
 * **Camera**: Slow zoom into the New Owner reviewing paperwork under the lamp.
 * **Action**: He picks up a red-stamped confidential document marked **DEFAULT NOTICE**. Hands freeze.
 * **On-Screen Subtitles / Narrative**:
-  > *"Hidden private loan clause: £450,000 overdue."*  
-  > *"Full payment due in 30 days — or the ground is seized and demolished."*  
-  > *"My life savings only bought the debt."*  
-* **Cut to Black**: Impactful sound cue & Title Card: **OAKHAVEN UNITED: EPISODE 1**.
+  > *"Hidden private loan clause: £450,000 overdue."*
+  > *"Full payment due in 30 days — or the ground is seized and demolished."*
+  > *"My life savings only bought the debt."*
+* **Cut to Black**: Impactful sound cue & Title Card: **BULUH FC — EPISODE 1** (4s / 120 frames).
 
 ---
 
-## 4. Technical Implementation Pipeline (Remotion)
-* **Compositions Structure**:
-  * `remotion/src/Episode1/Episode1Composition.jsx`: Main timeline sequencer using Remotion's `<Series>` or `<Sequence>`.
-  * `remotion/src/Episode1/scenes/`: 
-    * `Scene1Opening.jsx` (`stadium.js`)
-    * `Scene2Matchday.jsx` (`stadium.js`)
-    * `Scene3LockerRoom.jsx` (`locker-room.js`)
-    * `Scene4Handover.jsx` (`manager-office.js`)
-    * `Scene5Cliffhanger.jsx` (`manager-office.js`)
-  * `remotion/src/components/Subtitles.jsx`: Custom cinematic typography overlay with subtle drop-shadows and letter-spacing (no TTS required).
+## 4. Technical Implementation (Remotion)
+* **Compositions** (`src/Root.jsx`):
+  * `Episode1` — 2520 frames, 30fps, 720×1280 (the first episode)
+  * `FootballMatch` — the original 10s vertical matchday cut
+* **Episode structure**:
+  * `src/Episode1/Episode1Composition.jsx` — timeline (`<Sequence>`), subtitle script and end card
+  * `src/Episode1/sceneKit.js` — shared environment/rig/camera builder
+  * `src/Episode1/scenes/` — `openingScene.js`, `matchdayScene.js`, `lockerRoomScene.js`, `handoverScene.js`, `cliffhangerScene.js`
+  * `src/components/Scene3D.jsx` — deterministic WebGL frame drawing
+  * `src/components/Subtitles.jsx` — cinematic vertical typography (no TTS required)
+  * `src/components/SafeArea.jsx` — TikTok / Shorts safe-area tint

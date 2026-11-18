@@ -11,7 +11,7 @@ import { createBallTexture, createRandom, createSkyTexture } from './textures.js
  * Matchday – the same cinematic football sequence, but built from the assets
  * that already live in this repository:
  *
- *   environments/stadium.js   The Oaks (pitch, stands, clubhouse, floodlights)
+ *   environments/stadium.js   Buluh FC (pitch, stands, clubhouse, floodlights)
  *   characters/               the squad, the bench and the directors
  *
  * The characters are used as they are – same toon materials, same back-side
@@ -103,7 +103,7 @@ const HOME = 'soccerRedWhite';
 const AWAY = 'awayBlueWhite';
 
 const SQUAD = [
-  // --- Oakhaven (home) ---
+  // --- Buluh FC (home) ---
   { role: 'carrier', outfit: HOME, path: [[0, 15, -10], [1.5, 14, -1.5], [4, 11, 9], [10, 9.5, 15]] },
   { role: 'striker', outfit: HOME, path: [[0, 4.2, -3], [1.8, 3.4, 4.6], [3.0, 2.4, 7.4], [6, 1.4, 13], [10, 1.0, 17]] },
   { role: 'left', outfit: HOME, path: [[0, -10, -12], [3, -13, -2], [7, -15, 10], [10, -16, 16]] },
@@ -175,7 +175,7 @@ const SHOTS = [
 export function createMatchdayScene(renderer) {
   const container = document.createElement('div');
 
-  // --- The Oaks, straight from environments/stadium.js ---
+  // --- Buluh FC stadium, straight from environments/stadium.js ---
   const stadiumApp = new StadiumApp(container);
   stadiumApp.setupScene();
   stadiumApp.addLights();
@@ -269,7 +269,10 @@ export function createMatchdayScene(renderer) {
   ball.castShadow = true;
   scene.add(ball);
 
-  const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.1, 500);
+  // Vertical delivery (720x1280) needs a much wider vertical FOV to keep the
+  // same horizontal coverage as the original 16:9 shots.
+  const VERTICAL_FOV_SCALE = 2.0;
+  const camera = new THREE.PerspectiveCamera(40 * VERTICAL_FOV_SCALE, 720 / 1280, 0.1, 500);
   camera.position.set(20, 1.4, -16);
 
   const camTarget = new THREE.Vector3();
@@ -377,7 +380,7 @@ export function createMatchdayScene(renderer) {
     camera.position.copy(camPosition);
     camera.lookAt(camTarget);
     if (Math.abs(camera.fov - sampled.fov) > 0.01) {
-      camera.fov = sampled.fov;
+      camera.fov = sampled.fov * VERTICAL_FOV_SCALE;
       camera.updateProjectionMatrix();
     }
 

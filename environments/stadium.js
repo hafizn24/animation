@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 /**
  * StadiumApp – Procedural 3D model of a small English non-league football ground
- * inspired by "Oakhaven United FC – The Oaks".
+ * inspired by "Buluh FC".
  *
  * Key structures (matching the reference photo):
  *   1. Green football pitch with white line markings
@@ -697,7 +697,7 @@ export class StadiumApp {
     signCtx.font = 'bold 64px Arial, sans-serif';
     signCtx.textAlign = 'center';
     signCtx.textBaseline = 'middle';
-    signCtx.fillText('OAKHAVEN UNITED FC - THE OAKS', 512, 64);
+    signCtx.fillText('BULUH FC', 512, 64);
     const signTexture = new THREE.CanvasTexture(signCanvas);
     signTexture.colorSpace = THREE.SRGBColorSpace;
 
@@ -930,7 +930,7 @@ export class StadiumApp {
       ctx.font = 'bold 62px Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('OAKHAVEN UTD CLUBHOUSE', w / 2, h * 0.54);
+      ctx.fillText('BULUH FC CLUBHOUSE', w / 2, h * 0.54);
     });
     const clubSignMat = this.createStdMaterial(0xffffff, { roughness: 0.8, map: clubSignTex });
     const clubSignMesh = new THREE.Mesh(new THREE.PlaneGeometry(5.4, 0.59), clubSignMat);
@@ -1086,7 +1086,7 @@ export class StadiumApp {
     scoreCtx.fillStyle = '#ffffff';
     scoreCtx.font = 'bold 24px monospace';
     scoreCtx.textAlign = 'center';
-    scoreCtx.fillText('OAKHAVEN', 128, 30);
+    scoreCtx.fillText('BULUH', 128, 30);
     scoreCtx.font = 'bold 48px monospace';
     scoreCtx.fillText('0 - 0', 128, 80);
     scoreCtx.font = '18px monospace';
@@ -1487,7 +1487,7 @@ export class StadiumApp {
       ctx.font = 'bold 44px Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('OAKHAVEN UNITED', w / 2, h * 0.34);
+      ctx.fillText('BULUH FC', w / 2, h * 0.34);
       ctx.font = '34px Arial, sans-serif';
       ctx.fillText('PLAYERS & SPECTATORS', w / 2, h * 0.68);
     });
@@ -1558,7 +1558,7 @@ export class StadiumApp {
       ctx.font = `bold ${Math.round(h * 0.11)}px Arial, sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('OAKHAVEN UTD', w * 0.5, h * 0.83);
+      ctx.fillText('BULUH FC', w * 0.5, h * 0.83);
     });
 
     const crestMat = this.createStdMaterial(0xffffff, { roughness: 0.75, map: crestTexture });

@@ -1,13 +1,15 @@
 {
-  "name": "oaks-matchday",
+  "name": "buluh-fc",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Remotion project – 10 second cinematic football match for Oakhaven United FC",
+  "description": "Remotion project – Buluh FC cinematic football stories",
   "scripts": {
     "studio": "remotion studio",
-    "render": "remotion render FootballMatch out/matchday-v2.mp4",
-    "render:still": "remotion still FootballMatch out/still.png"
+    "render": "remotion render Episode1 out/episode-1.mp4",
+    "render:episode": "remotion render Episode1 out/episode-1.mp4",
+    "render:matchday": "remotion render FootballMatch out/matchday-v2.mp4",
+    "render:still": "remotion still Episode1 out/episode-1-still.png"
   },
   "dependencies": {
     "@remotion/cli": "4.0.543",

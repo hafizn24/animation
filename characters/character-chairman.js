@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { createHairstyle, HAIR_STYLES } from './character-hair.js';
 
 /**
- * ChairmanApp – The Chairman of Oakhaven United FC.
+ * ChairmanApp – The Chairman of Buluh FC.
  *
  * Built from the "PIPIN – Special Characters Collection" sheet:
  *   1. Faceless head with round gold spectacles

@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { createMatchdayScene } from './scene/MatchdayScene.js';
 
 /**
- * FootballMatch – 10 second cinematic football sequence.
+ * FootballMatch – 10 second vertical football sequence.
  * One hard cut every three seconds (4 shots at 30fps).
  *
  * Built from the project's own stadium and character rigs.
@@ -58,7 +58,8 @@ export const FootballMatch = () => {
   // A one frame flash masks each hard cut
   const flash = frame - shotStart < 1 ? 0.16 : 0;
 
-  const barHeight = Math.round((height - height / 2.39) / 2);
+  const safeTop = Math.round(height * 0.09);
+  const safeBottom = Math.round(height * 0.16);
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#05070d' }}>
@@ -81,15 +82,15 @@ export const FootballMatch = () => {
         }}
       />
 
-      {/* 2.39:1 letterbox */}
+      {/* Safe-area tint for TikTok / YouTube Shorts UI (soft, no hard bars) */}
       <div
         style={{
           position: 'absolute',
           top: 0,
           left: 0,
           right: 0,
-          height: barHeight,
-          backgroundColor: '#000',
+          height: safeTop,
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -99,8 +100,8 @@ export const FootballMatch = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          height: barHeight,
-          backgroundColor: '#000',
+          height: safeBottom,
+          background: 'linear-gradient(0deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 100%)',
           pointerEvents: 'none',
         }}
       />
@@ -111,7 +112,7 @@ export const FootballMatch = () => {
           style={{
             justifyContent: 'flex-end',
             alignItems: 'flex-start',
-            padding: `0 0 ${barHeight + 60}px 120px`,
+            padding: `0 48px ${safeBottom + 30}px 48px`,
             opacity: Math.min(1, frame / 18) * Math.min(1, (88 - frame) / 18),
           }}
         >
@@ -120,26 +121,26 @@ export const FootballMatch = () => {
               style={{
                 color: '#f4f1e4',
                 fontFamily: 'Arial, Helvetica, sans-serif',
-                fontSize: 22,
-                letterSpacing: 10,
+                fontSize: 18,
+                letterSpacing: 8,
                 textTransform: 'uppercase',
                 opacity: 0.85,
               }}
             >
-              Oakhaven United F.C.
+              Buluh FC
             </div>
             <div
               style={{
                 color: '#f4f1e4',
                 fontFamily: 'Arial, Helvetica, sans-serif',
-                fontSize: 58,
+                fontSize: 46,
                 fontWeight: 'bold',
                 letterSpacing: 2,
                 marginTop: 8,
                 textShadow: '0 4px 24px rgba(0,0,0,0.7)',
               }}
             >
-              THE OAKS · MATCHDAY
+              MATCHDAY
             </div>
             <div style={{ marginTop: 10, width: 120, height: 3, backgroundColor: '#d8b26a' }} />
           </div>

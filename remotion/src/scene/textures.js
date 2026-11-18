@@ -38,6 +38,19 @@ export function createSkyTexture() {
   });
 }
 
+/** Cold dawn sky for the opening scene */
+export function createDawnTexture() {
+  return makeCanvasTexture(64, 512, (ctx, w, h) => {
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0.0, '#6d7f9c');
+    grad.addColorStop(0.5, '#9aa8bb');
+    grad.addColorStop(0.8, '#c8bfae');
+    grad.addColorStop(1.0, '#e0c9a3');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+  });
+}
+
 /** Classic football – white with black pentagons */
 export function createBallTexture() {
   return makeCanvasTexture(256, 128, (ctx, w, h) => {
@@ -59,6 +72,59 @@ export function createBallTexture() {
       pent(x, h * 0.3, h * 0.22, -Math.PI / 2);
       pent(x + 31, h * 0.76, h * 0.22, -Math.PI / 2);
     }
+  });
+}
+
+/** Scoreboard face – used by the matchday scene */
+export function createScoreTexture(homeName, homeScore, awayName, awayScore) {
+  return makeCanvasTexture(256, 128, (ctx, w, h) => {
+    ctx.fillStyle = '#222222';
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 24px monospace';
+    ctx.fillText(homeName, w / 2, 30);
+    ctx.font = 'bold 48px monospace';
+    ctx.fillText(`${homeScore} - ${awayScore}`, w / 2, 80);
+    ctx.font = '18px monospace';
+    ctx.fillText(awayName, w / 2, 115);
+  });
+}
+
+/** Red-stamped confidential document prop */
+export function createNoticeTexture() {
+  return makeCanvasTexture(512, 720, (ctx, w, h) => {
+    ctx.fillStyle = '#f4f0e4';
+    ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#b9b2a0';
+    ctx.lineWidth = 3;
+    ctx.strokeRect(18, 18, w - 36, h - 36);
+
+    ctx.fillStyle = '#2a2a2a';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 34px Arial, sans-serif';
+    ctx.fillText('BULUH FC', w / 2, 92);
+    ctx.font = '20px Arial, sans-serif';
+    ctx.fillText('CONFIDENTIAL', w / 2, 130);
+
+    ctx.textAlign = 'left';
+    ctx.font = '19px Arial, sans-serif';
+    for (let i = 0; i < 9; i++) {
+      ctx.fillStyle = i % 2 ? '#c9c4b6' : '#ddd8ca';
+      ctx.fillRect(60, 190 + i * 30, i % 3 === 0 ? 330 : 390, 9);
+    }
+
+    ctx.save();
+    ctx.translate(w / 2, 560);
+    ctx.rotate(-0.18);
+    ctx.strokeStyle = '#b32020';
+    ctx.lineWidth = 12;
+    ctx.strokeRect(-225, -52, 450, 104);
+    ctx.fillStyle = '#b32020';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 54px Arial, sans-serif';
+    ctx.fillText('DEFAULT NOTICE', 0, 18);
+    ctx.restore();
   });
 }
 

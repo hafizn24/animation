@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 /**
- * ManagerOfficeApp – Procedural 3D model of the Oakhaven United FC manager's
+ * ManagerOfficeApp – Procedural 3D model of the Buluh FC manager's
  * office inside the clubhouse.
  *
  * Key structures:
@@ -362,7 +362,7 @@ export class ManagerOfficeApp {
     glass.position.set(-HALF_W + 0.08, WIN_Y, WIN_Z);
     windowGroup.add(glass);
 
-    // View through the window – the pitch and the far side of The Oaks
+    // View through the window – the pitch and the far side of Buluh FC
     const viewTexture = this.makeCanvasTexture(1024, 640, (ctx, w, h) => {
       // Sky
       const skyH = h * 0.46;
@@ -629,7 +629,7 @@ export class ManagerOfficeApp {
       ctx.font = `bold ${Math.round(h * 0.45)}px Arial, sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('OAKHAVEN UNITED', w / 2, h * 0.35);
+      ctx.fillText('BULUH FC', w / 2, h * 0.35);
       ctx.font = `${Math.round(h * 0.28)}px Arial, sans-serif`;
       ctx.fillText('CHAMPIONS 2019 · 2023', w / 2, h * 0.7);
     }, { roughness: 0.5 });
@@ -729,9 +729,9 @@ export class ManagerOfficeApp {
       return g;
     };
 
-    makeFrame(1.1, 0.85, -1.9, 2.0, -HALF_D + 0.04, 0, 'THE OAKS', '2023 CHAMPIONS', '#1f6b34', '#f4f1e4');
+    makeFrame(1.1, 0.85, -1.9, 2.0, -HALF_D + 0.04, 0, 'BULUH FC', '2023 CHAMPIONS', '#1f6b34', '#f4f1e4');
     makeFrame(0.85, 1.05, -0.1, 1.95, -HALF_D + 0.04, 0, 'FINAL', '2019', '#7d2f36', '#f4f1e4');
-    makeFrame(1.3, 0.7, 1.8, 2.05, -HALF_D + 0.04, 0, 'OAKHAVEN UNITED', 'FOUNDED 1954', '#21304f', '#f4f1e4');
+    makeFrame(1.3, 0.7, 1.8, 2.05, -HALF_D + 0.04, 0, 'BULUH FC', 'FOUNDED 1954', '#21304f', '#f4f1e4');
     this.wallCull.back.push(artGroup);
 
     // ============================

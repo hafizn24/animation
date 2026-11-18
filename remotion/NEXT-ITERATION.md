@@ -163,8 +163,8 @@ down so the next iteration does not have to re-derive it.
   natural shot 0 and would show the environment the team comes from.
 - **The directors' box.** With the chairman and the owner seated, the crane
   shot has something to land on.
-- **A 2.39 → 1.85 aspect change** on the goal, or a slow zoom, to sell the
-  payoff.
+- **A slower push-in on the goal**, or a wider vertical FOV shift, to sell the
+  payoff in the 9:16 frame.
 - **Crowd noise / crowd movement.** The crowd is currently static boxes; the
   stands could react more (a ripple through the instanced mesh) on the goal.
 

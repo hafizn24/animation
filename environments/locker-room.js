@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 /**
  * LockerRoomApp – Procedural 3D model of a football club locker room
- * belonging to "Oakhaven United FC – The Oaks".
+ * belonging to "Buluh FC".
  *
  * Key structures:
  *   1. Room shell – vinyl floor, painted walls with dado, ceiling
@@ -700,7 +700,7 @@ export class LockerRoomApp {
       ctx.font = `bold ${Math.round(h * 0.09)}px Arial, sans-serif`;
       ctx.fillText('FIXTURES', w * 0.08, h * 0.2);
       ctx.fillText('SQUAD LIST', w * 0.55, h * 0.2);
-      ctx.fillText('MATCH REPORT v OAKHAVEN UTD', w * 0.08, h * 0.66);
+      ctx.fillText('MATCH REPORT v BULUH FC', w * 0.08, h * 0.66);
     });
     const noticePanel = new THREE.Mesh(
       new THREE.PlaneGeometry(1.34, 0.96),

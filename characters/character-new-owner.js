@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { createHairstyle, HAIR_STYLES } from './character-hair.js';
 
 /**
- * NewOwnerApp – The new owner of Oakhaven United FC.
+ * NewOwnerApp – The new owner of Buluh FC.
  *
  * Built from the "PIPIN – Special Characters Collection" sheet:
  *   1. Faceless head
