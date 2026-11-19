@@ -9,27 +9,27 @@ const makeApron = () => {
   const cloth = new THREE.MeshStandardMaterial({ color: 0xf2e6d2, roughness: 0.9 });
   const trim = new THREE.MeshStandardMaterial({ color: 0xb9602c, roughness: 0.85 });
 
-  const bib = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.46, 0.03), cloth);
-  bib.position.set(0, 0.09, 0.285);
+  const bib = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.46, 0.014), cloth);
+  bib.position.set(0, 0.09, 0.262);
   apron.add(bib);
 
-  const skirt = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.5, 0.03), cloth);
-  skirt.position.set(0, -0.34, 0.285);
+  const skirt = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.5, 0.014), cloth);
+  skirt.position.set(0, -0.34, 0.274);
   apron.add(skirt);
 
-  const pocket = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.15, 0.025), trim);
-  pocket.position.set(0, -0.28, 0.31);
+  const pocket = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.15, 0.01), trim);
+  pocket.position.set(0, -0.28, 0.283);
   apron.add(pocket);
 
   [-1, 1].forEach((dir) => {
-    const strap = new THREE.Mesh(new THREE.BoxGeometry(0.055, 0.5, 0.03), cloth);
-    strap.position.set(dir * 0.15, 0.31, 0.24);
+    const strap = new THREE.Mesh(new THREE.BoxGeometry(0.055, 0.5, 0.016), cloth);
+    strap.position.set(dir * 0.15, 0.31, 0.252);
     strap.rotation.z = dir * 0.18;
     apron.add(strap);
   });
 
-  const neck = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.022, 8, 16), trim);
-  neck.position.set(0, 0.36, 0.24);
+  const neck = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.018, 8, 16), trim);
+  neck.position.set(0, 0.36, 0.252);
   neck.rotation.x = Math.PI / 2.4;
   apron.add(neck);
 
@@ -70,8 +70,9 @@ export const createBakeryScene = (renderer, size) => createSceneDirector(rendere
   },
   extra: (scene, { env, actors }) => {
     const baker = actors.find((actor) => actor.Class === AnotherCasualOutfitApp);
+    const torso = baker?.parts?.torso || baker?.rig?.getObjectByName('Torso');
     const apron = baker ? makeApron() : null;
-    if (apron && baker.parts.torso) baker.parts.torso.add(apron);
+    if (apron && torso) torso.add(apron);
 
     let envelope = null;
     if (baker && baker.parts.rightArm) {

@@ -23,6 +23,13 @@ VOICES = {
     "pengerusi": "voice_5",
     "penaja": "voice_4",
     "kekmaju": "voice_1",
+    "penaja1": "voice_2",
+    "penaja2": "voice_5",
+}
+
+VOICE_STYLE = {
+    "penaja1": {"speed": 1.04, "pitch": 1.0},
+    "penaja2": {"speed": 0.96, "pitch": 0.94},
 }
 
 MANIFEST = [
@@ -44,8 +51,8 @@ MANIFEST = [
     # Episode 2 — mirrors episodes/episode-2/audio-script.json (42s / 1260 frames).
     ("e2_s1_narrator", "narrator", 15, 120, "Hutang empat ratus lima puluh ribu ringgit. Masa makin suntuk."),
     ("e2_s2_narrator", "narrator", 135, 225, "Satu demi satu penaja besar dia ketuk... tapi semua tutup pintu."),
-    ("e2_s2_penaja1", "penaja", 234, 324, "Divisyen lima? Maaf lah bro, memang tak berbaloi."),
-    ("e2_s3_penaja2", "penaja", 336, 435, "Kalau kelab besar, boleh la cerita. Ini risiko tinggi sangat."),
+    ("e2_s2_penaja1", "penaja1", 234, 324, "Divisyen lima? Maaf lah bro, memang tak berbaloi."),
+    ("e2_s3_penaja2", "penaja2", 336, 435, "Kalau kelab besar, boleh la cerita. Ini risiko tinggi sangat."),
     ("e2_s4_narrator", "narrator", 450, 534, "Semua pintu tertutup. Tinggal harapan kosong je."),
     ("e2_s5_narrator", "narrator", 555, 654, "Sampai la dia singgah kat satu kedai kek kecil ni... Kek Maju."),
     ("e2_s5_kekmaju", "kekmaju", 666, 804, "Akak bukan orang kaya, tapi akak sayang kelab kita ni. Ambik la sikit ni, buat modal dulu."),
@@ -85,12 +92,16 @@ def synthesize(key, text, voice, speed, destination):
         destination.write_bytes(response.read())
 
 
-def normalize(source, destination):
+def normalize(source, destination, pitch=1.0):
     filt = (
         "silenceremove=start_periods=1:start_duration=0.02:start_threshold=-50dB,"
         "areverse,silenceremove=start_periods=1:start_duration=0.02:start_threshold=-50dB,"
-        "areverse,loudnorm=I=-14:TP=-3:LRA=11"
+        "areverse"
     )
+    if pitch != 1.0:
+        rate = int(round(44100 * pitch))
+        filt += f",asetrate={rate},aresample=44100,atempo={44100 / rate:.6f}"
+    filt += ",loudnorm=I=-14:TP=-3:LRA=11"
     subprocess.run(
         [FFMPEG, "-y", "-loglevel", "error", "-i", str(source), "-af", filt,
          "-ar", "44100", "-b:a", "160k", str(destination)],
@@ -127,18 +138,21 @@ def main():
         budget = (end - start) / FPS
         raw = raw_dir / f"{name}.mp3"
         final = OUT_DIR / f"{name}.mp3"
-        speed = 1.0
+        style = VOICE_STYLE.get(speaker, {})
+        base_speed = style.get("speed", 1.0)
+        pitch = style.get("pitch", 1.0)
+        speed = base_speed
 
         synthesize(key, text, VOICES[speaker], speed, raw)
-        normalize(raw, final)
+        normalize(raw, final, pitch)
         length = duration(final)
 
-        for candidate in (1.05, 1.1):
+        for candidate in (base_speed * 1.05, base_speed * 1.1):
             if length <= budget + 0.15:
                 break
-            speed = candidate
+            speed = min(candidate, 1.2)
             synthesize(key, text, VOICES[speaker], speed, raw)
-            normalize(raw, final)
+            normalize(raw, final, pitch)
             length = duration(final)
 
         if length > budget + 0.15:
