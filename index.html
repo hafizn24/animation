@@ -114,6 +114,7 @@
         <option value="casual">Casual Sweater</option>
         <option value="chairman">The Chairman</option>
         <option value="newowner">The New Owner</option>
+        <option value="sponsor">Sponsor Executive</option>
       </optgroup>
       <optgroup label="Environments">
         <option value="stadium">⚽ Stadium (Buluh FC)</option>
@@ -146,6 +147,7 @@
       stadium: () => import('./environments/stadium.js').then(m => m.StadiumApp),
       chairman: () => import('./characters/character-chairman.js').then(m => m.ChairmanApp),
       newowner: () => import('./characters/character-new-owner.js').then(m => m.NewOwnerApp),
+      sponsor: () => import('./characters/character-sponsor.js').then(m => m.SponsorApp),
       locker: () => import('./environments/locker-room.js').then(m => m.LockerRoomApp),
       office: () => import('./environments/manager-office.js').then(m => m.ManagerOfficeApp),
       boardroom: () => import('./environments/lender-boardroom.js').then(m => m.LenderBoardroomApp),
@@ -160,6 +162,7 @@
       stadium: 'Stadium – Buluh FC',
       chairman: 'The Chairman',
       newowner: 'The New Owner',
+      sponsor: 'Sponsor Executive',
       locker: 'Locker Room',
       office: 'Manager Office',
       boardroom: 'Lender Boardroom',

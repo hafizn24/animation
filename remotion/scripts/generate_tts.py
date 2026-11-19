@@ -21,6 +21,7 @@ VOICES = {
     "pemilik": "voice_3",
     "jurulatih": "voice_2",
     "pengerusi": "voice_5",
+    "penaja": "voice_4",
 }
 
 MANIFEST = [
@@ -39,6 +40,22 @@ MANIFEST = [
     ("b6_pemilik", "pemilik", 1765, 1832, "Wang simpanan saya hanya beli hutangnya."),
     ("b7_narrator", "narrator", 1910, 2035, "Bilik kerja yang sama. Folder ditutup perlahan. Satu perkiraan dah bermula."),
     ("b7_peguam", "peguam", 2038, 2119, "Tiga puluh hari. Hari pertama bermula sekarang."),
+    ("e2_b1_narrator", "narrator", 0, 150, "Hari kedua puluh tujuh. Bilik kaca, kopi panas. Pemilik datang dengan satu fail."),
+    ("e2_b1_penaja", "penaja", 150, 300, "Divisyen 5? Maaf, bos. Kami tak nak letak logo pada kelab yang orang tak kenal."),
+    ("e2_b2_narrator", "narrator", 300, 410, "Dia cuba lagi. Satu lagi meja. Satu lagi \"tak ada bajet\"."),
+    ("e2_b2_penaja", "penaja", 410, 500, "Bila stadium penuh baru kita borak. Jumpa lagi nanti."),
+    ("e2_b3_narrator", "narrator", 500, 630, "Petang itu, di bilik kerja yang sama, satu idea lahir dari keputusasaan."),
+    ("e2_b3_pemilik", "pemilik", 630, 755, "Kita buat perlawanan persahabatan. Jual tiket, bawa orang datang."),
+    ("e2_b3_jurulatih", "jurulatih", 755, 830, "Dengan duit apa? Kita tak ada bola pun."),
+    ("e2_b4_narrator", "narrator", 830, 945, "Esoknya, padang kosong mula hidup. Kain rentang, meja tiket."),
+    ("e2_b4_pemilik", "pemilik", 945, 1080, "Mulai hari ini, kita tak main untuk menang. Kita main untuk nyawa kelab ni."),
+    ("e2_b5_narrator", "narrator", 1080, 1185, "Malamnya, lampu stadium menyala. Kali ni ada sorakan. Ada yang bayar."),
+    ("e2_b5_pemilik", "pemilik", 1185, 1290, "Satu gol! Kita masih bernafas!"),
+    ("e2_b6_narrator", "narrator", 1290, 1420, "Selepas wisel, bilik ganti penuh peluh... dan senyuman pertama dalam seminggu."),
+    ("e2_b6_pemilik", "pemilik", 1420, 1540, "Lima belas ribu. Kita perlukan empat ratus lima puluh ribu lebih."),
+    ("e2_b6_jurulatih", "jurulatih", 1540, 1610, "Semangat tu tak cukup bayar gaji, bos."),
+    ("e2_b7_narrator", "narrator", 1610, 1665, "Dia tak cakap pasal duit lagi."),
+    ("e2_b7_pemilik", "pemilik", 1665, 1800, "Esok, jam lima pagi. Kita ke hutan. Kita lari sampai percaya semula."),
 ]
 
 

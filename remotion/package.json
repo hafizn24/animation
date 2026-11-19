@@ -8,6 +8,7 @@
     "studio": "remotion studio",
     "render": "remotion render Episode1 out/episode-1.mp4",
     "render:episode": "remotion render Episode1 out/episode-1.mp4",
+    "render:episode2": "remotion render Episode2 out/episode-2.mp4",
     "render:matchday": "remotion render FootballMatch out/matchday-v2.mp4",
     "render:still": "remotion still Episode1 out/episode-1-still.png"
   },

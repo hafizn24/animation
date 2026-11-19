@@ -34,6 +34,11 @@ export const Subtitles = ({ lines, narrator }) => {
             opacity: narratorOpacity,
             transform: `translateY(${(1 - narratorOpacity) * 12}px)`,
             marginBottom: 20,
+            background: 'rgba(5, 8, 16, 0.82)',
+            border: '1px solid rgba(216, 178, 106, 0.28)',
+            borderRadius: 10,
+            padding: '12px 18px',
+            boxShadow: '0 6px 24px rgba(0, 0, 0, 0.6)',
           }}
         >
           <div
@@ -43,7 +48,7 @@ export const Subtitles = ({ lines, narrator }) => {
               fontSize: 24,
               fontStyle: 'italic',
               letterSpacing: 1,
-              opacity: 0.9,
+              textShadow: '0 2px 0 #000, 0 0 10px rgba(0,0,0,0.95)',
             }}
           >
             {narrator}
@@ -58,6 +63,11 @@ export const Subtitles = ({ lines, narrator }) => {
             textAlign: 'center',
             opacity: lineOpacity,
             transform: `translateY(${(1 - lineOpacity) * 12}px)`,
+            background: 'rgba(5, 8, 16, 0.8)',
+            border: '1px solid rgba(216, 178, 106, 0.22)',
+            borderRadius: 10,
+            padding: '14px 18px',
+            boxShadow: '0 6px 24px rgba(0, 0, 0, 0.6)',
           }}
         >
           {activeLine.speaker ? (
@@ -83,7 +93,7 @@ export const Subtitles = ({ lines, narrator }) => {
               lineHeight: 1.28,
               fontWeight: activeLine.emphasis ? 'bold' : 500,
               letterSpacing: 0.4,
-              textShadow: '0 3px 18px rgba(0,0,0,0.95), 0 1px 3px rgba(0,0,0,0.9)',
+              textShadow: '0 2px 0 #000, 0 0 10px rgba(0,0,0,0.95), 0 3px 18px rgba(0,0,0,0.95)',
             }}
           >
             {activeLine.text}

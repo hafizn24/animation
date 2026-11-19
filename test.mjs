@@ -6,6 +6,7 @@ import { SoccerOutfitApp } from './characters/character-soccer.js';
 import { AnotherCasualOutfitApp } from './characters/character-casual.js';
 import { ChairmanApp } from './characters/character-chairman.js';
 import { NewOwnerApp } from './characters/character-new-owner.js';
+import { SponsorApp } from './characters/character-sponsor.js';
 import { HAIR_STYLES } from './characters/character-hair.js';
 import { CharacterInspector } from './Inspector.js';
 
@@ -62,6 +63,7 @@ const CAST = [
   [AnotherCasualOutfitApp, 'Casual', []],
   [ChairmanApp, 'Chairman', ['idle', 'walk', 'stride', 'thoughtful', 'gavel', 'pipe']],
   [NewOwnerApp, 'NewOwner', ['idle', 'walkA', 'walkB', 'walkC', 'handshake', 'document', 'coffee', 'keys']],
+  [SponsorApp, 'Sponsor', ['idle', 'walk', 'dismiss', 'offer', 'phone', 'checkWatch']],
 ];
 
 for (const [Cls, label, poses] of CAST) {
