@@ -1,36 +1,37 @@
 # Buluh FC — YouTube Shorts Story & Pacing Guide
 
-## Target Metrics & Format
-- **Target Runtime:** 45–55 seconds (strictly under 60s).
-- **Aspect Ratio:** 9:16 vertical.
-- **Language:** Bahasa Melayu (casual/dramatic) with bold bilingual/BM hooks.
+> **Production rules govern every storytelling decision:**
+> [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md).
+> The old "no captions / spoken CTA" approach is **retired** — Episode 1's dual
+> subtitle design and clean gold-divider title card are now the standard.
 
----
+## Target Metrics & Format
+- **Target Runtime:** ~42–55 seconds (strictly under 60s).
+- **Aspect Ratio:** 9:16 vertical, 720x1280 @ 30fps.
+- **Language:** casual spoken Malaysian Malay (*Bahasa Melayu santai*).
+- **Structure:** alternating NARRATOR + CHARACTER DIALOGUE lines.
 
 ## The 4-Beat Episode Structure
+1. **Hook (0:00–0:04)** — start on the stakes. Hard SFX on frame 1. Gold italic
+   narrator subtitle. No slow atmospheric intro.
+2. **Escalation (0:04–0:18)** — reach the confrontation before 0:15. Distinct
+   locations, hard cuts, no dead air. Character dialogue with gold speaker
+   labels.
+3. **Emotional Turn (0:18–0:30)** — warmth/hope beats against the cold setup.
+4. **Dramatic Close (0:30–0:42)** — sharp final line, then a **hard cut** to the
+   clean black `BULOH FC / EPISOD X` title card. **No CTA, ever.**
 
-### 1. The Hook (0:00 – 0:02)
-- **Rule:** Start directly on the **stakes, conflict, or punchline**. Zero slow pans or atmospheric intros.
-- **Visual:** Immediate movement, dramatic zoom, or quick 1-second football/stadium flash so viewers know it's a football story.
-- **Audio:** Loud SFX (stamp slam, whistle, or crowd gasp) on frame 1.
-- **Example:** *"RM450,000 TERTUNGGAK! 30 HARI ATAU STADIUM DIRAMPAS!"*
+## Subtitle Design (Episode 1 standard)
+- Narration → italic warm gold serif at bottom of frame.
+- Dialogue → white sans-serif with uppercase gold speaker label above.
+- Both timed to the audio; no permanent overlay, no engagement bait.
 
-### 2. The Escalation (0:03 – 0:15)
-- **Rule:** Reach the main character confrontation **before the 15-second mark** (to beat the ~23s drop-off).
-- **Cut Rule:** Trim all silent pauses and long walking transitions (max 1.5–2s per walk/transition).
+## Audio-Driven Pacing
+- Durations come from `episodes/episode-X/audio-script.json`.
+- Max 0.5–0.8s gap between lines. Zero 5–9 second silent gaps.
+- TTS voices are assigned per character in `scripts/generate_tts.py`.
 
-### 3. The Climax / Punchline (0:16 – 0:40)
-- **Rule:** Deliver the emotional peak or sharpest line of dialogue.
-- **Camera:** Add a quick zoom-in or subtle camera shake on punchlines.
-
-### 4. The Cliffhanger & CTA (0:41 – 0:50)
-- **Rule:** Never end on a silent, static title card.
-- **CTA:** End on an unresolved question + a direct comment prompt.
-- **Example:** *"Mampukah Buluh FC selamat dalam 30 hari? Komen 'EPISOD 2' kalau nak sambungan!"*
-
----
-
-## No-Caption Storytelling Rules
-- **Zero Dialogue Captions:** Do not render `<Subtitles />` or dialogue text boxes on screen.
-- **Audio Priority:** Keep Malay TTS crisp and 6–8 dB louder than background music so every line is clear on phone speakers.
-- **Visual Cues Carry the Plot:** Rely on 3D props and lighting shifts (e.g., red `DEFAULT NOTICE` folder, warm bakery lighting + bread boxes, friendly match banner) so the plot is obvious even at a glance.
+## Visual Storytelling
+Because characters are faceless, exaggerate body language: head shakes,
+nods, slumped shoulders, hand gestures, breathing. Environments must be
+visually distinct (e.g. cold sponsor office vs warm bakery vs club office).

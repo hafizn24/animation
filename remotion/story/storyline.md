@@ -1,5 +1,9 @@
 # Buluh FC — Series Storyline
 
+> **All episodes follow [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md):**
+> script-first, multi-voice casual Malay, dual subtitles, no CTAs, audio-driven
+> pacing.
+
 ## Logline
 A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **RM450,000 debt** and a **30-day deadline** before their stadium is seized. With an unpaid squad, a skeptical coach, and a ruthless lawyer closing in, the club owner must pull off a miracle on and off the pitch.
 
@@ -37,13 +41,13 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 - **Cliffhanger:** How will Buluh FC survive the first week with zero budget?
 
 ### Episode 2 — *Hari 27: Divisyen 5* (In production)
-- **Status:** Scripted for Remotion (`remotion/src/Episode2/`); 1,500 frames / 50s @ 30fps; vertical Shorts cut with **timed Malay TTS and zero on-screen captions**. One voiceover clip per beat, mounted at frames 0 / 150 / 630 / 1050.
+- **Status:** Scripted for Remotion (`remotion/src/Episode2/`); **1,260 frames / 42s @ 30fps**; 9:16 vertical Shorts cut with timed multi-voice Malay TTS and Episode 1's dual subtitles (gold italic narration / gold-labelled white dialogue).
 - **Countdown:** 27 days left
 - **4-beat Shorts structure:**
-  1. **0–5s — Episode 1 recap.** Quick flash of the lender boardroom: the RM450,000 DEFAULT NOTICE slams onto the table. VO recaps that Buluh FC has less than 30 days before the stadium is seized.
-  2. **5–22s — Sponsor rejection montage.** Fast, hard-cut takes of big corporate sponsors turning the Owner away because Buluh FC is a "Divisyen 5" club. No slow walks or dead air.
-  3. **22–36s — Small bakery sponsor.** Warm/hopeful tone. A tiny local bakery ("Kek Maju") steps up with modest support — not enough for RM450,000, but enough to keep fighting.
-  4. **36–50s — Crowdfunding friendly-match cliffhanger.** Owner and Coach decide to organise a crowdfunding friendly match to save the club. Ends on a **spoken** CTA — *"Mampukah perlawanan amal ni selamatkan Buluh FC? Komen 'EPISOD 3' kalau nak tengok!"* — with no static title card.
-- **Cliffhanger:** Can the charity match save Buluh FC? Sets up the crowdfunding friendly-match arc for Episode 3.
+  1. **0–4s — Default notice.** Push-in on the DEFAULT NOTICE folder; narrator sets the RM450,000 debt and the ticking clock.
+  2. **4–18s — Rejected sponsors (3 beats).** Nexus Sports (cool blue, dismissive exec), Apex Corp (red/charcoal logo, proposal pushed back), then the door slams on PEMILIK. No repetitive camera loop.
+  3. **18–30s — Kek Maju bakery.** Warm contrast in a distinct bakery: the owner hands over a small envelope. KEK MAJU and PEMILIK exchange dialogue.
+  4. **30–42s — Club office & final line.** JURULATIH proposes the charity match; PEMILIK delivers the "peluang terakhir" line. Hard cut to the clean black `BULOH FC / EPISOD 2` title card. No CTA.
+- **Cliffhanger:** The charity match is the last chance — cuts directly to the title card.
 
-**Script location:** the beat frame ranges and audio cue frames live in the `SCENES` array in `remotion/src/Episode2/Episode2Composition.jsx`. TTS text and beat-aligned frame budgets are in `remotion/scripts/generate_tts.py` (prefix `e2_`). Regenerate with `python scripts/generate_tts.py e2_`. Captions stay off; the story is carried by voiceover plus 3D props (DEFAULT NOTICE, KEK MAJU sign, PERLAWANAN AMAL poster).
+**Script location:** `episodes/episode-2/script.md` and `episodes/episode-2/audio-script.json` are the source of truth. The `SCENES` array in `remotion/src/Episode2/Episode2Composition.jsx` mirrors the JSON. TTS text/voices are in `remotion/scripts/generate_tts.py` (prefix `e2_`). Regenerate with `python scripts/generate_tts.py e2_`.

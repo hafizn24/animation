@@ -1,0 +1,91 @@
+{
+  "episode": 1,
+  "title": "Hari 30: RM450,000 Tertunggak",
+  "fps": 30,
+  "width": 720,
+  "height": 1280,
+  "totalDurationSeconds": 74.83,
+  "totalFrames": 2245,
+  "language": "ms",
+  "notes": "Retroactive structured script for the published Episode 1. Mirrors remotion/src/Episode1/Episode1Composition.jsx. Narration is shown for the first 80 frames of each scene; dialogue lines use the dual-subtitle system.",
+  "scenes": [
+    {
+      "id": "cold-open",
+      "fromFrame": 0,
+      "durationFrames": 340,
+      "narrator": "Malam ni, dalam bilik kerja yang sejuk, satu folder merah kena ketuk atas meja. Nampak macam biasa... tapi ada yang nak berakhir.",
+      "lines": [
+        { "type": "narration", "speaker": null, "startFrame": 196, "endFrame": 260, "text": "RM450,000 tertunggak.", "emphasis": true },
+        { "type": "narration", "speaker": null, "startFrame": 265, "endFrame": 335, "text": "Tiga puluh hari. Atau stadium ini milik kami." }
+      ]
+    },
+    {
+      "id": "matchday",
+      "fromFrame": 340,
+      "durationFrames": 240,
+      "narrator": "Padang dah gelap, tapi lampu stadium masih terang. Buluh FC... kelab yang dulu pernah ada harapan.",
+      "lines": [
+        { "type": "narration", "speaker": null, "startFrame": 85, "endFrame": 130, "text": "Peringkat rendah kita. Tempat kebelakangan." },
+        { "type": "narration", "speaker": null, "startFrame": 135, "endFrame": 175, "text": "0 - 3. Dan pasukan ni dah berputus asa.", "emphasis": true }
+      ]
+    },
+    {
+      "id": "tunnel",
+      "fromFrame": 580,
+      "durationFrames": 240,
+      "narrator": "Dia jalan dari gelap ke terang. Sepuluh tahun duit simpanan, orang kata ni kerja gila... tapi dia tak peduli.",
+      "lines": [
+        { "type": "dialogue", "speaker": "PEMILIK", "startFrame": 169, "endFrame": 235, "text": "Tapi ni rumah saya.", "emphasis": true }
+      ]
+    },
+    {
+      "id": "locker-room",
+      "fromFrame": 820,
+      "durationFrames": 400,
+      "narrator": "Bilik ganti sunyi, lampu berkelip. Dia masuk, dan terus rasa tekanan tu.",
+      "lines": [
+        { "type": "dialogue", "speaker": "PEMILIK", "startFrame": 125, "endFrame": 205, "text": "Saya tahu ni berat. Tapi semuanya berubah hari ini." },
+        { "type": "dialogue", "speaker": "JURULATIH", "startFrame": 213, "endFrame": 365, "text": "Maaf bos, tapi kata-kata tak bagi pampasan untuk bayar bil elektrik. Atau gaji pemain." },
+        { "type": "narration", "speaker": null, "startFrame": 370, "endFrame": 395, "text": "Sunyi menerpa ruang." }
+      ]
+    },
+    {
+      "id": "handover",
+      "fromFrame": 1220,
+      "durationFrames": 390,
+      "narrator": "Meja kayu, lampu meja, sepasang kunci. Pengerusi tak banyak cakap — tapi dia tahu beban yang dia serahkan.",
+      "lines": [
+        { "type": "dialogue", "speaker": "PENGERUSI", "startFrame": 158, "endFrame": 250, "text": "Sekarang ni masalah awak, anak muda. Jangan sampai tenggelam." },
+        { "type": "dialogue", "speaker": "PEMILIK", "startFrame": 258, "endFrame": 345, "text": "Saya akan cuba bina semula kelab ni. Apa pun jadinya.", "emphasis": true },
+        { "type": "narration", "speaker": null, "startFrame": 352, "endFrame": 385, "text": "Dia menandatangani." }
+      ]
+    },
+    {
+      "id": "cliffhanger",
+      "fromFrame": 1610,
+      "durationFrames": 300,
+      "narrator": "Bilik dah gelap. Satu dokumen dengan cop merah muncul — klausul yang tersorok daripada dia sejak awal.",
+      "lines": [
+        { "type": "narration", "speaker": null, "startFrame": 85, "endFrame": 145, "text": "Bayaran penuh dalam 30 hari — atau stadium ni dirampas." },
+        { "type": "narration", "speaker": null, "startFrame": 155, "endFrame": 225, "text": "Wang simpanan saya hanya beli hutangnya.", "emphasis": true }
+      ]
+    },
+    {
+      "id": "final-hook",
+      "fromFrame": 1910,
+      "durationFrames": 215,
+      "narrator": "Bilik kerja yang sama. Folder ditutup perlahan. Satu perkiraan dah bermula.",
+      "lines": [
+        { "type": "dialogue", "speaker": "PEGUAM", "startFrame": 128, "endFrame": 165, "text": "Tiga puluh hari." },
+        { "type": "narration", "speaker": null, "startFrame": 170, "endFrame": 210, "text": "Hari pertama bermula sekarang.", "emphasis": true }
+      ]
+    },
+    {
+      "id": "outro-title-card",
+      "fromFrame": 2125,
+      "durationFrames": 120,
+      "narrator": null,
+      "lines": []
+    }
+  ]
+}

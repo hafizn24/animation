@@ -22,6 +22,7 @@ VOICES = {
     "jurulatih": "voice_2",
     "pengerusi": "voice_5",
     "penaja": "voice_4",
+    "kekmaju": "voice_1",
 }
 
 MANIFEST = [
@@ -40,10 +41,17 @@ MANIFEST = [
     ("b6_pemilik", "pemilik", 1765, 1832, "Wang simpanan saya hanya beli hutangnya."),
     ("b7_narrator", "narrator", 1910, 2035, "Bilik kerja yang sama. Folder ditutup perlahan. Satu perkiraan dah bermula."),
     ("b7_peguam", "peguam", 2038, 2119, "Tiga puluh hari. Hari pertama bermula sekarang."),
-    ("e2_b1_narrator", "narrator", 0, 120, "Empat ratus lima puluh ribu ringgit. Tiga puluh hari... atau stadium Buluh FC dirampas."),
-    ("e2_b2_narrator", "narrator", 150, 600, "Satu demi satu penaja besar menolak. Divisyen lima, katanya tak berbaloi. Semua pintu tertutup."),
-    ("e2_b3_narrator", "narrator", 630, 1020, "Sehinggalah sebuah kedai kek kecil, Kek Maju, sanggup hulur tangan. Tak cukup untuk tutup semua hutang... tapi cukup untuk terus berjuang."),
-    ("e2_b4_cta", "narrator", 1050, 1470, "Hanya ada satu jalan. Perlawanan amal untuk kumpul dana! Mampukah Buluh FC selamat? Komen 'EPISOD 3' kalau nak tengok!"),
+    # Episode 2 — mirrors episodes/episode-2/audio-script.json (42s / 1260 frames).
+    ("e2_s1_narrator", "narrator", 15, 120, "Hutang empat ratus lima puluh ribu ringgit. Masa makin suntuk."),
+    ("e2_s2_narrator", "narrator", 135, 225, "Satu demi satu penaja besar dia ketuk... tapi semua tutup pintu."),
+    ("e2_s2_penaja1", "penaja", 234, 324, "Divisyen lima? Maaf lah bro, memang tak berbaloi."),
+    ("e2_s3_penaja2", "penaja", 336, 435, "Kalau kelab besar, boleh la cerita. Ini risiko tinggi sangat."),
+    ("e2_s4_narrator", "narrator", 450, 534, "Semua pintu tertutup. Tinggal harapan kosong je."),
+    ("e2_s5_narrator", "narrator", 555, 654, "Sampai la dia singgah kat satu kedai kek kecil ni... Kek Maju."),
+    ("e2_s5_kekmaju", "kekmaju", 666, 804, "Akak bukan orang kaya, tapi akak sayang kelab kita ni. Ambik la sikit ni, buat modal dulu."),
+    ("e2_s5_pemilik", "pemilik", 816, 906, "Terima kasih banyak, kak. Kami memang takkan lupa jasa akak."),
+    ("e2_s6_jurulatih", "jurulatih", 924, 1056, "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati."),
+    ("e2_s6_pemilik", "pemilik", 1068, 1176, "Betul. Ini peluang terakhir kita. Kalau kalah, semua habis."),
 ]
 
 

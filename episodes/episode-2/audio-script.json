@@ -1,0 +1,227 @@
+{
+  "episode": 2,
+  "title": "Hari 27: Divisyen 5",
+  "fps": 30,
+  "width": 720,
+  "height": 1280,
+  "totalDurationSeconds": 42.0,
+  "totalFrames": 1260,
+  "language": "ms",
+  "notes": "Source of truth for Episode 2 TTS and timed subtitles. Casual spoken Malay only. No CTAs. Ends on a dramatic line then a hard cut to the black BULOH FC / EPISOD 2 title card.",
+  "scenes": [
+    {
+      "id": "default-notice",
+      "name": "Opening Hook — Dark Office / Default Notice",
+      "from": 0.0,
+      "to": 4.0,
+      "fromFrame": 0,
+      "durationFrames": 120,
+      "environment": "LenderBoardroomApp",
+      "director": "createDefaultNoticeScene",
+      "visual": "Smooth eased push-in on the DEFAULT NOTICE folder on a dark desk.",
+      "sfx": "Heavy stamp/thud on DEFAULT NOTICE at 0.0s.",
+      "bgm": "Tense, low-energy melancholic underscore, ducked under voiceover.",
+      "lines": [
+        {
+          "id": "e2_s1_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Hutang empat ratus lima puluh ribu ringgit. Masa makin suntuk.",
+          "start": 0.5,
+          "end": 4.0,
+          "startFrame": 15,
+          "endFrame": 120,
+          "voice": "voice_5"
+        }
+      ]
+    },
+    {
+      "id": "sponsor-nexus",
+      "name": "Rejected Sponsor — Beat 1: Nexus Sports",
+      "from": 4.5,
+      "to": 11.0,
+      "fromFrame": 135,
+      "durationFrames": 195,
+      "environment": "SponsorOfficeApp",
+      "director": "createNexusRejectScene",
+      "visual": "Cool blue lighting. Executive shakes head on Y axis and waves hand dismissively. Clean hands/laptop, no stiff A-pose.",
+      "sfx": "Subtle desk tap on the head shake.",
+      "bgm": "Tense underscore continues, ducked under dialogue.",
+      "lines": [
+        {
+          "id": "e2_s2_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Satu demi satu penaja besar dia ketuk... tapi semua tutup pintu.",
+          "start": 4.5,
+          "end": 7.5,
+          "startFrame": 135,
+          "endFrame": 225,
+          "voice": "voice_5"
+        },
+        {
+          "id": "e2_s2_penaja1",
+          "type": "dialogue",
+          "speaker": "PENAJA 1",
+          "text": "Divisyen lima? Maaf lah bro, memang tak berbaloi.",
+          "start": 7.8,
+          "end": 10.8,
+          "startFrame": 234,
+          "endFrame": 324,
+          "voice": "voice_4"
+        }
+      ]
+    },
+    {
+      "id": "sponsor-apex",
+      "name": "Rejected Sponsor — Beat 2: Apex Corp",
+      "from": 11.2,
+      "to": 14.8,
+      "fromFrame": 336,
+      "durationFrames": 108,
+      "environment": "SponsorOfficeApp (Apex Corp red/charcoal wall logo)",
+      "director": "createApexRejectScene",
+      "visual": "Distinct executive (receding hair, grey hair color, charcoal/burgundy suit). Slides the proposal folder back across the desk. NO clones.",
+      "sfx": "Subtle paper slide across desk.",
+      "bgm": "Tense underscore, ducked.",
+      "lines": [
+        {
+          "id": "e2_s3_penaja2",
+          "type": "dialogue",
+          "speaker": "PENAJA 2",
+          "text": "Kalau kelab besar, boleh la cerita. Ini risiko tinggi sangat.",
+          "start": 11.2,
+          "end": 14.5,
+          "startFrame": 336,
+          "endFrame": 435,
+          "voice": "voice_4"
+        }
+      ]
+    },
+    {
+      "id": "closing-door",
+      "name": "Rejected Sponsor — Beat 3: Closing Door",
+      "from": 15.0,
+      "to": 18.0,
+      "fromFrame": 450,
+      "durationFrames": 90,
+      "environment": "SponsorOfficeApp (corridor/door)",
+      "director": "createClosingDoorScene",
+      "visual": "PEMILIK stands outside with slumped shoulders as an office door swings shut in front of the camera, cutting briefly to black.",
+      "sfx": "Heavy door shut.",
+      "bgm": "Underscore dips to near silence on the slam.",
+      "lines": [
+        {
+          "id": "e2_s4_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Semua pintu tertutup. Tinggal harapan kosong je.",
+          "start": 15.0,
+          "end": 17.8,
+          "startFrame": 450,
+          "endFrame": 534,
+          "voice": "voice_5"
+        }
+      ]
+    },
+    {
+      "id": "kek-maju-bakery",
+      "name": "Kek Maju Bakery — Warm Contrast",
+      "from": 18.0,
+      "to": 30.0,
+      "fromFrame": 540,
+      "durationFrames": 360,
+      "environment": "BakeryApp (dedicated bakery: front counter, glass cake display, wall-mounted KEK MAJU sign, warm lighting)",
+      "director": "createBakeryScene",
+      "visual": "Female bakery owner in an apron, warm gesturing/nodding, handing over a small envelope. Distinct from the club office; no outdoor signpost indoors.",
+      "sfx": "Warm shop bell chime on entry.",
+      "bgm": "Crossfade to warm, hopeful acoustic underscore.",
+      "lines": [
+        {
+          "id": "e2_s5_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Sampai la dia singgah kat satu kedai kek kecil ni... Kek Maju.",
+          "start": 18.5,
+          "end": 21.8,
+          "startFrame": 555,
+          "endFrame": 654,
+          "voice": "voice_5"
+        },
+        {
+          "id": "e2_s5_kekmaju",
+          "type": "dialogue",
+          "speaker": "KEK MAJU",
+          "text": "Akak bukan orang kaya, tapi akak sayang kelab kita ni. Ambik la sikit ni, buat modal dulu.",
+          "start": 22.2,
+          "end": 26.8,
+          "startFrame": 666,
+          "endFrame": 804,
+          "voice": "voice_1"
+        },
+        {
+          "id": "e2_s5_pemilik",
+          "type": "dialogue",
+          "speaker": "PEMILIK",
+          "text": "Terima kasih banyak, kak. Kami memang takkan lupa jasa akak.",
+          "start": 27.2,
+          "end": 30.2,
+          "startFrame": 816,
+          "endFrame": 906,
+          "voice": "voice_3"
+        }
+      ]
+    },
+    {
+      "id": "club-office-ending",
+      "name": "Buloh FC Office & Dramatic Ending",
+      "from": 30.0,
+      "to": 39.6,
+      "fromFrame": 900,
+      "durationFrames": 288,
+      "environment": "ManagerOfficeApp (wall-mounted PERLAWANAN AMAL whiteboard/poster, no signpost)",
+      "director": "createOfficeEndingScene",
+      "visual": "PEMILIK and JURULATIH face each other, subtle talking/nodding, ending on a slow dramatic push-in on PEMILIK.",
+      "sfx": "Room tone only; no sting on the final line.",
+      "bgm": "Warm underscore returns, then thins out for the final line.",
+      "lines": [
+        {
+          "id": "e2_s6_jurulatih",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati.",
+          "start": 30.8,
+          "end": 35.2,
+          "startFrame": 924,
+          "endFrame": 1056,
+          "voice": "voice_2"
+        },
+        {
+          "id": "e2_s6_pemilik",
+          "type": "dialogue",
+          "speaker": "PEMILIK",
+          "text": "Betul. Ini peluang terakhir kita. Kalau kalah, semua habis.",
+          "start": 35.6,
+          "end": 39.2,
+          "startFrame": 1068,
+          "endFrame": 1176,
+          "voice": "voice_3"
+        }
+      ]
+    },
+    {
+      "id": "outro-title-card",
+      "name": "Outro Title Card",
+      "from": 39.6,
+      "to": 42.0,
+      "fromFrame": 1188,
+      "durationFrames": 72,
+      "environment": null,
+      "director": null,
+      "visual": "Hard cut to clean black card: BULOH FC / thin gold divider / EPISOD 2. No CTA.",
+      "sfx": null,
+      "bgm": null,
+      "lines": []
+    }
+  ]
+}

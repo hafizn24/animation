@@ -4,7 +4,7 @@ import { SuitOutfitApp } from '../../../../characters/character-suit.js';
 import { createNoticeTexture } from '../../scene/textures.js';
 import { clamp, createSceneDirector, forEachLight, lerp, smooth } from '../sceneKit.js';
 
-export const createRecapScene = (renderer, size) => createSceneDirector(renderer, {
+export const createDefaultNoticeScene = (renderer, size) => createSceneDirector(renderer, {
   ...size,
   environment: LenderBoardroomApp,
   grade: (scene) => {
@@ -48,7 +48,10 @@ export const createRecapScene = (renderer, size) => createSceneDirector(renderer
       animate: ({ t, parts }) => {
         const lean = smooth(clamp((t - 0.5) / 2, 0, 1));
         if (parts.torso) parts.torso.rotation.x = 0.16 * lean;
-        if (parts.head) parts.head.rotation.x = 0.18 * lean;
+        if (parts.head) {
+          parts.head.rotation.x = 0.18 * lean;
+          parts.head.position.y = 1.95 + Math.sin(t * 1.7) * 0.012;
+        }
         if (parts.rightArm) {
           parts.rightArm.rotation.x = -0.5 * lean;
           parts.rightArm.rotation.z = 0.32 - 0.16 * lean;
@@ -62,7 +65,7 @@ export const createRecapScene = (renderer, size) => createSceneDirector(renderer
     keys: [
       [0, [2.6, 2.0, 4.2], [-0.1, 1.2, 0.7], 76],
       [1.1, [2.1, 1.85, 3.4], [-0.2, 1.1, 0.8], 72],
-      [5, [1.5, 1.7, 2.7], [-0.35, 1.0, 0.9], 66],
+      [4, [1.5, 1.7, 2.7], [-0.35, 1.0, 0.9], 66],
     ],
   },
 });

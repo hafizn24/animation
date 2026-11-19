@@ -3,18 +3,39 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion';
 
 const GOLD = '#d8b26a';
 
-export const Subtitles = ({ lines, narrator }) => {
+/**
+ * Episode 1 dual-subtitle system, shared by every episode.
+ *
+ * - Narration  : italic warm gold serif at the bottom, no speaker label.
+ * - Dialogue   : clean white sans-serif with an uppercase gold speaker label.
+ *
+ * Lines may be timed explicitly ({ start, end, narration: true }) or an episode
+ * may pass a `narrator` string which is shown for the first 80 frames of a
+ * sequence (Episode 1 legacy behaviour).
+ */
+export const Subtitles = ({ lines = [], narrator }) => {
   const frame = useCurrentFrame();
   const { height } = useVideoConfig();
 
   const activeLine = [...lines].reverse().find((line) => frame >= line.start && frame < line.end);
-  const activeNarrator = Boolean(narrator) && frame >= 0 && frame < 80;
-  if (!activeLine && !activeNarrator) return null;
+  const isNarrationLine = Boolean(
+    activeLine && (activeLine.narration || activeLine.type === 'narration')
+  );
+  const legacyNarrator = !activeLine && Boolean(narrator) && frame >= 0 && frame < 80;
+
+  if (!activeLine && !legacyNarrator) return null;
 
   const opacityFor = (start, end) =>
     Math.max(0, Math.min(Math.min(1, (frame - start) / 8), Math.min(1, (end - frame) / 8)));
-  const narratorOpacity = activeNarrator ? opacityFor(0, 80) : 0;
-  const lineOpacity = activeLine ? opacityFor(activeLine.start, activeLine.end) : 0;
+
+  const showDialogue = Boolean(activeLine) && !isNarrationLine;
+  const narrationText = isNarrationLine ? activeLine.text : narrator;
+  const narrationStart = isNarrationLine ? activeLine.start : 0;
+  const narrationEnd = isNarrationLine ? activeLine.end : 80;
+  const narrationOpacity = (isNarrationLine || legacyNarrator)
+    ? opacityFor(narrationStart, narrationEnd)
+    : 0;
+  const lineOpacity = showDialogue ? opacityFor(activeLine.start, activeLine.end) : 0;
 
   return (
     <AbsoluteFill
@@ -25,14 +46,14 @@ export const Subtitles = ({ lines, narrator }) => {
         pointerEvents: 'none',
       }}
     >
-      {activeNarrator && (
+      {(isNarrationLine || legacyNarrator) && (
         <div
           style={{
             width: '100%',
             maxWidth: 640,
             textAlign: 'center',
-            opacity: narratorOpacity,
-            transform: `translateY(${(1 - narratorOpacity) * 12}px)`,
+            opacity: narrationOpacity,
+            transform: `translateY(${(1 - narrationOpacity) * 12}px)`,
             marginBottom: 20,
             background: 'rgba(5, 8, 16, 0.82)',
             border: '1px solid rgba(216, 178, 106, 0.28)',
@@ -51,11 +72,11 @@ export const Subtitles = ({ lines, narrator }) => {
               textShadow: '0 2px 0 #000, 0 0 10px rgba(0,0,0,0.95)',
             }}
           >
-            {narrator}
+            {narrationText}
           </div>
         </div>
       )}
-      {activeLine && (
+      {showDialogue && (
         <div
           style={{
             width: '100%',
