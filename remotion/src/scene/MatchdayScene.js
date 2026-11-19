@@ -19,7 +19,6 @@ import { createBallTexture, createRandom, createSkyTexture } from './textures.js
  */
 
 export const FPS = 30;
-export const DURATION = 300;
 export const SHOT_LENGTH = 90;
 
 // The stadium pitch is modelled in metres (64 x 100), the characters are not,

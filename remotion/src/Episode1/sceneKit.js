@@ -5,7 +5,6 @@ export const FPS = 30;
 export const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 export const lerp = (a, b, t) => a + (b - a) * t;
 export const smooth = (t) => t * t * (3 - 2 * t);
-export const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
 export const sampleKeys = (keys, t, ease = smooth) => {
   if (t <= keys[0][0]) return { pos: keys[0][1], target: keys[0][2], fov: keys[0][3] };
