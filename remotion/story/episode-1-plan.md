@@ -2,10 +2,10 @@
 
 ## 1. Core Profile & Story Framework
 * **Protagonist**: **The Ambitious Underdog** (New Owner, navy sweater & messenger bag). He poured his life savings into his hometown club.
-* **The Club**: **Buluh FC**, 6th Division.
-* **Antagonist**: **The Solicitor / Lender** (navy executive suit) holding a £450,000 private loan over the ground.
+* **The Club**: **Buluh FC**, Liga Daerah / Peringkat Rendah.
+* **Antagonist**: **The Loan Shark / Peguam** (navy executive suit) holding a **RM450,000** private loan over the ground.
 * **Format**: Vertical 720×1280, 9:16, 30fps, 66 seconds. TikTok / YouTube Shorts. Full-bleed with soft platform safe-area tint, hard cuts masked by a two-frame flash.
-* **Audio / Dialogue Style**: **No TTS**. Stylised Malay cinematic subtitles, environmental foley and dramatic soundtrack cues.
+* **Audio / Dialogue Style**: **No TTS**. Casual Malay narrator text (italic) opens each beat, followed by stylised character subtitles; environmental foley and dramatic soundtrack cues.
 * **Direction rule**: **Open on the conflict.** No slow establishing shots. Every beat is 6–12 seconds and ends on a question; the final beat loops back to the opening image.
 
 ---
@@ -16,57 +16,61 @@
 * **Environment**: `environments/lender-boardroom.js` — cold panelled office, blinds, city night.
 * **Camera**: Fast push from a three-quarter wide to the red folder on the desk.
 * **Action**: The solicitor leans forward and slides the notice across the mahogany desk.
+* **Narrator**: *"Malam ni, dalam bilik kerja yang sejuk, satu folder merah kena ketuk atas meja. Nampak macam biasa... tapi ada yang nak berakhir."*
 * **Subtitles**:
-  > *"£450,000 tertunggak."*  
-  > *"Tiga puluh hari. Atau stadium ini milik kami."*
+  > RM450,000 tertunggak.
+  > Tiga puluh hari. Atau stadium ini milik kami.
 
 ### Beat 2: The Reality (8 – 14s / 180 frames)
 * **Environment**: `environments/stadium.js` — evening matchday.
 * **Camera**: Touchline tracker whipping up to the scoreboard.
 * **Action**: Scoreboard reads `BULUH 0 - 3 GUEST`. Heads down.
+* **Narrator**: *"Padang dah gelap, tapi lampu stadium masih terang. Buluh FC... kelab yang dulu pernah ada harapan."*
 * **Subtitles**:
-  > *"Divisyen keenam. Tempat kesembilan belas."*  
-  > *"0 - 3. Dan pasukan ini sudah berputus asa."*
+  > Peringkat rendah kita. Tempat kebelakangan.
+  > 0 - 3. Dan pasukan ni dah berputus asa.
 
 ### Beat 3: The Tunnel (14 – 22s / 240 frames)
 * **Environment**: `environments/players-tunnel.js` — dark brick tunnel opening onto a floodlit pitch and crowd silhouettes.
 * **Camera**: Low follow behind the owner as he walks from darkness into the light.
 * **Action**: He stops at the mouth of the tunnel.
+* **Narrator**: *"Dia jalan dari gelap ke terang. Sepuluh tahun duit simpanan, orang kata ni bunuh diri... tapi dia tak peduli."*
 * **Subtitles**:
-  > *"Sepuluh tahun simpanan. Setiap sen yang saya hasilkan."*  
-  > *"Semua orang kata ini bunuh diri kewangan."*  
-  > *"Tapi inilah rumah saya."*
+  > Tapi ni rumah saya.
 
 ### Beat 4: The Cold Truth (22 – 34s / 360 frames)
 * **Environment**: `environments/locker-room.js` — flickering strips, silent benches.
 * **Camera**: Dolly through the doorway toward the owner.
+* **Narrator**: *"Bilik ganti sunyi, lampu berkelip. Dia masuk, dan terus rasa tekanan tu."*
 * **Subtitles**:
-  > **Pemilik**: *"Saya tahu ini berat. Tapi semuanya berubah hari ini."*  
-  > **Jurulatih**: *"Dengan segala hormatnya, bos... kata-kata tak bayar bil elektrik. Atau gaji budak-budak ini."*  
-  > *"Sunyi."*
+  > Pemilik: Saya tahu ni berat. Tapi semuanya berubah hari ini.
+  > Jurulatih: Maaf bos, tapi kata-kata tak bagi pampasan untuk bayar bil elektrik. Atau gaji pemain.
+  > Sunyi menerpa ruang.
 
 ### Beat 5: The Handover (34 – 46s / 360 frames)
 * **Environment**: `environments/manager-office.js` — warm desk lamp.
 * **Camera**: Over-the-shoulder across the desk; brass keys slide into frame.
+* **Narrator**: *"Meja kayu, lampu meja, sepasang kunci. Pengerusi tak banyak cakap — tapi dia tahu beban yang dia serahkan."*
 * **Subtitles**:
-  > **Pengerusi**: *"Sekarang ini masalah awak, anak muda. Jangan sampai tenggelam."*  
-  > **Pemilik**: *"Saya akan bangunkan semula kelab ini. Apa pun jadinya."*  
-  > *"Dia menandatangani."*
+  > Pengerusi: Sekarang ni masalah awak, anak muda. Jangan sampai tenggelam.
+  > Pemilik: Saya akan cuba bina semula kelab ni. Apa pun jadinya.
+  > Dia menandatangani.
 
 ### Beat 6: The Hidden Clause (46 – 56s / 300 frames)
 * **Environment**: `environments/manager-office.js` — darkened, single lamp.
 * **Camera**: Slow push onto the red-stamped document.
+* **Narrator**: *"Bilik dah gelap. Satu dokumen dengan cop merah muncul — klausul yang tersorok daripada dia sejak awal."*
 * **Subtitles**:
-  > *"Klausul pinjaman persendirian tersembunyi: £450,000 tertunggak."*  
-  > *"Bayaran penuh dalam 30 hari — atau stadium ini dirampas."*  
-  > *"Wang simpanan saya hanya membeli hutangnya."*
+  > Bayaran penuh dalam 30 hari — atau stadium ni dirampas.
+  > Wang simpanan saya hanya beli hutangnya.
 
 ### Beat 7: The Hook (56 – 62s / 180 frames)
 * **Environment**: `environments/lender-boardroom.js` — match cut back to beat 1.
 * **Camera**: Same framing as the cold open; the solicitor closes the folder.
+* **Narrator**: *"Bilik kerja yang sama. Folder ditutup perlahan. Satu perkiraan dah bermula."*
 * **Subtitles**:
-  > **Peguam**: *"Tiga puluh hari."*  
-  > *"Hari pertama bermula sekarang."*
+  > Peguam: Tiga puluh hari.
+  > Hari pertama bermula sekarang.
 
 ### End Card (62 – 66s / 120 frames)
 * Cut to black, sound cue, title: **BULUH FC — EPISOD 1**.

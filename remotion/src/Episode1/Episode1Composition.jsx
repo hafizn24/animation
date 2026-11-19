@@ -16,9 +16,10 @@ const SCENES = [
     from: 0,
     duration: 240,
     director: createBoardroomScene,
+    narrator: "Malam ni, dalam bilik kerja yang sejuk, satu folder merah kena ketuk atas meja. Nampak macam biasa... tapi ada yang nak berakhir.",
     lines: [
-      { start: 6, end: 100, text: '£450,000 tertunggak.', emphasis: true },
-      { start: 110, end: 235, text: 'Tiga puluh hari. Atau stadium ini milik kami.' },
+      { start: 85, end: 150, text: 'RM450,000 tertunggak.', emphasis: true },
+      { start: 155, end: 235, text: 'Tiga puluh hari. Atau stadium ini milik kami.' },
     ],
   },
   {
@@ -26,9 +27,10 @@ const SCENES = [
     from: 240,
     duration: 180,
     director: createMatchdayScene,
+    narrator: "Padang dah gelap, tapi lampu stadium masih terang. Buluh FC... kelab yang dulu pernah ada harapan.",
     lines: [
-      { start: 8, end: 80, text: 'Divisyen keenam. Tempat kesembilan belas.' },
-      { start: 90, end: 175, text: '0 - 3. Dan pasukan ini sudah berputus asa.', emphasis: true },
+      { start: 85, end: 130, text: 'Peringkat rendah kita. Tempat kebelakangan.' },
+      { start: 135, end: 175, text: '0 - 3. Dan pasukan ni dah berputus asa.', emphasis: true },
     ],
   },
   {
@@ -36,10 +38,9 @@ const SCENES = [
     from: 420,
     duration: 240,
     director: createTunnelScene,
+    narrator: "Dia jalan dari gelap ke terang. Sepuluh tahun duit simpanan, orang kata ni bunuh diri... tapi dia tak peduli.",
     lines: [
-      { start: 5, end: 80, text: 'Sepuluh tahun simpanan. Setiap sen yang saya hasilkan.' },
-      { start: 90, end: 170, text: 'Semua orang kata ini bunuh diri kewangan.' },
-      { start: 180, end: 235, text: 'Tapi inilah rumah saya.', emphasis: true },
+      { start: 85, end: 235, text: 'Tapi ni rumah saya.', emphasis: true },
     ],
   },
   {
@@ -47,20 +48,21 @@ const SCENES = [
     from: 660,
     duration: 360,
     director: createLockerRoomScene,
+    narrator: "Bilik ganti sunyi, lampu berkelip. Dia masuk, dan terus rasa tekanan tu.",
     lines: [
       {
-        start: 10,
-        end: 120,
+        start: 85,
+        end: 165,
         speaker: 'Pemilik',
-        text: 'Saya tahu ini berat. Tapi semuanya berubah hari ini.',
+        text: 'Saya tahu ni berat. Tapi semuanya berubah hari ini.',
       },
       {
-        start: 135,
-        end: 290,
+        start: 170,
+        end: 280,
         speaker: 'Jurulatih',
-        text: 'Dengan segala hormatnya, bos... kata-kata tak bayar bil elektrik. Atau gaji budak-budak ini.',
+        text: 'Maaf bos, tapi kata-kata tak bagi pampasan untuk bayar bil elektrik. Atau gaji pemain.',
       },
-      { start: 305, end: 355, text: 'Sunyi.' },
+      { start: 285, end: 355, text: 'Sunyi menerpa ruang.' },
     ],
   },
   {
@@ -68,21 +70,22 @@ const SCENES = [
     from: 1020,
     duration: 360,
     director: createHandoverScene,
+    narrator: "Meja kayu, lampu meja, sepasang kunci. Pengerusi tak banyak cakap — tapi dia tahu beban yang dia serahkan.",
     lines: [
       {
-        start: 10,
-        end: 130,
+        start: 85,
+        end: 175,
         speaker: 'Pengerusi',
-        text: 'Sekarang ini masalah awak, anak muda. Jangan sampai tenggelam.',
+        text: 'Sekarang ni masalah awak, anak muda. Jangan sampai tenggelam.',
       },
       {
-        start: 150,
+        start: 180,
         end: 290,
         speaker: 'Pemilik',
-        text: 'Saya akan bangunkan semula kelab ini. Apa pun jadinya.',
+        text: 'Saya akan cuba bina semula kelab ni. Apa pun jadinya.',
         emphasis: true,
       },
-      { start: 310, end: 355, text: 'Dia menandatangani.' },
+      { start: 295, end: 355, text: 'Dia menandatangani.' },
     ],
   },
   {
@@ -90,10 +93,10 @@ const SCENES = [
     from: 1380,
     duration: 300,
     director: createCliffhangerScene,
+    narrator: "Bilik dah gelap. Satu dokumen dengan cop merah muncul — klausul yang tersorok daripada dia sejak awal.",
     lines: [
-      { start: 10, end: 110, text: 'Klausul pinjaman persendirian tersembunyi: £450,000 tertunggak.' },
-      { start: 125, end: 230, text: 'Bayaran penuh dalam 30 hari — atau stadium ini dirampas.' },
-      { start: 245, end: 295, text: 'Wang simpanan saya hanya membeli hutangnya.', emphasis: true },
+      { start: 85, end: 180, text: 'Bayaran penuh dalam 30 hari — atau stadium ni dirampas.' },
+      { start: 185, end: 295, text: 'Wang simpanan saya hanya beli hutangnya.', emphasis: true },
     ],
   },
   {
@@ -101,9 +104,10 @@ const SCENES = [
     from: 1680,
     duration: 180,
     director: createBoardroomScene,
+    narrator: "Bilik kerja yang sama. Folder ditutup perlahan. Satu perkiraan dah bermula.",
     lines: [
-      { start: 15, end: 85, speaker: 'Peguam', text: 'Tiga puluh hari.' },
-      { start: 100, end: 175, text: 'Hari pertama bermula sekarang.', emphasis: true },
+      { start: 85, end: 125, speaker: 'Peguam', text: 'Tiga puluh hari.' },
+      { start: 130, end: 175, text: 'Hari pertama bermula sekarang.', emphasis: true },
     ],
   },
 ];
@@ -175,7 +179,7 @@ export const Episode1Composition = () => (
       <Sequence key={scene.id} from={scene.from} durationInFrames={scene.duration}>
         <Scene3D director={scene.director} />
         <SafeArea />
-        <Subtitles lines={scene.lines} />
+        <Subtitles lines={scene.lines} narrator={scene.narrator} />
         <CutFlash />
       </Sequence>
     ))}

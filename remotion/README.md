@@ -53,8 +53,8 @@ the discovery — then loops back to the same boardroom for the final hook.
 | 7 | 56 – 62s | Back to the solicitor — the countdown starts |
 | End | 62 – 66s | Title card: **Buluh FC — Episod 1** |
 
-There is no TTS. The story is carried by stylised Malay subtitles, lighting and
-camera movement.
+There is no TTS. Each beat opens with casual Malay narrator text, followed by
+stylised character subtitles, lighting and camera movement.
 
 ## Running it
 
