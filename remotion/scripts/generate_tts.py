@@ -40,18 +40,10 @@ MANIFEST = [
     ("b6_pemilik", "pemilik", 1765, 1832, "Wang simpanan saya hanya beli hutangnya."),
     ("b7_narrator", "narrator", 1910, 2035, "Bilik kerja yang sama. Folder ditutup perlahan. Satu perkiraan dah bermula."),
     ("b7_peguam", "peguam", 2038, 2119, "Tiga puluh hari. Hari pertama bermula sekarang."),
-    ("e2_b1_narrator", "narrator", 0, 150, "RM450,000 tertunggak. 30 hari lagi, stadium Buluh FC dirampas."),
-    ("e2_b2_narrator", "narrator", 150, 260, "Hari demi hari, dia kejar penaja besar. Satu demi satu."),
-    ("e2_b2_penaja1", "penaja", 260, 375, "Divisyen 5? Maaf, bos. Kami nak logo pada kelab yang orang kenal."),
-    ("e2_b2_penaja2", "penaja", 385, 495, "Tak ada bajet. Bila stadium penuh, baru kita borak."),
-    ("e2_b2_narrator2", "narrator", 540, 630, "Pintu demi pintu tertutup. Tapi dia tak berhenti."),
-    ("e2_b3_narrator", "narrator", 630, 745, "Tapi di hujung jalan, sebuah kedai kek kecil terdengar pasal ni."),
-    ("e2_b3_penaja", "penaja", 755, 900, "Kami tak ada duit besar. Tapi kami boleh bawa kek... dan sokongan. Kami percaya pada korang."),
-    ("e2_b3_narrator2", "narrator", 970, 1050, "Tak banyak. Tapi buat pertama kali, ada yang percaya."),
-    ("e2_b4_narrator", "narrator", 1050, 1140, "Petang itu, di bilik kerja yang sama, satu idea lahir."),
-    ("e2_b4_pemilik", "pemilik", 1145, 1255, "Kita buat perlawanan amal. Kumpul duit orang ramai."),
-    ("e2_b4_jurulatih", "jurulatih", 1245, 1320, "Kau fikir orang nak datang tengok perlawanan kita?"),
-    ("e2_b4_cta", "narrator", 1340, 1500, "Mampukah perlawanan amal ni selamatkan Buluh FC? Komen 'EPISOD 3' kalau nak tengok!"),
+    ("e2_b1_narrator", "narrator", 0, 120, "Empat ratus lima puluh ribu ringgit. Tiga puluh hari... atau stadium Buluh FC dirampas."),
+    ("e2_b2_narrator", "narrator", 150, 600, "Satu demi satu penaja besar menolak. Divisyen lima, katanya tak berbaloi. Semua pintu tertutup."),
+    ("e2_b3_narrator", "narrator", 630, 1020, "Sehinggalah sebuah kedai kek kecil, Kek Maju, sanggup hulur tangan. Tak cukup untuk tutup semua hutang... tapi cukup untuk terus berjuang."),
+    ("e2_b4_cta", "narrator", 1050, 1470, "Hanya ada satu jalan. Perlawanan amal untuk kumpul dana! Mampukah Buluh FC selamat? Komen 'EPISOD 3' kalau nak tengok!"),
 ]
 
 
@@ -140,6 +132,18 @@ def main():
             synthesize(key, text, VOICES[speaker], speed, raw)
             normalize(raw, final)
             length = duration(final)
+
+        if length > budget + 0.15:
+            tempo = min(length / budget, 1.9)
+            fitted = raw_dir / f"{name}_fit.mp3"
+            subprocess.run(
+                [FFMPEG, "-y", "-loglevel", "error", "-i", str(final),
+                 "-filter:a", f"atempo={tempo:.4f}", "-ar", "44100", "-b:a", "160k", str(fitted)],
+                check=True,
+            )
+            fitted.replace(final)
+            length = duration(final)
+            speed = round(speed * tempo, 2)
 
         flag = "OK" if length <= budget + 0.15 else "OVER"
         print(f"{name + '.mp3':20} {budget:6.2f}s {length:8.2f}s {speed:5.2f}x {flag}")

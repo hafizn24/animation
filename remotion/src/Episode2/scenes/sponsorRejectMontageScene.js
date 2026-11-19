@@ -25,9 +25,16 @@ export const createSponsorRejectMontageScene = (renderer, size) => createSceneDi
       position: [0.9, 0, -1.6],
       rotationY: -0.12,
       animate: ({ t, parts }) => {
-        const check = smooth(clamp((t - 0.3) / 0.9, 0, 1));
-        if (parts.leftArm) parts.leftArm.rotation.x = lerp(-1.1, -1.45, check);
-        if (parts.head) parts.head.rotation.x = lerp(0.1, 0.34, check);
+        const check = smooth(clamp((t - 0.3) / 1.2, 0, 1));
+        if (parts.leftArm) {
+          parts.leftArm.rotation.x = lerp(-0.35, -0.72, check);
+          parts.leftArm.rotation.z = lerp(0.42, 0.28, check);
+        }
+        if (parts.rightArm) {
+          parts.rightArm.rotation.x = 0.08;
+          parts.rightArm.rotation.z = 0.3;
+        }
+        if (parts.head) parts.head.rotation.x = lerp(0.08, 0.24, check);
       },
     },
     {
@@ -51,8 +58,15 @@ export const createSponsorRejectMontageScene = (renderer, size) => createSceneDi
       position: [2.7, 0, -1.0],
       rotationY: -0.3,
       animate: ({ t, parts }) => {
-        const wave = Math.sin(t * 5.5) * 0.18;
-        if (parts.rightArm) parts.rightArm.rotation.x = -1.5 + wave;
+        const wave = Math.sin(t * 4.5) * 0.12;
+        if (parts.rightArm) {
+          parts.rightArm.rotation.x = -0.35 + wave;
+          parts.rightArm.rotation.z = 0.34 + wave * 0.3;
+        }
+        if (parts.leftArm) {
+          parts.leftArm.rotation.x = -0.22;
+          parts.leftArm.rotation.z = -0.36;
+        }
         if (parts.head) parts.head.rotation.y = -0.2 + wave * 0.4;
       },
     },

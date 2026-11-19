@@ -37,7 +37,7 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 - **Cliffhanger:** How will Buluh FC survive the first week with zero budget?
 
 ### Episode 2 — *Hari 27: Divisyen 5* (In production)
-- **Status:** Scripted for Remotion (`remotion/src/Episode2/`); 1,500 frames / 50s @ 30fps; vertical Shorts cut with **no on-screen captions and no TTS playback** so the visuals can be validated first. The Malay TTS script and beat-aligned clips are prepared but intentionally not mounted in the composition yet.
+- **Status:** Scripted for Remotion (`remotion/src/Episode2/`); 1,500 frames / 50s @ 30fps; vertical Shorts cut with **timed Malay TTS and zero on-screen captions**. One voiceover clip per beat, mounted at frames 0 / 150 / 630 / 1050.
 - **Countdown:** 27 days left
 - **4-beat Shorts structure:**
   1. **0–5s — Episode 1 recap.** Quick flash of the lender boardroom: the RM450,000 DEFAULT NOTICE slams onto the table. VO recaps that Buluh FC has less than 30 days before the stadium is seized.
@@ -46,4 +46,4 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
   4. **36–50s — Crowdfunding friendly-match cliffhanger.** Owner and Coach decide to organise a crowdfunding friendly match to save the club. Ends on a **spoken** CTA — *"Mampukah perlawanan amal ni selamatkan Buluh FC? Komen 'EPISOD 3' kalau nak tengok!"* — with no static title card.
 - **Cliffhanger:** Can the charity match save Buluh FC? Sets up the crowdfunding friendly-match arc for Episode 3.
 
-**Script location:** the beat frame ranges live in the `SCENES` array in `remotion/src/Episode2/Episode2Composition.jsx`. TTS text and beat-aligned frame budgets are in `remotion/scripts/generate_tts.py` (prefix `e2_`; speaker `penaja` maps to voice_4). Re-enable audio there later with `python scripts/generate_tts.py e2_` and `<Audio>` sequences.
+**Script location:** the beat frame ranges and audio cue frames live in the `SCENES` array in `remotion/src/Episode2/Episode2Composition.jsx`. TTS text and beat-aligned frame budgets are in `remotion/scripts/generate_tts.py` (prefix `e2_`). Regenerate with `python scripts/generate_tts.py e2_`. Captions stay off; the story is carried by voiceover plus 3D props (DEFAULT NOTICE, KEK MAJU sign, PERLAWANAN AMAL poster).
