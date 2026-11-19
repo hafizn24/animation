@@ -42,15 +42,15 @@ export const createOfficePlanScene = (renderer, size) => createSceneDirector(ren
     const paper = makePaperBall();
     paper.position.set(0.02, 0.11, 0.04);
     prop.add(clipboard, paper);
-    prop.position.set(-0.65, 0.88, 1.65);
+    prop.position.set(-0.65, 0.82, 1.5);
     prop.rotation.y = 0.2;
     scene.add(prop);
     return { prop };
   },
   onFrame: ({ t, extra }) => {
-    const lift = smooth(clamp((t - 6) / 2, 0, 1));
-    extra.prop.position.y = lerp(0.88, 1.32, lift);
-    extra.prop.rotation.z = lerp(0, 0.3, lift);
+    const lift = smooth(clamp((t - 5) / 1.4, 0, 1)) * (1 - smooth(clamp((t - 8) / 2, 0, 1)));
+    extra.prop.position.y = lerp(0.82, 1.02, lift);
+    extra.prop.rotation.z = lerp(0, 0.18, lift);
   },
   actors: [
     {
@@ -58,7 +58,7 @@ export const createOfficePlanScene = (renderer, size) => createSceneDirector(ren
       outfit: 'navyOwner',
       pose: 'idle',
       scale: 0.95,
-      position: [-0.8, 0, 2.2],
+      position: [-0.2, 0, 1.6],
       rotationY: 0.15,
       animate: ({ t, rig, parts }) => {
         const lean = smooth(clamp((t - 5) / 3, 0, 1));
@@ -72,7 +72,7 @@ export const createOfficePlanScene = (renderer, size) => createSceneDirector(ren
       Class: SoccerCoachOutfitApp,
       outfit: 'navyCoach',
       scale: 0.95,
-      position: [1.2, 0, -1.6],
+      position: [0.9, 0, -1.2],
       rotationY: -0.2,
       animate: ({ t, parts }) => {
         const open = smooth(clamp((t - 8) / 2, 0, 1));
@@ -93,9 +93,10 @@ export const createOfficePlanScene = (renderer, size) => createSceneDirector(ren
     fov: 74,
     ease: smooth,
     keys: [
-      [0, [3.0, 2.1, 5.0], [0, 1.25, 0], 74],
-      [5.5, [2.4, 1.95, 4.3], [0, 1.25, 0], 70],
-      [11, [1.8, 1.8, 3.6], [0, 1.25, 0], 66],
+      [0, [3.4, 2.25, 6.4], [0.2, 1.3, 0.3], 78],
+      [5.5, [3.0, 2.1, 5.6], [0.2, 1.3, 0.2], 74],
+      [11, [2.6, 1.95, 4.8], [0.2, 1.3, 0.1], 70],
+      [15, [2.4, 1.9, 4.4], [0.2, 1.3, 0], 68],
     ],
   },
 });

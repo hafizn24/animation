@@ -30,8 +30,7 @@
 
 ---
 
-## Subtitle & Metadata Checklist
-- [ ] **Font:** Large, bold, high-contrast (white/yellow with thick black outline).
-- [ ] **Safe Zone:** Position captions above the bottom YouTube Shorts UI bar.
-- [ ] **Keyword Highlights:** Color key numbers/stakes in red or yellow (**RM450,000**, **30 HARI**, **0 - 3**).
-- [ ] **Hashtags:** Use accurate tags (`#buluhfc`, `#bolasepak`, `#animasi`, `#ceritabolasepak`) — avoid misleading tags like `#fifa` if there's no gameplay.
+## No-Caption Storytelling Rules
+- **Zero Dialogue Captions:** Do not render `<Subtitles />` or dialogue text boxes on screen.
+- **Audio Priority:** Keep Malay TTS crisp and 6–8 dB louder than background music so every line is clear on phone speakers.
+- **Visual Cues Carry the Plot:** Rely on 3D props and lighting shifts (e.g., red `DEFAULT NOTICE` folder, warm bakery lighting + bread boxes, friendly match banner) so the plot is obvious even at a glance.
