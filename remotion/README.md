@@ -4,7 +4,7 @@ Vertical football storytelling built with [Remotion](https://remotion.dev) and
 Three.js, using the procedural sets and character rigs that already live in this
 repository.
 
-- **`out/episode-1.mp4`** – Episode 1: 720×1280, 9:16, 30fps, 66s.
+- **`out/episode-1.mp4`** – Episode 1: 720×1280, 9:16, 30fps, 75s, with Malay TTS.
 - `out/matchday-v2.mp4` – the original 10 second vertical matchday cut.
 
 ## Format
@@ -44,17 +44,18 @@ the discovery — then loops back to the same boardroom for the final hook.
 
 | Beat | Time | Setting |
 |---|---|---|
-| 1 | 0 – 8s | Cold open — £450,000 overdue, 30 days |
-| 2 | 8 – 14s | 0–3 on the scoreboard |
-| 3 | 14 – 22s | The tunnel — "this is home" |
-| 4 | 22 – 34s | Locker room — words meet a wall of silence |
-| 5 | 34 – 46s | Manager's office — the chairman hands over the keys |
-| 6 | 46 – 56s | The default notice under the desk lamp |
-| 7 | 56 – 62s | Back to the solicitor — the countdown starts |
-| End | 62 – 66s | Title card: **Buluh FC — Episod 1** |
+| 1 | 0 – 11.3s | Cold open — RM450,000 overdue, 30 days |
+| 2 | 11.3 – 19.3s | 0–3 on the scoreboard |
+| 3 | 19.3 – 27.3s | The tunnel — "this is home" |
+| 4 | 27.3 – 40.7s | Locker room — words meet a wall of silence |
+| 5 | 40.7 – 53.7s | Manager's office — the chairman hands over the keys |
+| 6 | 53.7 – 63.7s | The default notice under the desk lamp |
+| 7 | 63.7 – 70.8s | Back to the solicitor — the countdown starts |
+| End | 70.8 – 74.8s | Title card: **Buluh FC — Episod 1** |
 
-There is no TTS. Each beat opens with casual Malay narrator text, followed by
-stylised character subtitles, lighting and camera movement.
+Malay TTS (ILMU `ilmu-tts-v2.1`) is generated per line by `scripts/generate_tts.py`
+and saved to `public/audio/tts/`. Each beat opens with narration, followed by
+character voices; stylised subtitles, lighting and camera movement carry the rest.
 
 ## Running it
 
@@ -72,7 +73,8 @@ Every frame is deterministic — no `Math.random`, no `Date.now`, no clock.
 
 - `src/Root.jsx` – registers both compositions at 720×1280.
 - `src/Episode1/Episode1Composition.jsx` – the seven-beat timeline, Malay subtitle
-  script, cut flashes and end card.
+  script, TTS clips, cut flashes and end card.
+- `scripts/generate_tts.py` – regenerates the per-line ILMU TTS clips.
 - `src/Episode1/sceneKit.js` – shared environment/rig/camera builder.
 - `src/Episode1/scenes/` – one director per beat.
 - `src/components/Scene3D.jsx` – deterministic WebGL frame drawing inside `delayRender`.
