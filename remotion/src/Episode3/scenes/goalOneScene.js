@@ -9,6 +9,7 @@ import {
   createBallWithTrail,
   createNetRipple,
   createSceneDirector,
+  kickSwing,
   lerp,
   smooth,
 } from '../sceneKit.js';
@@ -50,13 +51,14 @@ export const createGoalOneScene = (renderer, size) => createSceneDirector(render
       position: [1.9, 0, 40.6],
       rotationY: 0.06,
       animate: ({ frame, rig, parts }) => {
-        const follow = smooth(clamp(frame / 22, 0, 1));
-        rig.rotation.y = lerp(-0.42, 0.18, follow);
-        if (parts.rightLeg) parts.rightLeg.rotation.x = lerp(-1.15, 0.85, follow);
-        if (parts.leftLeg) parts.leftLeg.rotation.x = lerp(0.3, -0.4, follow);
-        if (parts.rightArm) parts.rightArm.rotation.x = -0.7 * follow;
-        if (parts.leftArm) parts.leftArm.rotation.z = -0.5 - follow * 0.4;
-        if (parts.head) parts.head.rotation.x = 0.12 * follow;
+        const kick = kickSwing(frame, 6, { windup: 8, follow: 16 });
+        rig.rotation.y = kick.torso;
+        if (parts.rightLeg) parts.rightLeg.rotation.x = kick.leg;
+        if (parts.leftLeg) parts.leftLeg.rotation.x = kick.plant;
+        if (parts.rightArm) parts.rightArm.rotation.x = kick.arm;
+        if (parts.leftArm) parts.leftArm.rotation.z = -0.5 - kick.arm * 0.5;
+        if (parts.head) parts.head.rotation.x = 0.12 * smooth(clamp(frame / 18, 0, 1));
+        if (parts.torso) parts.torso.rotation.x = 0.08 * smooth(clamp(frame / 18, 0, 1));
       },
     },
     {
@@ -66,7 +68,7 @@ export const createGoalOneScene = (renderer, size) => createSceneDirector(render
       position: [1.1, 0, 48.9],
       rotationY: Math.PI,
       animate: ({ frame, rig, parts }) => {
-        const dive = smooth(clamp((frame - 10) / 16, 0, 1));
+        const dive = smooth(clamp((frame - 6) / 18, 0, 1));
         rig.rotation.z = -0.62 * dive;
         rig.position.x = 1.1 + dive * 0.9;
         if (parts.rightArm) parts.rightArm.rotation.z = -0.3 - dive * 1.2;
@@ -90,14 +92,12 @@ export const createGoalOneScene = (renderer, size) => createSceneDirector(render
     fov: 76,
     ease: smooth,
     keys: [
-      [0, [3.6, 1.05, 35.8], [1.9, 1.1, 42.4], 76],
-      [0.3, [3.4, 1.0, 36.4], [1.9, 1.1, 42.8], 72],
-      [0.33, [5.0, 1.3, 40.5], [1.6, 1.2, 46], 66],
-      [0.83, [4.6, 1.2, 42.0], [1.2, 1.2, 48.5], 62],
-      [0.86, [8.2, 2.3, 44.5], [0.4, 1.25, 50.2], 60],
-      [1.46, [7.8, 2.2, 45.0], [0.4, 1.25, 50.2], 58],
-      [1.5, [3.0, 1.6, 45.5], [1.1, 1.3, 49], 58],
-      [3.0, [2.8, 1.5, 46.0], [1.1, 1.3, 49], 56],
+      [0, [6.4, 0.72, 43.4], [2.0, 1.25, 41.0], 76],
+      [0.45, [6.0, 0.7, 43.8], [2.0, 1.3, 41.2], 72],
+      [1.5, [5.6, 0.7, 44.2], [1.9, 1.35, 41.6], 68],
+      [1.53, [3.4, 0.95, 45.4], [1.1, 1.35, 49.6], 64],
+      [2.4, [3.2, 0.95, 46.0], [1.1, 1.4, 50.0], 60],
+      [3.0, [3.0, 0.95, 46.2], [1.1, 1.45, 50.2], 58],
     ],
   },
   postCamera: ({ camera, frame }) => {

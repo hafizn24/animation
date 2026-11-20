@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { createBallTexture, createSkyTexture, createRandom } from '../scene/textures.js';
-import { clamp, forEachLight, smooth } from '../Episode1/sceneKit.js';
+import { clamp, forEachLight, lerp, smooth } from '../Episode1/sceneKit.js';
 
 export { clamp, lerp, smooth, sampleKeys, createSceneDirector, forEachLight } from '../Episode1/sceneKit.js';
 
@@ -83,11 +83,51 @@ export function addBakeryAdBoard(scene, { x = 4, z = -53, width = 9 } = {}) {
   return group;
 }
 
-/** Lightweight InstancedMesh crowd with a deterministic sine-wave jump. */
+/**
+ * Deterministic phase-offset cheering arms. ~145° from the hanging rest pose,
+ * so silhouettes read as raised fists instead of horizontal T-poles.
+ */
+export function cheerPose(frame, phase = 0, { raise = 2.55, pump = 0.16, speed = 5.2 } = {}) {
+  const t = frame / 30;
+  return {
+    left: -(raise + pump * Math.sin(t * speed + phase)),
+    right: raise + pump * Math.sin(t * speed + phase + 1.35),
+    head: Math.sin(t * 2.4 + phase) * 0.12,
+    breath: Math.sin(t * 1.8 + phase) * 0.02,
+  };
+}
+
+/**
+ * Deterministic kick cycle: wind-up -> strike contact -> follow-through.
+ * `contactFrame` is the local frame of foot-to-ball contact for that goal.
+ */
+export function kickSwing(frame, contactFrame, { windup = 12, follow = 18 } = {}) {
+  const wind = smooth(clamp((frame - (contactFrame - windup)) / windup, 0, 1));
+  const strike = smooth(clamp((frame - contactFrame + 2) / 4, 0, 1));
+  const recover = smooth(clamp((frame - contactFrame - 5) / follow, 0, 1));
+  const swing = lerp(lerp(0.08, -1.18, wind), 1.12, strike);
+  return {
+    leg: lerp(swing, 0.42, recover),
+    plant: lerp(-0.1, 0.34, wind) * (1 - 0.72 * strike),
+    torso: lerp(lerp(-0.34, -0.06, wind), 0.36, strike) * (1 - 0.55 * recover),
+    arm: lerp(-0.3, 0.62, strike) * (1 - 0.45 * recover),
+  };
+}
+
+/** Lightweight InstancedMesh crowd with deterministic cheering arms + jump. */
 export function createCrowd(scene, { count = 120, startX = -30, endX = 30, z = -54.5 } = {}) {
-  const geometry = new THREE.CapsuleGeometry(0.17, 0.5, 4, 6);
   const material = new THREE.MeshBasicMaterial({ color: 0x111725 });
-  const mesh = new THREE.InstancedMesh(geometry, material, count);
+  const body = new THREE.InstancedMesh(new THREE.CapsuleGeometry(0.17, 0.5, 4, 6), material, count);
+  const armGeom = new THREE.CapsuleGeometry(0.06, 0.36, 3, 6);
+  armGeom.translate(0, -0.24, 0);
+  const leftArms = new THREE.InstancedMesh(armGeom, material, count);
+  const rightArms = new THREE.InstancedMesh(armGeom, material, count);
+  const meshes = [body, leftArms, rightArms];
+  meshes.forEach((mesh) => {
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(mesh);
+  });
+
   const dummy = new THREE.Object3D();
   const rnd = createRandom(731);
   const seeds = [];
@@ -102,24 +142,36 @@ export function createCrowd(scene, { count = 120, startX = -30, endX = 30, z = -
       scale: 0.85 + rnd() * 0.35,
     });
   }
-  mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
-  scene.add(mesh);
 
   const update = (frame, intensity = 1) => {
     const t = frame / 30;
     seeds.forEach((seed, i) => {
+      const cheer = cheerPose(frame, seed.phase, { raise: 2.5, pump: 0.18, speed: 5.8 });
       const wave = Math.max(0, Math.sin(t * 6.4 + seed.phase));
       const bounce = wave * wave * 0.75 * intensity;
+      const yaw = Math.sin(seed.phase) * 0.3;
+      const shoulderY = 0.95 * seed.scale + bounce;
+
       dummy.position.set(seed.x, 0.62 * seed.scale + bounce, seed.z);
       dummy.scale.setScalar(seed.scale);
-      dummy.rotation.y = Math.sin(seed.phase) * 0.3;
+      dummy.rotation.set(0, yaw, Math.sin(t * 2 + seed.phase) * 0.05 * intensity);
       dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
+      body.setMatrixAt(i, dummy.matrix);
+
+      dummy.position.set(seed.x - 0.17 * seed.scale, shoulderY, seed.z);
+      dummy.rotation.set(0, yaw, cheer.left * intensity);
+      dummy.updateMatrix();
+      leftArms.setMatrixAt(i, dummy.matrix);
+
+      dummy.position.set(seed.x + 0.17 * seed.scale, shoulderY, seed.z);
+      dummy.rotation.set(0, yaw, cheer.right * intensity);
+      dummy.updateMatrix();
+      rightArms.setMatrixAt(i, dummy.matrix);
     });
-    mesh.instanceMatrix.needsUpdate = true;
+    meshes.forEach((mesh) => { mesh.instanceMatrix.needsUpdate = true; });
   };
   update(0, 0);
-  return { mesh, update };
+  return { mesh: body, meshes, update };
 }
 
 /** Ball plus a deterministic glowing motion trail (no frame history needed). */

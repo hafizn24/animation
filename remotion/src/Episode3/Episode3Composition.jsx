@@ -41,6 +41,22 @@ const WHISTLE_FRAME = CLIFFHANGER.fromFrame + (WHISTLE_EVENT ? WHISTLE_EVENT.fra
 const TITLE_FROM = TITLE_CARD.fromFrame;
 const clampOpts = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' };
 
+const FAN_SCENE = getScene('fans-believe');
+const FAN_DIALOGUE = FAN_SCENE.lines.filter((line) => line.type === 'dialogue');
+const CROWD_DUCK_GAIN = 10 ** (-5.5 / 20);
+
+/** Extra ~5.5 dB duck on the fan-scene crowd bed while anyone is talking. */
+const cueVolume = (scene, cue) => {
+  if (scene.id !== FAN_SCENE.id || !cue.file.startsWith('crowd')) return () => cue.volume;
+  return (localFrame) => {
+    const absolute = scene.fromFrame + cue.frame + localFrame;
+    const talking = FAN_DIALOGUE.some(
+      (line) => absolute >= line.startFrame - 6 && absolute <= line.endFrame + 6
+    );
+    return cue.volume * (talking ? CROWD_DUCK_GAIN : 1);
+  };
+};
+
 const CutFlash = () => {
   const frame = useCurrentFrame();
   if (frame >= 2) return null;
@@ -142,7 +158,7 @@ export const Episode3Composition = () => (
         ))}
         {sceneCues(scene).map((cue, index) => (
           <Sequence key={`${cue.file}-${index}`} from={cue.frame}>
-            <Audio src={staticFile(`audio/sfx/${cue.file}`)} volume={cue.volume} />
+            <Audio src={staticFile(`audio/sfx/${cue.file}`)} volume={cueVolume(scene, cue)} />
           </Sequence>
         ))}
       </Sequence>

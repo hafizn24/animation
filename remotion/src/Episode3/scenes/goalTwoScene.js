@@ -8,6 +8,7 @@ import {
   createBallWithTrail,
   createNetRipple,
   createSceneDirector,
+  kickSwing,
   lerp,
   smooth,
 } from '../sceneKit.js';
@@ -77,23 +78,38 @@ export const createGoalTwoScene = (renderer, size) => createSceneDirector(render
         rig.position.x = lerp(6.2, 1.6, run);
         rig.position.z = lerp(35.5, 43.6, run);
         const phase = frame * 0.62;
-        if (parts.leftLeg) parts.leftLeg.rotation.x = Math.sin(phase) * 0.55 * run;
-        if (parts.rightLeg) parts.rightLeg.rotation.x = -Math.sin(phase) * 0.55 * run;
-        const finish = smooth(clamp((frame - 150) / 20, 0, 1));
-        if (parts.rightLeg) parts.rightLeg.rotation.x = -1.05 * Math.sin(finish * Math.PI);
-        if (parts.rightArm) parts.rightArm.rotation.z = 0.45 + finish * 0.6;
+        const stride = Math.max(0.55, run);
+        if (parts.leftLeg) parts.leftLeg.rotation.x = Math.sin(phase) * 0.55 * stride;
+        if (parts.rightLeg) parts.rightLeg.rotation.x = -Math.sin(phase) * 0.55 * stride;
+        if (parts.torso) parts.torso.rotation.x = 0.16 * stride;
+        if (parts.leftArm) parts.leftArm.rotation.x = -Math.sin(phase) * 0.4 * stride;
+        if (parts.rightArm) parts.rightArm.rotation.x = Math.sin(phase) * 0.4 * stride;
+        const kick = kickSwing(frame, 152, { windup: 14, follow: 18 });
+        if (frame >= 138) {
+          if (parts.rightLeg) parts.rightLeg.rotation.x = kick.leg;
+          if (parts.leftLeg) parts.leftLeg.rotation.x = kick.plant;
+          if (parts.rightArm) parts.rightArm.rotation.x = kick.arm;
+          if (parts.torso) parts.torso.rotation.x = 0.16 * (1 - smooth(clamp((frame - 138) / 14, 0, 1))) + kick.torso * 0.6;
+          rig.rotation.y = kick.torso * 0.7;
+        }
       },
     },
-    ...[0, 1].map((i) => ({
+    ...[[2.6, 33], [8.6, 36.5]].map(([x, z], i) => ({
       Class: SoccerOutfitApp,
       outfit: 'hulubalangBlackOrange',
       scale: 0.78,
-      position: [2.6 + i * 4, 0, 33 + i * 2],
+      position: [x, 0, z],
       rotationY: Math.PI - 0.3,
-      animate: ({ frame, parts }) => {
+      animate: ({ frame, rig, parts }) => {
+        const phase = frame * 0.58 + i * 1.7;
+        const track = smooth(clamp((frame - 24 - i * 6) / 26, 0, 1));
+        if (parts.leftLeg) parts.leftLeg.rotation.x = Math.sin(phase) * 0.5 * track;
+        if (parts.rightLeg) parts.rightLeg.rotation.x = -Math.sin(phase) * 0.5 * track;
+        if (parts.torso) parts.torso.rotation.x = 0.14 * track;
+        if (parts.leftArm) parts.leftArm.rotation.x = -Math.sin(phase) * 0.32 * track;
+        if (parts.rightArm) parts.rightArm.rotation.x = Math.sin(phase) * 0.32 * track;
         if (parts.head) parts.head.rotation.y = Math.sin(frame * 0.12 + i) * 0.35;
-        if (parts.leftArm) parts.leftArm.rotation.z = -0.55 - Math.sin(frame * 0.1) * 0.15;
-        if (parts.rightArm) parts.rightArm.rotation.z = 0.55 + Math.sin(frame * 0.1) * 0.15;
+        rig.position.x = x + Math.sin(phase) * 0.18 * track;
       },
     })),
     {
@@ -116,8 +132,8 @@ export const createGoalTwoScene = (renderer, size) => createSceneDirector(render
     keys: [
       [0, [17, 6.5, 19], [3, 1, 28], 76],
       [0.96, [15, 5.5, 21], [3, 1, 30], 72],
-      [1.0, [9, 2.3, 29], [5, 1, 36], 68],
-      [3.0, [8, 2.1, 31], [6, 1, 38], 66],
+      [1.0, [12.0, 2.6, 32.5], [7.0, 1.2, 35.3], 68],
+      [3.0, [11.4, 2.4, 33.2], [7.0, 1.2, 36.0], 66],
       [3.03, [12, 3.4, 35], [2, 1, 44], 64],
       [5.0, [10, 3.0, 37], [1.5, 1.1, 45], 62],
       [5.03, [5, 1.7, 42.5], [1, 1.2, 49], 60],

@@ -7,6 +7,7 @@ import { getScene, localEvent } from '../timings.js';
 import {
   addBakeryAdBoard,
   applyGoldenHour,
+  cheerPose,
   clamp,
   createCrowd,
   createSceneDirector,
@@ -40,16 +41,21 @@ const makeBakerApron = () => {
   return apron;
 };
 
-/** Touchline celebration — bakery owner cameo + instanced jumping crowd. */
+/**
+ * Touchline celebration. The whole party sits at z ≈ -30 (well in front of the
+ * goal at z = -50 and its net/railing), with the KEK MAJU board BEHIND them at
+ * z = -33. The camera stays at z ≈ -20, so nothing obstructs the shot.
+ * All arm motion uses phase-offset sine waves — no identical T-poses.
+ */
 export const createFanScene = (renderer, size) => createSceneDirector(renderer, {
   ...size,
   environment: StadiumApp,
   grade: (scene) => {
     applyGoldenHour(scene);
-    addBakeryAdBoard(scene, { x: -3, z: -54.8, width: 10 });
+    addBakeryAdBoard(scene, { x: 0, z: -33, width: 11 });
   },
   extra: (scene, { actors }) => {
-    const crowd = createCrowd(scene, { count: 132, startX: -30, endX: 30, z: -56.5 });
+    const crowd = createCrowd(scene, { count: 132, startX: -30, endX: 30, z: -34.5 });
     const baker = actors.find((actor) => actor.Class === AnotherCasualOutfitApp);
     const torso = baker?.parts?.torso || baker?.rig?.getObjectByName('Torso');
     if (baker && torso) torso.add(makeBakerApron());
@@ -57,7 +63,7 @@ export const createFanScene = (renderer, size) => createSceneDirector(renderer, 
   },
   onFrame: ({ frame, extra }) => {
     const start = JUMP ? JUMP.frame : 0;
-    const energy = frame >= start ? 1 : 0.15;
+    const energy = frame >= start ? 1 : 0.18;
     extra.crowd.update(frame, energy);
   },
   actors: [
@@ -66,17 +72,26 @@ export const createFanScene = (renderer, size) => createSceneDirector(renderer, 
       outfit: 'beigeSweater',
       hair: 'long',
       scale: 0.94,
-      position: [-3.6, 0, -53.6],
+      position: [-3.6, 0, -30.2],
       rotationY: 0.1,
       animate: ({ t, frame, parts }) => {
         const cheer = smooth(clamp(frame / 16, 0, 1));
-        if (parts.leftArm) parts.leftArm.rotation.z = -0.35 - cheer * 1.05;
-        if (parts.rightArm) parts.rightArm.rotation.z = 0.35 + cheer * 0.95;
+        const pose = cheerPose(frame, 0.5);
+        const wave = Math.sin(t * 5.6) * 0.14 * cheer;
+        if (parts.rightArm) {
+          parts.rightArm.rotation.z = lerp(0.42, 2.55, cheer) + wave;
+          parts.rightArm.rotation.x = -0.12 * cheer;
+        }
+        if (parts.leftArm) {
+          parts.leftArm.rotation.z = lerp(-0.42, -0.55, cheer);
+          parts.leftArm.rotation.x = lerp(0, -1.25, cheer) + Math.sin(t * 8) * 0.12 * cheer;
+        }
         if (parts.head) {
           parts.head.rotation.y = Math.sin(t * 2.2) * 0.14;
+          parts.head.rotation.x = -0.06 * cheer;
           parts.head.position.y = 1.95 + Math.abs(Math.sin(t * 5)) * 0.05 * cheer;
         }
-        if (parts.torso) parts.torso.rotation.x = -0.06 * cheer;
+        if (parts.torso) parts.torso.rotation.x = -0.05 * cheer + pose.breath;
       },
     },
     {
@@ -84,13 +99,18 @@ export const createFanScene = (renderer, size) => createSceneDirector(renderer, 
       outfit: 'oliveSweater',
       hair: 'messy',
       scale: 0.9,
-      position: [-1.4, 0, -53.2],
+      position: [-1.4, 0, -29.8],
       rotationY: -0.12,
-      animate: ({ t, frame, parts }) => {
+      animate: ({ frame, parts }) => {
         const cheer = smooth(clamp((frame - 6) / 18, 0, 1));
-        if (parts.rightArm) parts.rightArm.rotation.z = 0.32 + cheer * 1.2;
-        if (parts.leftArm) parts.leftArm.rotation.z = -0.32 - cheer * 0.5;
-        if (parts.head) parts.head.rotation.z = Math.sin(t * 4) * 0.08 * cheer;
+        const pose = cheerPose(frame, 2.1);
+        if (parts.rightArm) parts.rightArm.rotation.z = lerp(0.42, pose.right, cheer);
+        if (parts.leftArm) parts.leftArm.rotation.z = lerp(-0.42, pose.left, cheer);
+        if (parts.head) {
+          parts.head.rotation.z = Math.sin(frame * 0.13 + 1) * 0.08 * cheer;
+          parts.head.rotation.y = pose.head * 0.5 * cheer;
+        }
+        if (parts.torso) parts.torso.rotation.x = pose.breath;
       },
     },
     {
@@ -98,13 +118,21 @@ export const createFanScene = (renderer, size) => createSceneDirector(renderer, 
       outfit: 'charcoalOwner',
       hair: 'afro',
       scale: 0.88,
-      position: [1.0, 0, -53.5],
+      position: [1.0, 0, -30.1],
       rotationY: 0.16,
       animate: ({ frame, parts }) => {
         const cheer = smooth(clamp((frame - 12) / 18, 0, 1));
-        if (parts.rightArm) parts.rightArm.rotation.x = -1.35 * cheer;
-        if (parts.leftArm) parts.leftArm.rotation.z = -0.32 - cheer * 0.8;
-        if (parts.head) parts.head.rotation.x = -0.18 * cheer;
+        const pose = cheerPose(frame, 3.6);
+        if (parts.rightArm) {
+          parts.rightArm.rotation.z = lerp(0.42, pose.right + 0.12, cheer);
+          parts.rightArm.rotation.x = -0.1 * cheer;
+        }
+        if (parts.leftArm) parts.leftArm.rotation.z = lerp(-0.42, pose.left, cheer);
+        if (parts.head) {
+          parts.head.rotation.x = -0.14 * cheer;
+          parts.head.rotation.y = pose.head * 0.4 * cheer;
+        }
+        if (parts.torso) parts.torso.rotation.x = pose.breath;
       },
     },
     {
@@ -112,13 +140,15 @@ export const createFanScene = (renderer, size) => createSceneDirector(renderer, 
       outfit: 'maroonCoach',
       hair: 'bald',
       scale: 0.86,
-      position: [3.0, 0, -53.3],
+      position: [3.0, 0, -29.9],
       rotationY: -0.2,
-      animate: ({ t, frame, parts }) => {
+      animate: ({ frame, parts }) => {
         const cheer = smooth(clamp((frame - 18) / 18, 0, 1));
-        if (parts.rightArm) parts.rightArm.rotation.z = 0.32 + cheer * 1.15;
-        if (parts.leftArm) parts.leftArm.rotation.z = -0.32 - cheer * 0.85;
-        if (parts.head) parts.head.rotation.y = lerp(0, Math.sin(t * 5) * 0.2, cheer);
+        const pose = cheerPose(frame, 5.0);
+        if (parts.rightArm) parts.rightArm.rotation.z = lerp(0.42, pose.right, cheer);
+        if (parts.leftArm) parts.leftArm.rotation.z = lerp(-0.42, pose.left, cheer);
+        if (parts.head) parts.head.rotation.y = pose.head * 0.7 * cheer;
+        if (parts.torso) parts.torso.rotation.x = pose.breath;
       },
     },
   ],
@@ -126,12 +156,12 @@ export const createFanScene = (renderer, size) => createSceneDirector(renderer, 
     fov: 72,
     ease: smooth,
     keys: [
-      [0, [-4.5, 2.5, -46.8], [2.5, 1.4, -53.8], 72],
-      [4.37, [-3.8, 2.3, -47.2], [2.8, 1.4, -53.9], 68],
-      [4.4, [4.6, 2.5, -47.4], [-3.2, 1.4, -54], 66],
-      [7.17, [3.8, 2.3, -47.8], [-3.4, 1.4, -54], 64],
-      [7.2, [0, 3.2, -46], [0, 1.5, -55], 70],
-      [9.0, [0, 3.0, -46.6], [0, 1.5, -55], 68],
+      [0, [-1.5, 2.5, -20.8], [-0.5, 1.4, -29.6], 72],
+      [4.37, [-1.2, 2.35, -21.0], [0.2, 1.4, -29.8], 68],
+      [4.4, [3.0, 2.4, -21.2], [-0.8, 1.4, -30.0], 66],
+      [7.17, [2.6, 2.3, -21.6], [-1.0, 1.4, -30.2], 64],
+      [7.2, [0, 3.0, -19.8], [0, 1.5, -30.4], 70],
+      [9.0, [0, 2.9, -20.4], [0, 1.5, -30.6], 68],
     ],
   },
 });

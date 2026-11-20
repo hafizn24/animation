@@ -166,22 +166,34 @@ def net(seconds=0.9):
 
 
 def crowd(seconds=3.0, intensity=0.5, seed=211):
-    """Episode 3 escalating stadium cheer."""
+    """Warm, low-passed stadium roar — no harsh white-noise static.
+
+    Two one-pole low-pass stages roll off above ~2.7 kHz and ~1.0 kHz, a chest
+    band at ~350 Hz keeps the mid-range warmth, and the raw noise is discarded.
+    """
     rnd = random.Random(seed)
     out = []
-    smooth_noise = 0.0
+    a_hi = 1.0 - math.exp(-TAU * 2700.0 / SR)
+    a_warm = 1.0 - math.exp(-TAU * 1000.0 / SR)
+    a_chest = 1.0 - math.exp(-TAU * 350.0 / SR)
+    lp = 0.0
+    warm = 0.0
+    chest = 0.0
     for i in range(int(SR * seconds)):
         t = i / SR
-        attack = min(1.0, t / 0.18)
-        release = min(1.0, max(0.0, (seconds - t) / 0.55))
+        attack = min(1.0, t / 0.22)
+        release = min(1.0, max(0.0, (seconds - t) / 0.65))
         swell = 0.55 + 0.45 * math.sin(TAU * 1.7 * t) ** 2
         noise = rnd.uniform(-1, 1)
-        smooth_noise += 0.045 * (noise - smooth_noise)
+        lp += a_hi * (noise - lp)
+        warm += a_warm * (lp - warm)
+        chest += a_chest * (lp - chest)
+        body = warm * 0.9 + chest * 0.5 + lp * 0.18
         voices = (
-            math.sin(TAU * 196 * t + math.sin(t * 7) * 0.7) * 0.12
-            + math.sin(TAU * 293.7 * t + math.sin(t * 5) * 0.5) * 0.08
+            math.sin(TAU * 196 * t + math.sin(t * 7) * 0.7) * 0.1
+            + math.sin(TAU * 293.7 * t + math.sin(t * 5) * 0.5) * 0.07
         )
-        out.append((smooth_noise * 1.7 + voices + noise * 0.12) * attack * release * swell * intensity)
+        out.append((body * 0.62 + voices) * attack * release * swell * intensity)
     return out
 
 
