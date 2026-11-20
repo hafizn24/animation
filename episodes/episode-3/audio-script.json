@@ -187,7 +187,7 @@
         {
           "id": "e3_s3_kapten",
           "type": "dialogue",
-          "speaker": "KAPTEEN",
+          "speaker": "KAPTEN",
           "text": "Kita boleh lawan sesiapa. Serius.",
           "translation": "We can take anyone. Seriously.",
           "start": 21.4,
@@ -281,7 +281,7 @@
         {
           "id": "e3_s5_kapten",
           "type": "dialogue",
-          "speaker": "KAPTEEN",
+          "speaker": "KAPTEN",
           "text": "Pemanas badan dah habis. Musim baru bermula.",
           "translation": "The warm-up is over. The new season begins.",
           "start": 34.5,

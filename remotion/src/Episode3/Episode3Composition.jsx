@@ -13,6 +13,7 @@ import { createCliffhangerScene } from './scenes/cliffhangerScene.js';
 import {
   E3,
   HUD_GOALS,
+  SCENES,
   TITLE_CARD,
   eventsOf,
   getScene,

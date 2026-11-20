@@ -5,7 +5,7 @@
 
 - **Runtime:** 00:00 – 00:42 (1,260 frames @ 30fps), 720x1280 vertical.
 - **Language:** casual spoken Malaysian Malay (*Bahasa Melayu santai*) with a smaller English translation line under every subtitle (dual subtitles).
-- **Structure:** alternating NARRATOR + CHARACTER DIALOGUE (RIZAL, KAPTEEN, PEMINAT). No narrator-only stretches.
+- **Structure:** alternating NARRATOR + CHARACTER DIALOGUE (RIZAL, KAPTEN, PEMINAT). No narrator-only stretches.
 - **Subtitles:** narration = italic warm gold serif; dialogue = white sans-serif with uppercase gold speaker label. Both sit above the YouTube Shorts bottom 25% / right 15% dead zones.
 - **Ending:** dramatic final line → referee whistle + triumphant BGM swell → hard cut to a clean black `BULOH FC / EPISOD 3` title card. **No CTA.**
 - **Pacing:** max 0.5–0.8s buffer between lines; zero long silent gaps.
@@ -57,7 +57,7 @@ Frames 360–750 (390 frames).
 | 00:12.3 – 00:14.6 | 369–438 | NARRATOR (gold italic) | "Gol ketiga. Satu banger dari luar kotak." | "Goal three. A banger from outside the box." |
 | 00:15.2 – 00:17.6 | 456–528 | RIZAL (white + gold label) | "Bro! Tendangan tu macam rocket!" | "Bro! That shot was a rocket!" |
 | 00:18.2 – 00:20.8 | 546–624 | NARRATOR (gold italic) | "Tiga-nol. Hulubalang terpaku." | "Three-nil. Hulubalang are frozen." |
-| 00:21.4 – 00:24.2 | 642–726 | KAPTEEN (white + gold label) | "Kita boleh lawan sesiapa. Serius." | "We can take anyone. Seriously." |
+| 00:21.4 – 00:24.2 | 642–726 | KAPTEN (white + gold label) | "Kita boleh lawan sesiapa. Serius." | "We can take anyone. Seriously." |
 
 ---
 
@@ -85,7 +85,7 @@ Frames 1020–1188 (168 frames).
 
 | Time | Frames | Subtitle | Malay text | English |
 |---|---|---|---|---|
-| 00:34.5 – 00:38.2 | 1035–1146 | KAPTEEN (white + gold label) | "Pemanas badan dah habis. Musim baru bermula." | "The warm-up is over. The new season begins." |
+| 00:34.5 – 00:38.2 | 1035–1146 | KAPTEN (white + gold label) | "Pemanas badan dah habis. Musim baru bermula." | "The warm-up is over. The new season begins." |
 
 ---
 
