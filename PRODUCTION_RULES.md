@@ -8,6 +8,31 @@ guide (`README.md`) and the story docs (`remotion/story/story-guide.md`,
 
 ---
 
+## 0. 0–2s Pattern-Interrupt Hook Standard (MANDATORY)
+
+Episode 2 held 42% completion but only 28.8% Stayed-to-Watch because it opened
+on slow exposition. Every episode from Episode 3 onward MUST interrupt the
+pattern in the first two seconds:
+
+- **Frame 0 is already bright and moving.** Start at full brightness with an
+  active camera push / subject in motion. Never fade in from black, never hold
+  a static wide establishing shot.
+- **No backstory, no numbers, no " Previously on…".** Open *in media res* on
+  the clearest action or conflict beat. Context comes after the hook.
+- **First cut or major angle shift by 1.5–2.0s (frames 45–60).** The opening
+  shot must not sit unchanged past frame 60.
+- **Frame-0 audio transient.** Trim leading silence from the first TTS clip
+  (`_01`) so voice/action lands at exactly `t = 0.0s`, and fire a sharp SFX
+  transient on frame 0.
+- **Bold hook overlay for the first 1.5s (frames 0–45).** A 3–5 word
+  `HookTitle` spring-pop message must appear inside `SafeArea`, clear of the
+  YouTube Shorts dead zones (bottom 25% / right 15%) and clear of subtitles
+  and the scoreboard HUD.
+- Analytics guardrail: the hook must be visible and legible on a phone before
+  the viewer can decide to scroll. Keep the runtime in the 40–45s sweet spot.
+
+---
+
 ## 1. Script-First Workflow (MANDATORY)
 
 No scene may be built before its script exists.

@@ -13,7 +13,13 @@ const GOLD = '#d8b26a';
  * may pass a `narrator` string which is shown for the first 80 frames of a
  * sequence (Episode 1 legacy behaviour).
  */
-export const Subtitles = ({ lines = [], narrator }) => {
+export const Subtitles = ({
+  lines = [],
+  narrator,
+  bilingual = false,
+  bottomPaddingRatio = 0.13,
+  sidePadding = 44,
+}) => {
   const frame = useCurrentFrame();
   const { height } = useVideoConfig();
 
@@ -42,7 +48,7 @@ export const Subtitles = ({ lines = [], narrator }) => {
       style={{
         justifyContent: 'flex-end',
         alignItems: 'center',
-        padding: `0 44px ${Math.round(height * 0.13)}px`,
+        padding: `0 ${sidePadding}px ${Math.round(height * bottomPaddingRatio)}px`,
         pointerEvents: 'none',
       }}
     >
@@ -74,6 +80,21 @@ export const Subtitles = ({ lines = [], narrator }) => {
           >
             {narrationText}
           </div>
+          {bilingual && activeLine && activeLine.translation ? (
+            <div
+              style={{
+                color: '#c9b38a',
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: 15,
+                fontStyle: 'italic',
+                lineHeight: 1.3,
+                marginTop: 8,
+                textShadow: '0 2px 0 #000, 0 0 8px rgba(0,0,0,0.95)',
+              }}
+            >
+              {activeLine.translation}
+            </div>
+          ) : null}
         </div>
       )}
       {showDialogue && (
@@ -119,6 +140,21 @@ export const Subtitles = ({ lines = [], narrator }) => {
           >
             {activeLine.text}
           </div>
+          {bilingual && activeLine.translation ? (
+            <div
+              style={{
+                color: '#c7c3b8',
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: 16,
+                lineHeight: 1.32,
+                marginTop: 9,
+                letterSpacing: 0.3,
+                textShadow: '0 2px 0 #000, 0 0 8px rgba(0,0,0,0.95)',
+              }}
+            >
+              {activeLine.translation}
+            </div>
+          ) : null}
         </div>
       )}
     </AbsoluteFill>

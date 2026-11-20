@@ -27,12 +27,13 @@ PRODUCTION_RULES.md            # source of truth for all episodes
 episodes/
   episode-1/                   # script.md + audio-script.json
   episode-2/                   # script.md + audio-script.json
+  episode-3/                   # script.md + audio-script.json (source of truth)
 characters/                    # procedural 3D character rigs
 environments/                  # procedural 3D locations
 remotion/
   src/
-    components/                # Scene3D, SafeArea, Subtitles
-    Episode1/ Episode2/        # compositions + scene directors
+    components/                # Scene3D, SafeArea, Subtitles, HookTitle, ScoreboardHUD
+    Episode1/ Episode2/ Episode3/  # compositions + scene directors
     Root.jsx                   # composition registry + durations
   scripts/generate_tts.py      # multi-voice TTS generation
   story/                       # story guide + series storyline
@@ -45,6 +46,7 @@ remotion/
 cd remotion
 npm run render          # Episode 1
 npm run render:episode2 # Episode 2
+npm run render:episode3 # Episode 3
 ```
 
 ## Regenerating audio
@@ -55,5 +57,6 @@ Update `episodes/episode-X/audio-script.json` and
 ```bash
 cd remotion
 python scripts/generate_tts.py e2_        # e2_ = Episode 2, b = Episode 1
+python scripts/generate_tts.py e3_        # e3_ = Episode 3 (e3_01 lead-silence trimmed)
 python scripts/generate_audio_beds.py     # procedural SFX + BGM beds
 ```

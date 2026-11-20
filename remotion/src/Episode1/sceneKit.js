@@ -109,6 +109,8 @@ export function createSceneDirector(renderer, config) {
       camera.updateProjectionMatrix();
     }
 
+    if (config.postCamera) config.postCamera({ camera, t, frame, scene, actors, extra, env });
+
     renderer.render(scene, camera);
   };
 

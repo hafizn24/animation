@@ -1,0 +1,312 @@
+{
+  "episode": 3,
+  "title": "Perlawanan Persahabatan: Buluh FC vs Hulubalang United (3–0)",
+  "fps": 30,
+  "width": 720,
+  "height": 1280,
+  "totalDurationSeconds": 42.0,
+  "totalFrames": 1260,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 3 TTS, timed bilingual subtitles, goal/HUD/shake/slow-motion cues and SFX. Casual spoken Malay with a smaller English translation line. No CTAs. Frame 0 opens at full brightness with active motion; first cut by frame 45. Ends on the captain's line, a referee whistle and a hard cut to the black BULOH FC / EPISOD 3 title card.",
+  "scenes": [
+    {
+      "id": "goal-1-cold-open",
+      "name": "Cold Open Hook — Goal 1 (1–0)",
+      "from": 0.0,
+      "to": 3.0,
+      "fromFrame": 0,
+      "durationFrames": 90,
+      "environment": "StadiumApp (tight low-angle near the Hulubalang goal)",
+      "director": "createGoalOneScene",
+      "visual": "Frame 0 at full brightness: tight low-angle mid-strike, ball rockets past the keeper into the net. Major angle cut at frame 45. HookTitle spring-pops for frames 0–45.",
+      "hook": {
+        "title": "RAMAI INGAT BULUH FC KENA BELASAH...",
+        "pill": "EP. 3 • PERLAWANAN PERSAHABATAN",
+        "fromFrame": 0,
+        "toFrame": 45
+      },
+      "sfx": "Frame-0 sharp leather kick + bass transient; net ripple at frame 26; small crowd burst at frame 30.",
+      "bgm": "Punchy, low-energy underscore starts under the voice, ducked.",
+      "cues": [
+        { "file": "kick.wav", "frame": 0, "volume": 0.9 },
+        { "file": "net.wav", "frame": 26, "volume": 0.7 },
+        { "file": "crowd-small.wav", "frame": 30, "volume": 0.5 }
+      ],
+      "events": [
+        { "type": "shake", "frame": 0, "durationFrames": 5, "amount": 9, "note": "Frame-0 kick transient." },
+        { "type": "cut", "frame": 10, "note": "Wind-up -> ball flight." },
+        { "type": "cut", "frame": 26, "note": "Ball flight -> net ripple." },
+        { "type": "cut", "frame": 45, "note": "Keeper dive angle — first major shift, must land by frame 60." },
+        { "type": "goal", "frame": 30, "score": [1, 0], "label": "BULUH FC 1 - 0 HULUBALANG" }
+      ],
+      "lines": [
+        {
+          "id": "e3_01",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Gol! Sekali tendang, Buluh FC dah buka skor.",
+          "translation": "Goal! One strike and Buluh FC are on the board.",
+          "start": 0.0,
+          "end": 2.6,
+          "startFrame": 0,
+          "endFrame": 78,
+          "voice": "voice_5",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "goal-2-teamwork",
+      "name": "Stakes + Goal 2 — Teamwork (2–0)",
+      "from": 3.0,
+      "to": 12.0,
+      "fromFrame": 90,
+      "durationFrames": 270,
+      "environment": "StadiumApp (midfield -> Hulubalang penalty area)",
+      "director": "createGoalTwoScene",
+      "visual": "Four snappy cuts: crisp 1–2 pass splitting two Hulubalang defenders, close-range finish, keeper beaten, net ripple. Broadcast scoreboard flips to 2–0.",
+      "sfx": "Ball whoosh at frame 280; net ripple and a medium crowd cheer at frame 294.",
+      "bgm": "Underscore rises a step; ducked under the RIZAL line.",
+      "cues": [
+        { "file": "whoosh.wav", "frame": 190, "volume": 0.55 },
+        { "file": "net.wav", "frame": 204, "volume": 0.7 },
+        { "file": "crowd-medium.wav", "frame": 204, "volume": 0.6 }
+      ],
+      "events": [
+        { "type": "cut", "frame": 30, "note": "Pass angle." },
+        { "type": "cut", "frame": 90, "note": "Split defenders." },
+        { "type": "cut", "frame": 150, "note": "Close-range finish." },
+        { "type": "cut", "frame": 204, "note": "Keeper beaten / net ripple." },
+        { "type": "goal", "frame": 204, "score": [2, 0], "label": "BULUH FC 2 - 0 HULUBALANG" }
+      ],
+      "lines": [
+        {
+          "id": "e3_s2_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Hulubalang United favourite... tapi Buluh FC main lain macam hari ni.",
+          "translation": "Hulubalang United were the favourites... but Buluh FC are a different team today.",
+          "start": 3.2,
+          "end": 6.4,
+          "startFrame": 96,
+          "endFrame": 192,
+          "voice": "voice_5"
+        },
+        {
+          "id": "e3_s2_rizal",
+          "type": "dialogue",
+          "speaker": "RIZAL",
+          "text": "Satu-dua, terus tembus! Kita tak main-main!",
+          "translation": "One-two, straight through! We're not messing around!",
+          "start": 7.0,
+          "end": 9.4,
+          "startFrame": 210,
+          "endFrame": 282,
+          "voice": "voice_3"
+        },
+        {
+          "id": "e3_s2_narrator2",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Dua gol. Stadium mula percaya.",
+          "translation": "Two goals. The stadium starts to believe.",
+          "start": 10.0,
+          "end": 11.7,
+          "startFrame": 300,
+          "endFrame": 351,
+          "voice": "voice_5"
+        }
+      ]
+    },
+    {
+      "id": "goal-3-banger",
+      "name": "Goal 3 — The Banger / Hero Moment (3–0)",
+      "from": 12.0,
+      "to": 25.0,
+      "fromFrame": 360,
+      "durationFrames": 390,
+      "environment": "StadiumApp (low-angle hero strike -> top-corner ball tracking)",
+      "director": "createGoalThreeScene",
+      "visual": "Wind-up, 0.3x slow-motion dip on foot-to-ball contact at frame 81, 5-frame camera shake, glowing ball trail tracking into the top corner, net ripple. HUD flips to 3–0.",
+      "sfx": "Whoosh at frame 70; frame-81 kick impact + bass hit; net ripple at frame 84; biggest crowd cheer at frame 81.",
+      "bgm": "Underscore peaks at the strike, then holds under the reactions.",
+      "cues": [
+        { "file": "whoosh.wav", "frame": 70, "volume": 0.6 },
+        { "file": "kick.wav", "frame": 81, "volume": 1.0 },
+        { "file": "net.wav", "frame": 84, "volume": 0.8 },
+        { "file": "crowd-big.wav", "frame": 81, "volume": 0.8 }
+      ],
+      "events": [
+        { "type": "cut", "frame": 24, "note": "Wind-up low angle." },
+        { "type": "cut", "frame": 54, "note": "Approach / plant foot." },
+        { "type": "slowmo", "frame": 81, "durationFrames": 12, "rate": 0.3, "note": "Foot-to-ball contact dip." },
+        { "type": "shake", "frame": 81, "durationFrames": 5, "amount": 14, "note": "Strike camera shake." },
+        { "type": "ballTrail", "frame": 81, "durationFrames": 90 },
+        { "type": "cut", "frame": 102, "note": "Low-angle ball tracking." },
+        { "type": "cut", "frame": 120, "note": "Top-corner net ripple reaction." },
+        { "type": "goal", "frame": 81, "score": [3, 0], "label": "BULUH FC 3 - 0 HULUBALANG" }
+      ],
+      "lines": [
+        {
+          "id": "e3_s3_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Gol ketiga. Satu banger dari luar kotak.",
+          "translation": "Goal three. A banger from outside the box.",
+          "start": 12.3,
+          "end": 14.6,
+          "startFrame": 369,
+          "endFrame": 438,
+          "voice": "voice_5"
+        },
+        {
+          "id": "e3_s3_rizal",
+          "type": "dialogue",
+          "speaker": "RIZAL",
+          "text": "Bro! Tendangan tu macam rocket!",
+          "translation": "Bro! That shot was a rocket!",
+          "start": 15.2,
+          "end": 17.6,
+          "startFrame": 456,
+          "endFrame": 528,
+          "voice": "voice_3"
+        },
+        {
+          "id": "e3_s3_narrator2",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Tiga-nol. Hulubalang terpaku.",
+          "translation": "Three-nil. Hulubalang are frozen.",
+          "start": 18.2,
+          "end": 20.8,
+          "startFrame": 546,
+          "endFrame": 624,
+          "voice": "voice_5"
+        },
+        {
+          "id": "e3_s3_kapten",
+          "type": "dialogue",
+          "speaker": "KAPTEEN",
+          "text": "Kita boleh lawan sesiapa. Serius.",
+          "translation": "We can take anyone. Seriously.",
+          "start": 21.4,
+          "end": 24.2,
+          "startFrame": 642,
+          "endFrame": 726,
+          "voice": "voice_2"
+        }
+      ]
+    },
+    {
+      "id": "fans-believe",
+      "name": "Fans Start Believing",
+      "from": 25.0,
+      "to": 34.0,
+      "fromFrame": 750,
+      "durationFrames": 270,
+      "environment": "StadiumApp (near touchline, KEK MAJU ad-board, instanced crowd silhouettes)",
+      "director": "createFanScene",
+      "visual": "Touchline cut: the Kek Maju bakery owner from Ep. 2 smiles proudly with 2–3 local fans; a lightweight InstancedMesh crowd jumps on a procedural sine wave. The sideline ad-board clearly shows KEK MAJU.",
+      "sfx": "Big crowd cheer at frame 12; second cheer at frame 216.",
+      "bgm": "Warm, hopeful swell under the fan dialogue.",
+      "cues": [
+        { "file": "crowd-big.wav", "frame": 12, "volume": 0.75 },
+        { "file": "crowd-big.wav", "frame": 216, "volume": 0.7 }
+      ],
+      "events": [
+        { "type": "crowdJump", "frame": 12, "durationFrames": 240, "note": "Sine-wave jump loop on goals." },
+        { "type": "cut", "frame": 132, "note": "Bakery owner reaction." },
+        { "type": "cut", "frame": 216, "note": "Wider touchline celebration." }
+      ],
+      "lines": [
+        {
+          "id": "e3_s4_peminat",
+          "type": "dialogue",
+          "speaker": "PEMINAT",
+          "text": "Lain macam... musim ni Buluh FC memang serius!",
+          "translation": "Different vibe... Buluh FC are serious this season!",
+          "start": 25.4,
+          "end": 28.6,
+          "startFrame": 762,
+          "endFrame": 858,
+          "voice": "voice_4"
+        },
+        {
+          "id": "e3_s4_narrator",
+          "type": "narrator",
+          "speaker": null,
+          "text": "Dari kedai kek sampai ke tepi padang. Akak pun percaya.",
+          "translation": "From the bakery to the touchline. Even Kak believes.",
+          "start": 29.2,
+          "end": 31.8,
+          "startFrame": 876,
+          "endFrame": 954,
+          "voice": "voice_5"
+        },
+        {
+          "id": "e3_s4_peminat2",
+          "type": "dialogue",
+          "speaker": "PEMINAT",
+          "text": "Kita tak kalah lagi!",
+          "translation": "We're not losing anymore!",
+          "start": 32.2,
+          "end": 33.7,
+          "startFrame": 966,
+          "endFrame": 1011,
+          "voice": "voice_4"
+        }
+      ]
+    },
+    {
+      "id": "season-kickoff-cliffhanger",
+      "name": "Cliffhanger — Ready for Season Start",
+      "from": 34.0,
+      "to": 39.6,
+      "fromFrame": 1020,
+      "durationFrames": 168,
+      "environment": "StadiumApp (golden-hour / floodlight huddle, slow heroic push-in)",
+      "director": "createCliffhangerScene",
+      "visual": "Golden-hour floodlight lighting; Buluh FC line up and huddle on the pitch with a slow heroic push-in on the captain. Referee whistle and deep BGM hit, then a hard cut to black.",
+      "sfx": "Referee whistle at frame 114; deep bass/BGM hit at frame 114.",
+      "bgm": "Triumphant BGM swell into the cut; nothing under the title card.",
+      "cues": [
+        { "file": "whistle.wav", "frame": 114, "volume": 0.85 }
+      ],
+      "events": [
+        { "type": "whistle", "frame": 114, "note": "Referee whistle + BGM hit." },
+        { "type": "hardCut", "frame": 167, "note": "Cut to black title card at absolute frame 1188." }
+      ],
+      "lines": [
+        {
+          "id": "e3_s5_kapten",
+          "type": "dialogue",
+          "speaker": "KAPTEEN",
+          "text": "Pemanas badan dah habis. Musim baru bermula.",
+          "translation": "The warm-up is over. The new season begins.",
+          "start": 34.5,
+          "end": 38.2,
+          "startFrame": 1035,
+          "endFrame": 1146,
+          "voice": "voice_2"
+        }
+      ]
+    },
+    {
+      "id": "outro-title-card",
+      "name": "Outro Title Card",
+      "from": 39.6,
+      "to": 42.0,
+      "fromFrame": 1188,
+      "durationFrames": 72,
+      "environment": null,
+      "director": null,
+      "visual": "Hard cut to clean black card: BULOH FC / thin gold divider / EPISOD 3. No CTA.",
+      "sfx": null,
+      "bgm": null,
+      "cues": [],
+      "events": [],
+      "lines": []
+    }
+  ]
+}

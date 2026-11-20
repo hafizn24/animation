@@ -38,6 +38,26 @@ export class SoccerOutfitApp {
         sockStripes: 0x1d4ed8,
         cleats: 0x111111,
         studs: 0xffffff
+      },
+      // Episode 3 — Hulubalang United (high-contrast rival strip, no new rig).
+      hulubalangBlackOrange: {
+        jerseyPrimary: 0x15171c,
+        jerseySecondary: 0xff8a1f,
+        shorts: 0x15171c,
+        socks: 0xff8a1f,
+        sockStripes: 0x15171c,
+        cleats: 0x1a1a1a,
+        studs: 0xff8a1f
+      },
+      // Episode 3 — Hulubalang United goalkeeper variant.
+      hulubalangKeeper: {
+        jerseyPrimary: 0xf2b41c,
+        jerseySecondary: 0x201a12,
+        shorts: 0x201a12,
+        socks: 0xf2b41c,
+        sockStripes: 0x201a12,
+        cleats: 0x111111,
+        studs: 0xffffff
       }
     };
   }

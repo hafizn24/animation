@@ -25,11 +25,18 @@ VOICES = {
     "kekmaju": "voice_1",
     "penaja1": "voice_2",
     "penaja2": "voice_5",
+    # Episode 3 — distinct voices for the match cast.
+    "rizal": "voice_3",
+    "kapten": "voice_2",
+    "peminat": "voice_4",
 }
 
 VOICE_STYLE = {
     "penaja1": {"speed": 1.04, "pitch": 1.0},
     "penaja2": {"speed": 0.96, "pitch": 0.94},
+    "rizal": {"speed": 1.06, "pitch": 1.06},
+    "kapten": {"speed": 0.97, "pitch": 0.94},
+    "peminat": {"speed": 1.03, "pitch": 1.02},
 }
 
 MANIFEST = [
@@ -59,6 +66,19 @@ MANIFEST = [
     ("e2_s5_pemilik", "pemilik", 816, 906, "Terima kasih banyak, kak. Kami memang takkan lupa jasa akak."),
     ("e2_s6_jurulatih", "jurulatih", 924, 1056, "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati."),
     ("e2_s6_pemilik", "pemilik", 1068, 1176, "Betul. Ini peluang terakhir kita. Kalau kalah, semua habis."),
+    # Episode 3 — mirrors episodes/episode-3/audio-script.json (42s / 1260 frames).
+    ("e3_01", "narrator", 0, 78, "Gol! Sekali tendang, Buluh FC dah buka skor."),
+    ("e3_s2_narrator", "narrator", 96, 192, "Hulubalang United favourite... tapi Buluh FC main lain macam hari ni."),
+    ("e3_s2_rizal", "rizal", 210, 282, "Satu-dua, terus tembus! Kita tak main-main!"),
+    ("e3_s2_narrator2", "narrator", 300, 351, "Dua gol. Stadium mula percaya."),
+    ("e3_s3_narrator", "narrator", 369, 438, "Gol ketiga. Satu banger dari luar kotak."),
+    ("e3_s3_rizal", "rizal", 456, 528, "Bro! Tendangan tu macam rocket!"),
+    ("e3_s3_narrator2", "narrator", 546, 624, "Tiga-nol. Hulubalang terpaku."),
+    ("e3_s3_kapten", "kapten", 642, 726, "Kita boleh lawan sesiapa. Serius."),
+    ("e3_s4_peminat", "peminat", 762, 858, "Lain macam... musim ni Buluh FC memang serius!"),
+    ("e3_s4_narrator", "narrator", 876, 954, "Dari kedai kek sampai ke tepi padang. Akak pun percaya."),
+    ("e3_s4_peminat2", "peminat", 966, 1011, "Kita tak kalah lagi!"),
+    ("e3_s5_kapten", "kapten", 1035, 1146, "Pemanas badan dah habis. Musim baru bermula."),
 ]
 
 
@@ -107,6 +127,19 @@ def normalize(source, destination, pitch=1.0):
          "-ar", "44100", "-b:a", "160k", str(destination)],
         check=True,
     )
+
+
+def strip_leading_silence(path):
+    """Force the first clip to start exactly at t=0.0s (pattern-interrupt hook)."""
+    temp = path.with_suffix(".leadtrim.mp3")
+    subprocess.run(
+        [FFMPEG, "-y", "-loglevel", "error", "-i", str(path),
+         "-af", "silenceremove=start_periods=1:start_duration=0:start_threshold=-45dB,"
+                "areverse,silenceremove=start_periods=1:start_duration=0:start_threshold=-45dB,areverse",
+         "-ar", "44100", "-b:a", "160k", str(temp)],
+        check=True,
+    )
+    temp.replace(path)
 
 
 def duration(path):
@@ -166,6 +199,10 @@ def main():
             fitted.replace(final)
             length = duration(final)
             speed = round(speed * tempo, 2)
+
+        if name == "e3_01":
+            strip_leading_silence(final)
+            length = duration(final)
 
         flag = "OK" if length <= budget + 0.15 else "OVER"
         print(f"{name + '.mp3':20} {budget:6.2f}s {length:8.2f}s {speed:5.2f}x {flag}")

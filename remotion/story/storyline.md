@@ -51,3 +51,12 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 - **Cliffhanger:** The charity match is the last chance — cuts directly to the title card.
 
 **Script location:** `episodes/episode-2/script.md` and `episodes/episode-2/audio-script.json` are the source of truth. The `SCENES` array in `remotion/src/Episode2/Episode2Composition.jsx` mirrors the JSON. TTS text/voices are in `remotion/scripts/generate_tts.py` (prefix `e2_`). Regenerate with `python scripts/generate_tts.py e2_`.
+
+### Episode 3 — *Perlawanan Persahabatan: Buluh FC vs Hulubalang United (3–0)* (In production)
+- **Status:** Scripted for Remotion (`remotion/src/Episode3/`); **1,260 frames / 42s @ 30fps**; 9:16 vertical Shorts with multi-voice Malay + English dual subtitles, pattern-interrupt hook and audio-driven pacing.
+- **Continuity from Ep. 2:** Following Kek Maju bakery owner's support, Buluh FC takes the pitch with renewed spirit. The bakery name `KEK MAJU` appears on a sideline ad-board, and the owner is on the touchline cheering with the locals.
+- **Plot:** Buluh FC dominate the heavy favourites **Hulubalang United** 3–0 through three escalating goals (tap-in, slick team move, long-range banger). Skeptical locals — including the bakery owner — turn into genuine believers.
+- **Analytics fix:** Frame 0 opens at full brightness mid-strike with a sharp kick transient and a 1.5s `HookTitle`; first camera cut lands by frame 45. All shot/goal/HUD cues are read from `episodes/episode-3/audio-script.json`.
+- **Cliffhanger:** The friendly is over — the captain declares the warm-up finished. Season kickoff begins; stakes shift from friendly proof-of-concept to official league survival. No CTA.
+
+**Script location:** `episodes/episode-3/script.md` and `episodes/episode-3/audio-script.json` are the source of truth. `remotion/src/Episode3/Episode3Composition.jsx` imports the JSON directly for all scene, goal, slow-motion, shake, HUD and SFX timings. TTS text/voices live in `remotion/scripts/generate_tts.py` (prefix `e3_`). Regenerate with `python scripts/generate_tts.py e3_`.
