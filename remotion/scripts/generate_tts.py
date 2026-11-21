@@ -89,16 +89,16 @@ MANIFEST = [
     ("e3_s5_kapten", "kapten", 1035, 1146, "Pemanas badan dah habis. Musim baru bermula."),
     # Episode 4 — mirrors episodes/episode-4/audio-script.json (51s / 1530 frames).
     # A deliberate 39-frame (1.3s) silence sits between e4_09 (ends 1335) and e4_10 (starts 1374).
-    ("e4_01", "bos", 0, 126, "Kelab Divisyen Empat baru hantar tawaran. Lima puluh ribu untuk Karim."),
-    ("e4_02", "coach", 150, 261, "Kau biar betul? Musim baru nak mula, kau nak jual kapten kita?"),
-    ("e4_03", "coach", 273, 450, "Karim baru dua puluh lapan. Friendly lepas dia MVP! Semua serangan kita jalan sebab dia kat tengah."),
-    ("e4_04", "bos", 462, 537, "Aku tahu, coach. Aku pun tengok game tu."),
-    ("e4_05", "bos", 549, 717, "Tapi tengok akaun kelab ni. Lima puluh ribu memang tak banyak, tapi cukup untuk kita bernafas."),
+    ("e4_01", "bos", 0, 125, "Kelab Divisyen Empat baru hantar tawaran. Lima puluh ribu untuk Karim."),
+    ("e4_02", "coach", 141, 251, "Kau biar betul? Musim baru nak mula, kau nak jual kapten kita?"),
+    ("e4_03", "coach", 273, 435, "Karim baru dua puluh lapan. Friendly lepas dia MVP! Semua serangan kita jalan sebab dia kat tengah."),
+    ("e4_04", "bos", 456, 535, "Aku tahu, coach. Aku pun tengok game tu."),
+    ("e4_05", "bos", 549, 719, "Tapi tengok akaun kelab ni. Lima puluh ribu memang tak banyak, tapi cukup untuk kita bernafas."),
     ("e4_06", "bos", 729, 897, "Lagi satu... gaji Karim paling tinggi dalam skuad. Kalau dia keluar, kos gaji kita terus turun."),
-    ("e4_07", "coach", 909, 1050, "Kalau dia keluar, siapa nak kawal padang? Kita nak menang ke nak cukup syarat je?"),
-    ("e4_08", "bos", 1062, 1239, "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain."),
+    ("e4_07", "coach", 909, 1038, "Kalau dia keluar, siapa nak kawal padang? Kita nak menang ke nak cukup syarat je?"),
+    ("e4_08", "bos", 1062, 1241, "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain."),
     ("e4_09", "bos", 1251, 1335, "Keputusan aku muktamad. Kita terima tawaran tu."),
-    ("e4_10", "karim", 1374, 1452, "Bos... betul ke apa yang aku dengar tadi?"),
+    ("e4_10", "karim", 1374, 1433, "Bos... betul ke apa yang aku dengar tadi?"),
 ]
 
 

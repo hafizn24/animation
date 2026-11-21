@@ -277,11 +277,11 @@ export class KarimApp {
     torsoGroup.add(upperChest);
 
     const backPanel = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.305, 0.34, 0.52, 24, 1, true, Math.PI * 0.72, Math.PI * 0.56),
+      new THREE.CylinderGeometry(0.315, 0.35, 0.52, 24, 1, true, Math.PI * 0.72, Math.PI * 0.56),
       this.materials.backName
     );
-    backPanel.position.y = 0.02;
-    backPanel.scale.set(1.06, 1, 0.78);
+    backPanel.position.set(0, 0.02, -0.012);
+    backPanel.scale.set(1.06, 1, 0.86);
     torsoGroup.add(backPanel);
 
     const frontPanel = new THREE.Mesh(new THREE.PlaneGeometry(0.38, 0.38), this.materials.frontName);
@@ -359,7 +359,8 @@ export class KarimApp {
       boot.add(sole);
       boots.add(boot);
     });
-    boots.position.set(0.02, -0.72, 0.06);
+    boots.position.set(0.02, -0.2, 0.12);
+    boots.scale.setScalar(0.9);
     left.handGroup.add(boots);
 
     const createLeg = (isLeft) => {
@@ -465,17 +466,25 @@ export class KarimApp {
   dispose() {
     if (this.scene && this.character) {
       this.scene.remove(this.character);
+      const materials = new Set();
       this.character.traverse((child) => {
         if (child.isMesh) {
           child.geometry.dispose();
-          if (child.material) {
-            Array.isArray(child.material) ? child.material.forEach((m) => m.dispose()) : child.material.dispose();
-          }
+          const mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.filter(Boolean).forEach((material) => materials.add(material));
         }
+      });
+      materials.forEach((material) => {
+        ['map', 'emissiveMap', 'gradientMap', 'alphaMap', 'normalMap', 'aoMap'].forEach((key) => {
+          if (material[key]) material[key].dispose();
+        });
+        material.dispose();
       });
     }
     this.character = null;
     this.characterParts = {};
+    this.materials = {};
+    this.hairGroup = null;
     this._dead = true;
   }
 }

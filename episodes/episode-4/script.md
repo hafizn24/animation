@@ -24,7 +24,7 @@ Frames 0–137 (138 frames).
 
 | Time | Frames | Subtitle | Malay text | English |
 |---|---|---|---|---|
-| 00:00.0 – 00:04.2 | 0–126 | BOS (white + gold label) | "Kelab Divisyen Empat baru hantar tawaran. Lima puluh ribu untuk Karim." | "A Division 4 club just sent an offer. 50K for Karim." |
+| 00:00.0 – 00:04.18 | 0–125 | BOS (white + gold label) | "Kelab Divisyen Empat baru hantar tawaran. Lima puluh ribu untuk Karim." | "A Division 4 club just sent an offer. 50K for Karim." |
 
 ---
 
@@ -38,13 +38,13 @@ Frames 138–1334 (1,197 frames).
 
 | Time | Frames | Subtitle | Malay text | English |
 |---|---|---|---|---|
-| 00:05.0 – 00:08.7 | 150–261 | JURULATIH | "Kau biar betul? Musim baru nak mula, kau nak jual kapten kita?" | "Are you serious? The season's about to start and you're selling our captain?" |
-| 00:09.1 – 00:15.0 | 273–450 | JURULATIH | "Karim baru dua puluh lapan. Friendly lepas dia MVP! Semua serangan kita jalan sebab dia kat tengah." | "Karim's only 28. He was MVP last friendly! Our entire attack runs through him in midfield." |
-| 00:15.4 – 00:17.9 | 462–537 | BOS | "Aku tahu, coach. Aku pun tengok game tu." | "I know, coach. I watched that game too." |
-| 00:18.3 – 00:23.9 | 549–717 | BOS | "Tapi tengok akaun kelab ni. Lima puluh ribu memang tak banyak, tapi cukup untuk kita bernafas." | "But look at the club's accounts. 50K isn't much, but it's enough to keep us breathing." |
+| 00:04.7 – 00:08.37 | 141–251 | JURULATIH | "Kau biar betul? Musim baru nak mula, kau nak jual kapten kita?" | "Are you serious? The season's about to start and you're selling our captain?" |
+| 00:09.1 – 00:14.5 | 273–435 | JURULATIH | "Karim baru dua puluh lapan. Friendly lepas dia MVP! Semua serangan kita jalan sebab dia kat tengah." | "Karim's only 28. He was MVP last friendly! Our entire attack runs through him in midfield." |
+| 00:15.2 – 00:17.83 | 456–535 | BOS | "Aku tahu, coach. Aku pun tengok game tu." | "I know, coach. I watched that game too." |
+| 00:18.3 – 00:23.97 | 549–719 | BOS | "Tapi tengok akaun kelab ni. Lima puluh ribu memang tak banyak, tapi cukup untuk kita bernafas." | "But look at the club's accounts. 50K isn't much, but it's enough to keep us breathing." |
 | 00:24.3 – 00:29.9 | 729–897 | BOS | "Lagi satu... gaji Karim paling tinggi dalam skuad. Kalau dia keluar, kos gaji kita terus turun." | "And one more thing... Karim's our highest earner. If he leaves, our wage bill drops immediately." |
-| 00:30.3 – 00:35.0 | 909–1050 | JURULATIH | "Kalau dia keluar, siapa nak kawal padang? Kita nak menang ke nak cukup syarat je?" | "If he leaves, who controls the pitch? Are we here to win or just make up the numbers?" |
-| 00:35.4 – 00:41.3 | 1062–1239 | BOS | "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain." | "No point winning one match if next month we can't pay the rest of the squad." |
+| 00:30.3 – 00:34.6 | 909–1038 | JURULATIH | "Kalau dia keluar, siapa nak kawal padang? Kita nak menang ke nak cukup syarat je?" | "If he leaves, who controls the pitch? Are we here to win or just make up the numbers?" |
+| 00:35.4 – 00:41.37 | 1062–1241 | BOS | "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain." | "No point winning one match if next month we can't pay the rest of the squad." |
 | 00:41.7 – 00:44.5 | 1251–1335 | BOS | "Keputusan aku muktamad. Kita terima tawaran tu." | "My decision is final. We're taking the offer." |
 
 ---
@@ -59,7 +59,7 @@ Frames 1335–1457 (123 frames).
 
 | Time | Frames | Subtitle | Malay text | English |
 |---|---|---|---|---|
-| 00:45.8 – 00:48.4 | 1374–1452 | KARIM | "Bos... betul ke apa yang aku dengar tadi?" | "Boss... is what I just heard true?" |
+| 00:45.8 – 00:47.77 | 1374–1433 | KARIM | "Bos... betul ke apa yang aku dengar tadi?" | "Boss... is what I just heard true?" |
 
 ---
 

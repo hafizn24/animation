@@ -9,11 +9,12 @@ export const createDoorwayScene = (renderer, size) => createSceneDirector(render
   environment: ClubOfficeApp,
   grade: (scene, env) => applyOfficeGrade(scene, env, 'silence'),
   extra: (scene) => {
-    const karimKey = new THREE.SpotLight(0xffd9b0, 0, 10, 0.52, 0.85, 1.1);
+    const karimKey = new THREE.SpotLight(0xffe0bd, 0, 12, 0.72, 1.0, 1.0);
     karimKey.name = 'karimJerseyKey';
-    karimKey.position.set(1.1, 2.5, 0.6);
-    karimKey.target.position.set(1.75, 1.35, -4.1);
+    karimKey.position.set(1.35, 2.6, -1.1);
+    karimKey.target.position.set(1.75, 1.3, -4.15);
     scene.add(karimKey, karimKey.target);
+
     return { karimKey };
   },
   onFrame: ({ frame, env, actors, extra }) => {
@@ -25,7 +26,7 @@ export const createDoorwayScene = (renderer, size) => createSceneDirector(render
       env.lights.hemi.intensity = lerp(0.08, 0.12, reveal);
       env.lights.fill.intensity = lerp(0.06, 0.22, reveal);
     }
-    if (extra.karimKey) extra.karimKey.intensity = lerp(0, 3.4, reveal);
+    if (extra.karimKey) extra.karimKey.intensity = lerp(0, 4.2, reveal);
 
     const boss = actors.find((actor) => actor.name === 'boss');
     if (boss) {
@@ -70,6 +71,12 @@ export const createDoorwayScene = (renderer, size) => createSceneDirector(render
       rotationY: 0.12,
     },
   ],
+  dispose: ({ scene, extra }) => {
+    if (extra.karimKey) {
+      scene.remove(extra.karimKey, extra.karimKey.target);
+      extra.karimKey.shadow?.dispose?.();
+    }
+  },
   camera: {
     fov: 52,
     ease: smooth,

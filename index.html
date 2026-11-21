@@ -115,6 +115,7 @@
         <option value="chairman">The Chairman</option>
         <option value="newowner">The New Owner</option>
         <option value="sponsor">Sponsor Executive</option>
+        <option value="karim">Karim (Captain #8 — Match Jersey)</option>
       </optgroup>
       <optgroup label="Environments">
         <option value="stadium">⚽ Stadium (Buluh FC)</option>
@@ -124,6 +125,7 @@
         <option value="tunnel">🚇 Players Tunnel</option>
         <option value="sponsoroffice">🏢 Sponsor Office (Nexus Sports)</option>
         <option value="bakery">🥐 Bakery (Kek Maju)</option>
+        <option value="cluboffice">🚪 Club Office (Episode 4)</option>
       </optgroup>
     </select>
     <button id="btn-procedural">Load Selected</button>
@@ -140,6 +142,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { KarimApp } from './characters/character-karim.js';
+import { ClubOfficeApp } from './environments/club-office.js';
 
 /**
  * Shared hairstyle builder used by every character in the viewer.
@@ -10104,7 +10108,9 @@ const characterClasses = {
   boardroom: LenderBoardroomApp,
   tunnel: PlayersTunnelApp,
   sponsoroffice: SponsorOfficeApp,
-  bakery: BakeryApp
+  bakery: BakeryApp,
+  karim: KarimApp,
+  cluboffice: ClubOfficeApp
 };
 const characterLabels = {
   default: 'Default Hoodie',
@@ -10121,7 +10127,9 @@ const characterLabels = {
   boardroom: 'Lender Boardroom',
   tunnel: 'Players Tunnel',
   sponsoroffice: 'Sponsor Office – Nexus Sports',
-  bakery: 'Bakery – Kek Maju'
+  bakery: 'Bakery – Kek Maju',
+  karim: 'Karim – Captain #8 (Match Jersey)',
+  cluboffice: 'Club Office – Episode 4'
 };
 
 let manager = null;

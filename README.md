@@ -72,5 +72,10 @@ python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. off
   front, adds a captain armband and carries boots in his left hand.
 - `TransferOfferHUD` shows `TAWARAN RASMI — KELAB DIVISYEN 4`, `RM50,000` and `KOS GAJI: -35%`
   on `e4_05`–`e4_06`. A deliberate 1.3s silence drops the room tone before Karim's doorway line.
-- Total: 1,530 frames / 51.0s @ 30fps. Render a quick smoke test with
-  `npx remotion render Episode4 out/episode-4-test.mp4 --frames=0-150`.
+- Subtitle/sequence frames in `audio-script.json` are locked to the measured, lead-silence-trimmed
+  durations of the generated `e4_01`–`e4_10` MP3s (max gap 0.8s; one intentional 1.3s pause).
+- Total: 1,530 frames / 51.0s @ 30fps, with a 0.83s hold after `e4_10` before the hard cut.
+- Smoke tests:
+  `npx remotion render Episode4 out/episode-4-test.mp4 --frames=0-150` and
+  `npx remotion render Episode4 out/episode-4-scene3-test.mp4 --frames=1320-1509`.
+- `Karim` and `Club Office` are also registered in the standalone viewer (`npm start`).

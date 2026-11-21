@@ -415,14 +415,29 @@ export class ClubOfficeApp {
   dispose() {
     if (this.scene && this.character) {
       this.scene.remove(this.character);
+      const materials = new Set();
       this.character.traverse((child) => {
         if (child.isMesh) {
           child.geometry.dispose();
-          if (child.material) {
-            Array.isArray(child.material) ? child.material.forEach((m) => m.dispose()) : child.material.dispose();
-          }
+          const mats = Array.isArray(child.material) ? child.material : [child.material];
+          mats.filter(Boolean).forEach((material) => materials.add(material));
         }
       });
+      materials.forEach((material) => {
+        ['map', 'emissiveMap', 'gradientMap', 'alphaMap', 'normalMap', 'aoMap'].forEach((key) => {
+          if (material[key]) material[key].dispose();
+        });
+        material.dispose();
+      });
+    }
+    Object.values(this.lights || {}).forEach((light) => light?.shadow?.dispose?.());
+    if (this.scene) {
+      [...this.scene.children]
+        .filter((child) => child.isLight)
+        .forEach((light) => {
+          light.shadow?.dispose?.();
+          this.scene.remove(light);
+        });
     }
     this.character = null;
     this.characterParts = {};

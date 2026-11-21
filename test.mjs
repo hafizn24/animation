@@ -7,6 +7,8 @@ import { AnotherCasualOutfitApp } from './characters/character-casual.js';
 import { ChairmanApp } from './characters/character-chairman.js';
 import { NewOwnerApp } from './characters/character-new-owner.js';
 import { SponsorApp } from './characters/character-sponsor.js';
+import { KarimApp } from './characters/character-karim.js';
+import { ClubOfficeApp } from './environments/club-office.js';
 import { HAIR_STYLES } from './characters/character-hair.js';
 import { CharacterInspector } from './Inspector.js';
 
@@ -105,5 +107,31 @@ for (const [Cls, label, poses] of CAST) {
   actor.dispose();
   assert.strictEqual(actor.character, null, `${label} disposes cleanly`);
 }
+
+// --- Episode 4 assets: Karim rig and the ClubOffice set ---
+const karim = new KarimApp(container);
+karim.setupScene();
+karim.addLights();
+const karimBody = karim.createProceduralCharacter();
+assert.strictEqual(karimBody.children.length, 7, 'Karim has 7 part groups');
+assert.ok(karimBody.getObjectByName('Head').getObjectByName('Hair'), 'Karim has a hairstyle');
+assert.ok(karim.characterParts.backPanel, 'Karim jersey has a back name panel');
+assert.ok(karim.characterParts.frontPanel, 'Karim jersey has a front name panel');
+assert.ok(karim.characterParts.boots, 'Karim carries a boots prop');
+assert.ok(karim.characterParts.leftArm.getObjectByName('Hand'), 'Karim has a hand group');
+karim.dispose();
+assert.strictEqual(karim.character, null, 'Karim disposes cleanly');
+
+const office = new ClubOfficeApp(container);
+office.setupScene();
+office.addLights();
+const officeSet = office.createProceduralCharacter();
+assert.ok(officeSet, 'ClubOffice builds a procedural set');
+['offerSheet', 'pen', 'whiteboard', 'doorHinge', 'hallwayGlow'].forEach((key) => {
+  assert.ok(office.anchors[key], `ClubOffice exposes ${key} hero prop`);
+});
+assert.ok(office.lights.lamp && office.lights.hallway, 'ClubOffice has lamp and hallway lights');
+office.dispose();
+assert.strictEqual(office.character, null, 'ClubOffice disposes cleanly');
 
 console.log('ALL CHECKS PASSED');
