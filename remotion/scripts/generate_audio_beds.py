@@ -214,6 +214,44 @@ def whistle(seconds=1.1):
     return out
 
 
+def office_bed(seconds=51.0):
+    """Episode 4 low-tension indoor office drone / ambience (51s, ducked under voice)."""
+    out = []
+    for i in range(int(SR * seconds)):
+        t = i / SR
+        pulse = 0.72 + 0.28 * math.sin(TAU * 0.17 * t) ** 2
+        low = math.sin(TAU * 48.0 * t) * 0.5 + math.sin(TAU * 73.4 * t) * 0.3
+        hum = math.sin(TAU * 100.0 * t) * 0.06
+        air = math.sin(TAU * 196.0 * t) * 0.03 * (0.5 + 0.5 * math.sin(TAU * 0.08 * t))
+        out.append((low + hum + air) * pulse * 0.12)
+    return out
+
+
+def bass_hit(seconds=1.6):
+    """Episode 4 muted dramatic low bass hit on Karim's doorway line (e4_10)."""
+    out = []
+    for i in range(int(SR * seconds)):
+        t = i / SR
+        env = math.exp(-t * 3.4)
+        sub = math.sin(TAU * 41.2 * t - t * 6) * 0.9
+        body = math.sin(TAU * 61.7 * t) * 0.5
+        thud = math.sin(TAU * 92.0 * t) * math.exp(-t * 14) * 0.35
+        out.append((sub + body + thud) * env * 0.7)
+    return out
+
+
+def pen_tap(seconds=0.35):
+    """Episode 4 near-silent pen tap inside the deliberate dead-silence beat."""
+    rnd = random.Random(307)
+    out = []
+    for i in range(int(SR * seconds)):
+        t = i / SR
+        click = rnd.uniform(-1, 1) * math.exp(-t * 90) * 0.35
+        body = math.sin(TAU * 820 * t) * math.exp(-t * 55) * 0.4
+        out.append((click + body) * 0.5)
+    return out
+
+
 def match_bed(seconds=42.0):
     """Episode 3 low-energy match underscore (42s, ducked under voice)."""
     notes = [110.0, 130.81, 146.83, 130.81, 98.0, 110.0, 164.81, 146.83]
@@ -268,6 +306,13 @@ def main():
     write_wav(SFX_DIR / "whistle.wav", whistle())
     write_wav(BGM_DIR / "match.wav", match_bed())
     write_wav(BGM_DIR / "triumph.wav", triumph_bed())
+
+    # Episode 4 — office drone/ambience, paper slide (reused), pen tap and the
+    # muted low bass hit on e4_10. Room tone dips to zero across the 1.3s pause
+    # via <Audio volume> automation in Episode4Composition.jsx.
+    write_wav(BGM_DIR / "office.wav", office_bed())
+    write_wav(SFX_DIR / "bass-hit.wav", bass_hit())
+    write_wav(SFX_DIR / "pen-tap.wav", pen_tap())
     print("Wrote SFX and BGM beds to public/audio/sfx and public/audio/bgm")
 
 

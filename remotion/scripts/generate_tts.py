@@ -29,6 +29,11 @@ VOICES = {
     "rizal": "voice_3",
     "kapten": "voice_2",
     "peminat": "voice_4",
+    # Episode 4 — Boss and Coach reuse the established Owner/Jurulatih voices;
+    # Karim gets a distinct, grounded lower-pitched male voice.
+    "bos": "voice_3",
+    "coach": "voice_2",
+    "karim": "voice_4",
 }
 
 VOICE_STYLE = {
@@ -37,6 +42,9 @@ VOICE_STYLE = {
     "rizal": {"speed": 1.06, "pitch": 1.06},
     "kapten": {"speed": 0.97, "pitch": 0.94},
     "peminat": {"speed": 1.03, "pitch": 1.02},
+    "bos": {"speed": 0.99, "pitch": 0.97},
+    "coach": {"speed": 1.04, "pitch": 1.0},
+    "karim": {"speed": 0.95, "pitch": 0.9},
 }
 
 MANIFEST = [
@@ -79,6 +87,18 @@ MANIFEST = [
     ("e3_s4_narrator", "narrator", 876, 954, "Dari kedai kek sampai ke tepi padang. Akak pun percaya."),
     ("e3_s4_peminat2", "peminat", 966, 1011, "Kita tak kalah lagi!"),
     ("e3_s5_kapten", "kapten", 1035, 1146, "Pemanas badan dah habis. Musim baru bermula."),
+    # Episode 4 — mirrors episodes/episode-4/audio-script.json (51s / 1530 frames).
+    # A deliberate 39-frame (1.3s) silence sits between e4_09 (ends 1335) and e4_10 (starts 1374).
+    ("e4_01", "bos", 0, 126, "Kelab Divisyen Empat baru hantar tawaran. Lima puluh ribu untuk Karim."),
+    ("e4_02", "coach", 150, 261, "Kau biar betul? Musim baru nak mula, kau nak jual kapten kita?"),
+    ("e4_03", "coach", 273, 450, "Karim baru dua puluh lapan. Friendly lepas dia MVP! Semua serangan kita jalan sebab dia kat tengah."),
+    ("e4_04", "bos", 462, 537, "Aku tahu, coach. Aku pun tengok game tu."),
+    ("e4_05", "bos", 549, 717, "Tapi tengok akaun kelab ni. Lima puluh ribu memang tak banyak, tapi cukup untuk kita bernafas."),
+    ("e4_06", "bos", 729, 897, "Lagi satu... gaji Karim paling tinggi dalam skuad. Kalau dia keluar, kos gaji kita terus turun."),
+    ("e4_07", "coach", 909, 1050, "Kalau dia keluar, siapa nak kawal padang? Kita nak menang ke nak cukup syarat je?"),
+    ("e4_08", "bos", 1062, 1239, "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain."),
+    ("e4_09", "bos", 1251, 1335, "Keputusan aku muktamad. Kita terima tawaran tu."),
+    ("e4_10", "karim", 1374, 1452, "Bos... betul ke apa yang aku dengar tadi?"),
 ]
 
 
@@ -200,7 +220,7 @@ def main():
             length = duration(final)
             speed = round(speed * tempo, 2)
 
-        if name == "e3_01":
+        if name == "e3_01" or name.startswith("e4_"):
             strip_leading_silence(final)
             length = duration(final)
 

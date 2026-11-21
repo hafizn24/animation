@@ -26,6 +26,14 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 | **Chairman** | Club / League Authority | Enforce the rules & protect finances | Cold, by-the-book |
 | **Peguam** | Lawyer / Debt Collector | Collect RM450,000 or seize the stadium | Sharp, intimidating, clock-watching |
 | **Penaaja** | Sponsor Executive (Nexus Sports) | Buy naming rights only on a winning, high-draw club | Slick, impatient, check-watching |
+| **Karim** (`characters/character-karim.js`) | Captain, Center Midfielder (#8) | Keep Buluh FC's attacking engine — and the squad — intact | Loyal, quiet, carries the team; friendly-match MVP and the squad's highest earner |
+
+### Karim — Canonical Profile (Episode 4+)
+- **Age:** 28. **Position:** Center Midfielder. **Shirt number:** #8. **Role:** Club Captain.
+- **Status:** Friendly-match MVP (vs Hulubalang United, Ep. 3) and Buluh FC's **primary attacking orchestrator** — the entire attack runs through him in midfield.
+- **Contract:** **Highest earner in the squad** — the single biggest wage line the club must cut before the season starts.
+- **Look:** Buluh FC **Match Jersey** with `KARIM` and `8` printed on the back, captain's armband on the left sleeve, boots in hand at the doorway reveal. Faceless like the rest of the cast; body language carries the emotion.
+- **Voice:** grounded, lower-pitched male (`karim` → `voice_4`, pitch 0.90, speed 0.95) — distinct from Boss (`voice_3`) and Coach (`voice_2`).
 
 ---
 
@@ -60,3 +68,14 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 - **Cliffhanger:** The friendly is over — the captain declares the warm-up finished. Season kickoff begins; stakes shift from friendly proof-of-concept to official league survival. No CTA.
 
 **Script location:** `episodes/episode-3/script.md` and `episodes/episode-3/audio-script.json` are the source of truth. `remotion/src/Episode3/Episode3Composition.jsx` imports the JSON directly for all scene, goal, slow-motion, shake, HUD and SFX timings. TTS text/voices live in `remotion/scripts/generate_tts.py` (prefix `e3_`). Regenerate with `python scripts/generate_tts.py e3_`.
+
+### Episode 4 — *RM50,000 Untuk Karim* (In production)
+- **Status:** Scripted for Remotion (`remotion/src/Episode4/`); **1,530 frames / 51.0s @ 30fps**; 9:16 vertical Shorts with multi-voice Malay + English dual subtitles, pattern-interrupt hook and audio-driven pacing.
+- **Continuity from Ep. 3:** Karim, the friendly-match MVP and captain, is the man who orchestrated the 3–0 win. The stakes shift from proof-of-concept to a cold pre-season accounting decision in the `ClubOffice` (`environments/club-office.js`).
+- **Plot:** A generic **Kelab Divisyen 4** club offers **RM50,000** for Karim. It isn't a big fee, but the cash keeps the club breathing — and cutting the squad's highest salary immediately drops the wage bill. Coach argues heart (Karim is 28, captain, runs the whole attack); Boss argues survival (no point winning a game if the club can't pay the other players next month).
+- **Hook:** Frame 0 opens at full brightness on the offer paper sliding across the desk, with a paper-slide SFX transient and the `RM50,000 UNTUK KARIM.` hook overlay for the first 1.5s.
+- **HUD:** `TransferOfferHUD` (`remotion/src/components/TransferOfferHUD.jsx`) flashes `TAWARAN RASMI — KELAB DIVISYEN 4`, `RM50,000` and `KOS GAJI: -35%` on lines `e4_05`–`e4_06`.
+- **Cliffhanger:** Boss declares the decision final (`e4_09`). A deliberate **1.3s dead silence** — room tone drops out as he reaches for the pen — then the camera pans past his shoulder to the half-open, cooler-backlit door: Karim stands there in his `KARIM 8` Match Jersey and captain's armband, boots in hand, having heard everything. A muted low bass hit lands on `e4_10` and hard-cuts to black. **No CTA.**
+- **Cast:** Boss (reused Owner rig/voice `voice_3`), Coach (reused `SoccerCoachOutfitApp` rig / `voice_2`), Karim (new `character-karim.js` rig / `voice_4`).
+
+**Script location:** `episodes/episode-4/script.md` and `episodes/episode-4/audio-script.json` are the source of truth. `remotion/src/Episode4/Episode4Composition.jsx` imports the JSON directly for all scene, subtitle, HUD, silence-beat and SFX timings. TTS text/voices live in `remotion/scripts/generate_tts.py` (prefix `e4_`, all clips lead-silence trimmed). Regenerate with `python scripts/generate_tts.py e4_`.

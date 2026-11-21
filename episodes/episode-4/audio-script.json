@@ -1,0 +1,241 @@
+{
+  "episode": 4,
+  "title": "RM50,000 Untuk Karim",
+  "fps": 30,
+  "width": 720,
+  "height": 1280,
+  "totalDurationSeconds": 51.0,
+  "totalFrames": 1530,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 4 TTS, timed bilingual subtitles, TransferOfferHUD, the 1.3s dead silence and SFX cues. Boss / Coach / Karim dialogue only (no narrator-only stretches) in casual spoken Malay with a smaller English translation line. No CTAs. Frame 0 opens at full brightness on the sliding offer paper with a paper-slide transient and a 1.5s HookTitle. Ends on Karim's doorway line, a muted low bass hit and a hard cut to the black BULOH FC / EPISOD 4 title card. All e4_ clips are lead-silence trimmed.",
+  "scenes": [
+    {
+      "id": "bomb-drops",
+      "name": "Scene 1 — The Bomb Drops",
+      "from": 0.0,
+      "to": 4.6,
+      "fromFrame": 0,
+      "durationFrames": 138,
+      "environment": "ClubOfficeApp (tight low-angle push-in across the desk lamp)",
+      "director": "createBombDropScene",
+      "visual": "Frame 0 at full brightness: Boss's hand slides the offer sheet across the warm wood desk toward camera. First major angle cut at frame 45 to a closer Boss framing. HookTitle spring-pops for frames 0–45.",
+      "hook": {
+        "title": "RM50,000 UNTUK KARIM.",
+        "pill": "EP. 4 • TAWARAN PEMINDAHAN",
+        "fromFrame": 0,
+        "toFrame": 45
+      },
+      "sfx": "Frame-0 paper-slide transient; low-tension indoor office drone/ambience starts under the voice.",
+      "bgm": "Low-tension office drone, ducked under the Boss line.",
+      "cues": [
+        { "file": "paper.wav", "frame": 0, "volume": 0.8 }
+      ],
+      "events": [
+        { "type": "cut", "frame": 45, "note": "Paper insert -> closer Boss framing (first major shift by frame 60)." },
+        { "type": "pushIn", "frame": 0, "durationFrames": 45, "note": "Eased push-in across the desk." }
+      ],
+      "lines": [
+        {
+          "id": "e4_01",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Kelab Divisyen Empat baru hantar tawaran. Lima puluh ribu untuk Karim.",
+          "translation": "A Division 4 club just sent an offer. 50K for Karim.",
+          "start": 0.0,
+          "end": 4.2,
+          "startFrame": 0,
+          "endFrame": 126,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "heart-vs-survival",
+      "name": "Scene 2 — Heart vs. Survival",
+      "from": 4.6,
+      "to": 44.5,
+      "fromFrame": 138,
+      "durationFrames": 1197,
+      "environment": "ClubOfficeApp (shot-reverse-shot between Coach and Boss; tactics whiteboard behind Coach)",
+      "director": "createHeartSurvivalScene",
+      "visual": "Shot-reverse-shot that escalates closer each exchange: medium two-shot -> Coach OTS -> Boss OTS -> tight singles. Coach leans in and gestures; Boss keeps his hands on the paper then spreads them. Tactics whiteboard on the wall behind the Coach.",
+      "sfx": "Low-tension office drone/ambience continues, ducked under dialogue. No hard SFX in this scene.",
+      "bgm": "Office drone holds a slow pulse, ducked under every line.",
+      "cues": [],
+      "events": [
+        { "type": "cut", "frame": 12, "note": "Two-shot -> Coach OTS." },
+        { "type": "cut", "frame": 135, "note": "Coach OTS -> Boss OTS." },
+        { "type": "cut", "frame": 324, "note": "Boss OTS -> tight Coach single." },
+        { "type": "cut", "frame": 411, "note": "Tight Coach single -> tight Boss single." },
+        { "type": "hud", "frame": 411, "note": "TransferOfferHUD in at e4_05 (absolute frame 549)." },
+        { "type": "cut", "frame": 591, "note": "Tight Boss single -> wider two-shot." },
+        { "type": "cut", "frame": 780, "note": "Two-shot -> Coach single (e4_07)." },
+        { "type": "cut", "frame": 894, "note": "Coach single -> Boss single (e4_08)." },
+        { "type": "cut", "frame": 1023, "note": "Boss single -> tight final-decision single." },
+        { "type": "hud", "frame": 759, "note": "TransferOfferHUD out at e4_06 end (absolute frame 897)." }
+      ],
+      "lines": [
+        {
+          "id": "e4_02",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Kau biar betul? Musim baru nak mula, kau nak jual kapten kita?",
+          "translation": "Are you serious? The season's about to start and you're selling our captain?",
+          "start": 5.0,
+          "end": 8.7,
+          "startFrame": 150,
+          "endFrame": 261,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_03",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Karim baru dua puluh lapan. Friendly lepas dia MVP! Semua serangan kita jalan sebab dia kat tengah.",
+          "translation": "Karim's only 28. He was MVP last friendly! Our entire attack runs through him in midfield.",
+          "start": 9.1,
+          "end": 15.0,
+          "startFrame": 273,
+          "endFrame": 450,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_04",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Aku tahu, coach. Aku pun tengok game tu.",
+          "translation": "I know, coach. I watched that game too.",
+          "start": 15.4,
+          "end": 17.9,
+          "startFrame": 462,
+          "endFrame": 537,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_05",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Tapi tengok akaun kelab ni. Lima puluh ribu memang tak banyak, tapi cukup untuk kita bernafas.",
+          "translation": "But look at the club's accounts. 50K isn't much, but it's enough to keep us breathing.",
+          "start": 18.3,
+          "end": 23.9,
+          "startFrame": 549,
+          "endFrame": 717,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_06",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Lagi satu... gaji Karim paling tinggi dalam skuad. Kalau dia keluar, kos gaji kita terus turun.",
+          "translation": "And one more thing... Karim's our highest earner. If he leaves, our wage bill drops immediately.",
+          "start": 24.3,
+          "end": 29.9,
+          "startFrame": 729,
+          "endFrame": 897,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_07",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Kalau dia keluar, siapa nak kawal padang? Kita nak menang ke nak cukup syarat je?",
+          "translation": "If he leaves, who controls the pitch? Are we here to win or just make up the numbers?",
+          "start": 30.3,
+          "end": 35.0,
+          "startFrame": 909,
+          "endFrame": 1050,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_08",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain.",
+          "translation": "No point winning one match if next month we can't pay the rest of the squad.",
+          "start": 35.4,
+          "end": 41.3,
+          "startFrame": 1062,
+          "endFrame": 1239,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e4_09",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Keputusan aku muktamad. Kita terima tawaran tu.",
+          "translation": "My decision is final. We're taking the offer.",
+          "start": 41.7,
+          "end": 44.5,
+          "startFrame": 1251,
+          "endFrame": 1335,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "doorway-cliffhanger",
+      "name": "Scene 3 — The Doorway Cliffhanger",
+      "from": 44.5,
+      "to": 48.6,
+      "fromFrame": 1335,
+      "durationFrames": 123,
+      "environment": "ClubOfficeApp (slow pan past Boss's shoulder to the half-open, cooler-backlit doorway)",
+      "director": "createDoorwayScene",
+      "visual": "1.3s dead silence (frames 1335–1373) as the Boss reaches for the pen and room tone drops out. Slow eased pan past his shoulder to the half-open door; Karim stands in the cooler hallway light wearing the Buluh FC Match Jersey with KARIM and 8 on the back, captain's armband on his left sleeve, boots in one hand. He lifts his head as he steps into the light.",
+      "sfx": "Near-silent pen tap at local frame 21 (absolute 1356); muted dramatic low bass hit on e4_10 (local frame 39 / absolute 1374); office drone returns at low level under Karim's line.",
+      "bgm": "Room tone absent through the silence beat; low drone fades back in under Karim, then cuts to black.",
+      "cues": [
+        { "file": "pen-tap.wav", "frame": 21, "volume": 0.22 },
+        { "file": "bass-hit.wav", "frame": 39, "volume": 0.85 }
+      ],
+      "events": [
+        { "type": "silence", "frame": 0, "durationFrames": 39, "note": "1.3s dead silence after e4_09; room tone drops out." },
+        { "type": "bassHit", "frame": 39, "note": "Muted low bass hit on e4_10." },
+        { "type": "reveal", "frame": 39, "durationFrames": 84, "note": "Slow pan past shoulder to Karim in the doorway." },
+        { "type": "hardCut", "frame": 122, "note": "Cut to black title card at absolute frame 1458." }
+      ],
+      "lines": [
+        {
+          "id": "e4_10",
+          "type": "dialogue",
+          "speaker": "KARIM",
+          "text": "Bos... betul ke apa yang aku dengar tadi?",
+          "translation": "Boss... is what I just heard true?",
+          "start": 45.8,
+          "end": 48.4,
+          "startFrame": 1374,
+          "endFrame": 1452,
+          "voice": "voice_4",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "outro-title-card",
+      "name": "Outro Title Card",
+      "from": 48.6,
+      "to": 51.0,
+      "fromFrame": 1458,
+      "durationFrames": 72,
+      "environment": null,
+      "director": null,
+      "visual": "Hard cut to clean black card: BULOH FC / thin gold divider / EPISOD 4. No CTA.",
+      "sfx": null,
+      "bgm": null,
+      "cues": [],
+      "events": [],
+      "lines": []
+    }
+  ]
+}

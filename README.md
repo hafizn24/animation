@@ -28,12 +28,13 @@ episodes/
   episode-1/                   # script.md + audio-script.json
   episode-2/                   # script.md + audio-script.json
   episode-3/                   # script.md + audio-script.json (source of truth)
-characters/                    # procedural 3D character rigs
-environments/                  # procedural 3D locations
+  episode-4/                   # script.md + audio-script.json — RM50,000 Untuk Karim
+characters/                    # procedural 3D character rigs (incl. character-karim.js)
+environments/                  # procedural 3D locations (incl. club-office.js / ClubOffice)
 remotion/
   src/
-    components/                # Scene3D, SafeArea, Subtitles, HookTitle, ScoreboardHUD
-    Episode1/ Episode2/ Episode3/  # compositions + scene directors
+    components/                # Scene3D, SafeArea, Subtitles, HookTitle, ScoreboardHUD, TransferOfferHUD
+    Episode1/ Episode2/ Episode3/ Episode4/  # compositions + scene directors
     Root.jsx                   # composition registry + durations
   scripts/generate_tts.py      # multi-voice TTS generation
   story/                       # story guide + series storyline
@@ -47,6 +48,7 @@ cd remotion
 npm run render          # Episode 1
 npm run render:episode2 # Episode 2
 npm run render:episode3 # Episode 3
+npm run render:episode4 # Episode 4 — RM50,000 Untuk Karim (out/episode-4.mp4)
 ```
 
 ## Regenerating audio
@@ -58,5 +60,17 @@ Update `episodes/episode-X/audio-script.json` and
 cd remotion
 python scripts/generate_tts.py e2_        # e2_ = Episode 2, b = Episode 1
 python scripts/generate_tts.py e3_        # e3_ = Episode 3 (e3_01 lead-silence trimmed)
-python scripts/generate_audio_beds.py     # procedural SFX + BGM beds
+python scripts/generate_tts.py e4_        # e4_ = Episode 4 (all clips lead-silence trimmed)
+python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. office drone + bass hit)
 ```
+
+### Episode 4 notes
+- `ClubOffice` (`environments/club-office.js`) is a lightweight 9:16 indoor set: dark plaster shell,
+  warm wood floor, desk + offer sheet + pen, tactics whiteboard, warm desk lamp and a half-open,
+  cooler-backlit doorway for the Karim reveal.
+- Karim's rig (`characters/character-karim.js`) prints `KARIM` and `8` on the Match Jersey back and
+  front, adds a captain armband and carries boots in his left hand.
+- `TransferOfferHUD` shows `TAWARAN RASMI — KELAB DIVISYEN 4`, `RM50,000` and `KOS GAJI: -35%`
+  on `e4_05`–`e4_06`. A deliberate 1.3s silence drops the room tone before Karim's doorway line.
+- Total: 1,530 frames / 51.0s @ 30fps. Render a quick smoke test with
+  `npx remotion render Episode4 out/episode-4-test.mp4 --frames=0-150`.

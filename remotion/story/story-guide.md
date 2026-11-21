@@ -55,3 +55,10 @@ leading silence trimmed and a sharp SFX transient fires on frame 0. See
 - **Continuity:** the Kek Maju bakery owner from Ep. 2 is on the touchline; her shop name sits on the sideline ad-board.
 - **Subtitles:** casual Malay line plus a smaller English translation line, both above the Shorts bottom/right dead zones.
 - **Ending:** captain's final line → referee whistle + triumphant BGM swell → hard cut to the `BULOH FC / EPISOD 3` title card. Zero CTA.
+
+## Episode 4 Quick Reference
+- **Title:** *RM50,000 Untuk Karim*. **Runtime:** 1,530 frames / 51.0s @ 30fps.
+- **Setting:** `ClubOffice` — dim plaster room, warm desk lamp, tactics whiteboard, half-open backlit doorway.
+- **Beats:** bomb drops (`e4_01`, hook `RM50,000 UNTUK KARIM.`) → heart vs survival (`e4_02`–`e4_09`, `TransferOfferHUD` on `e4_05`–`e4_06`) → 1.3s dead silence + slow reveal pan to Karim in his `KARIM 8` jersey (`e4_10`) → hard cut.
+- **Cast:** Boss (`voice_3`), Coach (`voice_2`), Karim (`voice_4`, captain / CM #8 / friendly MVP / highest earner). All `e4_` clips are lead-silence trimmed.
+- **Ending:** muted low bass hit on `e4_10` → hard cut to the `BULOH FC / EPISOD 4` title card. Zero CTA.

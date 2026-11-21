@@ -4,6 +4,7 @@ import { FootballMatch } from './FootballMatch.jsx';
 import { Episode1Composition } from './Episode1/Episode1Composition.jsx';
 import { Episode2Composition } from './Episode2/Episode2Composition.jsx';
 import { Episode3Composition } from './Episode3/Episode3Composition.jsx';
+import { Episode4Composition } from './Episode4/Episode4Composition.jsx';
 
 export const RemotionRoot = () => {
   return (
@@ -36,6 +37,14 @@ export const RemotionRoot = () => {
         id="Episode3"
         component={Episode3Composition}
         durationInFrames={1260}
+        fps={30}
+        width={720}
+        height={1280}
+      />
+      <Composition
+        id="Episode4"
+        component={Episode4Composition}
+        durationInFrames={1530}
         fps={30}
         width={720}
         height={1280}
