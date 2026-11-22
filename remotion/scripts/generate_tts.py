@@ -55,6 +55,17 @@ VOICE_STYLE = {
     "teammate2": {"speed": 1.08, "pitch": 1.05},
 }
 
+# Episode 5 is generated at natural speed only. No fit-to-budget pass and no
+# time-stretching: the shot timeline is rebuilt from these measured durations.
+E5_NATURAL_SPEEDS = {
+    "bos": 1.0,
+    "coach": 1.0,
+    "karim": 1.0,
+    "teammate1": 1.0,
+    "teammate2": 1.0,
+    "azam": 1.0,
+}
+
 MANIFEST = [
     ("b1_narrator", "narrator", 0, 196, "Malam ni, dalam bilik kerja yang sejuk, satu folder merah kena ketuk atas meja. Nampak macam biasa... tapi ada yang nak berakhir."),
     ("b1_peguam", "peguam", 196, 340, "RM450,000 tertunggak. Tiga puluh hari. Atau stadium ini milik kami."),
@@ -107,26 +118,27 @@ MANIFEST = [
     ("e4_08", "bos", 1062, 1241, "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain."),
     ("e4_09", "bos", 1251, 1335, "Keputusan aku muktamad. Kita terima tawaran tu."),
     ("e4_10", "karim", 1374, 1433, "Bos... betul ke apa yang aku dengar tadi?"),
-    # Episode 5 — mirrors episodes/episode-5/audio-script.json (72s / 2160 frames).
-    # e5_06's audio starts at frame 825 and is a deliberate 0.5s J-cut into
-    # Act 2's visual cut at frame 840; its subtitle waits for the new shot.
-    ("e5_01", "bos", 0, 123, "Karim… jangan salah faham. Aku takkan jual kapten aku."),
-    ("e5_02", "karim", 132, 234, "Hutang kita dekat empat ratus ribu, bos."),
-    ("e5_03", "karim", 243, 363, "Kalau kelab ni mati, semua habis. Jual aku."),
-    ("e5_04", "bos", 375, 429, "Kau pasti, Rim?"),
-    ("e5_05", "karim", 441, 585, "Bawa Buluh FC naik Divisyen 1."),
-    ("e5_06", "teammate1", 825, 940, "Weh, dengar cerita bos dah sign pemain nombor 7 baru!"),
-    ("e5_07", "teammate2", 951, 1071, "Fuhh, baru jual Karim lima puluh ribu… confirm striker padu ni!"),
-    ("e5_08", "coach", 1083, 1179, "Siapa kau beli ni, bos?"),
-    ("e5_09", "bos", 1191, 1287, "Tengok sendiri."),
-    ("e5_10", "azam", 1335, 1383, "PERTAMA!"),
-    ("e5_11", "azam", 1398, 1494, "Assalamualaikum. Saya Azam. Defender baru."),
-    ("e5_12", "teammate1", 1509, 1605, "Kejap… defender pakai nombor tujuh?!"),
-    ("e5_13", "azam", 1620, 1674, "Baru lawan gerun."),
-    ("e5_14", "coach", 1695, 1827, "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?"),
-    ("e5_15", "bos", 1845, 1896, "Lima ringgit."),
-    ("e5_16", "coach", 1914, 1971, "Lima ribu?!"),
-    ("e5_17", "bos", 1992, 2118, "Lima ringgit. Duit Karim semua bayar hutang."),
+    # Episode 5 — mirrors episodes/episode-5/audio-script.json (45.1s / 1353 frames).
+    # Frames are derived from the natural 1.0x clips; no fitting/stretching is
+    # applied. e5_06's audio starts at frame 494, a 0.47s J-cut into Act 2's
+    # visual cut at frame 508, right as the debt counter lands on RM331,500.
+    ("e5_01", "bos", 0, 141, "Karim… jangan salah faham. Aku takkan jual kapten aku."),
+    ("e5_02", "karim", 149, 209, "Hutang kita dekat empat ratus ribu, bos."),
+    ("e5_03", "karim", 221, 315, "Kalau kelab ni mati, semua habis. Jual aku."),
+    ("e5_04", "bos", 323, 348, "Kau pasti, Rim?"),
+    ("e5_05", "karim", 356, 417, "Bawa Buluh FC naik Divisyen 1."),
+    ("e5_06", "teammate1", 494, 593, "Weh, dengar cerita bos dah sign pemain nombor 7 baru!"),
+    ("e5_07", "teammate2", 601, 724, "Fuhh, baru jual Karim lima puluh ribu… confirm striker padu ni!"),
+    ("e5_08", "coach", 732, 765, "Siapa kau beli ni, bos?"),
+    ("e5_09", "bos", 773, 792, "Tengok sendiri."),
+    ("e5_10", "azam", 836, 850, "PERTAMA!"),
+    ("e5_11", "azam", 862, 940, "Assalamualaikum. Saya Azam. Defender baru."),
+    ("e5_12", "teammate1", 948, 1014, "Kejap… defender pakai nombor tujuh?!"),
+    ("e5_13", "azam", 1022, 1048, "Baru lawan gerun."),
+    ("e5_14", "coach", 1060, 1168, "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?"),
+    ("e5_15", "bos", 1180, 1201, "Lima ringgit."),
+    ("e5_16", "coach", 1204, 1221, "Lima ribu?!"),
+    ("e5_17", "bos", 1224, 1305, "Lima ringgit. Duit Karim semua bayar hutang."),
 ]
 
 
@@ -178,7 +190,7 @@ def normalize(source, destination, pitch=1.0):
 
 
 def strip_leading_silence(path):
-    """Force the first clip to start exactly at t=0.0s (pattern-interrupt hook)."""
+    """Trim silence from BOTH ends; the first clip then lands exactly at t=0.0s."""
     temp = path.with_suffix(".leadtrim.mp3")
     subprocess.run(
         [FFMPEG, "-y", "-loglevel", "error", "-i", str(path),
@@ -188,28 +200,6 @@ def strip_leading_silence(path):
         check=True,
     )
     temp.replace(path)
-
-
-def stretch_to_budget(path, budget):
-    """Gently lengthen short punchy clips so Episode 5's cinematic beats stay audio-driven.
-
-    atempo preserves pitch; the 1.3x cap keeps voices natural. Any remainder is
-    left as an intentional, SFX/BGM-filled beat rather than forced silence.
-    """
-    length = duration(path)
-    if length >= budget - 0.08:
-        return length
-    factor = min(budget / length, 1.3)
-    if factor <= 1.01:
-        return length
-    stretched = path.with_suffix('.stretch.mp3')
-    subprocess.run(
-        [FFMPEG, "-y", "-loglevel", "error", "-i", str(path),
-         "-filter:a", f"atempo={1.0 / factor:.4f}", "-ar", "44100", "-b:a", "160k", str(stretched)],
-        check=True,
-    )
-    stretched.replace(path)
-    return duration(path)
 
 
 def duration(path):
@@ -246,6 +236,17 @@ def main():
         pitch = style.get("pitch", 1.0)
         speed = base_speed
 
+        if name.startswith("e5_"):
+            # Natural-speed path: no budget fitting, no stretching of any kind.
+            speed = E5_NATURAL_SPEEDS[speaker]
+            synthesize(key, text, VOICES[speaker], speed, raw)
+            normalize(raw, final, pitch)
+            strip_leading_silence(final)
+            length = duration(final)
+            flag = "NATURAL"
+            print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x {flag}")
+            continue
+
         synthesize(key, text, VOICES[speaker], speed, raw)
         normalize(raw, final, pitch)
         length = duration(final)
@@ -270,12 +271,9 @@ def main():
             length = duration(final)
             speed = round(speed * tempo, 2)
 
-        if name == "e3_01" or name.startswith("e4_") or name.startswith("e5_"):
+        if name == "e3_01" or name.startswith("e4_"):
             strip_leading_silence(final)
             length = duration(final)
-
-        if name.startswith("e5_"):
-            length = stretch_to_budget(final, budget)
 
         flag = "OK" if length <= budget + 0.15 else "OVER"
         print(f"{name + '.mp3':20} {budget:6.2f}s {length:8.2f}s {speed:5.2f}x {flag}")

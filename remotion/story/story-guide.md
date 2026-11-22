@@ -4,12 +4,16 @@
 > [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md).
 > The old "no captions / spoken CTA" approach is **retired** — Episode 1's dual
 > subtitle design and clean gold-divider title card are now the standard.
+> Episode 5 is the one approved exception to the **title-card** rule only (see
+> the Episode 5 Quick Reference below); every other rule still applies. Its
+> runtime was rebuilt from natural-speed TTS and now sits at 45.1s.
 
 ## Target Metrics & Format
-- **Target Runtime:** ~42–55 seconds (strictly under 60s).
-- **Aspect Ratio:** 9:16 vertical, 720x1280 @ 30fps.
+- **Target Runtime:** ~42–55 seconds (strictly under 60s). Episode 5: **45.1s / 1,353 frames** from natural 1.0x audio, no stretch padding.
+- **Aspect Ratio:** 9:16 vertical, 720x1280 @ 30fps. **Episode 5 master: 1080x1920 @ 30fps**, with the same overlay design scaled 1.5x.
 - **Language:** casual spoken Malaysian Malay (*Bahasa Melayu santai*).
-- **Structure:** alternating NARRATOR + CHARACTER DIALOGUE lines.
+- **Structure:** alternating NARRATOR + CHARACTER DIALOGUE lines. Episode 5 runs character dialogue only (Bos / Karim / Jurulatih / teammates / Azam) — no narrator-only stretches.
+- **Series canon after Ep. 5:** debt **RM331,500** (from RM450,000 → RM381,500; `KOS GAJI: -35%`). **Karim (#8) departed**; **Azam (#7, Defender, @akudingin-d1f, RM5)** joins with *"PERTAMA!"*. See [`storyline.md`](./storyline.md) for the full canon snapshot.
 
 ## The 4-Beat Episode Structure
 1. **Hook (0:00–0:04)** — start on the stakes. Hard SFX on frame 1. Gold italic
@@ -60,11 +64,13 @@ leading silence trimmed and a sharp SFX transient fires on frame 0. See
 - **Title:** *RM50,000 Untuk Karim*. **Runtime:** 1,530 frames / 51.0s @ 30fps.
 - **Setting:** `ClubOffice` — dim plaster room, warm desk lamp, tactics whiteboard, half-open backlit doorway.
 - **Beats:** bomb drops (`e4_01`, hook `RM50,000 UNTUK KARIM.`) → heart vs survival (`e4_02`–`e4_09`, `TransferOfferHUD` on `e4_05`–`e4_06`) → 1.3s dead silence + slow reveal pan to Karim in his `KARIM 8` jersey (`e4_10`) → hard cut.
-- **Cast:** Boss (`voice_3`), Coach (`voice_2`), Karim (`voice_4`, captain / CM #8 / friendly MVP / highest earner). All `e4_` clips are lead-silence trimmed.
+- **Cast:** Boss (`voice_3`), Coach (`voice_2`), Karim (`voice_4`, then-captain / CM #8 / friendly MVP / highest earner — departed in Ep. 5). All `e4_` clips are lead-silence trimmed.
 - **Ending:** muted low bass hit on `e4_10` → hard cut to the `BULOH FC / EPISOD 4` title card. Zero CTA.
 
 ## Episode 5 Quick Reference
-- **Title:** *Pengorbanan & Nombor 7 Baru*. **Runtime:** 2,160 frames / 72.0s @ 30fps, 1080x1920.
+- **Title:** *Pengorbanan & Nombor 7 Baru*. **Runtime:** 1,353 frames / 45.1s @ 30fps, 1080x1920 (format upgrade only; runtime in the normal band). Natural 1.0x TTS, tight 5–8 frame gaps, 90-frame debt ticker, 3-frame rapid-fire punchline.
+- **Continuity:** Karim (#8) sacrifices himself and accepts the **RM50,000** Division 4 transfer so the club survives; the full fee goes to debt. **Debt: RM381,500 → RM331,500**, **KOS GAJI: -35%**.
+- **Roster after this episode:** **Karim (#8, former captain) departed.** **Azam (#7, Defender, fan character @akudingin-d1f, salary RM5)** joins, entering with **"PERTAMA!"** — never a "comment below" prompt. No new captain named.
 - **Settings:** `ClubOffice` (Act 1) → `LockerRoomApp` (Acts 2–3). Azam (#7, defender) is a new rig sharing Karim's proportions.
 - **Beats:** Karim's sacrifice and debt ticker (`RM381,500 → RM331,500`, `KOS GAJI: -35%`) → `ESOKNYA...` + #7 rumour → Azam's reveal + 1.5s fan comment card → `Lima ringgit.` punchline.
 - **Audio:** Bos (`voice_3`), Karim (`voice_4`), Jurulatih (`voice_2`), teammates, Azam (`voice_5`). `e5_06` J-cuts 0.5s into Act 2.

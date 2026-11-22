@@ -446,31 +446,19 @@ export class AzamApp {
       torso.rotation.x = -0.06;
       head.rotation.x = -0.07;
       head.rotation.y = -0.1;
-      if (leftArm) leftArm.rotation.set(-0.28, 0, -0.52);
-      if (rightArm) rightArm.rotation.set(-0.22, 0, 0.56);
-      if (leftLeg) leftLeg.rotation.z = -0.12;
-      if (rightLeg) rightLeg.rotation.z = 0.12;
-    } else if (pose === 'flex') {
-      torso.rotation.x = -0.03;
-      head.rotation.x = -0.05;
-      if (leftArm) leftArm.rotation.set(-1.85, 0, -0.48);
-      if (rightArm) rightArm.rotation.set(-1.85, 0, 0.48);
-      if (leftLeg) leftLeg.rotation.z = -0.1;
-      if (rightLeg) rightLeg.rotation.z = 0.1;
-    } else if (pose === 'point') {
-      torso.rotation.y = -0.06;
-      head.rotation.y = -0.12;
-      if (rightArm) rightArm.rotation.set(-1.35, 0, 0.34);
-      if (rightHand) rightHand.rotation.z = -0.2;
-      if (leftArm) leftArm.rotation.set(-0.4, 0, -0.48);
-    } else {
-      // idle — energetic, chest out, one hand cocked at the hip.
-      torso.rotation.x = -0.035;
-      head.rotation.y = -0.08;
-      if (leftArm) leftArm.rotation.set(-0.46, 0, -0.5);
-      if (rightArm) rightArm.rotation.set(-0.2, 0, 0.42);
+      if (leftArm) leftArm.rotation.set(-0.22, 0, -0.34);
+      if (rightArm) rightArm.rotation.set(-0.18, 0, 0.36);
       if (leftLeg) leftLeg.rotation.z = -0.08;
       if (rightLeg) rightLeg.rotation.z = 0.08;
+    } else {
+      // idle — relaxed, arms lowered at the sides with a subtle weight shift.
+      // Never a stiff arms-out/T-pose: used for the whole final RM5 exchange.
+      torso.rotation.set(0, 0, 0);
+      head.rotation.y = -0.04;
+      if (leftArm) leftArm.rotation.set(0.06, 0, -0.14);
+      if (rightArm) rightArm.rotation.set(-0.04, 0, 0.14);
+      if (leftLeg) leftLeg.rotation.z = -0.03;
+      if (rightLeg) rightLeg.rotation.z = 0.03;
     }
   }
 
@@ -484,8 +472,10 @@ export class AzamApp {
       head.position.y = 1.96 + bounce * 0.018;
       torso.scale.y = 1 + bounce * 0.014;
       if (leftArm && rightArm && this.currentPose === 'idle') {
-        leftArm.rotation.x = -0.46 + bounce * 0.05;
-        rightArm.rotation.x = -0.2 - bounce * 0.05;
+        leftArm.rotation.x = 0.06 + bounce * 0.035;
+        rightArm.rotation.x = -0.04 - bounce * 0.035;
+        torso.rotation.z = Math.sin(elapsed * 1.1) * 0.012;
+        head.rotation.z = Math.sin(elapsed * 1.1 + 0.5) * 0.01;
       }
     }
     if (this.controls) this.controls.update();

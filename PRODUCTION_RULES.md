@@ -30,6 +30,9 @@ pattern in the first two seconds:
   and the scoreboard HUD.
 - Analytics guardrail: the hook must be visible and legible on a phone before
   the viewer can decide to scroll. Keep the runtime in the 40–45s sweet spot.
+  Episode 5 was rebuilt from natural 1.0x TTS clips and now sits at **45.1s**,
+  back in the sweet spot; no runtime exception is active. Later episodes follow
+  the same audio-derived timeline method unless their own story doc says otherwise.
 
 ---
 
@@ -82,7 +85,9 @@ styles, never mixed:
 
 Both sit inside a subtle dark rounded plate so they stay readable on phone
 screens. Narration is timed per line (`audio-script.json`); it is not a
-permanent overlay.
+permanent overlay. For the 1080x1920 Episode 5 master,
+`remotion/src/Episode5/components/Episode5Subtitles.jsx` is the same design
+scaled 1.5x, with the plate kept clear of the Shorts bottom-25% / right-15% zones.
 
 ## 5. NO Engagement-Bait CTAs (STRICT)
 
@@ -100,6 +105,10 @@ EPISOD X
 ```
 
 No CTA. No credits crawl. Hold the card briefly, then end.
+
+**Episode 5 exception:** the RM5 punchline deliberately overrides the title
+card — a 0.3s stunned beat followed by a **hard cut to pure black** with a
+comedic percussion hit. No text, no credits, no CTA. Do not add a card to Ep. 5.
 
 ## 6. Audio-Driven Pacing (MANDATORY)
 
@@ -138,6 +147,25 @@ Before an episode is called finished:
 - [ ] All copy is casual Malay; no formal register, no CTA.
 - [ ] Dual subtitles render correctly (gold italic narration / gold-labelled
       white dialogue).
-- [ ] Final line hard-cuts to the black `BULOH FC / EPISOD X` title card.
+- [ ] Final line hard-cuts to the black `BULOH FC / EPISOD X` title card (Episode 5: hard cut to pure black instead).
 - [ ] No silent gap over 0.8s; no repeated static angle; no clipping.
 - [ ] `npm run studio` opens the composition; a still render succeeds.
+- [ ] Story docs (`remotion/story/`) match the current canon in Section 9.
+
+---
+
+## 9. Series Canon (after Episode 5)
+Single source of truth for numbers and roster continuity. Episode entries below
+describe the state *at the time of that episode*; this section is the state now.
+
+- **Club debt:** **RM331,500** (RM450,000 at Ep. 1 → RM381,500 before Ep. 5 →
+  RM331,500 after the sale). **KOS GAJI: -35%**. No other figure is current.
+- **Transfer income:** **RM50,000** from a Kelab Divisyen 4 club for Karim; all
+  of it went to debt. Target remains **Divisyen 1**.
+- **Roster:** **Karim (#8)** — former captain / centre midfielder — **departed in
+  Ep. 5**; his armband stays on the Boss's desk and the captaincy is vacant.
+  **Azam (#7)** — Defender, fan character **@akudingin-d1f**, salary **RM5** —
+  joins with the signature entrance **"PERTAMA!"**.
+- **Fan easter egg:** the `@akudingin-d1f — "Pertama"` card is an in-world detail
+  only and is **never** an engagement prompt.
+- **Continuity reference:** [`remotion/story/storyline.md`](./remotion/story/storyline.md).

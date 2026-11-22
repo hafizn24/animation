@@ -63,7 +63,7 @@ cd remotion
 python scripts/generate_tts.py e2_        # e2_ = Episode 2, b = Episode 1
 python scripts/generate_tts.py e3_        # e3_ = Episode 3 (e3_01 lead-silence trimmed)
 python scripts/generate_tts.py e4_        # e4_ = Episode 4 (all clips lead-silence trimmed)
-python scripts/generate_tts.py e5_        # e5_ = Episode 5 (trimmed + gently stretched to the cinematic beats)
+python scripts/generate_tts.py e5_        # e5_ = Episode 5 (natural 1.0x, both-end silence trimmed, no stretching)
 python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. office drone + bass hit)
 ```
 
@@ -84,14 +84,23 @@ python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. off
 - `Karim` and `Club Office` are also registered in the standalone viewer (`npm start`).
 
 ### Episode 5 notes
-- **Pengorbanan & Nombor 7 Baru** — 2,160 frames / 72.0s @ 30fps, **1080x1920** (9:16 master;
+- **Pengorbanan & Nombor 7 Baru** — **1,353 frames / 45.1s @ 30fps**, **1080x1920** (9:16 master;
   overlays are the Ep. 1 design scaled 1.5x). Ends on a hard cut to pure black — no title card, no CTA.
+- All `e5_*` clips are generated at **natural 1.0x speed** with both-end silence trimmed — **no time
+  stretching**. Every frame is derived from measured clip durations: 5–8 frame dialogue gaps,
+  a 12-frame armband beat, 3-frame rapid-fire between the last three lines, and an 8-frame beat
+  before black.
 - **`characters/character-azam.js`** (`AzamApp`) mirrors Karim's rig/proportions with an `AZAM 7`
-  jersey, swept quiff, no armband and energetic poses (`idle`, `stride`, `reveal`, `flex`, `point`).
+  jersey, swept quiff and `stride`/`reveal` poses. After *"Baru lawan gerun."* he eases into a
+  relaxed **`idle`** (arms lowered, breathing, weight shift) for the whole RM5 exchange — no T-pose.
 - **Act 1** reuses `ClubOfficeApp`; **Acts 2–3** reuse the existing `LockerRoomApp` (`environments/locker-room.js`).
-- `DebtTickerHUD` ticks `HUTANG KELAB` from `RM381,500` to `RM331,500` and shows `KOS GAJI: -35%`.
-  A 1.5s `@akudingin-d1f` comment card flashes on Azam's entrance; it contains no engagement prompt.
-- Teammate 1's `e5_06` starts at frame 825 — a 0.5s J-cut before the visual cut to Act 2 at frame 840.
-- Smoke tests:
-  `npx remotion render Episode5 out/e5-jcut-test.mp4 --frames=810-900` and
-  `npx remotion render Episode5 out/e5-reveal-test.mp4 --frames=1320-1410`.
+  Karim's carried boots are hidden and his captain armband is laid cleanly on the desk; Bos faces the
+  squad/camera three-quarter front in Act 2; the final 12s use a 45-degree front-quarter two-shot.
+- `DebtTickerHUD` plays for **90 frames (3.0s)**, ticking `HUTANG KELAB` from `RM381,500` to
+  `RM331,500` with `KOS GAJI: -35%`. A 1.5s `@akudingin-d1f` comment card flashes on Azam's entrance;
+  it contains no engagement prompt. `ESOKNYA...` holds 16 frames (0.53s).
+- Teammate 1's `e5_06` starts at frame 494 — a 0.47s J-cut before the visual cut to Act 2 at frame 508,
+  just after the counter lands on `RM331,500`.
+- Smoke tests: `npx remotion render Episode5 out/e5-smoke/act1-armband-hud.mp4 --frames=185-215`,
+  `... --frames=470-515`, `... --frames=730-795`, `... --frames=830-1070`, and
+  `... --frames=1233-1352`.

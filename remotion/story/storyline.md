@@ -5,16 +5,25 @@
 > pacing.
 
 ## Logline
-A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **RM450,000 debt** and a **30-day deadline** before their stadium is seized. With an unpaid squad, a skeptical coach, and a ruthless lawyer closing in, the club owner must pull off a miracle on and off the pitch.
+A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a crushing debt and a 30-day deadline before their stadium is seized. With an unpaid squad, a skeptical coach, and a ruthless lawyer closing in, the club owner must pull off a miracle on and off the pitch. By Episode 5 the club has sold its captain to survive — and replaced him with the last player anyone expected.
 
 ---
 
 ## Core Stakes & Rules
-- **The Debt:** RM450,000 owed (stadium & club operations).
-- **The Division:** Buluh FC competes in **Divisyen 5** (fifth tier). Low expectations are a recurring theme — sponsors and rivals use "Divisyen 5" as an insult; the owner wears it as a badge of pride.
-- **The Countdown:** 30 days remaining (track current day in every episode).
+- **The Debt:** **RM331,500 outstanding after Episode 5.** It began at RM450,000 (Ep. 1), stood at RM381,500 immediately before the transfer, and dropped by RM50,000 when Karim was sold — **KOS GAJI: -35%** at the same time. Older episode entries below quote the figure at the time they were written; this section is the current canon.
+- **The Division:** Buluh FC competes in **Divisyen 5** (fifth tier). Low expectations are a recurring theme — sponsors and rivals use "Divisyen 5" as an insult; the owner wears it as a badge of pride. Karim's parting request is to take the club to **Divisyen 1**.
+- **The Countdown:** 30 days at Episode 1 (Day 27 by Episode 2). Do not invent a new day number for Episode 5 — it is the day after the transfer is accepted.
 - **Win Condition:** Clear the debt or secure a major sponsor/cup prize before Day 30.
 - **Lose Condition:** Stadium seized, club dissolved.
+
+### Canon Snapshot — after Episode 5
+| Item | Status |
+|---|---|
+| **Club debt** | **RM331,500** (was RM450,000 → RM381,500; `KOS GAJI: -35%`) |
+| **Transfer income** | **RM50,000** from a Kelab Divisyen 4 club for Karim — all of it went to debt |
+| **Karim (#8)** | **Departed.** Former captain / centre midfielder; sold in Ep. 5, armband left on the Boss's desk |
+| **Azam (#7)** | **New signing.** Defender, fan character `@akudingin-d1f`, salary **RM5**, signature line **"PERTAMA!"** |
+| **Captaincy** | Vacant since Karim's departure — no new captain has been named on screen |
 
 ---
 
@@ -24,16 +33,24 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 | **Owner** | Club Owner | Save Buluh FC without losing his dignity | Optimistic, desperate, talks big |
 | **Coach** | Head Coach | Protect the players & get paid | Pragmatic, blunt (*"kata-kata tak bayar bil elektrik"*) |
 | **Chairman** | Club / League Authority | Enforce the rules & protect finances | Cold, by-the-book |
-| **Peguam** | Lawyer / Debt Collector | Collect RM450,000 or seize the stadium | Sharp, intimidating, clock-watching |
+| **Peguam** | Lawyer / Debt Collector | Collect the outstanding debt (RM450,000 at Ep. 1; **RM331,500** after Ep. 5) or seize the stadium | Sharp, intimidating, clock-watching |
 | **Penaaja** | Sponsor Executive (Nexus Sports) | Buy naming rights only on a winning, high-draw club | Slick, impatient, check-watching |
-| **Karim** (`characters/character-karim.js`) | Captain, Center Midfielder (#8) | Keep Buluh FC's attacking engine — and the squad — intact | Loyal, quiet, carries the team; friendly-match MVP and the squad's highest earner |
+| **Karim** (`characters/character-karim.js`) | **Former** captain, Center Midfielder (#8) — departed in Ep. 5 | Keep Buluh FC's attacking engine — and the squad — intact | Loyal, quiet, carries the team; friendly-match MVP and the squad's highest earner |
+| **Azam** (`characters/character-azam.js`) | Defender (#7) — signed in Ep. 5 | Prove the new #7 belongs; enters with *"PERTAMA!"* | Fan-inspired (@akudingin-d1f), beaming, confident, works for **RM5** |
 
-### Karim — Canonical Profile (Episode 4+)
-- **Age:** 28. **Position:** Center Midfielder. **Shirt number:** #8. **Role:** Club Captain.
-- **Status:** Friendly-match MVP (vs Hulubalang United, Ep. 3) and Buluh FC's **primary attacking orchestrator** — the entire attack runs through him in midfield.
-- **Contract:** **Highest earner in the squad** — the single biggest wage line the club must cut before the season starts.
+### Karim — Canonical Profile (Episodes 4–5; departed after Ep. 5)
+- **Age:** 28. **Position:** Center Midfielder. **Shirt number:** #8. **Role:** Club Captain until the end of Episode 4.
+- **Status:** Friendly-match MVP (vs Hulubalang United, Ep. 3) and Buluh FC's **primary attacking orchestrator** — the entire attack ran through him in midfield.
+- **Contract:** Was the **highest earner in the squad** — the single biggest wage line the club cut before the season started. **Sold for RM50,000 to a Kelab Divisyen 4 club in Ep. 5**; the fee went entirely to debt. His departure takes the captain's armband with it.
 - **Look:** Buluh FC **Match Jersey** with `KARIM` and `8` printed on the back, captain's armband on the left sleeve, boots in hand at the doorway reveal. Faceless like the rest of the cast; body language carries the emotion.
 - **Voice:** grounded, lower-pitched male (`karim` → `voice_4`, pitch 0.90, speed 0.95) — distinct from Boss (`voice_3`) and Coach (`voice_2`).
+
+### Azam — Canonical Profile (from Episode 5)
+- **Position:** Defender. **Shirt number:** **#7**. **Salary:** **RM5** (the punchline of Ep. 5).
+- **Origin:** Fan-inspired character based on viewer **@akudingin-d1f**; the number 7 is his own idea (*"Baru lawan gerun"* — opponents will fear it).
+- **Entrance:** Bursts through the locker-room door in the Buluh FC Match Jersey with a loud **"PERTAMA!"**; a 1.5s in-world `@akudingin-d1f — "Pertama"` comment card flashes on screen. No engagement prompt — it is a fan detail, never a CTA.
+- **Look:** Faceless like the rest of the cast, swept quiff silhouette, chest-out cocky stance; `AZAM` and `7` printed on the Match Jersey back and front. Rig: `characters/character-azam.js` (shares Karim's proportions and `characterParts` contract).
+- **Voice:** bright, energetic young male (`azam` → `voice_5`, speed 1.06, pitch 1.06).
 
 ---
 
@@ -81,11 +98,13 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 **Script location:** `episodes/episode-4/script.md` and `episodes/episode-4/audio-script.json` are the source of truth. `remotion/src/Episode4/Episode4Composition.jsx` imports the JSON directly for all scene, subtitle, HUD, silence-beat and SFX timings. TTS text/voices live in `remotion/scripts/generate_tts.py` (prefix `e4_`, all clips lead-silence trimmed). Regenerate with `python scripts/generate_tts.py e4_`.
 
 ### Episode 5 — *Pengorbanan & Nombor 7 Baru* (In production)
-- **Status:** Scripted for Remotion (`remotion/src/Episode5/`); **2,160 frames / 72.0s @ 30fps**, 1080x1920 9:16 master with MS + EN dual subtitles, a 1.5s hook and audio-driven pacing.
-- **Continuity from Ep. 4:** Karim accepts the RM50,000 transfer himself, lays his captain armband beside the offer and asks Bos to take Buluh FC to Divisyen 1. Club debt falls from RM381,500 to RM331,500 and the wage bill drops 35%.
-- **Plot:** The squad expects a killer striker for the new #7. Azam — a fan-inspired defender (@akudingin-d1f) — bursts through the locker-room door instead. His salary is **RM5**; Karim's transfer money all went to debt. Hard cut to black on the punchline. No CTA.
-- **Cast:** Bos (`voice_3`), Karim (`voice_4`), Jurulatih (`voice_2`), two teammates, and Azam (`voice_5`, new `characters/character-azam.js` rig with an `AZAM 7` jersey).
-- **J-cut:** `e5_06` begins 15 frames before Act 2's visual cut. The 1.5s `@akudingin-d1f` comment card is an in-world fan easter egg, never an engagement prompt.
-- **Ending:** deliberately overrides the series title card — pure black hard cut with a comedic percussion hit.
+- **Status:** Scripted for Remotion (`remotion/src/Episode5/`); **1,353 frames / 45.1s @ 30fps**, 1080x1920 9:16 master with MS + EN dual subtitles, a 1.5s hook and audio-driven pacing. All `e5_*` clips are natural 1.0x with both-end silence trimmed — no time stretching; the timeline is derived from measured durations (5–8 frame dialogue gaps, 12-frame armband beat, 3-frame rapid-fire punchline, 8-frame stunned beat before black).
+- **Continuity from Ep. 4:** Karim (#8) sacrifices himself and accepts the **RM50,000** transfer to a **Kelab Divisyen 4** club so Buluh FC survives. He lays his captain armband beside the offer and asks Bos to take the club to Divisyen 1. The club debt drops from **RM381,500 to RM331,500** with **KOS GAJI: -35%**.
+- **Plot:** The squad assumes the new **#7** is a striker. Instead, **Azam — a Defender, the fan character @akudingin-d1f —** bursts through the locker-room door with a loud **"PERTAMA!"** and explains his number: *"Baru lawan gerun."* The punchline: his salary is **RM5** — all of Karim's transfer money went to debt.
+- **Roster change:** Karim (#8, former captain) **departed**; Azam (#7) **joins** the squad on **RM5**. No new captain is named.
+- **Cast:** Bos (`voice_3`), Karim (`voice_4`), Jurulatih (`voice_2`), Rakan 1 & Rakan 2, and Azam (`voice_5`, new `characters/character-azam.js` rig with an `AZAM 7` jersey).
+- **HUD:** `DebtTickerHUD` (`remotion/src/Episode5/components/DebtTickerHUD.jsx`) animates `TAWARAN DITERIMA: RM50,000`, ticks `HUTANG KELAB: RM381,500 → RM331,500` and holds `KOS GAJI: -35%`; a compact `HUTANG: RM331,500` tablet reprises on the last line.
+- **J-cut:** `e5_06` begins 15 frames before Act 2's visual cut. The 1.5s `@akudingin-d1f — "Pertama" | Azam, #7, Defender, Gaji RM5` comment card is an in-world fan easter egg, never an engagement prompt.
+- **Ending:** deliberately overrides the series title card — 0.3s stunned beat, then a **hard cut to pure black** with a comedic percussion hit. No CTA.
 
 **Script location:** `episodes/episode-5/script.md` and `episodes/episode-5/audio-script.json` are the source of truth. `remotion/src/Episode5/Episode5Composition.jsx` imports the JSON directly. TTS text/voices are in `remotion/scripts/generate_tts.py` (prefix `e5_`). Regenerate with `python scripts/generate_tts.py e5_`.
