@@ -8,7 +8,7 @@
   "totalFrames": 1260,
   "language": "ms",
   "subtitles": "ms+en",
-  "notes": "Source of truth for Episode 3 TTS, timed bilingual subtitles, goal/HUD/shake/slow-motion cues and SFX. Casual spoken Malay with a smaller English translation line. No CTAs. Frame 0 opens at full brightness with active motion; first cut by frame 45. Ends on the captain's line, a referee whistle and a hard cut to the black BULOH FC / EPISOD 3 title card.",
+  "notes": "Source of truth for Episode 3 TTS, timed bilingual subtitles, goal/HUD/shake/slow-motion cues and SFX. Casual spoken Malay with a smaller English translation line. No CTAs. Frame 0 opens at full brightness with active motion; first cut by frame 45. Ends on the captain's line, a referee whistle and a hard cut to the black Buluh FC / EPISOD 3 title card.",
   "scenes": [
     {
       "id": "goal-1-cold-open",
@@ -301,7 +301,7 @@
       "durationFrames": 72,
       "environment": null,
       "director": null,
-      "visual": "Hard cut to clean black card: BULOH FC / thin gold divider / EPISOD 3. No CTA.",
+      "visual": "Hard cut to clean black card: Buluh FC / thin gold divider / EPISOD 3. No CTA.",
       "sfx": null,
       "bgm": null,
       "cues": [],

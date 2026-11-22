@@ -84,12 +84,13 @@ python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. off
 - `Karim` and `Club Office` are also registered in the standalone viewer (`npm start`).
 
 ### Episode 5 notes
-- **Pengorbanan & Nombor 7 Baru** — **1,353 frames / 45.1s @ 30fps**, **1080x1920** (9:16 master;
-  overlays are the Ep. 1 design scaled 1.5x). Ends on a hard cut to pure black — no title card, no CTA.
+- **Pengorbanan & Nombor 7 Baru** — **1,359 frames / 45.3s @ 30fps**, **1080x1920** (9:16 master;
+  overlays are the Ep. 1 design scaled 1.5x). Ends on the standard 72-frame **Buluh FC / EPISOD 5**
+  EndCard after a comedic percussion hit — no CTA.
 - All `e5_*` clips are generated at **natural 1.0x speed** with both-end silence trimmed — **no time
   stretching**. Every frame is derived from measured clip durations: 5–8 frame dialogue gaps,
-  a 12-frame armband beat, 3-frame rapid-fire between the last three lines, and an 8-frame beat
-  before black.
+  a 12-frame armband beat, 3-frame rapid-fire between the last three lines, an 8-frame beat
+  before the percussion hit, then the standard outro card.
 - **`characters/character-azam.js`** (`AzamApp`) mirrors Karim's rig/proportions with an `AZAM 7`
   jersey, swept quiff and `stride`/`reveal` poses. After *"Baru lawan gerun."* he eases into a
   relaxed **`idle`** (arms lowered, breathing, weight shift) for the whole RM5 exchange — no T-pose.
@@ -97,8 +98,12 @@ python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. off
   Karim's carried boots are hidden and his captain armband is laid cleanly on the desk; Bos faces the
   squad/camera three-quarter front in Act 2; the final 12s use a 45-degree front-quarter two-shot.
 - `DebtTickerHUD` plays for **90 frames (3.0s)**, ticking `HUTANG KELAB` from `RM381,500` to
-  `RM331,500` with `KOS GAJI: -35%`. A 1.5s `@akudingin-d1f` comment card flashes on Azam's entrance;
-  it contains no engagement prompt. `ESOKNYA...` holds 16 frames (0.53s).
+  `RM331,500` with `KOS GAJI: -35%`. A 1.5s `@akudingin-d1f — "Bang saya nak masuk Buluh FC"` comment
+  card flashes on Azam's entrance (`Azam · #7 · Defender · Gaji RM5`); it contains no engagement prompt.
+  `ESOKNYA...` holds 16 frames (0.53s).
+- Azam enters directly on **"Assalamualaikum. Saya Azam. Defender baru."** — there is no separate
+  shout line, clip or subtitle. The final punchline is followed by the restored series EndCard
+  (matching Ep. 2–4 styling and 72-frame duration).
 - Teammate 1's `e5_06` starts at frame 494 — a 0.47s J-cut before the visual cut to Act 2 at frame 508,
   just after the counter lands on `RM331,500`.
 - Smoke tests: `npx remotion render Episode5 out/e5-smoke/act1-armband-hud.mp4 --frames=185-215`,

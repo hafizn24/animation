@@ -91,7 +91,7 @@ MANIFEST = [
     ("e2_s5_narrator", "narrator", 555, 654, "Sampai la dia singgah kat satu kedai kek kecil ni... Kek Maju."),
     ("e2_s5_kekmaju", "kekmaju", 666, 804, "Akak bukan orang kaya, tapi akak sayang kelab kita ni. Ambik la sikit ni, buat modal dulu."),
     ("e2_s5_pemilik", "pemilik", 816, 906, "Terima kasih banyak, kak. Kami memang takkan lupa jasa akak."),
-    ("e2_s6_jurulatih", "jurulatih", 924, 1056, "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati."),
+    ("e2_s6_jurulatih", "jurulatih", 924, 1056, "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buluh FC belum mati."),
     ("e2_s6_pemilik", "pemilik", 1068, 1176, "Betul. Ini peluang terakhir kita. Kalau kalah, semua habis."),
     # Episode 3 — mirrors episodes/episode-3/audio-script.json (42s / 1260 frames).
     ("e3_01", "narrator", 0, 78, "Gol! Sekali tendang, Buluh FC dah buka skor."),
@@ -118,10 +118,11 @@ MANIFEST = [
     ("e4_08", "bos", 1062, 1241, "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain."),
     ("e4_09", "bos", 1251, 1335, "Keputusan aku muktamad. Kita terima tawaran tu."),
     ("e4_10", "karim", 1374, 1433, "Bos... betul ke apa yang aku dengar tadi?"),
-    # Episode 5 — mirrors episodes/episode-5/audio-script.json (45.1s / 1353 frames).
+    # Episode 5 — mirrors episodes/episode-5/audio-script.json (45.3s / 1359 frames).
     # Frames are derived from the natural 1.0x clips; no fitting/stretching is
-    # applied. e5_06's audio starts at frame 494, a 0.47s J-cut into Act 2's
-    # visual cut at frame 508, right as the debt counter lands on RM331,500.
+    # applied. Azam enters directly on e5_11. e5_06's audio starts
+    # at frame 494, a 0.47s J-cut into Act 2's visual cut at frame 508, right as
+    # the debt counter lands on RM331,500.
     ("e5_01", "bos", 0, 141, "Karim… jangan salah faham. Aku takkan jual kapten aku."),
     ("e5_02", "karim", 149, 209, "Hutang kita dekat empat ratus ribu, bos."),
     ("e5_03", "karim", 221, 315, "Kalau kelab ni mati, semua habis. Jual aku."),
@@ -131,14 +132,13 @@ MANIFEST = [
     ("e5_07", "teammate2", 601, 724, "Fuhh, baru jual Karim lima puluh ribu… confirm striker padu ni!"),
     ("e5_08", "coach", 732, 765, "Siapa kau beli ni, bos?"),
     ("e5_09", "bos", 773, 792, "Tengok sendiri."),
-    ("e5_10", "azam", 836, 850, "PERTAMA!"),
-    ("e5_11", "azam", 862, 940, "Assalamualaikum. Saya Azam. Defender baru."),
-    ("e5_12", "teammate1", 948, 1014, "Kejap… defender pakai nombor tujuh?!"),
-    ("e5_13", "azam", 1022, 1048, "Baru lawan gerun."),
-    ("e5_14", "coach", 1060, 1168, "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?"),
-    ("e5_15", "bos", 1180, 1201, "Lima ringgit."),
-    ("e5_16", "coach", 1204, 1221, "Lima ribu?!"),
-    ("e5_17", "bos", 1224, 1305, "Lima ringgit. Duit Karim semua bayar hutang."),
+    ("e5_11", "azam", 836, 914, "Assalamualaikum. Saya Azam. Defender baru."),
+    ("e5_12", "teammate1", 922, 988, "Kejap… defender pakai nombor tujuh?!"),
+    ("e5_13", "azam", 996, 1022, "Baru lawan gerun."),
+    ("e5_14", "coach", 1034, 1142, "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?"),
+    ("e5_15", "bos", 1154, 1175, "Lima ringgit."),
+    ("e5_16", "coach", 1178, 1195, "Lima ribu?!"),
+    ("e5_17", "bos", 1198, 1279, "Lima ringgit. Duit Karim semua bayar hutang."),
 ]
 
 

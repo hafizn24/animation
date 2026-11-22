@@ -8,7 +8,7 @@
   "totalFrames": 1530,
   "language": "ms",
   "subtitles": "ms+en",
-  "notes": "Source of truth for Episode 4 TTS, timed bilingual subtitles, TransferOfferHUD, the 1.3s dead silence and SFX cues. Boss / Coach / Karim dialogue only (no narrator-only stretches) in casual spoken Malay with a smaller English translation line. No CTAs. Frame 0 opens at full brightness on the sliding offer paper with a paper-slide transient and a 1.5s HookTitle. Ends on Karim's doorway line, a muted low bass hit and a hard cut to the black BULOH FC / EPISOD 4 title card. All e4_ clips are lead-silence trimmed.",
+  "notes": "Source of truth for Episode 4 TTS, timed bilingual subtitles, TransferOfferHUD, the 1.3s dead silence and SFX cues. Boss / Coach / Karim dialogue only (no narrator-only stretches) in casual spoken Malay with a smaller English translation line. No CTAs. Frame 0 opens at full brightness on the sliding offer paper with a paper-slide transient and a 1.5s HookTitle. Ends on Karim's doorway line, a muted low bass hit and a hard cut to the black Buluh FC / EPISOD 4 title card. All e4_ clips are lead-silence trimmed.",
   "scenes": [
     {
       "id": "bomb-drops",
@@ -230,7 +230,7 @@
       "durationFrames": 72,
       "environment": null,
       "director": null,
-      "visual": "Hard cut to clean black card: BULOH FC / thin gold divider / EPISOD 4. No CTA.",
+      "visual": "Hard cut to clean black card: Buluh FC / thin gold divider / EPISOD 4. No CTA.",
       "sfx": null,
       "bgm": null,
       "cues": [],

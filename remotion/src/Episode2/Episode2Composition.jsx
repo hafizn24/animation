@@ -132,7 +132,7 @@ const SCENES = [
         start: 24,
         end: 156,
         speaker: 'JURULATIH',
-        text: 'Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati.',
+        text: 'Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buluh FC belum mati.',
       },
       {
         start: 168,
@@ -191,7 +191,7 @@ const EndCard = () => {
             letterSpacing: 6,
           }}
         >
-          BULOH FC
+          Buluh FC
         </div>
         <div
           style={{

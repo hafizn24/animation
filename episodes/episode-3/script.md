@@ -7,7 +7,7 @@
 - **Language:** casual spoken Malaysian Malay (*Bahasa Melayu santai*) with a smaller English translation line under every subtitle (dual subtitles).
 - **Structure:** alternating NARRATOR + CHARACTER DIALOGUE (RIZAL, KAPTEN, PEMINAT). No narrator-only stretches.
 - **Subtitles:** narration = italic warm gold serif; dialogue = white sans-serif with uppercase gold speaker label. Both sit above the YouTube Shorts bottom 25% / right 15% dead zones.
-- **Ending:** dramatic final line → referee whistle + triumphant BGM swell → hard cut to a clean black `BULOH FC / EPISOD 3` title card. **No CTA.**
+- **Ending:** dramatic final line → referee whistle + triumphant BGM swell → hard cut to a clean black `Buluh FC / EPISOD 3` title card. **No CTA.**
 - **Pacing:** max 0.5–0.8s buffer between lines; zero long silent gaps.
 - **Machine-readable source of truth:** [`audio-script.json`](./audio-script.json). The composition imports this JSON directly for all timings.
 
@@ -95,7 +95,7 @@ Frames 1188–1260 (72 frames).
 Hard cut to clean black card:
 
 ```
-BULOH FC
+Buluh FC
 ────────────── (thin gold divider)
 EPISOD 3
 ```

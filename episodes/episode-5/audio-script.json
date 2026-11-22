@@ -4,11 +4,11 @@
   "fps": 30,
   "width": 1080,
   "height": 1920,
-  "totalDurationSeconds": 45.1,
-  "totalFrames": 1353,
+  "totalDurationSeconds": 45.3,
+  "totalFrames": 1359,
   "language": "ms",
   "subtitles": "ms+en",
-  "notes": "Source of truth for Episode 5. All timings recomputed from naturally generated (1.0x, no stretching, both-end silence trimmed) e5_01-e5_17 clips. Standard gaps 5-8 frames, 12-frame armband beat, 3-frame rapid-fire between the final three lines, 8-frame stunned beat then hard black. The 90-frame debt ticker lands RM331,500 just before e5_06 J-cuts in 14 frames ahead of the Act 2 visual cut. No CTAs.",
+  "notes": "Source of truth for Episode 5. All timings derived from natural 1.0x e5_ clips (both-end silence trimmed, no stretching). Azam enters directly on \"Assalamualaikum. Saya Azam. Defender baru.\" — there is no separate shout line. The @akudingin-d1f card reads \"Bang saya nak masuk Buluh FC\". Ends with the standard 72-frame Buluh FC / EPISOD 5 EndCard after a comedic percussion hit. No CTAs.",
   "cast": {
     "bos": {
       "class": "NewOwnerApp",
@@ -97,8 +97,8 @@
     },
     "commentCard": {
       "handle": "@akudingin-d1f",
-      "comment": "Pertama",
-      "detail": "Azam, #7, Defender, Gaji RM5",
+      "comment": "Bang saya nak masuk Buluh FC",
+      "detail": "Azam · #7 · Defender · Gaji RM5",
       "fromFrame": 836,
       "toFrame": 881,
       "cta": false
@@ -106,13 +106,17 @@
     "hudFlash": {
       "label": "HUTANG",
       "value": "RM331,500",
-      "fromFrame": 1224,
-      "toFrame": 1305
+      "fromFrame": 1198,
+      "toFrame": 1279
     },
-    "blackCut": {
-      "fromFrame": 1313,
-      "toFrame": 1353,
-      "percussion": true
+    "outroCard": {
+      "fromFrame": 1287,
+      "toFrame": 1359,
+      "durationFrames": 72,
+      "percussionFrame": 1287,
+      "brand": "Buluh FC",
+      "label": "EPISOD 5",
+      "source": "remotion/src/Episode4/Episode4Composition.jsx EndCard"
     }
   },
   "scenes": [
@@ -393,12 +397,12 @@
       "id": "act-3-reveal",
       "name": "Act 3 — Azam's Reveal & the RM5 Punchline",
       "from": 27.6,
-      "to": 43.767,
+      "to": 42.9,
       "fromFrame": 828,
-      "durationFrames": 485,
+      "durationFrames": 459,
       "environment": "LockerRoomApp (environments/locker-room.js — low-angle backlit doorway)",
       "director": "createAct3RevealScene",
-      "visual": "Low-angle backlit door bursts open; Azam (#7) strides in with 'PERTAMA!' and a 1.5s fan card. After 'Baru lawan gerun.' he eases into a relaxed idle while Coach and Bos hold a 45-degree front-quarter two-shot. Rapid-fire RM5 exchange, then hard black.",
+      "visual": "Low-angle backlit door bursts open; Azam (#7) strides in and delivers \"Assalamualaikum. Saya Azam. Defender baru.\" with a 1.5s fan card. After \"Baru lawan gerun.\" he eases into a relaxed idle while Coach and Bos hold a 45-degree front-quarter two-shot. Rapid-fire RM5 exchange, percussion hit, then the standard Buluh FC outro card.",
       "sfx": "Door burst + bass hit + small crowd cheer; bell on the comment card; whoosh on the whip-pan; pen-tap on the HUD flash; kick + bass hit on the hard cut.",
       "bgm": "Warm triumphant bed under the reveal, ducked hard for the punchline exchange, silent after the cut.",
       "cues": [
@@ -424,22 +428,22 @@
         },
         {
           "file": "whoosh.wav",
-          "frame": 942,
+          "frame": 916,
           "volume": 0.7
         },
         {
           "file": "pen-tap.wav",
-          "frame": 1224,
+          "frame": 1198,
           "volume": 0.4
         },
         {
           "file": "kick.wav",
-          "frame": 1313,
+          "frame": 1287,
           "volume": 0.9
         },
         {
           "file": "bass-hit.wav",
-          "frame": 1313,
+          "frame": 1287,
           "volume": 0.9
         }
       ],
@@ -457,61 +461,52 @@
         },
         {
           "type": "cut",
-          "frame": 120,
+          "frame": 94,
           "note": "Azam -> whip-pan to teammates."
         },
         {
           "type": "cut",
-          "frame": 194,
+          "frame": 168,
           "note": "Back to dead-serious Azam."
         },
         {
           "type": "twoShot",
-          "frame": 232,
+          "frame": 206,
           "note": "45-degree front-quarter Coach/Bos two-shot."
         },
         {
           "type": "hudFlash",
-          "frame": 396,
+          "frame": 370,
           "durationFrames": 81,
           "note": "HUTANG: RM331,500 on Bos's tablet."
         },
         {
           "type": "beat",
           "frame": 8,
-          "note": "0.25s stunned-face beat before black."
+          "note": "0.25s stunned-face beat."
+        },
+        {
+          "type": "percussion",
+          "frame": 459,
+          "note": "Sharp comedic hit on the final line."
         },
         {
           "type": "hardCut",
-          "frame": 485,
-          "note": "Hard cut to pure black."
+          "frame": 459,
+          "note": "Hard cut to the standard Buluh FC / EPISOD 5 outro card."
         }
       ],
       "lines": [
-        {
-          "id": "e5_10",
-          "type": "dialogue",
-          "speaker": "AZAM",
-          "text": "PERTAMA!",
-          "translation": "FIRST!",
-          "start": 27.867,
-          "end": 28.333,
-          "startFrame": 836,
-          "endFrame": 850,
-          "voice": "voice_5",
-          "trimLeadingSilence": true,
-          "emphasis": true
-        },
         {
           "id": "e5_11",
           "type": "dialogue",
           "speaker": "AZAM",
           "text": "Assalamualaikum. Saya Azam. Defender baru.",
           "translation": "Assalamualaikum. I'm Azam. The new defender.",
-          "start": 28.733,
-          "end": 31.333,
-          "startFrame": 862,
-          "endFrame": 940,
+          "start": 27.867,
+          "end": 30.467,
+          "startFrame": 836,
+          "endFrame": 914,
           "voice": "voice_5",
           "trimLeadingSilence": true
         },
@@ -521,10 +516,10 @@
           "speaker": "Rakan 1",
           "text": "Kejap… defender pakai nombor tujuh?!",
           "translation": "Wait… a defender wearing number seven?!",
-          "start": 31.6,
-          "end": 33.8,
-          "startFrame": 948,
-          "endFrame": 1014,
+          "start": 30.733,
+          "end": 32.933,
+          "startFrame": 922,
+          "endFrame": 988,
           "voice": "voice_4",
           "trimLeadingSilence": true
         },
@@ -534,10 +529,10 @@
           "speaker": "AZAM",
           "text": "Baru lawan gerun.",
           "translation": "So the opponents get scared.",
-          "start": 34.067,
-          "end": 34.933,
-          "startFrame": 1022,
-          "endFrame": 1048,
+          "start": 33.2,
+          "end": 34.067,
+          "startFrame": 996,
+          "endFrame": 1022,
           "voice": "voice_5",
           "trimLeadingSilence": true
         },
@@ -547,10 +542,10 @@
           "speaker": "JURULATIH",
           "text": "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?",
           "translation": "Boss… we just got fifty thousand. What's this kid's salary?",
-          "start": 35.333,
-          "end": 38.933,
-          "startFrame": 1060,
-          "endFrame": 1168,
+          "start": 34.467,
+          "end": 38.067,
+          "startFrame": 1034,
+          "endFrame": 1142,
           "voice": "voice_2",
           "trimLeadingSilence": true
         },
@@ -560,10 +555,10 @@
           "speaker": "BOS",
           "text": "Lima ringgit.",
           "translation": "Five ringgit.",
-          "start": 39.333,
-          "end": 40.033,
-          "startFrame": 1180,
-          "endFrame": 1201,
+          "start": 38.467,
+          "end": 39.167,
+          "startFrame": 1154,
+          "endFrame": 1175,
           "voice": "voice_3",
           "trimLeadingSilence": true
         },
@@ -573,10 +568,10 @@
           "speaker": "JURULATIH",
           "text": "Lima ribu?!",
           "translation": "Five thousand?!",
-          "start": 40.133,
-          "end": 40.7,
-          "startFrame": 1204,
-          "endFrame": 1221,
+          "start": 39.267,
+          "end": 39.833,
+          "startFrame": 1178,
+          "endFrame": 1195,
           "voice": "voice_2",
           "trimLeadingSilence": true,
           "emphasis": true
@@ -587,26 +582,26 @@
           "speaker": "BOS",
           "text": "Lima ringgit. Duit Karim semua bayar hutang.",
           "translation": "Five ringgit. Karim's money all went to debt.",
-          "start": 40.8,
-          "end": 43.5,
-          "startFrame": 1224,
-          "endFrame": 1305,
+          "start": 39.933,
+          "end": 42.633,
+          "startFrame": 1198,
+          "endFrame": 1279,
           "voice": "voice_3",
           "trimLeadingSilence": true
         }
       ]
     },
     {
-      "id": "black-cut",
-      "name": "Hard Cut To Black",
-      "from": 43.767,
-      "to": 45.1,
-      "fromFrame": 1313,
-      "durationFrames": 40,
+      "id": "outro-card",
+      "name": "Buluh FC Series Outro",
+      "from": 42.9,
+      "to": 45.3,
+      "fromFrame": 1287,
+      "durationFrames": 72,
       "environment": null,
       "director": null,
-      "visual": "Pure black (no title card, no credits, no CTA). Sharp comedic percussion hit on the cut.",
-      "sfx": "kick.wav + bass-hit.wav at the cut.",
+      "visual": "Standard series card: Buluh FC / thin gold divider / EPISOD 5 on black (Ep.2–4 EndCard styling). No CTA, no credits crawl.",
+      "sfx": "kick.wav + bass-hit.wav on the cut into the card.",
       "bgm": null,
       "cues": [],
       "events": [],

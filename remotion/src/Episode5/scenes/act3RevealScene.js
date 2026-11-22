@@ -8,9 +8,8 @@ import { ACT_3 } from '../timings.js';
 
 const localLine = (id, key = 'startFrame') =>
   ACT_3.lines.find((line) => line.id === id)[key] - ACT_3.fromFrame;
-const E5_10 = localLine('e5_10');
-const E5_10_END = localLine('e5_10', 'endFrame');
-const E5_11 = localLine('e5_11');
+const AZAM_ENTRY = localLine('e5_11');
+const AZAM_END = localLine('e5_11', 'endFrame');
 const E5_12 = localLine('e5_12');
 const E5_13 = localLine('e5_13');
 const E5_13_END = localLine('e5_13', 'endFrame');
@@ -44,20 +43,11 @@ export const createAct3RevealScene = (renderer, size) => createSceneDirector(ren
 
     const azam = actors.find((actor) => actor.name === 'azam');
     if (azam) {
-      const enter = smooth(clamp((frame - E5_10) / 56, 0, 1));
+      const enter = smooth(clamp((frame - AZAM_ENTRY) / 56, 0, 1));
       azam.rig.position.z = lerp(5.5, 2.6, enter);
       azam.rig.position.x = lerp(0.1, 0, enter);
 
-      if (frame >= E5_10_END && azam.app.currentPose === 'stride') azam.app.setPose('reveal');
-
-      // "PERTAMA!" arm punch, only while the line is landing.
-      const first =
-        smooth(clamp((frame - E5_10) / 8, 0, 1)) *
-        (1 - smooth(clamp((frame - E5_10_END) / 10, 0, 1)));
-      if (azam.parts.rightArm) {
-        azam.parts.rightArm.rotation.x -= first * 1.2;
-        azam.parts.rightArm.rotation.z += first * 0.1;
-      }
+      if (frame >= AZAM_END && azam.app.currentPose === 'stride') azam.app.setPose('reveal');
 
       // Immediately after "Baru lawan gerun." ease into a relaxed idle:
       // arms lowered at the sides, subtle breathing and weight shift.
@@ -174,7 +164,7 @@ export const createAct3RevealScene = (renderer, size) => createSceneDirector(ren
     keys: [
       [0, [0, 0.9, -2.8], [0, 1.5, 4.6], 64],
       [0.5, [0.1, 0.95, -2.6], [0, 1.5, 4.2], 62],
-      [E5_11 / 30, [-0.3, 1.35, -2.6], [0, 1.45, 2.6], 56],
+      [AZAM_ENTRY / 30, [-0.3, 1.35, -2.6], [0, 1.45, 2.6], 56],
       [E5_12 / 30, [-4.2, 2.0, -2.2], [-2.8, 1.5, 0.8], 54],
       [E5_13 / 30, [0.1, 1.8, -2.6], [0, 1.45, 2.6], 52],
       [E5_14 / 30, [-2.7, 1.8, -2.7], [0.1, 1.45, 0.3], 50],

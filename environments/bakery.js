@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 /**
  * BakeryApp — a small, warm Malaysian neighbourhood bakery ("KEK MAJU").
  *
- * Deliberately distinct from the Buloh FC office and the sponsor offices:
+ * Deliberately distinct from the Buluh FC office and the sponsor offices:
  * front counter, glass cake display, tiled floor, shelves of bread, warm
  * pendant lights and a wall-mounted KEK MAJU sign. No outdoor signposts here.
  */
@@ -137,7 +137,7 @@ export class BakeryApp {
       ctx.fillText('KEDAI KECIL  ·  SOKONGAN BESAR', w / 2, 222);
       ctx.fillStyle = '#7a3a17';
       ctx.font = 'bold 30px Arial, sans-serif';
-      ctx.fillText('Sokong Buloh FC', w / 2, 278);
+      ctx.fillText('Sokong Buluh FC', w / 2, 278);
     });
   }
 

@@ -17,14 +17,14 @@ export const ALL_CUES = SCENES.flatMap((scene) => (scene.cues || []).map((cue) =
 export const ACT_1 = getScene('act-1-sacrifice');
 export const ACT_2 = getScene('act-2-rumor');
 export const ACT_3 = getScene('act-3-reveal');
-export const BLACK_CUT = getScene('black-cut');
+export const OUTRO_CUT = getScene('outro-card');
 
 export const HOOK = OVERLAYS.hook;
 export const DEBT_HUD = OVERLAYS.debtTicker;
 export const TITLE_CARD = OVERLAYS.titleCard;
 export const COMMENT_CARD = OVERLAYS.commentCard;
 export const HUD_FLASH = OVERLAYS.hudFlash;
-export const BLACK = OVERLAYS.blackCut;
+export const OUTRO = OVERLAYS.outroCard;
 
 /**
  * Subtitles are local to a scene, but e5_06 is a J-cut: its AUDIO starts 15

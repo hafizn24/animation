@@ -30,7 +30,7 @@ pattern in the first two seconds:
   and the scoreboard HUD.
 - Analytics guardrail: the hook must be visible and legible on a phone before
   the viewer can decide to scroll. Keep the runtime in the 40–45s sweet spot.
-  Episode 5 was rebuilt from natural 1.0x TTS clips and now sits at **45.1s**,
+  Episode 5 was rebuilt from natural 1.0x TTS clips and now sits at **45.3s**,
   back in the sweet spot; no runtime exception is active. Later episodes follow
   the same audio-derived timeline method unless their own story doc says otherwise.
 
@@ -99,16 +99,16 @@ Every episode ends on a **dramatic final line**, then a **hard cut** to a clean
 black title card:
 
 ```
-BULOH FC
+Buluh FC
 ────────────── (thin gold divider)
 EPISOD X
 ```
 
 No CTA. No credits crawl. Hold the card briefly, then end.
 
-**Episode 5 exception:** the RM5 punchline deliberately overrides the title
-card — a 0.3s stunned beat followed by a **hard cut to pure black** with a
-comedic percussion hit. No text, no credits, no CTA. Do not add a card to Ep. 5.
+Episode 5 follows the same rule: the RM5 punchline lands on a comedic percussion
+hit, then cuts cleanly into the standard **Buluh FC / EPISOD 5** card (72 frames).
+There is no pure-black exception and no CTA.
 
 ## 6. Audio-Driven Pacing (MANDATORY)
 
@@ -134,7 +134,7 @@ comedic percussion hit. No text, no credits, no CTA. Do not add a card to Ep. 5.
   nods, shoulder slumps, hand gestures, subtle idle breathing.
 - No stiff A-poses. No prop clipping (hands through laptops, folders through
   desks). Give distinct characters distinct hair, outfit colors and proportions.
-- Keep environments distinct. Never reuse the Buloh FC office as a bakery or a
+- Keep environments distinct. Never reuse the Buluh FC office as a bakery or a
   sponsor office. No outdoor signposts indoors.
 - Use `<SafeArea />` and `<CutFlash />` in every scene sequence.
 
@@ -147,7 +147,7 @@ Before an episode is called finished:
 - [ ] All copy is casual Malay; no formal register, no CTA.
 - [ ] Dual subtitles render correctly (gold italic narration / gold-labelled
       white dialogue).
-- [ ] Final line hard-cuts to the black `BULOH FC / EPISOD X` title card (Episode 5: hard cut to pure black instead).
+- [ ] Final line hard-cuts to the black `Buluh FC / EPISOD X` title card.
 - [ ] No silent gap over 0.8s; no repeated static angle; no clipping.
 - [ ] `npm run studio` opens the composition; a still render succeeds.
 - [ ] Story docs (`remotion/story/`) match the current canon in Section 9.
@@ -165,7 +165,8 @@ describe the state *at the time of that episode*; this section is the state now.
 - **Roster:** **Karim (#8)** — former captain / centre midfielder — **departed in
   Ep. 5**; his armband stays on the Boss's desk and the captaincy is vacant.
   **Azam (#7)** — Defender, fan character **@akudingin-d1f**, salary **RM5** —
-  joins with the signature entrance **"PERTAMA!"**.
-- **Fan easter egg:** the `@akudingin-d1f — "Pertama"` card is an in-world detail
-  only and is **never** an engagement prompt.
+  joins on the line **"Assalamualaikum. Saya Azam. Defender baru."**
+- **Fan easter egg:** the `@akudingin-d1f — "Bang saya nak masuk Buluh FC"`
+  card (`Azam · #7 · Defender · Gaji RM5`) is an in-world detail only and is
+  **never** an engagement prompt.
 - **Continuity reference:** [`remotion/story/storyline.md`](./remotion/story/storyline.md).

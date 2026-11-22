@@ -7,7 +7,7 @@
   "totalDurationSeconds": 42.0,
   "totalFrames": 1260,
   "language": "ms",
-  "notes": "Source of truth for Episode 2 TTS and timed subtitles. Casual spoken Malay only. No CTAs. Ends on a dramatic line then a hard cut to the black BULOH FC / EPISOD 2 title card.",
+  "notes": "Source of truth for Episode 2 TTS and timed subtitles. Casual spoken Malay only. No CTAs. Ends on a dramatic line then a hard cut to the black Buluh FC / EPISOD 2 title card.",
   "scenes": [
     {
       "id": "default-notice",
@@ -174,7 +174,7 @@
     },
     {
       "id": "club-office-ending",
-      "name": "Buloh FC Office & Dramatic Ending",
+      "name": "Buluh FC Office & Dramatic Ending",
       "from": 30.0,
       "to": 39.6,
       "fromFrame": 900,
@@ -189,7 +189,7 @@
           "id": "e2_s6_jurulatih",
           "type": "dialogue",
           "speaker": "JURULATIH",
-          "text": "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati.",
+          "text": "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buluh FC belum mati.",
           "start": 30.8,
           "end": 35.2,
           "startFrame": 924,
@@ -218,7 +218,7 @@
       "durationFrames": 72,
       "environment": null,
       "director": null,
-      "visual": "Hard cut to clean black card: BULOH FC / thin gold divider / EPISOD 2. No CTA.",
+      "visual": "Hard cut to clean black card: Buluh FC / thin gold divider / EPISOD 2. No CTA.",
       "sfx": null,
       "bgm": null,
       "lines": []

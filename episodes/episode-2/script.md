@@ -8,7 +8,7 @@
 - **Subtitles:** narration = italic warm gold serif at bottom; dialogue = white
   sans-serif with uppercase gold speaker label above.
 - **Ending:** dramatic final line → hard cut to a clean black
-  `BULOH FC / EPISOD 2` title card. **No CTA.**
+  `Buluh FC / EPISOD 2` title card. **No CTA.**
 - **Pacing:** max 0.5–0.8s buffer between lines; zero long silent gaps.
 - **Machine-readable source of truth:** [`audio-script.json`](./audio-script.json).
 
@@ -73,7 +73,7 @@ Frames 540–900 (360 frames).
 
 - **Environment:** a distinct small bakery — front counter, simple glass
   display case with cakes, warm lighting, wall-mounted `KEK MAJU` sign.
-  **Do NOT** reuse the Buloh FC office or place an outdoor wooden signpost indoors.
+  **Do NOT** reuse the Buluh FC office or place an outdoor wooden signpost indoors.
 - **Character:** female owner with a bakery apron, warm gesturing/nodding,
   handing over a small envelope/box.
 - **SFX / BGM:** warm shop bell chime on entry; crossfade to warm, hopeful
@@ -87,7 +87,7 @@ Frames 540–900 (360 frames).
 
 ---
 
-## Scene 4 — Buloh FC Office & Dramatic Ending (00:30 – 00:39.6)
+## Scene 4 — Buluh FC Office & Dramatic Ending (00:30 – 00:39.6)
 Frames 900–1188 (288 frames).
 
 - **Environment:** club office kept distinct from the bakery. Replace the
@@ -98,7 +98,7 @@ Frames 900–1188 (288 frames).
 
 | Time | Frames | Subtitle | Text |
 |---|---|---|---|
-| 00:30.8 – 00:35.2 | 924–1056 | JURULATIH (white + gold label) | "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buloh FC belum mati." |
+| 00:30.8 – 00:35.2 | 924–1056 | JURULATIH (white + gold label) | "Kalau macam tu, kita buat perlawanan amal. Biar satu pekan tahu Buluh FC belum mati." |
 | 00:35.6 – 00:39.2 | 1068–1176 | PEMILIK (white + gold label) | "Betul. Ini peluang terakhir kita. Kalau kalah, semua habis." |
 
 ---
@@ -109,7 +109,7 @@ Frames 1188–1260 (72 frames).
 Hard cut to clean black card:
 
 ```
-BULOH FC
+Buluh FC
 ────────────── (thin gold divider)
 EPISOD 2
 ```

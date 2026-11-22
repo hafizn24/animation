@@ -17,7 +17,7 @@ import {
   ACT_3,
   ALL_CUES,
   ALL_LINES,
-  BLACK,
+  OUTRO,
   COMMENT_CARD,
   DEBT_HUD,
   HOOK,
@@ -48,7 +48,7 @@ const tenseVolume = (frame) => {
 
 const warmVolume = (frame) => {
   const start = ACT_3.fromFrame;
-  const end = BLACK.fromFrame;
+  const end = OUTRO.fromFrame;
   if (frame < start || frame >= end) return 0;
   const fadeIn = interpolate(frame, [start, start + 24], [0, 1], clampOpts);
   const fadeOut = interpolate(frame, [end - 30, end], [1, 0], clampOpts);
@@ -69,8 +69,43 @@ const CutFlash = () => {
   );
 };
 
-/** Pure black. No title card, no credits, no CTA — the punchline cuts to silence. */
-const BlackCut = () => <AbsoluteFill style={{ backgroundColor: '#000000' }} />;
+/**
+ * Standard series EndCard (Ep.2–4 styling, scaled 1.5x for the 1080x1920 master).
+ * Same 72-frame duration and opacity curve — no CTA, no credits crawl.
+ */
+const EndCard = () => {
+  const frame = useCurrentFrame();
+  const opacity = interpolate(frame, [0, 30, 66, 72], [1, 1, 1, 0], clampOpts);
+  return (
+    <AbsoluteFill style={{ backgroundColor: '#000000', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ opacity, textAlign: 'center' }}>
+        <div
+          style={{
+            color: '#f7f4ea',
+            fontFamily: 'Arial, Helvetica, sans-serif',
+            fontSize: 99,
+            fontWeight: 'bold',
+            letterSpacing: 9,
+          }}
+        >
+          Buluh FC
+        </div>
+        <div style={{ margin: '36px auto', width: 255, height: 3, backgroundColor: '#d8b26a' }} />
+        <div
+          style={{
+            color: '#d8b26a',
+            fontFamily: 'Arial, Helvetica, sans-serif',
+            fontSize: 39,
+            letterSpacing: 18,
+            textTransform: 'uppercase',
+          }}
+        >
+          EPISOD 5
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};
 
 export const Episode5Composition = () => (
   <AbsoluteFill style={{ backgroundColor: '#05070d' }}>
@@ -122,8 +157,8 @@ export const Episode5Composition = () => (
       </Sequence>
     ))}
 
-    <Sequence from={BLACK.fromFrame} durationInFrames={BLACK.durationFrames}>
-      <BlackCut />
+    <Sequence from={OUTRO.fromFrame} durationInFrames={OUTRO.durationFrames}>
+      <EndCard />
     </Sequence>
   </AbsoluteFill>
 );

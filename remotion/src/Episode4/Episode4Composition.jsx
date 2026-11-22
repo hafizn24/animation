@@ -79,7 +79,7 @@ const EndCard = () => {
             letterSpacing: 6,
           }}
         >
-          BULOH FC
+          Buluh FC
         </div>
         <div style={{ margin: '24px auto', width: 170, height: 2, backgroundColor: '#d8b26a' }} />
         <div

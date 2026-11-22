@@ -9,7 +9,7 @@
 - **Subtitles:** dialogue = white sans-serif with uppercase gold speaker label (`BOS`, `JURULATIH`, `KARIM`) above the text, inside a dark rounded plate above the Shorts bottom 25% / right 15% dead zones.
 - **Setting:** `ClubOffice` (`environments/club-office.js`) — matte dark plaster, warm wood floor, a warm desk lamp, a tactics whiteboard behind the Coach, and a half-open doorway behind the Boss's shoulder backlit with cooler hallway light.
 - **Pacing:** max 0.4–0.6s buffer between lines, **one deliberate 1.3s dead silence** between `e4_09` and `e4_10` (room tone drops out). No other dead air.
-- **Ending:** muted low bass hit on `e4_10` → hard cut to a clean black `BULOH FC / EPISOD 4` title card. **No CTA.**
+- **Ending:** muted low bass hit on `e4_10` → hard cut to a clean black `Buluh FC / EPISOD 4` title card. **No CTA.**
 - **Machine-readable source of truth:** [`audio-script.json`](./audio-script.json). The composition imports this JSON directly for all timings.
 
 ---
@@ -69,7 +69,7 @@ Frames 1458–1529 (72 frames).
 Hard cut to clean black card (no fade, no credits):
 
 ```
-BULOH FC
+Buluh FC
 ────────────── (thin gold divider)
 EPISOD 4
 ```
