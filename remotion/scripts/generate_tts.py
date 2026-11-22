@@ -34,6 +34,11 @@ VOICES = {
     "bos": "voice_3",
     "coach": "voice_2",
     "karim": "voice_4",
+    # Episode 5 — Azam is a bright, fast young defender; teammates get two
+    # other distinct voices so the locker-room rumour has real separation.
+    "azam": "voice_5",
+    "teammate1": "voice_4",
+    "teammate2": "voice_1",
 }
 
 VOICE_STYLE = {
@@ -45,6 +50,9 @@ VOICE_STYLE = {
     "bos": {"speed": 0.99, "pitch": 0.97},
     "coach": {"speed": 1.04, "pitch": 1.0},
     "karim": {"speed": 0.95, "pitch": 0.9},
+    "azam": {"speed": 1.06, "pitch": 1.06},
+    "teammate1": {"speed": 1.06, "pitch": 1.05},
+    "teammate2": {"speed": 1.08, "pitch": 1.05},
 }
 
 MANIFEST = [
@@ -99,6 +107,26 @@ MANIFEST = [
     ("e4_08", "bos", 1062, 1241, "Tak ada guna menang satu game kalau bulan depan kelab ni dah tak mampu bayar gaji budak-budak lain."),
     ("e4_09", "bos", 1251, 1335, "Keputusan aku muktamad. Kita terima tawaran tu."),
     ("e4_10", "karim", 1374, 1433, "Bos... betul ke apa yang aku dengar tadi?"),
+    # Episode 5 — mirrors episodes/episode-5/audio-script.json (72s / 2160 frames).
+    # e5_06's audio starts at frame 825 and is a deliberate 0.5s J-cut into
+    # Act 2's visual cut at frame 840; its subtitle waits for the new shot.
+    ("e5_01", "bos", 0, 123, "Karim… jangan salah faham. Aku takkan jual kapten aku."),
+    ("e5_02", "karim", 132, 234, "Hutang kita dekat empat ratus ribu, bos."),
+    ("e5_03", "karim", 243, 363, "Kalau kelab ni mati, semua habis. Jual aku."),
+    ("e5_04", "bos", 375, 429, "Kau pasti, Rim?"),
+    ("e5_05", "karim", 441, 585, "Bawa Buluh FC naik Divisyen 1."),
+    ("e5_06", "teammate1", 825, 940, "Weh, dengar cerita bos dah sign pemain nombor 7 baru!"),
+    ("e5_07", "teammate2", 951, 1071, "Fuhh, baru jual Karim lima puluh ribu… confirm striker padu ni!"),
+    ("e5_08", "coach", 1083, 1179, "Siapa kau beli ni, bos?"),
+    ("e5_09", "bos", 1191, 1287, "Tengok sendiri."),
+    ("e5_10", "azam", 1335, 1383, "PERTAMA!"),
+    ("e5_11", "azam", 1398, 1494, "Assalamualaikum. Saya Azam. Defender baru."),
+    ("e5_12", "teammate1", 1509, 1605, "Kejap… defender pakai nombor tujuh?!"),
+    ("e5_13", "azam", 1620, 1674, "Baru lawan gerun."),
+    ("e5_14", "coach", 1695, 1827, "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?"),
+    ("e5_15", "bos", 1845, 1896, "Lima ringgit."),
+    ("e5_16", "coach", 1914, 1971, "Lima ribu?!"),
+    ("e5_17", "bos", 1992, 2118, "Lima ringgit. Duit Karim semua bayar hutang."),
 ]
 
 
@@ -162,6 +190,28 @@ def strip_leading_silence(path):
     temp.replace(path)
 
 
+def stretch_to_budget(path, budget):
+    """Gently lengthen short punchy clips so Episode 5's cinematic beats stay audio-driven.
+
+    atempo preserves pitch; the 1.3x cap keeps voices natural. Any remainder is
+    left as an intentional, SFX/BGM-filled beat rather than forced silence.
+    """
+    length = duration(path)
+    if length >= budget - 0.08:
+        return length
+    factor = min(budget / length, 1.3)
+    if factor <= 1.01:
+        return length
+    stretched = path.with_suffix('.stretch.mp3')
+    subprocess.run(
+        [FFMPEG, "-y", "-loglevel", "error", "-i", str(path),
+         "-filter:a", f"atempo={1.0 / factor:.4f}", "-ar", "44100", "-b:a", "160k", str(stretched)],
+        check=True,
+    )
+    stretched.replace(path)
+    return duration(path)
+
+
 def duration(path):
     result = subprocess.run(
         [FFMPEG, "-i", str(path), "-f", "null", "-"],
@@ -220,9 +270,12 @@ def main():
             length = duration(final)
             speed = round(speed * tempo, 2)
 
-        if name == "e3_01" or name.startswith("e4_"):
+        if name == "e3_01" or name.startswith("e4_") or name.startswith("e5_"):
             strip_leading_silence(final)
             length = duration(final)
+
+        if name.startswith("e5_"):
+            length = stretch_to_budget(final, budget)
 
         flag = "OK" if length <= budget + 0.15 else "OVER"
         print(f"{name + '.mp3':20} {budget:6.2f}s {length:8.2f}s {speed:5.2f}x {flag}")

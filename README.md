@@ -29,12 +29,13 @@ episodes/
   episode-2/                   # script.md + audio-script.json
   episode-3/                   # script.md + audio-script.json (source of truth)
   episode-4/                   # script.md + audio-script.json — RM50,000 Untuk Karim
-characters/                    # procedural 3D character rigs (incl. character-karim.js)
+  episode-5/                   # script.md + audio-script.json — Pengorbanan & Nombor 7 Baru
+characters/                    # procedural 3D character rigs (incl. character-karim.js, character-azam.js)
 environments/                  # procedural 3D locations (incl. club-office.js / ClubOffice)
 remotion/
   src/
     components/                # Scene3D, SafeArea, Subtitles, HookTitle, ScoreboardHUD, TransferOfferHUD
-    Episode1/ Episode2/ Episode3/ Episode4/  # compositions + scene directors
+    Episode1/ Episode2/ Episode3/ Episode4/ Episode5/  # compositions + scene directors
     Root.jsx                   # composition registry + durations
   scripts/generate_tts.py      # multi-voice TTS generation
   story/                       # story guide + series storyline
@@ -49,6 +50,7 @@ npm run render          # Episode 1
 npm run render:episode2 # Episode 2
 npm run render:episode3 # Episode 3
 npm run render:episode4 # Episode 4 — RM50,000 Untuk Karim (out/episode-4.mp4)
+npm run render:episode5 # Episode 5 — Pengorbanan & Nombor 7 Baru (out/episode-5.mp4)
 ```
 
 ## Regenerating audio
@@ -61,6 +63,7 @@ cd remotion
 python scripts/generate_tts.py e2_        # e2_ = Episode 2, b = Episode 1
 python scripts/generate_tts.py e3_        # e3_ = Episode 3 (e3_01 lead-silence trimmed)
 python scripts/generate_tts.py e4_        # e4_ = Episode 4 (all clips lead-silence trimmed)
+python scripts/generate_tts.py e5_        # e5_ = Episode 5 (trimmed + gently stretched to the cinematic beats)
 python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. office drone + bass hit)
 ```
 
@@ -79,3 +82,16 @@ python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. off
   `npx remotion render Episode4 out/episode-4-test.mp4 --frames=0-150` and
   `npx remotion render Episode4 out/episode-4-scene3-test.mp4 --frames=1320-1509`.
 - `Karim` and `Club Office` are also registered in the standalone viewer (`npm start`).
+
+### Episode 5 notes
+- **Pengorbanan & Nombor 7 Baru** — 2,160 frames / 72.0s @ 30fps, **1080x1920** (9:16 master;
+  overlays are the Ep. 1 design scaled 1.5x). Ends on a hard cut to pure black — no title card, no CTA.
+- **`characters/character-azam.js`** (`AzamApp`) mirrors Karim's rig/proportions with an `AZAM 7`
+  jersey, swept quiff, no armband and energetic poses (`idle`, `stride`, `reveal`, `flex`, `point`).
+- **Act 1** reuses `ClubOfficeApp`; **Acts 2–3** reuse the existing `LockerRoomApp` (`environments/locker-room.js`).
+- `DebtTickerHUD` ticks `HUTANG KELAB` from `RM381,500` to `RM331,500` and shows `KOS GAJI: -35%`.
+  A 1.5s `@akudingin-d1f` comment card flashes on Azam's entrance; it contains no engagement prompt.
+- Teammate 1's `e5_06` starts at frame 825 — a 0.5s J-cut before the visual cut to Act 2 at frame 840.
+- Smoke tests:
+  `npx remotion render Episode5 out/e5-jcut-test.mp4 --frames=810-900` and
+  `npx remotion render Episode5 out/e5-reveal-test.mp4 --frames=1320-1410`.

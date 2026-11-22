@@ -8,6 +8,7 @@ import { ChairmanApp } from './characters/character-chairman.js';
 import { NewOwnerApp } from './characters/character-new-owner.js';
 import { SponsorApp } from './characters/character-sponsor.js';
 import { KarimApp } from './characters/character-karim.js';
+import { AzamApp } from './characters/character-azam.js';
 import { ClubOfficeApp } from './environments/club-office.js';
 import { HAIR_STYLES } from './characters/character-hair.js';
 import { CharacterInspector } from './Inspector.js';
@@ -121,6 +122,25 @@ assert.ok(karim.characterParts.boots, 'Karim carries a boots prop');
 assert.ok(karim.characterParts.leftArm.getObjectByName('Hand'), 'Karim has a hand group');
 karim.dispose();
 assert.strictEqual(karim.character, null, 'Karim disposes cleanly');
+
+// --- Episode 5: Azam (#7) shares Karim's rig contract ---
+const azam = new AzamApp(container);
+azam.setupScene();
+azam.addLights();
+const azamBody = azam.createProceduralCharacter();
+assert.strictEqual(azamBody.children.length, 7, 'Azam has 7 part groups');
+assert.ok(azamBody.getObjectByName('Head').getObjectByName('Hair'), 'Azam has a hairstyle');
+assert.ok(azam.characterParts.backPanel, 'Azam jersey has a back name panel');
+assert.ok(azam.characterParts.frontPanel, 'Azam jersey has a front name panel');
+assert.ok(azam.characterParts.boots, 'Azam exposes the Karim-compatible boots slot');
+assert.ok(azam.characterParts.leftArm.getObjectByName('Hand'), 'Azam has a hand group');
+assert.strictEqual(azamBody.getObjectByName('Hair').children.length > 0, true, 'Azam quiff has geometry');
+['idle', 'stride', 'reveal', 'flex', 'point'].forEach((pose) => {
+  azam.setPose(pose);
+  assert.strictEqual(azam.currentPose, pose, `Azam pose "${pose}" applied`);
+});
+azam.dispose();
+assert.strictEqual(azam.character, null, 'Azam disposes cleanly');
 
 const office = new ClubOfficeApp(container);
 office.setupScene();

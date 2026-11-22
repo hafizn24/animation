@@ -1,0 +1,394 @@
+{
+  "episode": 5,
+  "title": "Pengorbanan & Nombor 7 Baru",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalDurationSeconds": 72.0,
+  "totalFrames": 2160,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 5 TTS, timed bilingual subtitles, the animated DebtTickerHUD, the @akudingin-d1f fan comment card and all SFX cues. Bos / Karim / Jurulatih / Rakan 1 / Rakan 2 / Azam dialogue only (no narrator-only stretches) in casual spoken Malay with a smaller English translation line. Zero CTAs. Frame 0 opens at full brightness on Karim in the half-open doorway with a paper-slide transient and a 1.5s HookTitle. Act 2's first voice line (e5_06) J-cuts in 15 frames (0.5s) before the visual cut at frame 840. Hard cut to pure black at frame 2127 after a 0.3s beat; no title card, no credits. All e5_ clips are lead-silence trimmed.",
+  "cast": {
+    "bos": { "class": "NewOwnerApp", "outfit": "charcoalOwner", "voice": "voice_3", "label": "BOS" },
+    "karim": { "class": "KarimApp", "outfit": "matchJersey", "voice": "voice_4", "label": "KARIM" },
+    "coach": { "class": "SoccerCoachOutfitApp", "outfit": "navyCoach", "voice": "voice_2", "label": "JURULATIH" },
+    "teammate1": { "class": "SoccerOutfitApp", "outfit": "soccerRedWhite", "voice": "voice_4", "label": "Rakan 1" },
+    "teammate2": { "class": "SoccerOutfitApp", "outfit": "soccerRedWhite", "voice": "voice_1", "label": "Rakan 2" },
+    "azam": { "class": "AzamApp", "outfit": "matchJersey", "voice": "voice_5", "label": "AZAM" }
+  },
+  "overlays": {
+    "hook": {
+      "title": "JANGAN JUAL KAPTEN.",
+      "pill": "EP. 5 • PENGORBANAN",
+      "fromFrame": 0,
+      "toFrame": 45
+    },
+    "debtTicker": {
+      "fromFrame": 600,
+      "toFrame": 839,
+      "phases": [
+        { "id": "accepted", "label": "TAWARAN DITERIMA", "value": "RM50,000", "fromFrame": 600, "toFrame": 660 },
+        { "id": "debt", "label": "HUTANG KELAB", "value": "RM381,500", "fromFrame": 660, "toFrame": 780 },
+        { "id": "salary", "label": "KOS GAJI", "value": "-35%", "fromFrame": 660, "toFrame": 839 }
+      ],
+      "tick": { "fromFrame": 660, "toFrame": 780, "from": 381500, "to": 331500, "currency": "RM" },
+      "finalDebt": "RM331,500",
+      "salaryCut": "-35%"
+    },
+    "titleCard": { "text": "ESOKNYA...", "fromFrame": 840, "toFrame": 864 },
+    "commentCard": {
+      "handle": "@akudingin-d1f",
+      "comment": "Pertama",
+      "detail": "Azam, #7, Defender, Gaji RM5",
+      "fromFrame": 1335,
+      "toFrame": 1380,
+      "cta": false
+    },
+    "hudFlash": {
+      "label": "HUTANG",
+      "value": "RM331,500",
+      "fromFrame": 1992,
+      "toFrame": 2118
+    },
+    "blackCut": { "fromFrame": 2127, "toFrame": 2160, "percussion": true }
+  },
+  "scenes": [
+    {
+      "id": "act-1-sacrifice",
+      "name": "Act 1 — Karim's Sacrifice",
+      "from": 0.0,
+      "to": 28.0,
+      "fromFrame": 0,
+      "durationFrames": 840,
+      "environment": "ClubOfficeApp (environments/club-office.js — reused directly from Episode 4)",
+      "director": "createAct1SacrificeScene",
+      "visual": "Full-brightness tight push-in on Karim (#8) in the half-open, cooler-backlit doorway, boots in hand, eyes on the RM50,000 offer paper. Slow push as he lays his captain armband beside the offer. Over-the-shoulder from Bos as he turns back. Door clicks shut; camera pans to the animated DebtTickerHUD.",
+      "sfx": "Frame-0 paper-slide transient; low office drone under dialogue; paper scuff on the armband; door click; stamp + tick sequence + bell on the debt HUD.",
+      "bgm": "Low-tension office drone, ducked under every line; swells under the debt-ticker beat.",
+      "cues": [
+        { "file": "paper.wav", "frame": 0, "volume": 0.75 },
+        { "file": "bass-hit.wav", "frame": 45, "volume": 0.35 },
+        { "file": "paper.wav", "frame": 150, "volume": 0.45 },
+        { "file": "door.wav", "frame": 600, "volume": 0.55 },
+        { "file": "stamp.wav", "frame": 615, "volume": 0.8 },
+        { "file": "pen-tap.wav", "frame": 660, "volume": 0.5 },
+        { "file": "pen-tap.wav", "frame": 705, "volume": 0.5 },
+        { "file": "pen-tap.wav", "frame": 750, "volume": 0.5 },
+        { "file": "bell.wav", "frame": 780, "volume": 0.55 }
+      ],
+      "events": [
+        { "type": "hook", "frame": 0, "note": "HookTitle spring-pop, clears by frame 45." },
+        { "type": "cut", "frame": 45, "note": "First major angle shift by frame 60." },
+        { "type": "cut", "frame": 130, "note": "Doorway close-up -> armband-on-desk push-in." },
+        { "type": "cut", "frame": 365, "note": "Two-shot -> Bos over-the-shoulder." },
+        { "type": "cut", "frame": 441, "note": "Bos OTS -> Karim turning back." },
+        { "type": "doorClose", "frame": 600, "note": "Door clicks shut; pan begins." },
+        { "type": "debtTicker", "frame": 600, "note": "DebtTickerHUD in." },
+        { "type": "jCut", "frame": 825, "note": "e5_06 voice starts 0.5s BEFORE the visual cut at frame 840." }
+      ],
+      "lines": [
+        {
+          "id": "e5_01",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Karim… jangan salah faham. Aku takkan jual kapten aku.",
+          "translation": "Karim… don't get me wrong. I'm not selling my captain.",
+          "start": 0.0,
+          "end": 4.1,
+          "startFrame": 0,
+          "endFrame": 123,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_02",
+          "type": "dialogue",
+          "speaker": "KARIM",
+          "text": "Hutang kita dekat empat ratus ribu, bos.",
+          "translation": "Our debt is almost four hundred thousand, boss.",
+          "start": 4.4,
+          "end": 7.8,
+          "startFrame": 132,
+          "endFrame": 234,
+          "voice": "voice_4",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_03",
+          "type": "dialogue",
+          "speaker": "KARIM",
+          "text": "Kalau kelab ni mati, semua habis. Jual aku.",
+          "translation": "If this club dies, it's all over. Sell me.",
+          "start": 8.1,
+          "end": 12.1,
+          "startFrame": 243,
+          "endFrame": 363,
+          "voice": "voice_4",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_04",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Kau pasti, Rim?",
+          "translation": "You sure, Rim?",
+          "start": 12.5,
+          "end": 14.3,
+          "startFrame": 375,
+          "endFrame": 429,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_05",
+          "type": "dialogue",
+          "speaker": "KARIM",
+          "text": "Bawa Buluh FC naik Divisyen 1.",
+          "translation": "Take Buluh FC to Division 1.",
+          "start": 14.7,
+          "end": 19.5,
+          "startFrame": 441,
+          "endFrame": 585,
+          "voice": "voice_4",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "act-2-rumor",
+      "name": "Act 2 — The #7 Rumor",
+      "from": 28.0,
+      "to": 44.0,
+      "fromFrame": 840,
+      "durationFrames": 480,
+      "environment": "LockerRoomApp (environments/locker-room.js — existing squad set reused from Ep. 1)",
+      "director": "createAct2RumorScene",
+      "visual": "Whoosh + 0.8s ESOKNYA... card over the start of the locker-room shot. Medium two-shot of hyped teammates with Jurulatih arms-crossed; cut to Bos smiling subtly near the door while Jurulatih eyes him suspiciously.",
+      "sfx": "Whoosh on the transition; faint room tone; door-handle jingle as Bos gestures.",
+      "bgm": "Warm locker-room underscore, ducked under dialogue.",
+      "cues": [
+        { "file": "whoosh.wav", "frame": 840, "volume": 0.8 },
+        { "file": "pen-tap.wav", "frame": 1191, "volume": 0.18 }
+      ],
+      "events": [
+        { "type": "titleCard", "frame": 0, "durationFrames": 24, "note": "ESOKNYA... 0.8s card." },
+        { "type": "cut", "frame": 231, "note": "Teammate two-shot -> Bos at the door." },
+        { "type": "cut", "frame": 351, "note": "Bos -> suspicious Jurulatih." }
+      ],
+      "lines": [
+        {
+          "id": "e5_06",
+          "type": "dialogue",
+          "speaker": "Rakan 1",
+          "text": "Weh, dengar cerita bos dah sign pemain nombor 7 baru!",
+          "translation": "Yo, heard the boss just signed a new number 7!",
+          "start": 27.5,
+          "end": 31.33,
+          "startFrame": 825,
+          "endFrame": 940,
+          "subtitleStartFrame": 840,
+          "voice": "voice_4",
+          "trimLeadingSilence": true,
+          "jCut": true
+        },
+        {
+          "id": "e5_07",
+          "type": "dialogue",
+          "speaker": "Rakan 2",
+          "text": "Fuhh, baru jual Karim lima puluh ribu… confirm striker padu ni!",
+          "translation": "Whoa, we just sold Karim for fifty grand… gotta be a killer striker!",
+          "start": 31.7,
+          "end": 35.7,
+          "startFrame": 951,
+          "endFrame": 1071,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_08",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Siapa kau beli ni, bos?",
+          "translation": "Who did you buy, boss?",
+          "start": 36.1,
+          "end": 39.3,
+          "startFrame": 1083,
+          "endFrame": 1179,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_09",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Tengok sendiri.",
+          "translation": "See for yourself.",
+          "start": 39.7,
+          "end": 42.9,
+          "startFrame": 1191,
+          "endFrame": 1287,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "act-3-reveal",
+      "name": "Act 3 — Azam's Reveal & the RM5 Punchline",
+      "from": 44.0,
+      "to": 70.9,
+      "fromFrame": 1320,
+      "durationFrames": 807,
+      "environment": "LockerRoomApp (environments/locker-room.js — low-angle backlit doorway)",
+      "director": "createAct3RevealScene",
+      "visual": "Dramatic low-angle backlight; door bursts open and Azam (#7) strides in, beaming. Fan comment card pops for 1.5s. Whip-pan to confused teammates then back to dead-serious Azam. Tight shot-reverse-shot between Jurulatih and Bos with Azam flexing his #7 jersey out of focus behind them; Bos holds up the HUTANG: RM331,500 tablet on the last line.",
+      "sfx": "Door burst + bass hit + small crowd cheer; bell on the comment card; whoosh on the whip-pan; pen-tap on the HUD flash; kick + bass hit on the hard cut.",
+      "bgm": "Warm triumphant bed under the reveal, ducked hard for the punchline exchange, silent after the cut.",
+      "cues": [
+        { "file": "door.wav", "frame": 1320, "volume": 0.9 },
+        { "file": "bass-hit.wav", "frame": 1320, "volume": 0.7 },
+        { "file": "crowd-small.wav", "frame": 1335, "volume": 0.5 },
+        { "file": "bell.wav", "frame": 1335, "volume": 0.3 },
+        { "file": "whoosh.wav", "frame": 1500, "volume": 0.7 },
+        { "file": "pen-tap.wav", "frame": 1992, "volume": 0.4 },
+        { "file": "kick.wav", "frame": 2127, "volume": 0.9 },
+        { "file": "bass-hit.wav", "frame": 2127, "volume": 0.9 }
+      ],
+      "events": [
+        { "type": "doorBurst", "frame": 0, "note": "Low-angle backlit door bursts open." },
+        { "type": "commentCard", "frame": 15, "durationFrames": 45, "note": "@akudingin-d1f fan card, 1.5s, no CTA." },
+        { "type": "cut", "frame": 180, "note": "Azam -> whip-pan to teammates." },
+        { "type": "cut", "frame": 300, "note": "Back to dead-serious Azam." },
+        { "type": "cut", "frame": 375, "note": "Two-shot -> Jurulatih/Bos shot-reverse-shot." },
+        { "type": "hudFlash", "frame": 672, "durationFrames": 126, "note": "HUTANG: RM331,500 on Bos's tablet." },
+        { "type": "beat", "frame": 799, "durationFrames": 9, "note": "0.3s stunned-face beat." },
+        { "type": "hardCut", "frame": 807, "note": "Hard cut to pure black at absolute frame 2127." }
+      ],
+      "lines": [
+        {
+          "id": "e5_10",
+          "type": "dialogue",
+          "speaker": "AZAM",
+          "text": "PERTAMA!",
+          "translation": "FIRST!",
+          "start": 44.5,
+          "end": 46.1,
+          "startFrame": 1335,
+          "endFrame": 1383,
+          "voice": "voice_5",
+          "trimLeadingSilence": true,
+          "emphasis": true
+        },
+        {
+          "id": "e5_11",
+          "type": "dialogue",
+          "speaker": "AZAM",
+          "text": "Assalamualaikum. Saya Azam. Defender baru.",
+          "translation": "Assalamualaikum. I'm Azam. The new defender.",
+          "start": 46.6,
+          "end": 49.8,
+          "startFrame": 1398,
+          "endFrame": 1494,
+          "voice": "voice_5",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_12",
+          "type": "dialogue",
+          "speaker": "Rakan 1",
+          "text": "Kejap… defender pakai nombor tujuh?!",
+          "translation": "Wait… a defender wearing number seven?!",
+          "start": 50.3,
+          "end": 53.5,
+          "startFrame": 1509,
+          "endFrame": 1605,
+          "voice": "voice_4",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_13",
+          "type": "dialogue",
+          "speaker": "AZAM",
+          "text": "Baru lawan gerun.",
+          "translation": "So the opponents get scared.",
+          "start": 54.0,
+          "end": 55.8,
+          "startFrame": 1620,
+          "endFrame": 1674,
+          "voice": "voice_5",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_14",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Bos… kita baru dapat lima puluh ribu. Berapa gaji budak ni?",
+          "translation": "Boss… we just got fifty thousand. What's this kid's salary?",
+          "start": 56.5,
+          "end": 60.9,
+          "startFrame": 1695,
+          "endFrame": 1827,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_15",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Lima ringgit.",
+          "translation": "Five ringgit.",
+          "start": 61.5,
+          "end": 63.2,
+          "startFrame": 1845,
+          "endFrame": 1896,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e5_16",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Lima ribu?!",
+          "translation": "Five thousand?!",
+          "start": 63.8,
+          "end": 65.7,
+          "startFrame": 1914,
+          "endFrame": 1971,
+          "voice": "voice_2",
+          "trimLeadingSilence": true,
+          "emphasis": true
+        },
+        {
+          "id": "e5_17",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Lima ringgit. Duit Karim semua bayar hutang.",
+          "translation": "Five ringgit. Karim's money all went to debt.",
+          "start": 66.4,
+          "end": 70.6,
+          "startFrame": 1992,
+          "endFrame": 2118,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        }
+      ]
+    },
+    {
+      "id": "black-cut",
+      "name": "Hard Cut To Black",
+      "from": 70.9,
+      "to": 72.0,
+      "fromFrame": 2127,
+      "durationFrames": 33,
+      "environment": null,
+      "director": null,
+      "visual": "Pure black (no title card, no credits, no CTA). Sharp comedic percussion hit on the cut.",
+      "sfx": "kick.wav + bass-hit.wav at frame 2127.",
+      "bgm": null,
+      "cues": [],
+      "events": [],
+      "lines": []
+    }
+  ]
+}

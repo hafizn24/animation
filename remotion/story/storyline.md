@@ -79,3 +79,13 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a **R
 - **Cast:** Boss (reused Owner rig/voice `voice_3`), Coach (reused `SoccerCoachOutfitApp` rig / `voice_2`), Karim (new `character-karim.js` rig / `voice_4`).
 
 **Script location:** `episodes/episode-4/script.md` and `episodes/episode-4/audio-script.json` are the source of truth. `remotion/src/Episode4/Episode4Composition.jsx` imports the JSON directly for all scene, subtitle, HUD, silence-beat and SFX timings. TTS text/voices live in `remotion/scripts/generate_tts.py` (prefix `e4_`, all clips lead-silence trimmed). Regenerate with `python scripts/generate_tts.py e4_`.
+
+### Episode 5 — *Pengorbanan & Nombor 7 Baru* (In production)
+- **Status:** Scripted for Remotion (`remotion/src/Episode5/`); **2,160 frames / 72.0s @ 30fps**, 1080x1920 9:16 master with MS + EN dual subtitles, a 1.5s hook and audio-driven pacing.
+- **Continuity from Ep. 4:** Karim accepts the RM50,000 transfer himself, lays his captain armband beside the offer and asks Bos to take Buluh FC to Divisyen 1. Club debt falls from RM381,500 to RM331,500 and the wage bill drops 35%.
+- **Plot:** The squad expects a killer striker for the new #7. Azam — a fan-inspired defender (@akudingin-d1f) — bursts through the locker-room door instead. His salary is **RM5**; Karim's transfer money all went to debt. Hard cut to black on the punchline. No CTA.
+- **Cast:** Bos (`voice_3`), Karim (`voice_4`), Jurulatih (`voice_2`), two teammates, and Azam (`voice_5`, new `characters/character-azam.js` rig with an `AZAM 7` jersey).
+- **J-cut:** `e5_06` begins 15 frames before Act 2's visual cut. The 1.5s `@akudingin-d1f` comment card is an in-world fan easter egg, never an engagement prompt.
+- **Ending:** deliberately overrides the series title card — pure black hard cut with a comedic percussion hit.
+
+**Script location:** `episodes/episode-5/script.md` and `episodes/episode-5/audio-script.json` are the source of truth. `remotion/src/Episode5/Episode5Composition.jsx` imports the JSON directly. TTS text/voices are in `remotion/scripts/generate_tts.py` (prefix `e5_`). Regenerate with `python scripts/generate_tts.py e5_`.

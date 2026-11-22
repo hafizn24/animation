@@ -62,3 +62,10 @@ leading silence trimmed and a sharp SFX transient fires on frame 0. See
 - **Beats:** bomb drops (`e4_01`, hook `RM50,000 UNTUK KARIM.`) → heart vs survival (`e4_02`–`e4_09`, `TransferOfferHUD` on `e4_05`–`e4_06`) → 1.3s dead silence + slow reveal pan to Karim in his `KARIM 8` jersey (`e4_10`) → hard cut.
 - **Cast:** Boss (`voice_3`), Coach (`voice_2`), Karim (`voice_4`, captain / CM #8 / friendly MVP / highest earner). All `e4_` clips are lead-silence trimmed.
 - **Ending:** muted low bass hit on `e4_10` → hard cut to the `BULOH FC / EPISOD 4` title card. Zero CTA.
+
+## Episode 5 Quick Reference
+- **Title:** *Pengorbanan & Nombor 7 Baru*. **Runtime:** 2,160 frames / 72.0s @ 30fps, 1080x1920.
+- **Settings:** `ClubOffice` (Act 1) → `LockerRoomApp` (Acts 2–3). Azam (#7, defender) is a new rig sharing Karim's proportions.
+- **Beats:** Karim's sacrifice and debt ticker (`RM381,500 → RM331,500`, `KOS GAJI: -35%`) → `ESOKNYA...` + #7 rumour → Azam's reveal + 1.5s fan comment card → `Lima ringgit.` punchline.
+- **Audio:** Bos (`voice_3`), Karim (`voice_4`), Jurulatih (`voice_2`), teammates, Azam (`voice_5`). `e5_06` J-cuts 0.5s into Act 2.
+- **Ending:** 0.3s stunned beat → hard cut to **pure black** with a comedic percussion hit. No title card, no CTA.
