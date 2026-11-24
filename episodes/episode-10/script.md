@@ -1,49 +1,59 @@
 # Episode 10 — *Hidup Mati* (Script)
 
-> Governed by [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md), including the Section 0 0–2s hook standard.
+> **Reworked Season 1 script.** Governed by [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md), including the Section 0 0–2s hook standard. Dialogue carries the story; the narrator only bridges. No HUD digits are spoken — numbers live in the overlays.
 
-- **Runtime:** 00:00 – 00:43.0 (1,290 frames @ 30fps), 1080×1920 vertical.
-- **Result:** Menang 4–3 (9 mata) • **Debt:** RM321,500 → RM300,000 (−RM21,500 🟢).
-- **Structure:** NARRATOR alternates with KAPTEN BOB, JURULATIH, AZAM, FARID and BOS, with a direct Bob ↔ Azam exchange in Act 2. **No CTAs.**
-- **Settings:** Acts 1–2 `ModularPitchZone` penalty box → Act 3 touchline for table + debt overlays.
-- **Hook:** rapid-fire scoreboard flip `1-0 → 1-1 → 2-2 → 3-3` inside frames 0–42 (`whistle.wav` at 0, three `net.wav` swishes at 14/28/42). HookTitle "PERLAWANAN PALING GILA!" for frames 0–45; first cut at frame 54.
-- **Ending:** hard cut to the standard 72-frame **Buluh FC / EPISOD 10** EndCard.
+- **Runtime:** 00:00 – 00:44.1 (1,323 frames @ 30fps), 1080×1920 vertical.
+- **Debt:** RM321,500 → RM300,000 (DOWN — BONUS MENANG + KUTIPAN TIKET).
+- **Result:** Matchday 4 — BUL 4–3 KIL (FT).
+- **Structure:** narrator bridges only; every act is carried by named character dialogue. **No CTAs.**
+- **Hook:** PERLAWANAN PALING GILA! — spring-pop frames 0–45, first cut at frame 54, frame-0 SFX transient.
+- **Ending:** hard cut to the standard 72-frame **Buluh FC / EPISOD 10** EndCard. No credits, no CTA.
 
-**Machine-readable source of truth:** [`audio-script.json`](./audio-script.json).
+**Machine-readable source of truth:** [`audio-script.json`](./audio-script.json) and `story/season1-debt.json`. The JSON wins on conflict; `npm run retime` rebuilds all frames from the measured e10_* MP3s after regeneration.
 
 ---
 
-## ACT 1 — Pure Chaos (00:00 – 00:14) | Penalty Box — frames 0–419
+## Act 1 — Serangan Gila — frames 0–389 | `PitchPenaltyBoxApp`
+
+- **Visual:** Hook: the scoreboard flips 1-0 -> 1-1 -> 2-2 -> 3-3 inside the first 1.4 seconds. Kapten Bob of Kilat Rovers laughs through the chaos — defence is for cowards. Danial is done shouting; Azam takes command of the backline like a captain who has not yet been handed the armband.
+- **SFX:** whistle at 0; three quick net swishes on the hook; crowd-big bed; Danial scream.
+- **Cues:** whistle.wav@0, net.wav@14, net.wav@28, net.wav@42, crowd-big.wav@46
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e10_01 | 0–99 | NARRATOR | "Kilat Rovers. Serangan gila, pertahanan kosong." | "Kilat Rovers. All attack, no defence." |
-| e10_02 | 104–207 | KAPTEN BOB | "Kami tak percaya pada pertahanan! Kami percaya pada gol!" | "We don't believe in defence! We believe in goals!" |
-| e10_03 | 212–328 | NARRATOR | "Danial penat menjerit pada backline. Skor: tiga-tiga." | "Danial is tired of shouting at his backline. Score: three-three." |
+| e10_01 | 0–100 | NARRATOR | "Kilat Rovers. Serang gila. Pertahanan? Tiada." | "Kilat Rovers. Crazy attacks. Defence? None." |
+| e10_02 | 102–201 | KAPTEN BOB | "Pertahanan buat apa?! Gol lagi best, brader!" | "Who needs defence?! Goals are more fun, lads!" |
+| e10_03 | 203–284 | DANIAL | "TIGA TIGA?! Aku penat jerit, Azam!!" | "THREE-ALL?! I'm done shouting, Azam!!" |
+| e10_04 | 286–381 | AZAM | "Semua dengar aku! Satu blok — kita menang!" | "Everyone listen! One block — we win this!" |
 
-- **Overlay:** `MatchHUD` flips `1-0 → 1-1 → 2-2 → 3-3` on the frame-0 hook.
+## Act 2 — Minit ke-88 — frames 389–859 | `PitchPenaltyBoxApp`
 
-## ACT 2 — 88th Minute Winner (00:14 – 00:31) | Penalty Box — frames 420–929
-
-| Line | Frames | Speaker | Malay | English |
-|---|---|---|---|---|
-| e10_04 | 335–366 | JURULATIH | "Semua naik! Sekarang!" | "Everyone forward! Now!" |
-| e10_05 | 371–481 | NARRATOR | "Minit ke-88. Azam blok, then hantar ke Farid." | "88th minute. Azam blocks, then picks out Farid." |
-| e10_06 | 486–519 | AZAM | "Sekali lagi, Farid!" | "One more time, Farid!" |
-| e10_06b | 524–588 | FARID | "Kau blok, aku serang! Terus, Azam!" | "You block, I attack! Straight, Azam!" |
-| e10_07 | 593–707 | NARRATOR | "Satu tendangan. Empat tiga. Buluh FC masih hidup!" | "One strike. Four-three. Buluh FC are still alive!" |
-| e10_08 | 712–740 | FARID | "Sampai juga!" | "Finally made it!" |
-
-## ACT 3 — Second Place (00:31 – 00:40.6) | Touchline — frames 930–1217
+- **Visual:** Minute 88: Jurulatih sends everyone forward. Kilat attack once more; Azam reads it, blocks it clean and releases Farid on the counter. One strike — 4-3. Bob's reply spreads the RM5 legend to the enemy camp; Azam's answer makes it a warning.
+- **SFX:** block thud (bass-hit); kick + net.wav on the winner; crowd-big roar; comic thud on Bob's collapse.
+- **Cues:** whistle.wav@389, bass-hit.wav@588, kick.wav@678, net.wav@686, crowd-big.wav@686
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e10_09 | 747–846 | NARRATOR | "Tempat kedua. Tiga mata di belakang Besi Waja." | "Second place. Three points behind Besi Waja." |
-| e10_10 | 851–1015 | BOS | "Tiga ratus ribu tepat. Juara nanti, hadiah dengan bonus penaja lunas semua." | "Three hundred grand exactly. Win the title and the prize plus sponsor bonus clear it all." |
-| e10_11 | 1020–1125 | NARRATOR | "Matchday lima. Besi Waja. Juara atau sita." | "Matchday five. Besi Waja. Champions or seized." |
+| e10_05 | 389–495 | JURULATIH | "Semua naik! Minit 88 — sekarang atau takda esok!" | "Everyone forward! Minute 88 — now or never!" |
+| e10_06 | 497–594 | NARRATOR | "Kilat serang lagi. Azam baca... dan potong." | "Kilat attack again. Azam reads it… and cuts it out." |
+| e10_07 | 596–635 | AZAM | "Farid! Jalan!" | "Farid! Run!" |
+| e10_08 | 637–691 | FARID | "Kau blok, aku settle!" | "You block, I finish!" |
+| e10_09 | 693–770 | NARRATOR | "Empat tiga. Buluh FC masih hidup!" | "Four-three. Buluh FC are still alive!" |
+| e10_11 | 772–851 | AZAM | "Lima ringgit. Lepas ni jadi mahal." | "Five ringgit. About to get expensive." |
 
-- **Overlays:** `LeagueTableOverlay` (MD4) → GREEN `DebtTickerHUD` **RM321,500 → RM300,000**.
+## Act 3 — Bayang Besi Waja — frames 859–1251 | `PitchTouchlineApp`
+
+- **Visual:** Full-time table: second place, three points behind an undefeated side. Jurulatih describes the machine that never smiles; Bos answers with the season's thesis — machines break, Buluh FC has a heart. LeagueTableOverlay (MD4) and a GREEN debt roll RM321,500 -> RM300,000 close the act.
+- **SFX:** long whistle; table slide-up whoosh; green HUD bell.
+- **Cues:** whistle.wav@859, whoosh.wav@867, bell.wav@1117
+
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e10_12 | 859–961 | NARRATOR | "Tempat kedua. Tiga mata di belakang Besi Waja." | "Second place. Three points behind Besi Waja." |
+| e10_13 | 963–1048 | JURULATIH | "Diorang tak senyum. Main macam mesin." | "They never smile. They play like a machine." |
+| e10_14 | 1050–1133 | BOS | "Mesin boleh rosak. Kita ada jantung." | "Machines break. We have a heart." |
+| e10_15 | 1135–1243 | NARRATOR | "RM300,000 tepat. Matchday lima — juara atau sita." | "RM300,000 exactly. Matchday five — champions or seized." |
 
 ## Ending
 
-Frame 1218: hard cut to **Buluh FC / EPISOD 10** (72 frames). No CTA.
+Frame 1251: hard cut to **Buluh FC / EPISOD 10** (72 frames). No CTA.
