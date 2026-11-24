@@ -38,7 +38,7 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e8_10 | 975–1050 | NARRATOR | "Papan kedudukan: Buluh FC naik ke tempat ketiga." | "The table: Buluh FC climb to third." |
+| e8_10 | 975–1050 | NARRATOR | "Papan kedudukan: Buluh FC kekal tempat ketiga. Dua menang berturut-turut." | "The table: Buluh FC stay third. Two wins in a row." |
 | e8_11 | 1065–1140 | BOS | "Tiga ratus ribu... tak. Dua ratus sembilan puluh enam." | "Three hundred grand... no. Two hundred and ninety-six." |
 | e8_12 | 1155–1230 | NARRATOR | "RM296,500. Kali pertama kita nampak garisan tiga ratus." | "RM296,500. The first time we see below the three-hundred line." |
 

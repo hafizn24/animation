@@ -31,7 +31,7 @@
     },
     "leagueTable": {
       "scene": "act-3-table-debt", "fromFrame": 975, "toFrame": 1065,
-      "matchday": 3, "highlight": "BUL", "note": "BULUH FC NAIK KE TEMPAT KE-3"
+      "matchday": 3, "highlight": "BUL", "note": "KEKAL TEMPAT KE-3 • DUA MENANG BERTURUT-TURUT"
     },
     "debtTicker": {
       "scene": "act-3-table-debt", "fromFrame": 1080, "toFrame": 1235,
@@ -103,7 +103,7 @@
       "from": 32.0, "to": 41.6, "fromFrame": 960, "durationFrames": 288,
       "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
       "director": "createTableDebtScene",
-      "visual": "LeagueTableOverlay flashes Buluh FC climbing to 3rd, then the DebtTickerHUD rolls GREEN through the RM300k barrier to RM296,500.",
+      "visual": "LeagueTableOverlay shows Buluh FC still 3rd after a second straight win, then the DebtTickerHUD rolls GREEN through the RM300k barrier to RM296,500.",
       "sfx": "table card whoosh; three tick taps; bell as the debt lands.",
       "bgm": "Warm triumphant sting, ducked under the final narration.",
       "cues": [
@@ -118,7 +118,7 @@
         { "type": "hardCut", "frame": 288, "note": "Hard cut to EndCard." }
       ],
       "lines": [
-        { "id": "e8_10", "type": "narrator", "speaker": "NARRATOR", "text": "Papan kedudukan: Buluh FC naik ke tempat ketiga.", "translation": "The table: Buluh FC climb to third.", "start": 32.5, "end": 35.0, "startFrame": 975, "endFrame": 1050, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e8_10", "type": "narrator", "speaker": "NARRATOR", "text": "Papan kedudukan: Buluh FC kekal tempat ketiga. Dua menang berturut-turut.", "translation": "The table: Buluh FC stay third. Two wins in a row.", "start": 32.5, "end": 35.0, "startFrame": 975, "endFrame": 1050, "voice": "voice_5", "trimLeadingSilence": true },
         { "id": "e8_11", "type": "dialogue", "speaker": "BOS", "text": "Tiga ratus ribu... tak. Dua ratus sembilan puluh enam.", "translation": "Three hundred grand... no. Two hundred and ninety-six.", "start": 35.5, "end": 38.0, "startFrame": 1065, "endFrame": 1140, "voice": "voice_3", "trimLeadingSilence": true },
         { "id": "e8_12", "type": "narrator", "speaker": "NARRATOR", "text": "RM296,500. Kali pertama kita nampak garisan tiga ratus.", "translation": "RM296,500. The first time we see below the three-hundred line.", "start": 38.5, "end": 41.0, "startFrame": 1155, "endFrame": 1230, "voice": "voice_5", "trimLeadingSilence": true }
       ]

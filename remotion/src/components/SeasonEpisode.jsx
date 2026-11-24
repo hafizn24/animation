@@ -84,6 +84,7 @@ export const SeasonEpisode = ({ episode, script, directors, bgm = [] }) => {
           pill={hook.pill}
           fromFrame={0}
           toFrame={hook.toFrame ?? 45}
+          scale={1.5}
         />
       );
     }

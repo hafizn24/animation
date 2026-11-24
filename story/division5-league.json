@@ -13,7 +13,7 @@
     {
       "short": "BUL",
       "name": "Buluh FC",
-      "formation": "4-4-2",
+      "formation": "5-3-2",
       "kit": { "primary": "#de1326", "secondary": "#ffffff", "shorts": "#b80f20" },
       "identity": "Kelab berhutang RM331.5k, disokong KEK MAJU & PENAJA (Nexus Sports).",
       "players": [
@@ -136,8 +136,8 @@
       { "pos": 1, "club": "BSW", "played": 3, "points": 9 },
       { "pos": 2, "club": "TKJ", "played": 3, "points": 6 },
       { "pos": 3, "club": "BUL", "played": 3, "points": 6 },
-      { "pos": 4, "club": "OTK", "played": 3, "points": 4 },
-      { "pos": 5, "club": "KLT", "played": 3, "points": 2 },
+      { "pos": 4, "club": "KLT", "played": 3, "points": 2 },
+      { "pos": 5, "club": "OTK", "played": 3, "points": 1 },
       { "pos": 6, "club": "VGE", "played": 3, "points": 1 }
     ],
     "4": [
@@ -145,14 +145,14 @@
       { "pos": 2, "club": "BUL", "played": 4, "points": 9 },
       { "pos": 3, "club": "TKJ", "played": 4, "points": 6 },
       { "pos": 4, "club": "VGE", "played": 4, "points": 4 },
-      { "pos": 5, "club": "OTK", "played": 4, "points": 4 },
-      { "pos": 6, "club": "KLT", "played": 4, "points": 2 }
+      { "pos": 5, "club": "KLT", "played": 4, "points": 2 },
+      { "pos": 6, "club": "OTK", "played": 4, "points": 1 }
     ],
     "5": [
       { "pos": 1, "club": "BUL", "played": 5, "points": 12, "note": "JUARA — head-to-head 3-2 ke atas BSW" },
       { "pos": 2, "club": "BSW", "played": 5, "points": 12 },
       { "pos": 3, "club": "TKJ", "played": 5, "points": 7 },
-      { "pos": 4, "club": "OTK", "played": 5, "points": 7 },
+      { "pos": 4, "club": "OTK", "played": 5, "points": 4 },
       { "pos": 5, "club": "VGE", "played": 5, "points": 4 },
       { "pos": 6, "club": "KLT", "played": 5, "points": 3 }
     ]

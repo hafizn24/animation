@@ -188,7 +188,7 @@ MANIFEST = [
     ("e8_07", "azam", 690, 750, "Kelas? Saya jaga kelas, bro."),
     ("e8_08", "narrator", 765, 855, "Azam tutup ruang. Farid lari. Dua satu."),
     ("e8_09", "farid", 870, 945, "Maruah tak dijual, tapi gol dijual!"),
-    ("e8_10", "narrator", 975, 1050, "Papan kedudukan: Buluh FC naik ke tempat ketiga."),
+    ("e8_10", "narrator", 975, 1050, "Papan kedudukan: Buluh FC kekal tempat ketiga. Dua menang berturut-turut."),
     ("e8_11", "bos", 1065, 1140, "Tiga ratus ribu... tak. Dua ratus sembilan puluh enam."),
     ("e8_12", "narrator", 1155, 1230, "RM296,500. Kali pertama kita nampak garisan tiga ratus."),
     # Episode 9 — Hutang Naik Balik (1230f / 41s).

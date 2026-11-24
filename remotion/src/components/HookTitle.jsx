@@ -8,10 +8,11 @@ const GOLD = '#d8b26a';
  * and clears by frame 45 (1.5s at 30fps).
  *
  * Rendered inside SafeArea and deliberately kept in the upper-left/centre zone:
- * right padding 120px > Shorts right-15% dead zone (108px), and the whole block
- * ends well above the bottom-25% dead zone and the bilingual subtitle plate.
+ * right padding 120px > Shorts right-15% dead zone (108px at 720 wide), and the
+ * whole block ends well above the bottom-25% dead zone and the subtitle plate.
+ * The 1080x1920 Season 1 master passes scale={1.5} (right padding 180px > 162px).
  */
-export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45 }) => {
+export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45, scale: sizeScale = 1 }) => {
   const frame = useCurrentFrame();
   const { fps, height } = useVideoConfig();
   const local = frame - fromFrame;
@@ -43,8 +44,8 @@ export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45 }) => {
         style={{
           position: 'absolute',
           top: Math.round(height * 0.18),
-          left: 56,
-          right: 120,
+          left: Math.round(56 * sizeScale),
+          right: Math.round(120 * sizeScale),
           opacity,
           transform: `scale(${scale})`,
           transformOrigin: 'left center',
@@ -58,12 +59,12 @@ export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45 }) => {
               color: '#0c1016',
               background: GOLD,
               fontFamily: 'Arial, Helvetica, sans-serif',
-              fontSize: 13,
+              fontSize: Math.round(13 * sizeScale),
               fontWeight: 'bold',
-              letterSpacing: 2.2,
-              padding: '6px 12px',
-              borderRadius: 4,
-              marginBottom: 14,
+              letterSpacing: 2.2 * sizeScale,
+              padding: `${Math.round(6 * sizeScale)}px ${Math.round(12 * sizeScale)}px`,
+              borderRadius: Math.round(4 * sizeScale),
+              marginBottom: Math.round(14 * sizeScale),
               boxShadow: '0 4px 16px rgba(0,0,0,0.7)',
             }}
           >
@@ -74,17 +75,17 @@ export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45 }) => {
           style={{
             color: '#fff8e8',
             fontFamily: 'Arial Black, Arial, Helvetica, sans-serif',
-            fontSize: 40,
+            fontSize: Math.round(40 * sizeScale),
             lineHeight: 1.12,
             fontWeight: 'bold',
-            letterSpacing: 0.4,
+            letterSpacing: 0.4 * sizeScale,
             textTransform: 'uppercase',
             textShadow:
               '0 3px 0 #7a1c12, 0 6px 0 rgba(0,0,0,0.55), 0 0 22px rgba(0,0,0,0.95)',
             background: 'linear-gradient(90deg, rgba(120,26,16,0.72), rgba(120,26,16,0))',
-            borderLeft: `6px solid ${GOLD}`,
-            padding: '12px 16px',
-            borderRadius: 6,
+            borderLeft: `${Math.round(6 * sizeScale)}px solid ${GOLD}`,
+            padding: `${Math.round(12 * sizeScale)}px ${Math.round(16 * sizeScale)}px`,
+            borderRadius: Math.round(6 * sizeScale),
           }}
         >
           {title}

@@ -73,7 +73,7 @@
       "from": 16.0, "to": 32.0, "fromFrame": 480, "durationFrames": 480,
       "environment": "LockerRoomApp (environments/locker-room.js)",
       "director": "createHalftimeScene",
-      "visual": "Halftime. Heads down in the locker room; the tactical whiteboard shows 4-4-2 magnets and a red HUTANG sticky note. Farid says they can't beat Besi Waja without Karim.",
+      "visual": "Halftime. Heads down in the locker room; the tactical whiteboard shows 5-3-2 magnets and a red HUTANG sticky note. Farid says they can't beat Besi Waja without Karim.",
       "sfx": "door click; low room tone; board magnet tap; heavy sigh.",
       "bgm": "Sparse, unhappy locker-room bed, ducked under dialogue.",
       "cues": [

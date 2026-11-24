@@ -5,7 +5,7 @@
 - **Runtime:** 00:00 – 00:44.0 (1,320 frames @ 30fps), 1080×1920 vertical.
 - **Result:** Trailing 0–2 at halftime • **Debt:** RM300,000 → RM305,000 (**+RM5,000 🔴** league fine + bank late fee).
 - **Structure:** NARRATOR alternates with PENGADIL, KAPTEN MALIK, FARID, BOS and AZAM. **No CTAs.**
-- **Settings:** Act 1 `ModularPitchZone` center circle → Acts 2–3 `LockerRoomApp` with tactical whiteboard and red `HUTANG` note.
+- **Settings:** Act 1 `ModularPitchZone` center circle → Acts 2–3 `LockerRoomApp` with a 5-3-2 tactical whiteboard and red `HUTANG` note.
 - **Hook:** PENGADIL flashes a yellow card into the camera at frame 0 (`whistle.wav`). HookTitle "KETINGGALAN 0–2! TAMAT?" for frames 0–45; first cut at frame 90.
 - **Ending:** hard cut on the armband cliffhanger to the 72-frame **Buluh FC / EPISOD 11** EndCard.
 
