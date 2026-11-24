@@ -11,14 +11,8 @@ const DIRECTORS = {
   createTableDebtScene,
 };
 
-const BGM = [
-  { file: 'tense.wav', from: 0, to: 480, level: 0.14, duck: 0.05 },
-  { file: 'match.wav', from: 480, to: 960, level: 0.17, duck: 0.05 },
-  { file: 'warm.wav', from: 960, to: 1248, level: 0.14, duck: 0.05 },
-];
-
 export const Episode8Composition = () => (
-  <SeasonEpisode episode={8} script={script} directors={DIRECTORS} bgm={BGM} />
+  <SeasonEpisode episode={8} script={script} directors={DIRECTORS} />
 );
 
 export const EPISODE_8_FRAMES = script.totalFrames;
