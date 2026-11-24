@@ -11,13 +11,8 @@ const DIRECTORS = {
   createDesperateBlockScene,
 };
 
-const BGM = [
-  { file: 'office.wav', from: 0, to: 420, level: 0.15, duck: 0.05 },
-  { file: 'match.wav', from: 420, to: 1218, level: 0.18, duck: 0.05 },
-];
-
 export const Episode6Composition = () => (
-  <SeasonEpisode episode={6} script={script} directors={DIRECTORS} bgm={BGM} />
+  <SeasonEpisode episode={6} script={script} directors={DIRECTORS} />
 );
 
 export const EPISODE_6_FRAMES = script.totalFrames;
