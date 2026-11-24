@@ -3,7 +3,17 @@ import { ClubOfficeApp } from '../../../../environments/club-office.js';
 import { NewOwnerApp } from '../../../../characters/character-new-owner.js';
 import { SuitOutfitApp } from '../../../../characters/character-suit.js';
 import { applyOfficeGrade } from '../../Episode5/sceneKit.js';
-import { clamp, createCinematicScene, lerp, sec, smooth } from '../sceneKit.js';
+import {
+  clamp,
+  createCinematicScene,
+  faceEachOther,
+  findActor,
+  getSpeakerThreeQuarterShot,
+  lerp,
+  sec,
+  shotKey,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
@@ -13,7 +23,8 @@ const END = ACT_1.durationFrames;
 export const createBankPromiseScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: ClubOfficeApp,
   grade: (scene, env) => applyOfficeGrade(scene, env, 'scene1'),
-  extra: (scene, { env }) => {
+  extra: (scene, { env, actors }) => {
+    faceEachOther(findActor(actors, 'boss'), findActor(actors, 'peguam'));
     if (env && typeof env.setDocument === 'function') {
       env.setDocument({
         title: 'NOTIS SITA BANK',
@@ -60,8 +71,8 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       scale: 0.95, position: [0.2, 0, -1.4], rotationY: 0.06,
       beats: [
         { from: L('e6_02'), to: L('e6_03'), pose: 'talk' },
-        { from: L('e6_03'), to: L('e6_04'), pose: 'document' },
-        { from: L('e6_04'), to: END, pose: 'idle' },
+        { from: L('e6_03'), to: L('e6_04'), pose: 'document', emotion: 'worried' },
+        { from: L('e6_04'), to: END, pose: 'idle', emotion: 'stressed' },
       ],
     },
     {
@@ -70,7 +81,8 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       beats: [
         { from: 0, to: L('e6_02'), pose: 'idle' },
         { from: L('e6_02'), to: L('e6_03'), pose: 'offer' },
-        { from: L('e6_03'), to: END, pose: 'talk' },
+        { from: L('e6_03'), to: L('e6_04'), pose: 'talk' },
+        { from: L('e6_04'), to: END, pose: 'talk', emotion: 'angry' },
       ],
     },
   ],
@@ -84,13 +96,18 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
   },
   camera: {
     fov: 46, ease: smooth,
-    keys: [
-      [0, [-0.4, 1.5, 2.7], [-0.5, 0.9, 0.2], 46],
-      [sec(54), [-0.2, 1.5, 1.5], [-0.8, 1.0, -1.2], 46],
-      [sec(L('e6_03')), [0.45, 1.62, 1.5], [0.2, 1.4, -1.4], 44],
-      [sec(L('e6_04')), [-0.65, 1.58, 1.35], [-1.35, 1.45, -2.3], 44],
-      [sec(END), [0.1, 1.6, 1.8], [0.2, 1.1, -0.6], 50],
-    ],
+    keys: ({ actors }) => {
+      const boss = findActor(actors, 'boss');
+      const peguam = findActor(actors, 'peguam');
+      return [
+        [0, [-0.4, 1.5, 2.7], [-0.5, 0.9, 0.2], 42],
+        [sec(54), [-0.2, 1.5, 1.5], [-0.8, 1.0, -1.2], 42],
+        shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.7 }), sec(L('e6_02'))),
+        shotKey(getSpeakerThreeQuarterShot(boss, peguam, { distance: 3.8 }), sec(L('e6_03'))),
+        shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.6 }), sec(L('e6_04'))),
+        [sec(END), [0.1, 1.6, 1.8], [0.2, 1.1, -0.6], 42],
+      ];
+    },
   },
   postCamera: ({ camera, frame }) => {
     if (frame > 4) return;

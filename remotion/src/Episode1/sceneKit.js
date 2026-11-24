@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { normalizeRig, resolveActorSeparation } from '../../../characters/rig-kit.js';
 
 export const FPS = 30;
 
@@ -45,7 +46,7 @@ export function createSceneDirector(renderer, config) {
       0.1,
       500
     );
-    env.camera.position.set(...config.camera.keys[0][1]);
+    env.camera.position.set(0, 2, 6);
   }
   env.addLights();
   env.createProceduralCharacter();
@@ -66,12 +67,21 @@ export function createSceneDirector(renderer, config) {
     rig.scale.setScalar(spec.scale || 1);
     if (spec.position) rig.position.set(...spec.position);
     if (spec.rotationY !== undefined) rig.rotation.y = spec.rotationY;
+    normalizeRig(rig, app.characterParts, {
+      app,
+      id: spec.name || spec.id || rig.name,
+    });
     scene.add(rig);
 
     return { ...spec, rig, parts: app.characterParts, app };
   });
 
   const extra = config.extra ? config.extra(scene, { env, actors }) : {};
+  const cameraKeys = typeof config.camera.keys === 'function'
+    ? config.camera.keys({ actors, extra, env })
+    : config.camera.keys;
+  env.camera.position.set(...cameraKeys[0][1]);
+  env.camera.lookAt(...cameraKeys[0][2]);
 
   const camera = new THREE.PerspectiveCamera(
     config.camera.fov || 70,
@@ -97,9 +107,19 @@ export function createSceneDirector(renderer, config) {
       }
     });
 
-    if (config.onFrame) config.onFrame({ t, frame, scene, actors, extra, env });
+    if (config.onFrame) config.onFrame({ t, frame, scene, actors, extra, env, camera });
 
-    const sampled = sampleKeys(config.camera.keys, t, config.camera.ease);
+    if (config.minSeparation) {
+      resolveActorSeparation(actors, config.minSeparation);
+    }
+    if (env && typeof env.updateCrowd === 'function') {
+      env.updateCrowd(frame, extra.crowdExcitement ?? 0.08);
+    }
+    if (env && typeof env.updateFloodlights === 'function') {
+      env.updateFloodlights(frame);
+    }
+
+    const sampled = sampleKeys(cameraKeys, t, config.camera.ease);
     camera.position.set(...sampled.pos);
     camera.lookAt(...sampled.target);
 

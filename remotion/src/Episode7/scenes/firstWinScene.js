@@ -2,12 +2,24 @@ import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, PakDinApp } from '../../../../characters/character-variants.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
+import {
+  animateKickAndGoal,
+  clamp,
+  createCinematicScene,
+  goalExcitement,
+  goalFrame,
+  lerp,
+  pitchGrade,
+  sec,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
 const END = ACT_2.durationFrames;
 const GOAL = goalFrame(ACT_2);
+const KICK = GOAL - 24;
+const CONTACT = GOAL - 8;
 
 /** Act 2 — high press, Azam's interception and Farid's first goal. */
 export const createFirstWinScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -55,14 +67,39 @@ export const createFirstWinScene = (renderer, size) => createCinematicScene(rend
       },
     },
   ],
-  onFrame: ({ frame, extra }) => {
+  onFrame: ({ frame, actors, extra }) => {
     const ball = extra && extra.ball;
     if (!ball) return;
-    const pass = smooth(clamp((frame - L('e7_06')) / 30, 0, 1));
-    const shot = smooth(clamp((frame - L('e7_07')) / Math.max(1, GOAL - L('e7_07')), 0, 1));
-    ball.position.x = lerp(1.8, -0.6, pass) - shot * 5.2;
-    ball.position.z = lerp(0.4, 0.6, pass) - shot * 0.6;
-    ball.position.y = 0.22 + (frame >= GOAL && frame < GOAL + 14 ? 0.35 : 0);
+    const farid = actors.find((actor) => actor.name === 'farid');
+
+    // Keep the authored pass before the strike; the shared kick helper owns the
+    // ball from CONTACT onward.
+    if (frame < CONTACT) {
+      const pass = smooth(clamp((frame - L('e7_06')) / 30, 0, 1));
+      ball.position.x = lerp(1.8, -0.6, pass);
+      ball.position.z = lerp(0.4, 0.6, pass);
+      ball.position.y = 0.22;
+      ball.rotation.x = frame * 0.12;
+      return;
+    }
+
+    const result = animateKickAndGoal({
+      frame,
+      kicker: farid,
+      ball,
+      net: extra.net,
+      start: [-4.45, 0.22, 0.6],
+      target: [-6.35, 1.95, 1.45],
+      kickFrame: KICK,
+      contactFrame: CONTACT,
+      hitFrame: GOAL,
+      followThrough: 11,
+      strength: 1.05,
+      arc: 1.1,
+      shake: { amplitude: 0.04, duration: 10 },
+    });
+    extra.shake = result.shake;
+    extra.crowdExcitement = goalExcitement(frame, GOAL, { peak: 1 });
   },
   camera: {
     fov: 50, ease: smooth,
@@ -70,8 +107,9 @@ export const createFirstWinScene = (renderer, size) => createCinematicScene(rend
       [0, [-2.6, 1.7, 4.6], [-2.8, 1.4, 3.4], 48],
       [sec(L('e7_06')), [1.4, 1.5, 3.0], [0.4, 1.1, 1.0], 44],
       [sec(L('e7_07')), [-1.0, 1.6, 3.6], [-2.4, 1.3, 0.6], 48],
-      presetKey('MEDIUM_SPEAKER', sec(GOAL), [-5.0, 1.4, 0], 0.25),
-      presetKey('WIDE_TWO_SHOT', sec(END), [-4.8, 1.4, 0], 0.18),
+      [sec(GOAL - 18), [-2.2, 1.65, 4.6], [-4.4, 1.3, 1.1], 42],
+      [sec(GOAL), [-2.8, 1.7, 5.0], [-5.2, 1.35, 1.0], 42],
+      [sec(END), [-3.2, 1.65, 4.6], [-4.8, 1.35, 0.8], 42],
     ],
   },
 });

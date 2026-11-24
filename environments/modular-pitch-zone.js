@@ -5,7 +5,15 @@ import * as THREE from 'three';
  * camera zones. Only the geometry that fits inside a 9:16 vertical frame is
  * built; directors toggle character.visible between cuts instead of loading a
  * full stadium. Used in Ep. 6, 7, 8, 10, 11 and 12.
+ *
+ * The shared perimeter adds low-poly terraced stands, ad boards, four corner
+ * floodlight towers, a deterministic instanced crowd and a sky dome so the
+ * pitch never floats in an infinite green/blue void.
  */
+
+const fract = (value) => value - Math.floor(value);
+const seededUnit = (seed) => fract(Math.sin(seed * 12.9898 + 78.233) * 43758.5453);
+
 export class ModularPitchZoneApp {
   constructor(container, zone = 'center') {
     this.container = container;
@@ -17,6 +25,16 @@ export class ModularPitchZoneApp {
     this.anchors = {};
     this.lights = {};
     this._dead = false;
+
+    this.skyTop = 0x4f9cd8;
+    this.skyBottom = 0xd9edf7;
+    this.fogColor = 0x9ccbe8;
+    this.stadium = {
+      crowd: null,
+      crowdBase: [],
+      towers: [],
+      panels: [],
+    };
   }
 
   async init() {
@@ -28,8 +46,47 @@ export class ModularPitchZoneApp {
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x76b7e8);
-    this.scene.fog = new THREE.Fog(0x76b7e8, 18, 48);
+    this.scene.background = new THREE.Color(this.skyBottom);
+    this.scene.fog = new THREE.Fog(this.fogColor, 22, 62);
+    this.addSkyDome();
+  }
+
+  addSkyDome() {
+    const material = new THREE.ShaderMaterial({
+      side: THREE.BackSide,
+      depthWrite: false,
+      fog: false,
+      uniforms: {
+        topColor: { value: new THREE.Color(this.skyTop) },
+        bottomColor: { value: new THREE.Color(this.skyBottom) },
+        exponent: { value: 0.78 },
+      },
+      vertexShader: `
+        varying vec3 vWorldPosition;
+        void main() {
+          vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+          vWorldPosition = worldPosition.xyz;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform vec3 topColor;
+        uniform vec3 bottomColor;
+        uniform float exponent;
+        varying vec3 vWorldPosition;
+        void main() {
+          float h = normalize(vWorldPosition).y;
+          float mixAmount = pow(max(h, 0.0), exponent);
+          gl_FragColor = vec4(mix(bottomColor, topColor, mixAmount), 1.0);
+        }
+      `,
+    });
+    const dome = new THREE.Mesh(new THREE.SphereGeometry(110, 24, 12), material);
+    dome.name = 'SkyDome';
+    dome.frustumCulled = false;
+    dome.renderOrder = -10;
+    this.scene.add(dome);
+    this.anchors.skyDome = dome;
   }
 
   addLights() {
@@ -159,6 +216,8 @@ export class ModularPitchZoneApp {
     group.add(ball);
     this.anchors.ball = ball;
 
+    this.buildStadiumPerimeter(group);
+
     this.character = group;
     this.scene.add(group);
     return group;
@@ -198,6 +257,7 @@ export class ModularPitchZoneApp {
     net.rotation.y = Math.PI / 2;
     net.position.set(x - 0.6, 1.2, 0);
     goal.add(net);
+    this.anchors.net = net;
     return goal;
   }
 
@@ -263,9 +323,309 @@ export class ModularPitchZoneApp {
     return fence;
   }
 
+  adTexture(text, primary = '#b3121f', secondary = '#f7f4ea') {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 128;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = primary;
+    ctx.fillRect(0, 0, 512, 128);
+    ctx.fillStyle = secondary;
+    ctx.font = 'bold 56px Arial Black, Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(text, 256, 68);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    return texture;
+  }
+
+  buildStadiumPerimeter(group) {
+    const concrete = new THREE.MeshStandardMaterial({ color: 0x2d3745, roughness: 0.95 });
+    const concreteAlt = new THREE.MeshStandardMaterial({ color: 0x364252, roughness: 0.95 });
+    const seatMaterial = new THREE.MeshStandardMaterial({ color: 0x1f6d4b, roughness: 0.9 });
+    const stands = new THREE.Group();
+    stands.name = 'Stands';
+
+    const sides = [
+      { axis: 'z', sign: -1, length: 32, offset: 16.5 },
+      { axis: 'z', sign: 1, length: 32, offset: 16.5 },
+      { axis: 'x', sign: -1, length: 26, offset: 26.5 },
+      { axis: 'x', sign: 1, length: 26, offset: 26.5 },
+    ];
+
+    sides.forEach((side, sideIndex) => {
+      for (let tier = 0; tier < 3; tier += 1) {
+        const depth = 1.5;
+        const height = 0.52;
+        const width = side.axis === 'z' ? side.length : depth;
+        const deep = side.axis === 'z' ? depth : side.length;
+        const tierMesh = new THREE.Mesh(
+          new THREE.BoxGeometry(width, height, deep),
+          (sideIndex + tier) % 2 ? concrete : concreteAlt
+        );
+        tierMesh.position.y = 0.26 + tier * 0.52;
+        if (side.axis === 'z') {
+          tierMesh.position.set(0, tierMesh.position.y, side.sign * (side.offset + tier * 1.25));
+        } else {
+          tierMesh.position.set(side.sign * (side.offset + tier * 1.25), tierMesh.position.y, 0);
+        }
+        tierMesh.receiveShadow = true;
+        stands.add(tierMesh);
+      }
+
+      const backWidth = side.axis === 'z' ? side.length : 0.35;
+      const backDeep = side.axis === 'z' ? 0.35 : side.length;
+      const back = new THREE.Mesh(new THREE.BoxGeometry(backWidth, 2.1, backDeep), concrete);
+      back.position.y = 1.05;
+      if (side.axis === 'z') back.position.set(0, 1.05, side.sign * (side.offset + 3.8));
+      else back.position.set(side.sign * (side.offset + 3.8), 1.05, 0);
+      stands.add(back);
+
+      const roofWidth = side.axis === 'z' ? side.length + 2 : 1.8;
+      const roofDeep = side.axis === 'z' ? 1.8 : side.length + 2;
+      const roof = new THREE.Mesh(new THREE.BoxGeometry(roofWidth, 0.16, roofDeep), concreteAlt);
+      if (side.axis === 'z') roof.position.set(0, 3.1, side.sign * (side.offset + 3.4));
+      else roof.position.set(side.sign * (side.offset + 3.4), 3.1, 0);
+      stands.add(roof);
+    });
+
+    const rim = new THREE.Mesh(new THREE.BoxGeometry(58, 0.22, 1.2), seatMaterial);
+    rim.position.set(0, 0.11, -13.4);
+    stands.add(rim);
+    group.add(stands);
+    this.anchors.stands = stands;
+
+    const boards = new THREE.Group();
+    boards.name = 'PerimeterAdBoards';
+    [
+      { x: 0, z: -11.8, rotY: 0, text: 'KEK MAJU' },
+      { x: 0, z: -11.8, rotY: 0, text: 'BULUH FC', offsetX: -9.4 },
+      { x: 0, z: -11.8, rotY: 0, text: 'NEXUS SPORTS', offsetX: 9.4 },
+      { x: -9.6, z: 0, rotY: Math.PI / 2, text: 'DIVISYEN 5' },
+      { x: 12.4, z: 0, rotY: -Math.PI / 2, text: 'BULUH FC' },
+    ].forEach((item, index) => {
+      const board = new THREE.Mesh(
+        new THREE.PlaneGeometry(8.4, 1.1),
+        new THREE.MeshBasicMaterial({
+          map: this.adTexture(item.text, index % 2 ? '#141821' : '#b3121f'),
+          side: THREE.DoubleSide,
+        })
+      );
+      board.position.set(item.x + (item.offsetX || 0), 0.58, item.z);
+      board.rotation.y = item.rotY;
+      boards.add(board);
+    });
+    group.add(boards);
+    this.anchors.adBoards = boards;
+
+    this.buildCrowd(group);
+    this.buildFloodlightTower(-27, -16, 0, {}, group);
+    this.buildFloodlightTower(27, -16, 1, {}, group);
+    this.buildFloodlightTower(-27, 16, 2, {}, group);
+    this.buildFloodlightTower(27, 16, 3, {}, group);
+  }
+
+  buildCrowd(group) {
+    const palette = [0xb3121f, 0x1b1d22, 0xf2f2ee, 0x2b6cb0, 0xd8b26a, 0x2f7a3d];
+    const sides = [
+      { axis: 'z', sign: -1, length: 30, offset: 16.5, yaw: 0 },
+      { axis: 'z', sign: 1, length: 30, offset: 16.5, yaw: Math.PI },
+      { axis: 'x', sign: -1, length: 24, offset: 26.5, yaw: Math.PI / 2 },
+      { axis: 'x', sign: 1, length: 24, offset: 26.5, yaw: -Math.PI / 2 },
+    ];
+    const tiers = 3;
+    const perTier = 34;
+    const count = sides.length * tiers * perTier;
+    const geometry = new THREE.BoxGeometry(0.16, 0.42, 0.16);
+    const material = new THREE.MeshLambertMaterial({ color: 0xffffff });
+    const crowd = new THREE.InstancedMesh(geometry, material, count);
+    crowd.name = 'Crowd';
+    crowd.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    crowd.frustumCulled = false;
+
+    const dummy = new THREE.Object3D();
+    const color = new THREE.Color();
+    let index = 0;
+    sides.forEach((side, sideIndex) => {
+      for (let tier = 0; tier < tiers; tier += 1) {
+        for (let seat = 0; seat < perTier; seat += 1) {
+          const seed = sideIndex * 10000 + tier * 1000 + seat * 7;
+          const along = (seat / (perTier - 1) - 0.5) * side.length;
+          const jitter = (seededUnit(seed) - 0.5) * 0.18;
+          const depth = side.offset + tier * 1.25 + jitter;
+          const x = side.axis === 'z' ? along + jitter * 0.4 : side.sign * depth;
+          const z = side.axis === 'z' ? side.sign * depth : along + jitter * 0.4;
+          const y = 0.82 + tier * 0.55 + seededUnit(seed + 3) * 0.08;
+          const yaw = side.yaw + (seededUnit(seed + 7) - 0.5) * 0.25;
+          dummy.position.set(x, y, z);
+          dummy.rotation.set(0, yaw, 0);
+          dummy.updateMatrix();
+          crowd.setMatrixAt(index, dummy.matrix);
+          color.setHex(palette[(sideIndex + tier + seat) % palette.length]);
+          crowd.setColorAt(index, color);
+          this.stadium.crowdBase.push({ x, y, z, yaw, phase: seededUnit(seed + 11) * Math.PI * 2 });
+          index += 1;
+        }
+      }
+    });
+    crowd.instanceMatrix.needsUpdate = true;
+    if (crowd.instanceColor) crowd.instanceColor.needsUpdate = true;
+    group.add(crowd);
+    this.stadium.crowd = crowd;
+    this.anchors.crowd = crowd;
+  }
+
+  buildFloodlightTower(x, z, index, { height = 8.5, hero = false } = {}, parent = null) {
+    const tower = new THREE.Group();
+    tower.name = `Floodlight-${index}`;
+    const metal = new THREE.MeshStandardMaterial({ color: 0x3c434c, metalness: 0.6, roughness: 0.5 });
+    const mast = new THREE.Mesh(
+      new THREE.CylinderGeometry(hero ? 0.14 : 0.1, hero ? 0.24 : 0.17, height, 10),
+      metal
+    );
+    mast.position.y = height / 2;
+    tower.add(mast);
+
+    const rig = new THREE.Mesh(
+      new THREE.BoxGeometry(hero ? 2.2 : 1.8, hero ? 0.72 : 0.56, 0.28),
+      metal
+    );
+    rig.position.y = height;
+    tower.add(rig);
+
+    const panelMaterial = new THREE.MeshBasicMaterial({ color: 0xffe9a8 });
+    const offsets = hero ? [-0.68, 0, 0.68] : [-0.56, 0, 0.56];
+    offsets.forEach((offset) => {
+      const lamp = new THREE.Mesh(
+        new THREE.BoxGeometry(hero ? 0.55 : 0.42, hero ? 0.44 : 0.34, 0.1),
+        panelMaterial
+      );
+      lamp.position.set(offset, height, 0.2);
+      tower.add(lamp);
+    });
+
+    const sparkCount = 32;
+    const sparkPositions = new Float32Array(sparkCount * 3);
+    for (let i = 0; i < sparkCount; i += 1) {
+      const angle = seededUnit(index * 1000 + i * 3) * Math.PI * 2;
+      const radius = 0.2 + seededUnit(index * 1000 + i * 5) * 0.95;
+      sparkPositions[i * 3] = Math.cos(angle) * radius;
+      sparkPositions[i * 3 + 1] = (seededUnit(index * 1000 + i * 7) - 0.5) * 1.2;
+      sparkPositions[i * 3 + 2] = Math.sin(angle) * radius;
+    }
+    const sparkGeometry = new THREE.BufferGeometry();
+    sparkGeometry.setAttribute('position', new THREE.BufferAttribute(sparkPositions, 3));
+    const sparkMaterial = new THREE.PointsMaterial({
+      color: 0xffd070,
+      size: 0.06,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+    });
+    const sparks = new THREE.Points(sparkGeometry, sparkMaterial);
+    sparks.name = 'FloodSparks';
+    sparks.position.y = height - 0.1;
+    sparks.visible = false;
+    tower.add(sparks);
+
+    const smoke = new THREE.Group();
+    smoke.name = 'FloodSmoke';
+    smoke.position.y = height;
+    smoke.visible = false;
+    for (let i = 0; i < 5; i += 1) {
+      const puff = new THREE.Mesh(
+        new THREE.SphereGeometry(0.24, 8, 6),
+        new THREE.MeshBasicMaterial({ color: 0x2a2d31, transparent: true, opacity: 0 })
+      );
+      puff.position.set(
+        (seededUnit(index * 500 + i) - 0.5) * 0.9,
+        0.2 + i * 0.18,
+        (seededUnit(index * 700 + i) - 0.5) * 0.5
+      );
+      smoke.add(puff);
+    }
+    tower.add(smoke);
+
+    tower.position.set(x, 0, z);
+    (parent || this.character).add(tower);
+
+    const record = {
+      group: tower,
+      panelMaterial,
+      sparks,
+      smoke,
+      index,
+      height,
+      hero,
+      exploded: false,
+      explodedAt: 0,
+    };
+    this.stadium.towers.push(record);
+    this.stadium.panels.push(panelMaterial);
+    this.anchors.floodTowers = this.stadium.towers;
+    return record;
+  }
+
+  updateCrowd(frame, excitement = 0.08) {
+    const crowd = this.stadium.crowd;
+    if (!crowd) return;
+    const dummy = new THREE.Object3D();
+    const base = this.stadium.crowdBase;
+    const amplitude = 0.012 + 0.055 * Math.max(0, excitement);
+    for (let i = 0; i < base.length; i += 1) {
+      const item = base[i];
+      const bounce = Math.sin(frame * 0.21 + item.phase) * amplitude;
+      dummy.position.set(item.x, item.y + bounce, item.z);
+      dummy.rotation.set(0, item.yaw, 0);
+      dummy.updateMatrix();
+      crowd.setMatrixAt(i, dummy.matrix);
+    }
+    crowd.instanceMatrix.needsUpdate = true;
+  }
+
+  setFloodlightExploded(index, exploded, frame = 0) {
+    const tower = this.stadium.towers[index];
+    if (!tower) return;
+    tower.exploded = exploded;
+    tower.explodedAt = exploded ? frame : 0;
+    if (exploded) {
+      tower.panelMaterial.color.setHex(0x26251f);
+      tower.group.rotation.z = 0.11;
+    } else {
+      tower.panelMaterial.color.setHex(0xffe9a8);
+      tower.group.rotation.z = 0;
+    }
+    if (!exploded) {
+      tower.sparks.visible = false;
+      tower.smoke.visible = false;
+    }
+  }
+
+  updateFloodlights(frame) {
+    this.stadium.towers.forEach((tower) => {
+      if (!tower.exploded) return;
+      const dt = Math.max(0, frame - tower.explodedAt);
+      tower.sparks.visible = dt < 48;
+      tower.sparks.material.opacity = dt < 48
+        ? Math.max(0, 1 - dt / 48) * (0.55 + 0.35 * Math.abs(Math.sin(frame * 0.9)))
+        : 0;
+      tower.sparks.rotation.y = frame * 0.04;
+
+      tower.smoke.visible = dt < 100;
+      tower.smoke.children.forEach((puff, i) => {
+        const t = Math.max(0, dt - i * 5) / 70;
+        puff.position.y = 0.2 + t * 2.6;
+        puff.scale.setScalar(0.6 + t * 2.1);
+        puff.material.opacity = Math.max(0, 0.34 * (1 - t));
+      });
+    });
+  }
+
   dispose() {
     if (this.scene && this.character) this.scene.remove(this.character);
     this.character = null;
+    this.stadium = { crowd: null, crowdBase: [], towers: [], panels: [] };
     this._dead = true;
   }
 }

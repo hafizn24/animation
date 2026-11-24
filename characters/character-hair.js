@@ -34,6 +34,15 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
   const group = new THREE.Group();
   group.name = 'Hair';
 
+  // Hair sits on the same head sphere as the scalp. Keep the hair material
+  // biased toward the camera so the shared scalp/hair surface never z-fights.
+  if (material) {
+    material.polygonOffset = true;
+    material.polygonOffsetFactor = -1;
+    material.polygonOffsetUnits = -1;
+    material.needsUpdate = true;
+  }
+
   const add = (geometry, thickness = 0.028) => {
     const mesh = createOutlinedMesh(geometry, material, thickness);
     group.add(mesh);
@@ -43,14 +52,14 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
   switch (style) {
     // Very short, close to the scalp
     case 'buzz': {
-      const cap = add(new THREE.SphereGeometry(0.468, 22, 16, 0, Math.PI * 2, 0, Math.PI * 0.30));
+      const cap = add(new THREE.SphereGeometry(0.484, 22, 16, 0, Math.PI * 2, 0, Math.PI * 0.30));
       cap.position.y = 0.352;
       break;
     }
 
     // Short hair with an even fringe
     case 'crop': {
-      const cap = add(new THREE.SphereGeometry(0.478, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.40));
+      const cap = add(new THREE.SphereGeometry(0.484, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.40));
       cap.position.y = 0.348;
       const fringe = add(new THREE.SphereGeometry(0.2, 16, 12));
       fringe.position.set(0, 0.47, 0.31);
@@ -60,7 +69,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Short hair pushed up and out of place
     case 'messy': {
-      const cap = add(new THREE.SphereGeometry(0.478, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.40));
+      const cap = add(new THREE.SphereGeometry(0.484, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.40));
       cap.position.y = 0.348;
       const tufts = [
         [0.16, 0.60, 0.16, 0.19],
@@ -78,7 +87,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Volume swept back off the forehead
     case 'swept': {
-      const cap = add(new THREE.SphereGeometry(0.482, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.38));
+      const cap = add(new THREE.SphereGeometry(0.488, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.38));
       cap.position.y = 0.345;
       const quiff = add(new THREE.SphereGeometry(0.30, 20, 16));
       quiff.position.set(0.03, 0.60, 0.17);
@@ -92,7 +101,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Neat side part
     case 'sidePart': {
-      const cap = add(new THREE.SphereGeometry(0.478, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.38));
+      const cap = add(new THREE.SphereGeometry(0.484, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.38));
       cap.position.y = 0.348;
       const parting = add(new THREE.SphereGeometry(0.23, 16, 14));
       parting.position.set(0.13, 0.50, 0.30);
@@ -103,7 +112,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Longer hair falling past the ears
     case 'long': {
-      const cap = add(new THREE.SphereGeometry(0.492, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.46));
+      const cap = add(new THREE.SphereGeometry(0.498, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.46));
       cap.position.y = 0.345;
       [-1, 1].forEach((dir) => {
         const side = add(new THREE.SphereGeometry(0.22, 16, 14));
@@ -119,7 +128,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Rounded volume
     case 'afro': {
-      const cap = add(new THREE.SphereGeometry(0.56, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.56));
+      const cap = add(new THREE.SphereGeometry(0.568, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.56));
       cap.position.y = 0.325;
       cap.scale.set(1, 0.92, 1);
       const bumps = [
@@ -137,7 +146,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
     // High hairline with hair only at the sides and back
     case 'receding': {
       const band = add(new THREE.SphereGeometry(
-        0.478, 26, 20,
+        0.484, 26, 20,
         Math.PI * 0.72, Math.PI * 1.56,
         Math.PI * 0.30, Math.PI * 0.70
       ));

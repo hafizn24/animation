@@ -1,7 +1,16 @@
 import * as THREE from 'three';
 import { clamp, createSceneDirector, forEachLight } from '../Episode1/sceneKit.js';
+import { MIN_CHARACTER_SEPARATION, resolveEmotion, updateFace } from '../../../characters/rig-kit.js';
 
 export { clamp, lerp, smooth, sampleKeys, forEachLight, createSceneDirector } from '../Episode1/sceneKit.js';
+export * from './cameraKit.js';
+export * from './actionKit.js';
+export {
+  MIN_CHARACTER_SEPARATION,
+  attachArmband,
+  holdProp,
+  resolveActorSeparation,
+} from '../../../characters/rig-kit.js';
 
 export const sec = (frames) => frames / 30;
 
@@ -148,6 +157,12 @@ const baselineFor = (parts) => {
       rightLeg: parts.rightLeg?.rotation.clone() ?? null,
       leftHand: parts.leftHand?.rotation.clone() ?? null,
       rightHand: parts.rightHand?.rotation.clone() ?? null,
+      root: parts.root
+        ? {
+            position: parts.root.position.clone(),
+            rotation: parts.root.rotation.clone(),
+          }
+        : null,
     };
     BASELINES.set(parts, baseline);
   }
@@ -171,6 +186,10 @@ export function resetMotion(parts) {
   if (parts.rightLeg && base.rightLeg) parts.rightLeg.rotation.copy(base.rightLeg);
   if (parts.leftHand && base.leftHand) parts.leftHand.rotation.copy(base.leftHand);
   if (parts.rightHand && base.rightHand) parts.rightHand.rotation.copy(base.rightHand);
+  if (parts.root && base.root) {
+    parts.root.position.copy(base.root.position);
+    parts.root.rotation.copy(base.root.rotation);
+  }
 }
 
 /** Deterministic faceless body language: always reset, then apply the pose. */
@@ -196,7 +215,9 @@ export function microMotion(parts, frame, pose = 'idle') {
     if (ra) ra.rotation.set(-1.1, 0, 0.2);
     head.rotation.y = -0.1;
   } else if (pose === 'celebrate') {
-    if (torso) torso.position.y += Math.abs(Math.sin(w * 7)) * 0.12;
+    // Jump on the character root. Moving the torso would tear it away from the
+    // pelvis/shorts (the old Ep. 7/8/10 celebration bug).
+    if (parts.root) parts.root.position.y += Math.abs(Math.sin(w * 7)) * 0.12;
     if (la) la.rotation.set(-2.2, 0, -0.4);
     if (ra) ra.rotation.set(-2.2, 0, 0.4);
     head.rotation.x = -0.14;
@@ -230,10 +251,8 @@ export function microMotion(parts, frame, pose = 'idle') {
     head.rotation.y = -0.12;
     if (ra) ra.rotation.set(-1.5, -0.2, 0.35);
   } else if (pose === 'crouch') {
-    if (torso) {
-      torso.rotation.x = 0.3;
-      torso.position.y -= 0.22;
-    }
+    if (torso) torso.rotation.x = 0.3;
+    if (parts.root) parts.root.position.y -= 0.18;
     head.rotation.x = 0.12;
     if (parts.leftLeg) parts.leftLeg.rotation.x = -0.6;
     if (parts.rightLeg) parts.rightLeg.rotation.x = 0.6;
@@ -257,6 +276,7 @@ export function createCinematicScene(renderer, size, spec) {
     animate: ({ frame, rig, parts, app }) => {
       const pose = beatPose(frame, actor.beats, actor.pose || 'idle');
       microMotion(parts, frame, pose);
+      updateFace(parts, frame, resolveEmotion(actor, frame, pose), actor.name || actor.id || rig.name);
       if (actor.anim) actor.anim({ frame, rig, parts, app });
     },
   }));
@@ -267,12 +287,24 @@ export function createCinematicScene(renderer, size, spec) {
     grade: spec.grade,
     extra: spec.extra,
     actors,
-    onFrame: spec.onFrame,
+    onFrame: (ctx) => {
+      if (spec.onFrame) spec.onFrame(ctx);
+      if (ctx.extra && ctx.extra.crowdExcitement === undefined) {
+        ctx.extra.crowdExcitement = 0.08;
+      }
+    },
     postCamera: (ctx) => {
       if (spec.postCamera) spec.postCamera(ctx);
       sanitizeCamera(ctx);
+      const shake = ctx.extra && ctx.extra.shake;
+      if (shake) {
+        ctx.camera.position.x += shake.x || 0;
+        ctx.camera.position.y += shake.y || 0;
+        ctx.camera.position.z += shake.z || 0;
+      }
     },
     dispose: spec.dispose,
+    minSeparation: spec.minSeparation ?? MIN_CHARACTER_SEPARATION,
     camera: spec.camera,
   });
 }

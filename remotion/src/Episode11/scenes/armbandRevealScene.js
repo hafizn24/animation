@@ -3,7 +3,18 @@ import { LockerRoomApp } from '../../../../environments/locker-room.js';
 import { NewOwnerApp } from '../../../../characters/character-new-owner.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { applyLockerGrade } from '../../Episode5/sceneKit.js';
-import { clamp, createCinematicScene, lerp, sec, smooth } from '../sceneKit.js';
+import {
+  attachArmband,
+  clamp,
+  createCinematicScene,
+  faceEachOther,
+  findActor,
+  getSpeakerThreeQuarterShot,
+  lerp,
+  sec,
+  shotKey,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_3 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_3.lines.find((line) => line.id === id)[key] - ACT_3.fromFrame;
@@ -13,7 +24,12 @@ const END = ACT_3.durationFrames;
 export const createArmbandRevealScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: LockerRoomApp,
   grade: (scene) => applyLockerGrade(scene, 'reveal'),
-  extra: (scene) => {
+  extra: (scene, { actors }) => {
+    const bos = findActor(actors, 'bos');
+    const azam = findActor(actors, 'azam');
+    faceEachOther(bos, azam);
+    const worn = attachArmband(azam, { arm: 'left', y: -0.2, z: 0.04 });
+    if (worn) worn.visible = false;
     const armband = new THREE.Group();
     const band = new THREE.Mesh(
       new THREE.TorusGeometry(0.115, 0.016, 10, 28),
@@ -30,7 +46,7 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
     armband.position.set(-0.5, 1.3, -1.9);
     armband.scale.setScalar(0.9);
     scene.add(armband);
-    return { armband };
+    return { armband, worn };
   },
   actors: [
     {
@@ -62,14 +78,26 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
     extra.armband.position.x = lerp(-0.5, 0.1, reveal);
     extra.armband.position.y = lerp(1.3, 1.42, reveal);
     extra.armband.position.z = lerp(-1.9, -0.9, reveal);
+    if (extra.worn) {
+      const attached = reveal > 0.92;
+      extra.worn.visible = attached;
+      if (attached) {
+        extra.armband.visible = false;
+        extra.worn.scale.setScalar(lerp(1.1, 1, smooth(clamp((frame - L('e11_10') - 28) / 18, 0, 1))));
+      }
+    }
   },
   camera: {
     fov: 42, ease: smooth,
-    keys: [
-      [0, [0.2, 1.6, 2.6], [0.0, 1.4, -1.2], 44],
-      [sec(L('e11_09')), [-0.4, 1.55, 1.9], [-0.5, 1.4, -1.4], 42],
-      [sec(L('e11_10')), [0.1, 1.55, 1.6], [0.1, 1.45, -1.0], 40],
-      [sec(END), [0.3, 1.6, 1.8], [0.4, 1.5, -0.8], 42],
-    ],
+    keys: ({ actors }) => {
+      const bos = findActor(actors, 'bos');
+      const azam = findActor(actors, 'azam');
+      return [
+        [0, [0.2, 1.6, 2.6], [0.0, 1.4, -1.2], 42],
+        shotKey(getSpeakerThreeQuarterShot(bos, azam, { distance: 3.4 }), sec(L('e11_09'))),
+        shotKey(getSpeakerThreeQuarterShot(azam, bos, { distance: 3.3 }), sec(L('e11_10'))),
+        shotKey(getSpeakerThreeQuarterShot(azam, bos, { distance: 3.2 }), sec(END)),
+      ];
+    },
   },
 });

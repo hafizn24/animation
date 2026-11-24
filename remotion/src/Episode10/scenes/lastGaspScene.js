@@ -2,12 +2,26 @@ import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, BobApp } from '../../../../characters/character-variants.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
+import {
+  animateKickAndGoal,
+  clamp,
+  createCinematicScene,
+  goalExcitement,
+  goalFrame,
+  lerp,
+  pitchGrade,
+  placeBallAtFeet,
+  presetKey,
+  sec,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
 const END = ACT_2.durationFrames;
 const GOAL = goalFrame(ACT_2);
+const KICK = GOAL - 24;
+const CONTACT = GOAL - 8;
 
 /** Act 2 — 88th minute: block, release, winner. */
 export const createLastGaspScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -51,13 +65,37 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       ],
     },
   ],
-  onFrame: ({ frame, extra }) => {
+  onFrame: ({ frame, actors, extra }) => {
     const ball = extra && extra.ball;
     if (!ball) return;
-    const run = smooth(clamp((frame - L('e10_06')) / Math.max(1, GOAL - L('e10_06')), 0, 1));
-    ball.position.x = lerp(0.6, -5.2, run);
-    ball.position.z = lerp(1.2, 0, run);
-    ball.position.y = 0.22 + (frame >= GOAL && frame < GOAL + 12 ? 0.34 : 0);
+    const azam = actors.find((actor) => actor.name === 'azam');
+    const farid = actors.find((actor) => actor.name === 'farid');
+
+    if (frame < CONTACT) {
+      // The old free-floating ball crossed Azam's shins at 0:12. Pin it to the
+      // current ball carrier's feet until Farid strikes.
+      const carrier = frame < L('e10_06') ? azam : farid;
+      if (carrier) placeBallAtFeet(carrier, ball, 0.55);
+      return;
+    }
+
+    const result = animateKickAndGoal({
+      frame,
+      kicker: farid,
+      ball,
+      net: extra.net,
+      start: [-4.4, 0.22, 0.8],
+      target: [-6.35, 1.95, 1.45],
+      kickFrame: KICK,
+      contactFrame: CONTACT,
+      hitFrame: GOAL,
+      followThrough: 10,
+      strength: 1.02,
+      arc: 1.05,
+      shake: { amplitude: 0.04, duration: 10 },
+    });
+    extra.shake = result.shake;
+    extra.crowdExcitement = goalExcitement(frame, GOAL, { peak: 1 });
   },
   camera: {
     fov: 50, ease: smooth,

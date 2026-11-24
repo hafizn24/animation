@@ -130,10 +130,31 @@ There is no pure-black exception and no CTA.
 
 - Never repeat the same static camera angle more than twice in a scene. Use
   smooth eased push-ins, pans, cutaways and over-the-shoulder shots like Ep. 1.
+- Every dialogue line needs a **face-forward** angle: three-quarter speaker,
+  over-the-shoulder reverse, or angled two-shot. Never open a line on the back
+  of a head. Use the shared helpers in `remotion/src/Season1/cameraKit.js`:
+  `getSpeakerThreeQuarterShot`, `getOverTheShoulderShot`, `getTwoShot`,
+  `shotKey`, `faceTarget`, `faceEachOther`, `findActor`.
+- Season 1 camera keys may be an array or a function
+  `({ actors, extra, env }) => keys`; use the function form for actor-derived
+  dialogue shots. All Season 1 shots still pass through `sanitizeCamera()`
+  (FOV 38–42, target Y 1.25–1.45, minimum 4.6m actor distance).
 - Characters are faceless: exaggerate body language — head shakes on Y axis,
-  nods, shoulder slumps, hand gestures, subtle idle breathing.
+  nods, shoulder slumps, hand gestures, subtle idle breathing. Season 1 adds the
+  shared minimalist face in `characters/rig-kit.js`; emotion is derived from
+  pose or an explicit `emotion` field on a beat. Do not build per-episode faces.
+- Rig contract: `root → pelvis → torso → head/arms`, legs under pelvis.
+  `normalizeRig()` installs it at scene-director level only; do not change the
+  standalone character hierarchy (tests assert 7 root children). **Vertical
+  bounce/jump/crouch offsets always go on `parts.root.position.y`, never on the
+  torso** — moving the torso tears it off the pelvis/shorts.
+- Keep characters at least `MIN_CHARACTER_SEPARATION` (0.95m) apart on XZ.
+  Waypoint animations are resolved centrally after all actors move; avoid
+  end-points that walk through another actor.
 - No stiff A-poses. No prop clipping (hands through laptops, folders through
-  desks). Give distinct characters distinct hair, outfit colors and proportions.
+  desks, balls through shins). Attach held props with `holdProp()` and the
+  captain's armband with `attachArmband()`. Keep the ball at the carrier's feet
+  with `placeBallAtFeet()` until the kick contact frame.
 - Keep environments distinct. Never reuse the Buluh FC office as a bakery or a
   sponsor office. No outdoor signposts indoors.
 - Use `<SafeArea />` and `<CutFlash />` in every scene sequence.
@@ -149,6 +170,10 @@ Before an episode is called finished:
       white dialogue).
 - [ ] Final line hard-cuts to the black `Buluh FC / EPISOD X` title card.
 - [ ] No silent gap over 0.8s; no repeated static angle; no clipping.
+- [ ] Dialogue shots are face-forward; no back-of-head staging.
+- [ ] Character feet stay on the floor; bounce/crouch uses the root, not torso.
+- [ ] Actors do not overlap (`MIN_CHARACTER_SEPARATION`); goal ball never
+      crosses shins or the net.
 - [ ] `npm run studio` opens the composition; a still render succeeds.
 - [ ] Story docs (`remotion/story/`) match the current canon in Section 9.
 
@@ -157,7 +182,7 @@ Before an episode is called finished:
 ## 9. Series Canon (baseline after Episode 5)
 Single source of truth for numbers and roster continuity. Episode entries below
 describe the state *at the time of that episode*; this section is the state **at
-the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 10.
+the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 11.
 
 - **Club debt:** **RM331,500** (RM450,000 at Ep. 1 → RM381,500 before Ep. 5 →
   RM331,500 after the sale). **KOS GAJI: -35%**. This is the Season 1 starting figure.
@@ -174,7 +199,78 @@ the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 10.
 
 ---
 
-## 10. Season 1 Canon (Episodes 6–12 — Divisyen 5)
+## 10. Season 1 Shared Systems (MANDATORY)
+
+Use these shared modules instead of copying fixes into individual scenes.
+
+### 10.1 Rig, faces and separation — `characters/rig-kit.js`
+- `normalizeRig(root, parts, { app, id })` runs once per actor inside
+  `createSceneDirector()`. It reparents the flat character into
+  `root → pelvis → torso → head/arms`, adds a torso cap and the shared face,
+  and wraps `app.setPose()` so the torso offset survives outfit/pose changes.
+- `updateFace(parts, frame, emotion, seed)` is called every frame by
+  `createCinematicScene()`. Emotions: `neutral`, `happy`, `hyped`, `angry`,
+  `shocked`, `worried`, `stressed`. Pose-to-emotion defaults live in
+  `POSE_EMOTION`; override with `{ from, to, pose, emotion }` on a beat.
+- `resolveActorSeparation(actors, 0.95)` runs after all actor animation and
+  before the camera sample. It is deterministic; do not disable it to hide a
+  bad waypoint.
+- Props: `holdProp(character, 'right', mesh, { position, rotation })` parents a
+  mesh to a hand. `attachArmband(character, { arm: 'left' })` parents the gold
+  captain's band to the upper arm.
+
+### 10.2 Dialogue cameras — `remotion/src/Season1/cameraKit.js`
+- `getSpeakerThreeQuarterShot(speaker, listener)` — guaranteed face-forward
+  medium; auto-picks the shoulder side from the listener position.
+- `getOverTheShoulderShot(speaker, listener)` — reverse shot behind the
+  listener's shoulder.
+- `getTwoShot(a, b)` — angled two-shot that scores both facing vectors.
+- `faceEachOther(a, b)` / `faceTarget(actor, point, { camera })` — set yaw
+  before sampling the camera; `camera` cheats a few degrees toward the lens.
+- `shotKey(shot, time)` — converts a helper result into a camera key tuple.
+
+### 10.3 Football action — `remotion/src/Season1/actionKit.js`
+- `placeBallAtFeet(carrier, ball, 0.55)` — pins the ball clear of the shins.
+- `animateKickAndGoal({ frame, kicker, ball, net, start, target, kickFrame,
+  contactFrame, hitFrame })` — owns the ball from contact onward, applies the
+  three-key kick pose, parabolic flight, net ripple, camera shake and returns
+  `{ hit, shake }`.
+- Set `extra.shake = result.shake` and
+  `extra.crowdExcitement = goalExcitement(frame, GOAL)` from `onFrame`.
+  `createCinematicScene()` applies shake **after** `sanitizeCamera()`.
+- Goal timing is derived from `goalFrame(scene)` (`net.wav` cue), never typed
+  as a magic frame.
+
+### 10.4 Stadium grounding — `environments/modular-pitch-zone.js`
+- The shared pitch now builds a sky dome, distance fog, terraced stands,
+  perimeter ad boards, four corner floodlight towers, and a deterministic
+  `InstancedMesh` crowd.
+- `env.updateCrowd(frame, excitement)` and `env.updateFloodlights(frame)` are
+  called centrally by `createSceneDirector()`; scenes only set
+  `extra.crowdExcitement`.
+- `anchors.net` is the goal net plane for `updateNetRipple()`.
+- `PitchCrisisNightApp` reuses the same perimeter, adds one hero tower inside
+  the camera frame at `(-5.6, 0, -4.6)`, and is fully seeded — no
+  `Math.random()` is allowed in any environment.
+
+### 10.5 Verification stills
+Render from `remotion/` after any camera/rig/environment change:
+
+```bash
+npx remotion still Episode7 out/verify/ep7-330.png --frame=330
+npx remotion still Episode7 out/verify/ep7-810.png --frame=810
+npx remotion still Episode8 out/verify/ep8-360.png --frame=360
+npx remotion still Episode9 out/verify/ep9-120.png --frame=120
+npx remotion still Episode10 out/verify/ep10-360.png --frame=360
+npx remotion still Episode10 out/verify/ep10-690.png --frame=690
+npx remotion still Episode12 out/verify/ep12-060.png --frame=60
+npx remotion still Episode12 out/verify/ep12-600.png --frame=600
+npx remotion still Episode12 out/verify/ep12-690.png --frame=690
+```
+
+---
+
+## 11. Season 1 Canon (Episodes 6–12 — Divisyen 5)
 The baseline in Section 9 applies until Episode 6. From there the machine-readable
 sources of truth are `story/season1-debt.json` and `story/division5-league.json`;
 each episode's `audio-script.json` mirrors the debt HUD value for that episode.

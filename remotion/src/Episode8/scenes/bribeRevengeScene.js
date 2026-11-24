@@ -1,12 +1,25 @@
 import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, RayyanApp } from '../../../../characters/character-variants.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
+import {
+  animateKickAndGoal,
+  clamp,
+  createCinematicScene,
+  goalExcitement,
+  goalFrame,
+  lerp,
+  pitchGrade,
+  presetKey,
+  sec,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
 const END = ACT_2.durationFrames;
 const GOAL = goalFrame(ACT_2, 2);
+const KICK = GOAL - 24;
+const CONTACT = GOAL - 8;
 
 /** Act 2 — flashy skills get shut down; the counter-attack winner makes it 2-1. */
 export const createBribeRevengeScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -48,15 +61,38 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
       },
     },
   ],
-  onFrame: ({ frame, extra }) => {
+  onFrame: ({ frame, actors, extra }) => {
     const ball = extra && extra.ball;
     if (!ball) return;
-    const weave = Math.sin(frame / 7) * 0.4;
-    const breakaway = smooth(clamp((frame - L('e8_07')) / Math.max(1, GOAL - L('e8_07')), 0, 1));
-    ball.position.x = lerp(1.4 + weave, -0.4, breakaway) - breakaway * 4.8;
-    ball.position.z = lerp(0.8, 0.2, breakaway);
-    const goalFlash = [220, 320, GOAL].some((g) => frame >= g && frame < g + 12);
-    ball.position.y = 0.22 + (goalFlash ? 0.32 : 0);
+    const farid = actors.find((actor) => actor.name === 'farid');
+
+    if (frame < CONTACT) {
+      const weave = Math.sin(frame / 7) * 0.4;
+      const breakaway = smooth(clamp((frame - L('e8_07')) / Math.max(1, CONTACT - L('e8_07')), 0, 1));
+      ball.position.x = lerp(1.4 + weave, -0.4, breakaway);
+      ball.position.z = lerp(0.8, 0.2, breakaway);
+      ball.position.y = 0.22;
+      ball.rotation.x = frame * 0.12;
+      return;
+    }
+
+    const result = animateKickAndGoal({
+      frame,
+      kicker: farid,
+      ball,
+      net: extra.net,
+      start: [-4.45, 0.22, 1.4],
+      target: [-6.35, 1.95, -1.35],
+      kickFrame: KICK,
+      contactFrame: CONTACT,
+      hitFrame: GOAL,
+      followThrough: 11,
+      strength: 1.08,
+      arc: 1.2,
+      shake: { amplitude: 0.045, duration: 10 },
+    });
+    extra.shake = result.shake;
+    extra.crowdExcitement = goalExcitement(frame, GOAL, { peak: 1 });
   },
   camera: {
     fov: 50, ease: smooth,

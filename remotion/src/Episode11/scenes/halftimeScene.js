@@ -4,7 +4,17 @@ import { AzamApp } from '../../../../characters/character-azam.js';
 import { NewOwnerApp } from '../../../../characters/character-new-owner.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
 import { applyLockerGrade } from '../../Episode5/sceneKit.js';
-import { createCinematicScene, sec, smooth } from '../sceneKit.js';
+import {
+  createCinematicScene,
+  faceEachOther,
+  faceTarget,
+  findActor,
+  getOverTheShoulderShot,
+  getSpeakerThreeQuarterShot,
+  sec,
+  shotKey,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
@@ -14,6 +24,16 @@ const END = ACT_2.durationFrames;
 export const createHalftimeScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: LockerRoomApp,
   grade: (scene) => applyLockerGrade(scene, 'reveal'),
+  extra: (scene, { actors }) => {
+    const farid = findActor(actors, 'farid');
+    const azam = findActor(actors, 'azam');
+    const coach = findActor(actors, 'jurulatih');
+    const bos = findActor(actors, 'bos');
+    faceEachOther(farid, azam);
+    if (coach) faceTarget(coach, azam);
+    if (bos) faceTarget(bos, azam);
+    return {};
+  },
   actors: [
     {
       name: 'farid', Class: FaridApp,
@@ -52,12 +72,18 @@ export const createHalftimeScene = (renderer, size) => createCinematicScene(rend
   ],
   camera: {
     fov: 44, ease: smooth,
-    keys: [
-      [0, [0.2, 1.6, 3.6], [-0.4, 1.35, -0.8], 46],
-      [sec(L('e11_06')), [-1.2, 1.55, 2.4], [-1.6, 1.4, -0.8], 44],
-      [sec(L('e11_07')), [0.8, 1.6, 2.6], [0.6, 1.45, -0.6], 44],
-      [sec(L('e11_08')), [0.0, 1.65, 3.0], [-0.2, 1.5, -2.4], 48],
-      [sec(END), [-0.2, 1.6, 2.4], [-0.2, 1.4, -1.6], 46],
-    ],
+    keys: ({ actors }) => {
+      const farid = findActor(actors, 'farid');
+      const azam = findActor(actors, 'azam');
+      const coach = findActor(actors, 'jurulatih');
+      const bos = findActor(actors, 'bos');
+      return [
+        [0, [0.2, 1.6, 3.6], [-0.4, 1.35, -0.8], 42],
+        shotKey(getSpeakerThreeQuarterShot(farid, azam, { distance: 3.9 }), sec(L('e11_06'))),
+        shotKey(getSpeakerThreeQuarterShot(azam, farid, { distance: 3.9 }), sec(L('e11_07'))),
+        shotKey(getOverTheShoulderShot(bos, coach, { distance: 2.2, side: -1 }), sec(L('e11_08'))),
+        shotKey(getOverTheShoulderShot(azam, bos, { distance: 2.3 }), sec(END)),
+      ];
+    },
   },
 });

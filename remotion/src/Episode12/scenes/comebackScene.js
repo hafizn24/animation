@@ -1,8 +1,16 @@
-import * as THREE from 'three';
 import { PitchCenterCircleApp } from '../../../../environments/modular-pitch-zone.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, MalikApp } from '../../../../characters/character-variants.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import {
+  attachArmband,
+  clamp,
+  createCinematicScene,
+  goalFrame,
+  lerp,
+  pitchGrade,
+  sec,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
@@ -15,15 +23,15 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
   grade: (scene, env) => pitchGrade(scene, env, 'dusk'),
   extra: (scene, { env, actors }) => {
     const azam = actors.find((actor) => actor.name === 'azam');
-    const armband = new THREE.Mesh(
-      new THREE.TorusGeometry(0.115, 0.018, 10, 28),
-      new THREE.MeshStandardMaterial({ color: 0xd8b26a, metalness: 0.35, roughness: 0.5 })
-    );
-    armband.rotation.x = Math.PI / 2;
-    armband.scale.setScalar(1.08);
     // Worn on the upper left arm, not floating in front of the lens.
-    if (azam && azam.parts.leftArm) azam.parts.leftArm.add(armband);
-    armband.position.set(0, -0.2, 0.04);
+    const armband = attachArmband(azam, {
+      arm: 'left',
+      radius: 0.155,
+      tube: 0.02,
+      y: -0.2,
+      z: 0.04,
+    });
+    if (armband) armband.scale.setScalar(1.08);
     return { armband, ball: env.anchors.ball };
   },
   actors: [
@@ -32,8 +40,8 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
       scale: 0.98, position: [0.4, 0, 0.6], rotationY: 0.1,
       beats: [
         { from: 0, to: L('e12_03'), pose: 'point' },
-        { from: L('e12_03'), to: L('e12_04'), pose: 'talk' },
-        { from: L('e12_04'), to: END, pose: 'block' },
+        { from: L('e12_03'), to: L('e12_04'), pose: 'talk', emotion: 'hyped' },
+        { from: L('e12_04'), to: END, pose: 'block', emotion: 'angry' },
       ],
     },
     {
