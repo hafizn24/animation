@@ -9,6 +9,7 @@ import { NewOwnerApp } from './characters/character-new-owner.js';
 import { SponsorApp } from './characters/character-sponsor.js';
 import { KarimApp } from './characters/character-karim.js';
 import { AzamApp } from './characters/character-azam.js';
+import { KarimAwayApp } from './characters/character-karim-away.js';
 import { ClubOfficeApp } from './environments/club-office.js';
 import {
   FaridApp, DanialApp, ZakiApp, PakDinApp, RayyanApp,
@@ -151,6 +152,26 @@ assert.strictEqual(azamBody.getObjectByName('Hair').children.length > 0, true, '
 azam.dispose();
 assert.strictEqual(azam.character, null, 'Azam disposes cleanly');
 
+// --- Episode 12 finale: KarimAwayApp — Divisyen 4 kit + Buluh scarf ---
+const karimAway = new KarimAwayApp(container);
+karimAway.setupScene();
+karimAway.addLights();
+const karimAwayBody = karimAway.createProceduralCharacter();
+assert.strictEqual(karimAwayBody.children.length, 7, 'KarimAway has 7 part groups');
+assert.ok(karimAwayBody.getObjectByName('Head').getObjectByName('Hair'), 'KarimAway has a hairstyle');
+assert.ok(karimAway.characterParts.backPanel, 'KarimAway jersey has a back name panel');
+assert.ok(karimAway.characterParts.frontPanel, 'KarimAway jersey has a front name panel');
+assert.ok(karimAway.characterParts.scarf, 'KarimAway wears the Buluh scarf');
+assert.ok(karimAway.characterParts.boots, 'KarimAway keeps the boots slot for API parity');
+assert.strictEqual(karimAway.characterParts.boots.visible, false, 'KarimAway boots stay hidden (spectator)');
+assert.ok(karimAway.characterParts.leftArm.getObjectByName('Hand'), 'KarimAway has a hand group');
+karimAway.setBootsVisible(true);
+assert.strictEqual(karimAway.characterParts.boots.visible, true, 'KarimAway boots can be shown');
+karimAway.setBootsVisible(false);
+karimAway.changeHairStyle('afro');
+karimAway.dispose();
+assert.strictEqual(karimAway.character, null, 'KarimAway disposes cleanly');
+
 const office = new ClubOfficeApp(container);
 office.setupScene();
 office.addLights();
@@ -224,5 +245,27 @@ assert.ok(crisis.anchors.floodTower && crisis.anchors.cautionTape && crisis.anch
 crisis.setCrisisFrame(30);
 assert.ok(crisis.lights.flood.intensity < 11, 'Crisis floodlight flickers off');
 crisis.dispose();
+
+// --- Episode 12 finale set: the hero grandstand ---
+const { PitchHeroStandApp, heroStandGrade } = await import('./environments/pitch-hero-stand.js');
+const heroStand = new PitchHeroStandApp(container);
+heroStand.setupScene();
+heroStand.addLights();
+assert.ok(heroStand.createProceduralCharacter(), 'PitchHeroStand builds geometry');
+['heroStand', 'heroSpot', 'banner', 'rail', 'flags', 'confetti', 'heroCrowd', 'ball', 'goal'].forEach((key) => {
+  assert.ok(heroStand.anchors[key], `PitchHeroStand exposes ${key}`);
+});
+assert.ok(heroStand.lights.sun, 'PitchHeroStand has the flood key light');
+heroStandGrade(heroStand.scene, heroStand);
+heroStand.setBanner('BULUH FC');
+heroStand.flipBanner();
+heroStand.updateCrowd(30, 0.9);
+heroStand.updateConfetti(30, false);
+assert.strictEqual(heroStand.anchors.confetti.visible, false, 'confetti hidden before the title');
+heroStand.updateConfetti(30, true);
+assert.strictEqual(heroStand.anchors.confetti.visible, true, 'confetti visible after the title');
+heroStand.updateConfetti(60, true);
+heroStand.dispose();
+assert.strictEqual(heroStand.character, null, 'PitchHeroStand disposes cleanly');
 
 console.log('ALL CHECKS PASSED');
