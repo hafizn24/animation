@@ -76,16 +76,30 @@ VOICE_STYLE = {
     "azam": {"speed": 1.06, "pitch": 1.06},
 }
 
-# Episode 5 is generated at natural speed only. No fit-to-budget pass and no
-# time-stretching: the shot timeline is rebuilt from these measured durations.
-E5_NATURAL_SPEEDS = {
+# Episode 5 onward is generated at natural speed only. No fit-to-budget pass
+# and no atempo stretching: the shot timeline is rebuilt from measured clips.
+NATURAL_SPEEDS = {
     "bos": 1.0,
     "coach": 1.0,
     "karim": 1.0,
     "teammate1": 1.0,
     "teammate2": 1.0,
     "azam": 1.0,
+    "narrator_s1": 1.0,
+    "peguam": 1.0,
+    "farid": 1.0,
+    "danial": 1.0,
+    "zaki": 1.0,
+    "pakdin": 1.0,
+    "rayyan": 1.0,
+    "bob": 1.0,
+    "malik": 1.0,
+    "besikeeper": 1.0,
+    "pengadil": 1.0,
 }
+
+# Kept as an alias for older callers / documentation.
+E5_NATURAL_SPEEDS = NATURAL_SPEEDS
 
 MANIFEST = [
     ("b1_narrator", "narrator", 0, 196, "Malam ni, dalam bilik kerja yang sejuk, satu folder merah kena ketuk atas meja. Nampak macam biasa... tapi ada yang nak berakhir."),
@@ -252,6 +266,7 @@ MANIFEST = [
 
 
 S1_PREFIXES = {f"e{n}" for n in range(6, 13)}
+NATURAL_PREFIXES = {"e5"} | S1_PREFIXES
 
 
 def voice_profile(name, speaker):
@@ -356,9 +371,9 @@ def main():
         pitch = style.get("pitch", 1.0)
         speed = base_speed
 
-        if name.startswith("e5_"):
-            # Natural-speed path: no budget fitting, no stretching of any kind.
-            speed = E5_NATURAL_SPEEDS[speaker]
+        if name.split("_", 1)[0] in NATURAL_PREFIXES:
+            # Natural-speed path for Ep5–12: no fitting, no atempo stretching.
+            speed = NATURAL_SPEEDS[voice_id]
             synthesize(key, text, VOICES[voice_id], speed, raw)
             normalize(raw, final, pitch)
             strip_leading_silence(final)
