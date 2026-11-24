@@ -23,7 +23,7 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a cru
 | **Transfer income** | **RM50,000** from a Kelab Divisyen 4 club for Karim — all of it went to debt |
 | **Karim (#8)** | **Departed.** Former captain / centre midfielder; sold in Ep. 5, armband left on the Boss's desk |
 | **Azam (#7)** | **New signing.** Defender, fan character `@akudingin-d1f`, salary **RM5**, enters on **"Assalamualaikum. Saya Azam. Defender baru."** |
-| **Captaincy** | Vacant since Karim's departure until **Episode 11**, when Bos gives the gold armband to **Azam (#7)** |
+| **Captaincy** | Vacant since Karim's departure — no new captain has been named on screen |
 
 ---
 

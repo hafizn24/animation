@@ -11,15 +11,6 @@ import { KarimApp } from './characters/character-karim.js';
 import { AzamApp } from './characters/character-azam.js';
 import { KarimAwayApp } from './characters/character-karim-away.js';
 import { ClubOfficeApp } from './environments/club-office.js';
-import {
-  FaridApp, DanialApp, ZakiApp, PakDinApp, RayyanApp,
-  BobApp, MalikApp, BesiKeeperApp, RefereeApp,
-} from './characters/character-variants.js';
-import {
-  PitchCenterCircleApp, PitchPenaltyBoxApp, PitchTouchlineApp,
-} from './environments/modular-pitch-zone.js';
-import { MatchTunnelApp } from './environments/match-tunnel.js';
-import { PitchCrisisNightApp } from './environments/pitch-crisis-night.js';
 import { HAIR_STYLES } from './characters/character-hair.js';
 import { CharacterInspector } from './Inspector.js';
 

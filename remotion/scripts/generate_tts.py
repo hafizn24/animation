@@ -175,6 +175,7 @@ MANIFEST = [
     ("e5_15", "bos", 1154, 1175, "Lima ringgit."),
     ("e5_16", "coach", 1178, 1195, "Lima ribu?!"),
     ("e5_17", "bos", 1198, 1279, "Lima ringgit. Duit Karim semua bayar hutang."),
+<<<<<<< HEAD
     # Season 1 — Episodes 6-12 mirror their audio-script.json line budgets.
     # Frames are locked to the JSON; the standard fitting path trims/fits each
     # clip to those budgets so timed subtitles stay aligned.
@@ -273,6 +274,8 @@ MANIFEST = [
     ("e12_16", "peguam", 945, 1047, "Hadiah juara masuk. Bonus penaja masuk. LUNAS."),
     ("e12_17", "bos", 1047, 1128, "Kita lunas!! Buluh FC hidup balik!!"),
     ("e12_18", "karim", 1128, 1223, "Divisyen 4 tunggu. Jumpa kat sana, kapten."),
+=======
+>>>>>>> parent of 392afeb (feat: Add Season 1 overlays and debt tracking for Divisyen 5 episodes)
 ]
 
 
