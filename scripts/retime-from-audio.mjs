@@ -13,10 +13,14 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 const fps = 30;
 const OUTRO_FRAMES = 72;
+// A 250ms tail keeps the last syllable and the subtitle plate from ending together.
+const TAIL_FRAMES = 8;
 // Short natural clips need wider (but still <= 0.8s) gaps to reach 40–45s.
+// Gaps are measured before the 8-frame tail is added to each line's endFrame,
+// so the effective dialogue gap stays at 4–16 frames and runtime is unchanged.
 const GAPS = {
-  6: [10, 15], 7: [9, 15], 8: [8, 10], 9: [24, 24],
-  10: [12, 15], 11: [13, 15], 12: [10, 15],
+  6: [10, 13], 7: [9, 13], 8: [9, 4], 9: [24, 24],
+  10: [13, 15], 11: [13, 15], 12: [10, 13],
 };
 const GOAL_LINE = {
   e7_08: 'act-2-first-win',
@@ -78,10 +82,10 @@ for (let ep = 6; ep <= 12; ep += 1) {
     let t = newFrom;
     for (const line of scene.lines) {
       line.startFrame = t;
-      line.endFrame = t + measured.get(line.id);
+      line.endFrame = t + measured.get(line.id) + TAIL_FRAMES;
       line.start = line.startFrame / fps;
       line.end = line.endFrame / fps;
-      t = line.endFrame + INTERNAL_GAP;
+      t = t + measured.get(line.id) + INTERNAL_GAP;
     }
     if (scene.lines.length && index < script.scenes.length - 2) t += SCENE_GAP - INTERNAL_GAP;
     scene.fromFrame = newFrom;

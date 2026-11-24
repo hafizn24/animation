@@ -3,7 +3,7 @@ import { PitchCenterCircleApp } from '../../../../environments/modular-pitch-zon
 import { MalikApp, RefereeApp } from '../../../../characters/character-variants.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { SuitOutfitApp } from '../../../../characters/character-suit.js';
-import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
@@ -15,10 +15,10 @@ export const createBesiWajaScene = (renderer, size) => createCinematicScene(rend
   grade: (scene, env) => pitchGrade(scene, env, 'dusk'),
   extra: (scene) => {
     const card = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.5, 0.72),
+      new THREE.PlaneGeometry(0.3, 0.42),
       new THREE.MeshBasicMaterial({ color: 0xffd400, side: THREE.DoubleSide })
     );
-    card.position.set(0.1, 1.6, 2.1);
+    card.position.set(0.55, 1.5, 1.9);
     card.rotation.z = -0.18;
     scene.add(card);
     return { card };
@@ -62,18 +62,18 @@ export const createBesiWajaScene = (renderer, size) => createCinematicScene(rend
   onFrame: ({ frame, extra }) => {
     if (extra && extra.card) {
       extra.card.visible = frame < 90;
-      const pop = 1 + Math.sin(Math.min(frame, 12) / 12 * Math.PI) * 0.5;
+      const pop = 1 + Math.sin(Math.min(frame, 12) / 12 * Math.PI) * 0.15;
       extra.card.scale.setScalar(pop);
     }
   },
   camera: {
     fov: 46, ease: smooth,
     keys: [
-      [0, [0.1, 1.62, 2.6], [0.1, 1.6, 2.1], 44],
-      [sec(54), [0.6, 1.6, 2.8], [0.1, 1.5, 0.4], 46],
-      [sec(L('e11_03')), [-0.4, 1.7, 2.4], [-0.9, 1.55, -1.6], 44],
-      [sec(L('e11_04')), [1.8, 1.6, 3.2], [1.4, 1.4, 0.8], 48],
-      [sec(END), [0.8, 1.7, 3.6], [0.4, 1.3, 0.4], 50],
+      presetKey('MEDIUM_SPEAKER', 0, [0.1, 1.4, 0.4], 0.05),
+      presetKey('MEDIUM_SPEAKER', sec(54), [0.1, 1.4, 0.4], 0.12),
+      presetKey('MEDIUM_SPEAKER', sec(L('e11_03')), [-0.9, 1.4, -1.6], -0.15),
+      presetKey('MEDIUM_SPEAKER', sec(L('e11_04')), [1.4, 1.4, 0.8], 0.3),
+      presetKey('WIDE_TWO_SHOT', sec(END), [0.4, 1.4, 0.4], 0.1),
     ],
   },
 });

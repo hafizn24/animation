@@ -14,20 +14,25 @@ export class PitchCrisisNightApp extends ModularPitchZoneApp {
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x070a12);
-    this.scene.fog = new THREE.Fog(0x070a12, 14, 40);
+    this.scene.background = new THREE.Color(0x101a2b);
+    this.scene.fog = new THREE.Fog(0x101a2b, 18, 50);
   }
 
   addLights() {
-    const ambient = new THREE.AmbientLight(0x3b4a63, 0.34);
+    const ambient = new THREE.AmbientLight(0x6a80a8, 0.8);
     ambient.name = 'nightAmbient';
     this.scene.add(ambient);
     this.lights.ambient = ambient;
 
-    const hemi = new THREE.HemisphereLight(0x334866, 0x0b140c, 0.25);
+    const hemi = new THREE.HemisphereLight(0x7c9ccc, 0x1a281c, 0.9);
     hemi.name = 'nightHemi';
     this.scene.add(hemi);
     this.lights.hemi = hemi;
+
+    const moon = new THREE.DirectionalLight(0xa8c4ec, 1.1);
+    moon.position.set(7, 12, 6);
+    this.scene.add(moon);
+    this.lights.moon = moon;
 
     const flood = new THREE.SpotLight(0xfff0c0, 11, 26, 0.7, 0.6, 1.6);
     flood.position.set(-5, 9, 8);
@@ -37,7 +42,7 @@ export class PitchCrisisNightApp extends ModularPitchZoneApp {
     this.lights.flood = flood;
     this.lights.sun = flood;
 
-    const backup = new THREE.DirectionalLight(0x7f94b8, 0.3);
+    const backup = new THREE.DirectionalLight(0xb4c8e8, 0.6);
     backup.position.set(6, 5, -6);
     this.scene.add(backup);
     this.lights.fill = backup;
@@ -88,9 +93,9 @@ export class PitchCrisisNightApp extends ModularPitchZoneApp {
     sparkGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     this.sparkMaterial = new THREE.PointsMaterial({
       color: 0xffd070,
-      size: 0.1,
+      size: 0.055,
       transparent: true,
-      opacity: 0.9,
+      opacity: 0.65,
       depthWrite: false,
     });
     const sparks = new THREE.Points(sparkGeo, this.sparkMaterial);

@@ -14,7 +14,7 @@ export const createTunnelBribeScene = (renderer, size) => createCinematicScene(r
   grade: (scene, env) => tunnelGrade(scene, env),
   extra: (scene) => {
     const envelope = new THREE.Mesh(
-      new THREE.BoxGeometry(0.42, 0.3, 0.06),
+      new THREE.BoxGeometry(0.26, 0.18, 0.02),
       new THREE.MeshStandardMaterial({ color: 0xf3efdf, roughness: 0.9 })
     );
     envelope.rotation.z = 0.18;

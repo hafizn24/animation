@@ -131,7 +131,14 @@ export class ClubOfficeApp {
     return texture;
   }
 
-  createOfferTexture() {
+  createOfferTexture(doc = {}) {
+    const {
+      title = 'TAWARAN PEMINDAHAN',
+      subtitle = 'KELAB DIVISYEN 4',
+      amount = 'RM50,000',
+      note = 'UNTUK: KARIM  •  #8',
+      accent = '#b3121f',
+    } = doc;
     const canvas = document.createElement('canvas');
     canvas.width = 512;
     canvas.height = 360;
@@ -144,17 +151,17 @@ export class ClubOfficeApp {
     ctx.fillStyle = '#24211b';
     ctx.textAlign = 'center';
     ctx.font = 'bold 30px Arial, sans-serif';
-    ctx.fillText('TAWARAN PEMINDAHAN', 256, 74);
+    ctx.fillText(title, 256, 74);
     ctx.font = '20px Arial, sans-serif';
     ctx.fillStyle = '#5c5548';
-    ctx.fillText('KELAB DIVISYEN 4', 256, 112);
-    ctx.fillStyle = '#b3121f';
-    ctx.font = 'bold 74px Arial Black, Arial, sans-serif';
-    ctx.fillText('RM50,000', 256, 214);
+    ctx.fillText(subtitle, 256, 112);
+    ctx.fillStyle = accent;
+    ctx.font = `bold ${amount.length > 9 ? 56 : 74}px Arial Black, Arial, sans-serif`;
+    ctx.fillText(amount, 256, 214);
     ctx.fillStyle = '#5c5548';
     ctx.font = '18px Arial, sans-serif';
-    ctx.fillText('UNTUK: KARIM  •  #8', 256, 268);
-    ctx.strokeStyle = '#b3121f';
+    ctx.fillText(note, 256, 268);
+    ctx.strokeStyle = accent;
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.arc(256, 320, 26, 0, Math.PI * 2);
@@ -163,6 +170,16 @@ export class ClubOfficeApp {
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.needsUpdate = true;
     return texture;
+  }
+
+  /** Swap the desk sheet's face for the document relevant to this episode. */
+  setDocument(doc) {
+    const sheet = this.anchors.offerSheet;
+    if (!sheet) return;
+    const face = sheet.material[2];
+    if (face.map) face.map.dispose();
+    face.map = this.createOfferTexture(doc);
+    face.needsUpdate = true;
   }
 
   createWhiteboardTexture() {

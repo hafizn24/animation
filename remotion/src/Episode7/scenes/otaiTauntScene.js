@@ -1,7 +1,7 @@
 import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { PakDinApp } from '../../../../characters/character-variants.js';
-import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
@@ -46,11 +46,11 @@ export const createOtaiTauntScene = (renderer, size) => createCinematicScene(ren
   camera: {
     fov: 50, ease: smooth,
     keys: [
-      [0, [1.0, 1.3, 4.0], [1.6, 1.6, -1.0], 48],
-      [sec(54), [2.6, 1.5, 3.4], [2.2, 1.4, 1.6], 44],
-      [sec(L('e7_03')), [-1.0, 1.55, 3.2], [-1.5, 1.45, 0.4], 44],
-      [sec(L('e7_04')), [0.4, 1.6, 4.4], [0.6, 1.25, 0.8], 50],
-      [sec(END), [1.2, 1.55, 3.8], [1.0, 1.3, 0.6], 46],
+      presetKey('MEDIUM_SPEAKER', 0, [1.6, 1.4, 1.6], 0.3),
+      presetKey('MEDIUM_SPEAKER', sec(54), [2.2, 1.4, 1.6], 0.2),
+      presetKey('MEDIUM_SPEAKER', sec(L('e7_03')), [-1.5, 1.4, 0.4], 0.15),
+      presetKey('WIDE_TWO_SHOT', sec(L('e7_04')), [-1.5, 1.4, 0.4], 0.12),
+      presetKey('WIDE_TWO_SHOT', sec(END), [-1.5, 1.4, 0.3], 0.12),
     ],
   },
 });

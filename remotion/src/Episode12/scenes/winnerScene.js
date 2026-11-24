@@ -1,7 +1,7 @@
 import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, BesiKeeperApp } from '../../../../characters/character-variants.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
@@ -37,7 +37,7 @@ export const createWinnerScene = (renderer, size) => createCinematicScene(render
     },
     {
       name: 'besikeeper', Class: BesiKeeperApp,
-      scale: 0.98, position: [-6.2, 0, 0], rotationY: Math.PI / 2,
+      scale: 0.98, position: [-5.3, 0, 0], rotationY: 0.35,
       beats: [
         { from: 0, to: GOAL, pose: 'crouch' },
         { from: GOAL, to: END, pose: 'panic' },
@@ -54,18 +54,18 @@ export const createWinnerScene = (renderer, size) => createCinematicScene(render
     if (!ball) return;
     const run = smooth(clamp((frame - L('e12_06')) / Math.max(1, GOAL - L('e12_06')), 0, 1));
     const slow = smooth(clamp((frame - GOAL + 40) / 60, 0, 1));
-    ball.position.x = lerp(-1.4, -5.6, run);
+    ball.position.x = lerp(-1.4, -5.3, run);
     ball.position.y = 0.22 + slow * 1.5 - (frame > GOAL + 40 ? (frame - GOAL - 40) * 0.03 : 0);
     ball.position.z = lerp(0.8, -0.9, slow);
   },
   camera: {
     fov: 50, ease: smooth,
     keys: [
-      [0, [-2.0, 1.7, 4.2], [-2.4, 1.4, 0.8], 48],
-      [sec(L('e12_06')), [-1.0, 1.6, 3.6], [-3.0, 1.3, 0.6], 46],
-      [sec(GOAL - 20), [-5.0, 1.45, 2.6], [-6.2, 1.5, 0], 42],
-      [sec(GOAL), [-4.2, 1.8, 3.8], [-5.2, 1.4, 0], 50],
-      [sec(END), [-2.4, 1.9, 4.6], [-3.0, 1.5, 0.6], 52],
+      presetKey('MEDIUM_SPEAKER', 0, [-1.4, 1.4, 0.8], 0.12),
+      presetKey('MEDIUM_SPEAKER', sec(L('e12_06')), [-1.4, 1.4, 0.8], 0.12),
+      presetKey('PENALTY_BOX_1V1', sec(GOAL - 20), [-5.3, 1.4, 0], 0.18),
+      presetKey('MEDIUM_SPEAKER', sec(GOAL), [-5.0, 1.4, 0], 0.25),
+      presetKey('WIDE_TWO_SHOT', sec(END), [-3.0, 1.4, 0.6], 0.18),
     ],
   },
 });

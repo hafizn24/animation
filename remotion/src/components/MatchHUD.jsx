@@ -12,10 +12,12 @@ const clampOpts = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' };
 export const MatchHUD = ({ config, sceneFrom = 0 }) => {
   const frame = useCurrentFrame() + sceneFrom;
   const { fromFrame, toFrame, matchday, homeShort, awayShort, homeColor, awayColor, steps = [] } = config;
-  if (frame < fromFrame || frame > toFrame) return null;
+  // The hook title owns the first 45 frames; keep the score pill clear of it.
+  const visibleFrom = Math.max(fromFrame, 45);
+  if (frame < visibleFrom || frame > toFrame) return null;
 
-  const local = frame - fromFrame;
-  const span = Math.max(1, toFrame - fromFrame);
+  const local = frame - visibleFrom;
+  const span = Math.max(1, toFrame - visibleFrom);
   const opacity = Math.min(
     interpolate(local, [0, 4], [0.85, 1], clampOpts),
     interpolate(local, [span - 12, span], [1, 0], clampOpts)

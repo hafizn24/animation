@@ -16,14 +16,14 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
   extra: (scene, { env, actors }) => {
     const azam = actors.find((actor) => actor.name === 'azam');
     const armband = new THREE.Mesh(
-      new THREE.TorusGeometry(0.16, 0.032, 12, 30),
+      new THREE.TorusGeometry(0.115, 0.018, 10, 28),
       new THREE.MeshStandardMaterial({ color: 0xd8b26a, metalness: 0.35, roughness: 0.5 })
     );
     armband.rotation.x = Math.PI / 2;
-    armband.scale.setScalar(1.25);
+    armband.scale.setScalar(1.08);
     // Worn on the upper left arm, not floating in front of the lens.
     if (azam && azam.parts.leftArm) azam.parts.leftArm.add(armband);
-    armband.position.set(0, -0.2, 0.05);
+    armband.position.set(0, -0.2, 0.04);
     return { armband, ball: env.anchors.ball };
   },
   actors: [
@@ -54,7 +54,7 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
     if (!extra) return;
     if (extra.armband) {
       const tighten = smooth(clamp(frame / 24, 0, 1));
-      extra.armband.scale.setScalar(lerp(1.25, 0.92, tighten));
+      extra.armband.scale.setScalar(lerp(1.08, 0.9, tighten));
     }
     const ball = extra.ball;
     if (!ball) return;

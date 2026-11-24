@@ -56,13 +56,13 @@ npm run render:episode2 # Episode 2
 npm run render:episode3 # Episode 3
 npm run render:episode4 # Episode 4 — RM50,000 Untuk Karim (out/episode-4.mp4)
 npm run render:episode5  # Episode 5 — Pengorbanan & Nombor 7 Baru
-npm run render:episode6  # S1 — Janji Bank & Matchday 1     (1,290f / 43s)
-npm run render:episode7  # S1 — Menang Pertama              (1,260f / 42s)
-npm run render:episode8  # S1 — Duit vs Maruah              (1,320f / 44s)
-npm run render:episode9  # S1 — Hutang Naik Balik           (1,230f / 41s)
-npm run render:episode10 # S1 — Hidup Mati                  (1,290f / 43s)
-npm run render:episode11 # S1 — Separuh Masa Neraka         (1,320f / 44s)
-npm run render:episode12 # S1 — Juara Divisyen 5            (1,350f / 45s)
+npm run render:episode6  # S1 — Janji Bank & Matchday 1     (1,336f / 44.5s)
+npm run render:episode7  # S1 — Menang Pertama              (1,331f / 44.4s)
+npm run render:episode8  # S1 — Duit vs Maruah              (1,348f / 44.9s)
+npm run render:episode9  # S1 — Hutang Naik Balik           (1,264f / 42.1s)
+npm run render:episode10 # S1 — Hidup Mati                  (1,202f / 40.1s)
+npm run render:episode11 # S1 — Separuh Masa Neraka         (1,207f / 40.2s)
+npm run render:episode12 # S1 — Juara Divisyen 5            (1,333f / 44.4s)
 
 # Fast smoke frames (no full render):
 npx remotion still Episode6 out/ep6.png --frame=0
@@ -157,3 +157,8 @@ npm run verify:season1 -- --audio   # additionally require every e6_–e12_ MP3
   Three.js rigs render per shot. Modular pitch zones swap by camera, not by new stadium builds.
 - **Captaincy:** vacant until Ep. 11, when Bos hands Karim's gold armband to Azam (#7).
 - Every episode ends with the standard 72-frame black **Buluh FC / EPISOD X** card, no CTA.
+- All match shots use the verified 9:16 camera presets in `remotion/src/Season1/sceneKit.js`
+  (`WIDE_TWO_SHOT`, `MEDIUM_SPEAKER`, `OVER_SHOULDER`, `PENALTY_BOX_1V1`) and pass through
+  `sanitizeCamera()` (38–42° FOV, ≥4.6-unit actor clearance, 1.25–1.45 look-at height).
+- Every dialogue line carries an 8-frame (250ms) subtitle/audio tail; `MatchHUD` enters after
+  frame 45 and `SeasonDebtTickerHUD` is anchored below it, so overlays never collide.

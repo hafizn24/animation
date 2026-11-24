@@ -44,7 +44,7 @@ export const SeasonDebtTickerHUD = ({ config, sceneFrom = 0 }) => {
       <div
         style={{
           position: 'absolute',
-          top: 210,
+          top: 300,
           right: 190,
           minWidth: 470,
           opacity,

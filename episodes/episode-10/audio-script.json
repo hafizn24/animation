@@ -4,8 +4,8 @@
   "fps": 30,
   "width": 1080,
   "height": 1920,
-  "totalDurationSeconds": 40.3,
-  "totalFrames": 1209,
+  "totalDurationSeconds": 40.06666666666667,
+  "totalFrames": 1202,
   "language": "ms",
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 10. Matchday 4 vs Kilat Rovers: chaotic 4-3 win, Buluh FC jump to 2nd, debt RM321,500 -> RM300,000. Ends with the standard 72-frame Buluh FC / EPISOD 10 card. No CTAs.",
@@ -89,8 +89,8 @@
       },
       {
         "scene": "act-2-last-gasp",
-        "fromFrame": 333,
-        "toFrame": 842,
+        "fromFrame": 335,
+        "toFrame": 844,
         "matchday": 4,
         "homeShort": "BUL",
         "awayShort": "KLT",
@@ -98,13 +98,13 @@
         "awayColor": "#ff7a00",
         "steps": [
           {
-            "frame": 333,
+            "frame": 335,
             "home": 3,
             "away": 3,
             "clock": "88'"
           },
           {
-            "frame": 602,
+            "frame": 591,
             "home": 4,
             "away": 3,
             "clock": "FT"
@@ -114,16 +114,16 @@
     ],
     "leagueTable": {
       "scene": "act-3-second-place",
-      "fromFrame": 772,
-      "toFrame": 862,
+      "fromFrame": 762,
+      "toFrame": 852,
       "matchday": 4,
       "highlight": "BUL",
       "note": "KE-2 • 3 MATA DI BELAKANG BSW"
     },
     "debtTicker": {
       "scene": "act-3-second-place",
-      "fromFrame": 877,
-      "toFrame": 1032,
+      "fromFrame": 867,
+      "toFrame": 1022,
       "label": "HUTANG KELAB",
       "from": 321500,
       "to": 300000,
@@ -132,8 +132,8 @@
       "note": "BONUS MENANG + KUTIPAN TIKET"
     },
     "outroCard": {
-      "fromFrame": 1137,
-      "toFrame": 1209,
+      "fromFrame": 1130,
+      "toFrame": 1202,
       "durationFrames": 72,
       "label": "EPISOD 10"
     }
@@ -143,9 +143,9 @@
       "id": "act-1-chaos",
       "name": "Act 1 — Pure Chaos",
       "from": 0,
-      "to": 11.1,
+      "to": 11.166666666666666,
       "fromFrame": 0,
-      "durationFrames": 333,
+      "durationFrames": 335,
       "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
       "director": "createChaosScene",
       "visual": "Frame 0: rapid-fire scoreboard flips 1-0 → 1-1 → 2-2 → 3-3 with net swishes. Kilat Rovers attack with zero defence; Kapten Bob laughs maniacally while Danial (#1) yells at his backline.",
@@ -208,9 +208,9 @@
           "text": "Kilat Rovers. Serangan gila, pertahanan kosong.",
           "translation": "Kilat Rovers. All attack, no defence.",
           "start": 0,
-          "end": 3.033333333333333,
+          "end": 3.3,
           "startFrame": 0,
-          "endFrame": 91,
+          "endFrame": 99,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -220,10 +220,10 @@
           "speaker": "KAPTEN BOB",
           "text": "Kami tak percaya pada pertahanan! Kami percaya pada gol!",
           "translation": "We don't believe in defence! We believe in goals!",
-          "start": 3.433333333333333,
-          "end": 6.6,
-          "startFrame": 103,
-          "endFrame": 198,
+          "start": 3.466666666666667,
+          "end": 6.9,
+          "startFrame": 104,
+          "endFrame": 207,
           "voice": "voice_5",
           "trimLeadingSilence": true
         },
@@ -233,10 +233,10 @@
           "speaker": "NARRATOR",
           "text": "Danial penat menjerit pada backline. Skor: tiga-tiga.",
           "translation": "Danial is tired of shouting at his backline. Score: three-three.",
-          "start": 7,
-          "end": 10.6,
-          "startFrame": 210,
-          "endFrame": 318,
+          "start": 7.066666666666666,
+          "end": 10.933333333333334,
+          "startFrame": 212,
+          "endFrame": 328,
           "voice": "voice_1",
           "trimLeadingSilence": true
         }
@@ -245,10 +245,10 @@
     {
       "id": "act-2-last-gasp",
       "name": "Act 2 — 88th Minute Winner",
-      "from": 11.1,
-      "to": 25.233333333333334,
-      "fromFrame": 333,
-      "durationFrames": 424,
+      "from": 11.166666666666666,
+      "to": 24.9,
+      "fromFrame": 335,
+      "durationFrames": 412,
       "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
       "director": "createLastGaspScene",
       "visual": "At 3-3 in the 88th minute, Jurulatih waves everyone forward. Azam blocks a breakaway, finds Farid, and the striker nets the 4-3 winner.",
@@ -257,49 +257,49 @@
       "cues": [
         {
           "file": "whistle.wav",
-          "frame": 333,
+          "frame": 335,
           "volume": 0.5
         },
         {
           "file": "bass-hit.wav",
-          "frame": 558,
+          "frame": 560,
           "volume": 0.75
         },
         {
           "file": "kick.wav",
-          "frame": 673,
+          "frame": 675,
           "volume": 0.9
         },
         {
           "file": "net.wav",
-          "frame": 602,
+          "frame": 591,
           "volume": 0.8
         },
         {
           "file": "crowd-small.wav",
-          "frame": 693,
+          "frame": 695,
           "volume": 0.8
         },
         {
           "file": "whistle.wav",
-          "frame": 833,
+          "frame": 835,
           "volume": 0.9
         }
       ],
       "events": [
         {
           "type": "cut",
-          "frame": 33,
+          "frame": 35,
           "note": "Coach -> Azam block."
         },
         {
           "type": "cut",
-          "frame": 213,
+          "frame": 215,
           "note": "Azam -> Farid breakaway."
         },
         {
           "type": "score",
-          "frame": 363,
+          "frame": 365,
           "note": "MatchHUD 4-3 FT."
         }
       ],
@@ -310,10 +310,10 @@
           "speaker": "JURULATIH",
           "text": "Semua naik! Sekarang!",
           "translation": "Everyone forward! Now!",
-          "start": 11.1,
-          "end": 11.866666666666667,
-          "startFrame": 333,
-          "endFrame": 356,
+          "start": 11.166666666666666,
+          "end": 12.2,
+          "startFrame": 335,
+          "endFrame": 366,
           "voice": "voice_2",
           "trimLeadingSilence": true
         },
@@ -323,10 +323,10 @@
           "speaker": "NARRATOR",
           "text": "Minit ke-88. Azam blok, then hantar ke Farid.",
           "translation": "88th minute. Azam blocks, then picks out Farid.",
-          "start": 12.266666666666667,
-          "end": 15.666666666666666,
-          "startFrame": 368,
-          "endFrame": 470,
+          "start": 12.366666666666667,
+          "end": 16.033333333333335,
+          "startFrame": 371,
+          "endFrame": 481,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -336,24 +336,24 @@
           "speaker": "AZAM",
           "text": "Sekali lagi, Farid!",
           "translation": "One more time, Farid!",
-          "start": 16.066666666666666,
-          "end": 16.9,
-          "startFrame": 482,
-          "endFrame": 507,
+          "start": 16.2,
+          "end": 17.3,
+          "startFrame": 486,
+          "endFrame": 519,
           "voice": "voice_5",
           "trimLeadingSilence": true
         },
         {
           "id": "e10_06b",
           "type": "dialogue",
-          "speaker": "KAPTEN BOB",
+          "speaker": "FARID",
           "text": "Kau blok, aku serang! Terus, Azam!",
           "translation": "You block, I attack! Straight, Azam!",
-          "start": 17.3,
-          "end": 19.733333333333334,
-          "startFrame": 519,
-          "endFrame": 592,
-          "voice": "voice_5",
+          "start": 17.466666666666665,
+          "end": 19.6,
+          "startFrame": 524,
+          "endFrame": 588,
+          "voice": "voice_4",
           "trimLeadingSilence": true
         },
         {
@@ -362,10 +362,10 @@
           "speaker": "NARRATOR",
           "text": "Satu tendangan. Empat tiga. Buluh FC masih hidup!",
           "translation": "One strike. Four-three. Buluh FC are still alive!",
-          "start": 20.133333333333333,
-          "end": 23.666666666666668,
-          "startFrame": 604,
-          "endFrame": 710,
+          "start": 19.766666666666666,
+          "end": 23.566666666666666,
+          "startFrame": 593,
+          "endFrame": 707,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -375,10 +375,10 @@
           "speaker": "FARID",
           "text": "Sampai juga!",
           "translation": "Finally made it!",
-          "start": 24.066666666666666,
-          "end": 24.733333333333334,
-          "startFrame": 722,
-          "endFrame": 742,
+          "start": 23.733333333333334,
+          "end": 24.666666666666668,
+          "startFrame": 712,
+          "endFrame": 740,
           "voice": "voice_4",
           "trimLeadingSilence": true
         }
@@ -387,10 +387,10 @@
     {
       "id": "act-3-second-place",
       "name": "Act 3 — Second Place",
-      "from": 25.233333333333334,
-      "to": 37.9,
-      "fromFrame": 757,
-      "durationFrames": 380,
+      "from": 24.9,
+      "to": 37.666666666666664,
+      "fromFrame": 747,
+      "durationFrames": 383,
       "environment": "PitchTouchlineApp (environments/modular-pitch-zone.js)",
       "director": "createSecondPlaceScene",
       "visual": "LeagueTableOverlay shows Buluh FC jumping to 2nd, three points behind undefeated Besi Waja. DebtTickerHUD drops GREEN to a round RM300,000.",
@@ -399,36 +399,36 @@
       "cues": [
         {
           "file": "whoosh.wav",
-          "frame": 772,
+          "frame": 762,
           "volume": 0.6
         },
         {
           "file": "pen-tap.wav",
-          "frame": 887,
+          "frame": 877,
           "volume": 0.45
         },
         {
           "file": "bell.wav",
-          "frame": 1025,
+          "frame": 1015,
           "volume": 0.6
         }
       ],
       "events": [
         {
           "type": "leagueTable",
-          "frame": -158,
+          "frame": -168,
           "durationFrames": 90,
           "note": "Buluh FC 2nd."
         },
         {
           "type": "debtTicker",
-          "frame": -53,
+          "frame": -63,
           "durationFrames": 155,
           "note": "Green roll to RM300,000."
         },
         {
           "type": "hardCut",
-          "frame": 115,
+          "frame": 105,
           "note": "Hard cut to EndCard."
         }
       ],
@@ -439,10 +439,10 @@
           "speaker": "NARRATOR",
           "text": "Tempat kedua. Tiga mata di belakang Besi Waja.",
           "translation": "Second place. Three points behind Besi Waja.",
-          "start": 25.233333333333334,
-          "end": 28.266666666666666,
-          "startFrame": 757,
-          "endFrame": 848,
+          "start": 24.9,
+          "end": 28.2,
+          "startFrame": 747,
+          "endFrame": 846,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -452,10 +452,10 @@
           "speaker": "BOS",
           "text": "Tiga ratus ribu tepat. Juara nanti, hadiah dengan bonus penaja lunas semua.",
           "translation": "Three hundred grand exactly. Win the title and the prize plus sponsor bonus clear it all.",
-          "start": 28.666666666666668,
-          "end": 33.86666666666667,
-          "startFrame": 860,
-          "endFrame": 1016,
+          "start": 28.366666666666667,
+          "end": 33.833333333333336,
+          "startFrame": 851,
+          "endFrame": 1015,
           "voice": "voice_3",
           "trimLeadingSilence": true
         },
@@ -465,9 +465,9 @@
           "speaker": "NARRATOR",
           "text": "Matchday lima. Besi Waja. Juara atau sita.",
           "translation": "Matchday five. Besi Waja. Champions or seized.",
-          "start": 34.266666666666666,
+          "start": 34,
           "end": 37.5,
-          "startFrame": 1028,
+          "startFrame": 1020,
           "endFrame": 1125,
           "voice": "voice_1",
           "trimLeadingSilence": true
@@ -477,9 +477,9 @@
     {
       "id": "outro-card",
       "name": "Buluh FC Series Outro",
-      "from": 37.9,
-      "to": 40.3,
-      "fromFrame": 1137,
+      "from": 37.666666666666664,
+      "to": 40.06666666666667,
+      "fromFrame": 1130,
       "durationFrames": 72,
       "environment": null,
       "director": null,
@@ -489,12 +489,12 @@
       "cues": [
         {
           "file": "kick.wav",
-          "frame": 1137,
+          "frame": 1130,
           "volume": 0.9
         },
         {
           "file": "bass-hit.wav",
-          "frame": 1137,
+          "frame": 1130,
           "volume": 0.9
         }
       ],

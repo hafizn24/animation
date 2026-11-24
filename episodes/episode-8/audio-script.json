@@ -4,8 +4,8 @@
   "fps": 30,
   "width": 1080,
   "height": 1920,
-  "totalDurationSeconds": 44.96666666666667,
-  "totalFrames": 1349,
+  "totalDurationSeconds": 44.93333333333333,
+  "totalFrames": 1348,
   "language": "ms",
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 8. Matchday 3: Vanguard Elite offers a bribe in the tunnel, Buluh FC refuses and wins 2-1, breaking the RM300k barrier at RM296,500. Ends with the standard 72-frame Buluh FC / EPISOD 8 card. No CTAs.",
@@ -46,8 +46,8 @@
     },
     "matchHUD": {
       "scene": "act-2-bribe-revenge",
-      "fromFrame": 424,
-      "toFrame": 901,
+      "fromFrame": 421,
+      "toFrame": 898,
       "matchday": 3,
       "homeShort": "BUL",
       "awayShort": "VGE",
@@ -55,25 +55,25 @@
       "awayColor": "#1e3a8a",
       "steps": [
         {
-          "frame": 424,
+          "frame": 421,
           "home": 0,
           "away": 0,
           "clock": "1'"
         },
         {
-          "frame": 642,
+          "frame": 639,
           "home": 1,
           "away": 0,
           "clock": "52'"
         },
         {
-          "frame": 705,
+          "frame": 702,
           "home": 1,
           "away": 1,
           "clock": "71'"
         },
         {
-          "frame": 715,
+          "frame": 716,
           "home": 2,
           "away": 1,
           "clock": "88'"
@@ -82,16 +82,16 @@
     },
     "leagueTable": {
       "scene": "act-3-table-debt",
-      "fromFrame": 864,
-      "toFrame": 954,
+      "fromFrame": 860,
+      "toFrame": 950,
       "matchday": 3,
       "highlight": "BUL",
       "note": "KEKAL TEMPAT KE-3 • DUA MENANG BERTURUT-TURUT"
     },
     "debtTicker": {
       "scene": "act-3-table-debt",
-      "fromFrame": 969,
-      "toFrame": 1124,
+      "fromFrame": 965,
+      "toFrame": 1120,
       "label": "HUTANG KELAB",
       "from": 316500,
       "to": 296500,
@@ -100,8 +100,8 @@
       "note": "BONUS MENANG MATCHDAY 3"
     },
     "outroCard": {
-      "fromFrame": 1277,
-      "toFrame": 1349,
+      "fromFrame": 1276,
+      "toFrame": 1348,
       "durationFrames": 72,
       "label": "EPISOD 8"
     }
@@ -111,9 +111,9 @@
       "id": "act-1-tunnel-bribe",
       "name": "Act 1 — Bribe in the Tunnel",
       "from": 0,
-      "to": 14.066666666666666,
+      "to": 13.966666666666667,
       "fromFrame": 0,
-      "durationFrames": 422,
+      "durationFrames": 419,
       "environment": "MatchTunnelApp (environments/match-tunnel.js)",
       "director": "createTunnelBribeScene",
       "visual": "Frame 0: Rayyan tosses a thick envelope onto Bos's chest with a crisp paper slap. The corridor is hard-lit, the stadium daylight burning at the exit. Bos drops it back into Rayyan's hand.",
@@ -166,9 +166,9 @@
           "text": "Vanguard Elite. Kasut emas, kereta mewah, dan satu sampul tebal.",
           "translation": "Vanguard Elite. Gold boots, fancy cars, and one thick envelope.",
           "start": 0,
-          "end": 3.8333333333333335,
+          "end": 4.1,
           "startFrame": 0,
-          "endFrame": 115,
+          "endFrame": 123,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -178,10 +178,10 @@
           "speaker": "RAYYAN",
           "text": "Kelab kau hutang, kan? Ambil la ini. Kalah je hari ni.",
           "translation": "Your club's in debt, right? Take this. Just lose today.",
-          "start": 4.1,
-          "end": 7.433333333333334,
-          "startFrame": 123,
-          "endFrame": 223,
+          "start": 4.133333333333334,
+          "end": 7.733333333333333,
+          "startFrame": 124,
+          "endFrame": 232,
           "voice": "voice_4",
           "trimLeadingSilence": true
         },
@@ -191,10 +191,10 @@
           "speaker": "BOS",
           "text": "Kau fikir kami jual maruah sekali dengan hutang?",
           "translation": "You think we sold our pride along with the debt?",
-          "start": 7.7,
-          "end": 10.266666666666667,
-          "startFrame": 231,
-          "endFrame": 308,
+          "start": 7.766666666666667,
+          "end": 10.6,
+          "startFrame": 233,
+          "endFrame": 318,
           "voice": "voice_3",
           "trimLeadingSilence": true
         },
@@ -204,10 +204,10 @@
           "speaker": "NARRATOR",
           "text": "Bos letak sampul tu balik ke tangan Rayyan. Tenang je.",
           "translation": "Boss puts the envelope back in Rayyan's hand. Calm as you like.",
-          "start": 10.533333333333333,
-          "end": 13.733333333333333,
-          "startFrame": 316,
-          "endFrame": 412,
+          "start": 10.633333333333333,
+          "end": 14.1,
+          "startFrame": 319,
+          "endFrame": 423,
           "voice": "voice_1",
           "trimLeadingSilence": true
         }
@@ -216,10 +216,10 @@
     {
       "id": "act-2-bribe-revenge",
       "name": "Act 2 — Shut Down & Winner",
-      "from": 14.066666666666666,
-      "to": 28.3,
-      "fromFrame": 422,
-      "durationFrames": 427,
+      "from": 13.966666666666667,
+      "to": 28.166666666666668,
+      "fromFrame": 419,
+      "durationFrames": 426,
       "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
       "director": "createBribeRevengeScene",
       "visual": "Tight 1v1 montage: Rayyan's flashy feints get shut down cleanly by Azam; a counter-attack winner from Farid makes it 2-1. MatchHUD tracks every score change.",
@@ -228,69 +228,69 @@
       "cues": [
         {
           "file": "whistle.wav",
-          "frame": 422,
+          "frame": 419,
           "volume": 0.7
         },
         {
           "file": "kick.wav",
-          "frame": 527,
+          "frame": 524,
           "volume": 0.65
         },
         {
           "file": "bass-hit.wav",
-          "frame": 632,
+          "frame": 629,
           "volume": 0.7
         },
         {
           "file": "net.wav",
-          "frame": 642,
+          "frame": 639,
           "volume": 0.65
         },
         {
           "file": "net.wav",
-          "frame": 705,
+          "frame": 702,
           "volume": 0.65
         },
         {
           "file": "kick.wav",
-          "frame": 794,
+          "frame": 791,
           "volume": 0.9
         },
         {
           "file": "net.wav",
-          "frame": 715,
+          "frame": 716,
           "volume": 0.75
         },
         {
           "file": "crowd-small.wav",
-          "frame": 806,
+          "frame": 803,
           "volume": 0.7
         }
       ],
       "events": [
         {
           "type": "cut",
-          "frame": 47,
+          "frame": 44,
           "note": "Rayyan skill -> Azam shut-down."
         },
         {
           "type": "cut",
-          "frame": 152,
+          "frame": 149,
           "note": "Azam -> Farid counter."
         },
         {
           "type": "score",
-          "frame": 162,
+          "frame": 159,
           "note": "MatchHUD 1-0."
         },
         {
           "type": "score",
-          "frame": 262,
+          "frame": 259,
           "note": "MatchHUD 1-1."
         },
         {
           "type": "score",
-          "frame": 320,
+          "frame": 317,
           "note": "MatchHUD 2-1."
         }
       ],
@@ -301,10 +301,10 @@
           "speaker": "NARRATOR",
           "text": "Rayyan main cantik. Skill, feint, nampak macam iklan.",
           "translation": "Rayyan plays pretty. Skills, feints, like a commercial.",
-          "start": 14.066666666666666,
-          "end": 17.033333333333335,
-          "startFrame": 422,
-          "endFrame": 511,
+          "start": 13.966666666666667,
+          "end": 17.2,
+          "startFrame": 419,
+          "endFrame": 516,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -314,10 +314,10 @@
           "speaker": "RAYYAN",
           "text": "Nampak tak? Ini kelas divisyen empat.",
           "translation": "See that? This is Division Four class.",
-          "start": 17.3,
-          "end": 19.333333333333332,
-          "startFrame": 519,
-          "endFrame": 580,
+          "start": 17.233333333333334,
+          "end": 19.533333333333335,
+          "startFrame": 517,
+          "endFrame": 586,
           "voice": "voice_4",
           "trimLeadingSilence": true
         },
@@ -327,10 +327,10 @@
           "speaker": "AZAM",
           "text": "Kelas? Saya jaga kelas, bro.",
           "translation": "Class? I guard the class, bro.",
-          "start": 19.6,
-          "end": 21.533333333333335,
-          "startFrame": 588,
-          "endFrame": 646,
+          "start": 19.566666666666666,
+          "end": 21.766666666666666,
+          "startFrame": 587,
+          "endFrame": 653,
           "voice": "voice_5",
           "trimLeadingSilence": true
         },
@@ -341,9 +341,9 @@
           "text": "Azam tutup ruang. Farid lari.",
           "translation": "Azam shuts the door. Farid runs.",
           "start": 21.8,
-          "end": 23.633333333333333,
+          "end": 23.9,
           "startFrame": 654,
-          "endFrame": 709,
+          "endFrame": 717,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -353,10 +353,10 @@
           "speaker": "NARRATOR",
           "text": "Dua satu. Gol!",
           "translation": "Two-one. Goal!",
-          "start": 23.9,
-          "end": 25.466666666666665,
-          "startFrame": 717,
-          "endFrame": 764,
+          "start": 23.933333333333334,
+          "end": 25.766666666666666,
+          "startFrame": 718,
+          "endFrame": 773,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -366,10 +366,10 @@
           "speaker": "FARID",
           "text": "Maruah tak dijual, tapi gol dijual!",
           "translation": "Pride isn't for sale — but goals are!",
-          "start": 25.733333333333334,
-          "end": 27.966666666666665,
-          "startFrame": 772,
-          "endFrame": 839,
+          "start": 25.8,
+          "end": 28.3,
+          "startFrame": 774,
+          "endFrame": 849,
           "voice": "voice_4",
           "trimLeadingSilence": true
         }
@@ -378,10 +378,10 @@
     {
       "id": "act-3-table-debt",
       "name": "Act 3 — Table & Barrier",
-      "from": 28.3,
-      "to": 42.56666666666667,
-      "fromFrame": 849,
-      "durationFrames": 428,
+      "from": 28.166666666666668,
+      "to": 42.53333333333333,
+      "fromFrame": 845,
+      "durationFrames": 431,
       "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
       "director": "createTableDebtScene",
       "visual": "LeagueTableOverlay shows Buluh FC still 3rd after a second straight win, then the DebtTickerHUD rolls GREEN through the RM300k barrier to RM296,500.",
@@ -390,41 +390,41 @@
       "cues": [
         {
           "file": "whoosh.wav",
-          "frame": 864,
+          "frame": 860,
           "volume": 0.6
         },
         {
           "file": "pen-tap.wav",
-          "frame": 979,
+          "frame": 975,
           "volume": 0.4
         },
         {
           "file": "pen-tap.wav",
-          "frame": 999,
+          "frame": 995,
           "volume": 0.4
         },
         {
           "file": "bell.wav",
-          "frame": 1117,
+          "frame": 1113,
           "volume": 0.6
         }
       ],
       "events": [
         {
           "type": "leagueTable",
-          "frame": -96,
+          "frame": -100,
           "durationFrames": 90,
           "note": "6-row standings, Buluh FC 3rd."
         },
         {
           "type": "debtTicker",
-          "frame": 9,
+          "frame": 5,
           "durationFrames": 155,
           "note": "Green roll below RM300k."
         },
         {
           "type": "hardCut",
-          "frame": 177,
+          "frame": 173,
           "note": "Hard cut to EndCard."
         }
       ],
@@ -435,10 +435,10 @@
           "speaker": "NARRATOR",
           "text": "Papan kedudukan: Buluh FC kekal tempat ketiga. Dua menang berturut-turut.",
           "translation": "The table: Buluh FC stay third. Two wins in a row.",
-          "start": 28.3,
-          "end": 32.9,
-          "startFrame": 849,
-          "endFrame": 987,
+          "start": 28.166666666666668,
+          "end": 33.03333333333333,
+          "startFrame": 845,
+          "endFrame": 991,
           "voice": "voice_1",
           "trimLeadingSilence": true
         },
@@ -448,10 +448,10 @@
           "speaker": "BOS",
           "text": "Tiga ratus ribu... tak. Dua ratus sembilan puluh enam.",
           "translation": "Three hundred grand... no. Two hundred and ninety-six.",
-          "start": 33.166666666666664,
-          "end": 37.3,
-          "startFrame": 995,
-          "endFrame": 1119,
+          "start": 33.06666666666667,
+          "end": 37.46666666666667,
+          "startFrame": 992,
+          "endFrame": 1124,
           "voice": "voice_3",
           "trimLeadingSilence": true
         },
@@ -461,10 +461,10 @@
           "speaker": "NARRATOR",
           "text": "RM296,500. Akhirnya bawah tiga ratus.",
           "translation": "RM296,500. Finally under three hundred.",
-          "start": 37.56666666666667,
-          "end": 42.3,
-          "startFrame": 1127,
-          "endFrame": 1269,
+          "start": 37.5,
+          "end": 42.5,
+          "startFrame": 1125,
+          "endFrame": 1275,
           "voice": "voice_1",
           "trimLeadingSilence": true
         }
@@ -473,9 +473,9 @@
     {
       "id": "outro-card",
       "name": "Buluh FC Series Outro",
-      "from": 42.56666666666667,
-      "to": 44.96666666666667,
-      "fromFrame": 1277,
+      "from": 42.53333333333333,
+      "to": 44.93333333333333,
+      "fromFrame": 1276,
       "durationFrames": 72,
       "environment": null,
       "director": null,
@@ -485,12 +485,12 @@
       "cues": [
         {
           "file": "kick.wav",
-          "frame": 1277,
+          "frame": 1276,
           "volume": 0.9
         },
         {
           "file": "bass-hit.wav",
-          "frame": 1277,
+          "frame": 1276,
           "volume": 0.9
         }
       ],

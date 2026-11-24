@@ -1,6 +1,6 @@
 import { PitchCrisisNightApp } from '../../../../environments/pitch-crisis-night.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { clamp, createCinematicScene, lerp, nightGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, lerp, nightGrade, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
@@ -27,10 +27,10 @@ export const createFloodlightScene = (renderer, size) => createCinematicScene(re
   camera: {
     fov: 48, ease: smooth,
     keys: [
-      [0, [-4.2, 3.2, 6.0], [-5.0, 8.2, 8.0], 54],
-      [sec(54), [1.8, 1.7, 4.0], [1.2, 1.5, 2.4], 46],
-      [sec(L('e9_03')), [-0.5, 1.9, 4.6], [-2.0, 1.2, 4.4], 50],
-      [sec(END), [0.8, 1.7, 4.2], [-3.0, 2.4, 6.0], 52],
+      presetKey('MEDIUM_SPEAKER', 0, [1.2, 1.4, 2.4], 0.35),
+      presetKey('MEDIUM_SPEAKER', sec(54), [1.2, 1.4, 2.4], 0.2),
+      presetKey('MEDIUM_SPEAKER', sec(L('e9_03')), [1.2, 1.4, 2.4], -0.1),
+      presetKey('WIDE_TWO_SHOT', sec(END), [0.6, 1.4, 3.0], 0.1),
     ],
   },
 });

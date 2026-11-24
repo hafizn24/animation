@@ -16,7 +16,7 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
   extra: (scene) => {
     const armband = new THREE.Group();
     const band = new THREE.Mesh(
-      new THREE.TorusGeometry(0.14, 0.028, 12, 30),
+      new THREE.TorusGeometry(0.115, 0.016, 10, 28),
       new THREE.MeshStandardMaterial({ color: 0xd8b26a, metalness: 0.35, roughness: 0.5 })
     );
     band.rotation.x = Math.PI / 2;

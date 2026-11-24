@@ -2,7 +2,7 @@ import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, BobApp } from '../../../../characters/character-variants.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
@@ -39,7 +39,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       ],
       anim: ({ frame, rig }) => {
         const run = smooth(clamp((frame - L('e10_06')) / Math.max(1, GOAL - L('e10_06')), 0, 1));
-        rig.position.x = lerp(-1.6, -5.4, run);
+        rig.position.x = lerp(-1.6, -5.0, run);
       },
     },
     {
@@ -55,18 +55,18 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
     const ball = extra && extra.ball;
     if (!ball) return;
     const run = smooth(clamp((frame - L('e10_06')) / Math.max(1, GOAL - L('e10_06')), 0, 1));
-    ball.position.x = lerp(0.6, -5.6, run);
+    ball.position.x = lerp(0.6, -5.2, run);
     ball.position.z = lerp(1.2, 0, run);
     ball.position.y = 0.22 + (frame >= GOAL && frame < GOAL + 12 ? 0.34 : 0);
   },
   camera: {
     fov: 50, ease: smooth,
     keys: [
-      [0, [-2.4, 1.7, 4.6], [-2.8, 1.4, 3.4], 48],
-      [sec(L('e10_05')), [1.4, 1.4, 3.0], [0.6, 1.1, 1.0], 44],
-      [sec(L('e10_06')), [-0.6, 1.6, 3.4], [-2.0, 1.3, 0.8], 48],
-      [sec(GOAL), [-4.6, 1.5, 3.2], [-5.6, 1.4, 0], 44],
-      [sec(END), [-3.6, 1.8, 4.2], [-4.4, 1.4, 0], 50],
+      presetKey('WIDE_TWO_SHOT', 0, [-2.8, 1.4, 3.4], 0.02),
+      presetKey('MEDIUM_SPEAKER', sec(L('e10_05')), [0.6, 1.4, 1.0], 0.18),
+      presetKey('MEDIUM_SPEAKER', sec(L('e10_06')), [-2.0, 1.4, 0.8], 0.28),
+      presetKey('MEDIUM_SPEAKER', sec(GOAL), [-5.0, 1.4, 0], 0.25),
+      presetKey('WIDE_TWO_SHOT', sec(END), [-4.4, 1.4, 0], 0.2),
     ],
   },
 });

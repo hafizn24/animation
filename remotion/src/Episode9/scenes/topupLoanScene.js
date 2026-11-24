@@ -3,7 +3,7 @@ import { ClubOfficeApp } from '../../../../environments/club-office.js';
 import { NewOwnerApp } from '../../../../characters/character-new-owner.js';
 import { SuitOutfitApp } from '../../../../characters/character-suit.js';
 import { applyOfficeGrade } from '../../Episode5/sceneKit.js';
-import { clamp, createCinematicScene, lerp, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, lerp, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
@@ -13,7 +13,16 @@ const END = ACT_2.durationFrames;
 export const createTopupLoanScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: ClubOfficeApp,
   grade: (scene, env) => applyOfficeGrade(scene, env, 'scene2'),
-  extra: (scene) => {
+  extra: (scene, { env }) => {
+    if (env && typeof env.setDocument === 'function') {
+      env.setDocument({
+        title: 'BORANG PINJAMAN KECEMASAN',
+        subtitle: 'BULUH FC • KECEMASAN',
+        amount: 'RM25,000',
+        note: 'UNTUK: BAYAR GAJI PEMAIN',
+        accent: '#9a6b12',
+      });
+    }
     const folder = new THREE.Mesh(
       new THREE.PlaneGeometry(0.6, 0.44),
       new THREE.MeshBasicMaterial({ color: 0xb3121f, side: THREE.DoubleSide })
@@ -56,10 +65,10 @@ export const createTopupLoanScene = (renderer, size) => createCinematicScene(ren
   camera: {
     fov: 46, ease: smooth,
     keys: [
-      [0, [0.0, 1.6, 2.0], [0.2, 1.3, -1.0], 46],
-      [sec(L('e9_05')), [0.5, 1.58, 1.6], [0.2, 1.4, -1.4], 44],
-      [sec(L('e9_06')), [-0.6, 1.6, 1.5], [-1.4, 1.45, -2.2], 44],
-      [sec(END), [0.3, 1.55, 1.4], [0.1, 0.95, 0.1], 48],
+      presetKey('MEDIUM_SPEAKER', 0, [0.2, 1.4, -1.0], 0.0),
+      presetKey('MEDIUM_SPEAKER', sec(L('e9_05')), [0.2, 1.4, -1.4], 0.0),
+      presetKey('MEDIUM_SPEAKER', sec(L('e9_06')), [-1.4, 1.4, -2.2], -0.1),
+      presetKey('WIDE_TWO_SHOT', sec(END), [0.1, 1.4, 0.1], 0.0),
     ],
   },
 });

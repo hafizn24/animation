@@ -14,6 +14,14 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
   environment: ClubOfficeApp,
   grade: (scene, env) => applyOfficeGrade(scene, env, 'scene1'),
   extra: (scene, { env }) => {
+    if (env && typeof env.setDocument === 'function') {
+      env.setDocument({
+        title: 'NOTIS SITA BANK',
+        subtitle: 'MAHKAMAH • BULUH FC',
+        amount: 'RM331,500',
+        note: 'TARIKH: 7 HARI • HUBUNGI PEGUAM',
+      });
+    }
     const folder = new THREE.Mesh(
       new THREE.PlaneGeometry(0.62, 0.46),
       new THREE.MeshBasicMaterial({ color: 0xb3121f, side: THREE.DoubleSide })

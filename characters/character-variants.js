@@ -315,11 +315,12 @@ export class VariantPlayerApp {
       }
       if (p.props.armband) {
         const band = new THREE.Mesh(
-          new THREE.TorusGeometry(0.15, 0.035, 12, 24),
+          new THREE.TorusGeometry(0.115, 0.016, 10, 24),
           new THREE.MeshStandardMaterial({ color: p.props.redArmband ? 0xb3121f : 0xd8b26a, roughness: 0.7 })
         );
         band.rotation.x = Math.PI / 2;
-        band.position.set(dir * 0.02, -0.22, 0);
+        band.position.set(dir * 0.02, -0.2, 0);
+        band.scale.set(1, 1, 0.85);
         armPivot.add(band);
       }
       const handGroup = new THREE.Group();
@@ -424,8 +425,8 @@ export class VariantPlayerApp {
     }
 
     if (p.props.visor) {
-      const visor = this.createOutlinedMesh(new THREE.BoxGeometry(0.72, 0.15, 0.08), m.black, 0.02);
-      visor.position.set(0, 0.42, 0.42);
+      const visor = this.createOutlinedMesh(new THREE.BoxGeometry(0.52, 0.1, 0.05), m.black, 0.015);
+      visor.position.set(0, 0.36, 0.44);
       head.add(visor);
       this.propMeshes.visor = visor;
     }
@@ -502,6 +503,7 @@ export class VariantPlayerApp {
     this.currentPose = pose;
     head.rotation.set(0, 0, 0);
     torso.rotation.set(0, 0, 0);
+    torso.position.y = 1.44;
     leftLeg.rotation.set(0, 0, 0);
     rightLeg.rotation.set(0, 0, 0);
     if (leftArm) leftArm.rotation.set(0, 0, -0.28);
@@ -518,7 +520,6 @@ export class VariantPlayerApp {
       if (rightLeg) rightLeg.rotation.x = 0.38;
     } else if (pose === 'crouch') {
       torso.rotation.x = 0.22;
-      torso.position.y = -0.2;
       head.rotation.x = -0.1;
       if (leftArm) leftArm.rotation.set(-0.5, 0, -0.5);
       if (rightArm) rightArm.rotation.set(-0.5, 0, 0.5);
@@ -526,20 +527,20 @@ export class VariantPlayerApp {
       if (rightLeg) rightLeg.rotation.x = 0.5;
     } else if (pose === 'block') {
       torso.rotation.x = 0.12;
-      if (leftArm) leftArm.rotation.set(-1.2, 0, -0.3);
-      if (rightArm) rightArm.rotation.set(-1.2, 0, 0.3);
+      if (leftArm) leftArm.rotation.set(-0.9, 0, -0.36);
+      if (rightArm) rightArm.rotation.set(-0.9, 0, 0.36);
       if (leftLeg) leftLeg.rotation.x = -0.3;
       if (rightLeg) rightLeg.rotation.x = 0.3;
     } else if (pose === 'point') {
       torso.rotation.x = -0.05;
       head.rotation.y = -0.12;
-      if (rightArm) rightArm.rotation.set(-1.35, 0, 0.15);
+      if (rightArm) rightArm.rotation.set(-1.1, 0, 0.2);
       if (leftArm) leftArm.rotation.set(0, 0, -0.2);
     } else if (pose === 'panic') {
       torso.rotation.z = 0.08;
       head.rotation.y = 0.18;
-      if (leftArm) leftArm.rotation.set(-1.1, 0, -0.7);
-      if (rightArm) rightArm.rotation.set(-1.1, 0, 0.7);
+      if (leftArm) leftArm.rotation.set(-0.8, 0, -0.55);
+      if (rightArm) rightArm.rotation.set(-0.8, 0, 0.55);
     } else if (pose === 'celebrate') {
       torso.rotation.x = -0.12;
       head.rotation.x = -0.1;
@@ -555,7 +556,6 @@ export class VariantPlayerApp {
       if (rightArm) rightArm.rotation.set(-0.5, 0, 0.25);
     } else {
       torso.rotation.set(0, 0, 0);
-      torso.position.y = 0;
       head.rotation.y = -0.04;
       if (leftArm) leftArm.rotation.set(0.06, 0, -0.14);
       if (rightArm) rightArm.rotation.set(-0.04, 0, 0.14);

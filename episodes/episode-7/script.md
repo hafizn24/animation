@@ -17,21 +17,21 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e7_01 | 0–121 | NARRATOR | "Otai Kampung FC. Lambat jalan, tapi mulut lebih laju dari kaki." | "Otai Kampung FC. Slow on the feet, faster with the mouth." |
-| e7_02 | 130–201 | PAK DIN | "Gaji lima ringgit? Boleh bayar seminggu, bro." | "Five ringgit? I could pay a week's wage, bro." |
-| e7_03 | 210–290 | AZAM | "Boleh la. Tarikh gaji nanti saya panjang tangan sikit." | "Sure. On payday I might get a little grabby." |
-| e7_04 | 299–412 | NARRATOR | "Dia jalan perlahan. Tapi matanya baca padang macam main catur." | "He walks slowly. But he reads the pitch like a chessboard." |
+| e7_01 | 0–129 | NARRATOR | "Otai Kampung FC. Lambat jalan, tapi mulut lebih laju dari kaki." | "Otai Kampung FC. Slow on the feet, faster with the mouth." |
+| e7_02 | 130–209 | PAK DIN | "Gaji lima ringgit? Boleh bayar seminggu, bro." | "Five ringgit? I could pay a week's wage, bro." |
+| e7_03 | 210–298 | AZAM | "Boleh la. Tarikh gaji nanti saya panjang tangan sikit." | "Sure. On payday I might get a little grabby." |
+| e7_04 | 299–420 | NARRATOR | "Dia jalan perlahan. Tapi matanya baca padang macam main catur." | "He walks slowly. But he reads the pitch like a chessboard." |
 
 ## ACT 2 — First Goal (00:15 – 00:30) | Penalty Box — frames 450–899
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e7_05 | 427–523 | JURULATIH | "Tinggi! Press dari depan! Jangan tunggu dia bagi pass!" | "Push up! Press from the front! Don't wait for his pass!" |
-| e7_06 | 532–627 | NARRATOR | "Pak Din bagi pass kecil — Azam baca, dan potong." | "Pak Din slips a little pass — Azam reads it and cuts it out." |
-| e7_07 | 636–671 | AZAM | "Farid! Pergi!" | "Farid! Go!" |
-| e7_07b | 680–749 | NARRATOR | "Bola keluar. Farid dah tunggu kat depan." | "The ball breaks free. Farid is waiting up front." |
-| e7_08 | 758–889 | NARRATOR | "Satu sentuhan. Satu sorakan. Gol pertama Buluh FC musim ni!" | "One touch. One roar. Buluh FC's first goal of the season!" |
-| e7_09 | 898–914 | FARID | "Akhirnya!" | "Finally!" |
+| e7_05 | 425–529 | JURULATIH | "Tinggi! Press dari depan! Jangan tunggu dia bagi pass!" | "Push up! Press from the front! Don't wait for his pass!" |
+| e7_06 | 530–633 | NARRATOR | "Pak Din bagi pass kecil — Azam baca, dan potong." | "Pak Din slips a little pass — Azam reads it and cuts it out." |
+| e7_07 | 634–677 | AZAM | "Farid! Pergi!" | "Farid! Go!" |
+| e7_07b | 678–755 | NARRATOR | "Bola keluar. Farid dah tunggu kat depan." | "The ball breaks free. Farid is waiting up front." |
+| e7_08 | 756–895 | NARRATOR | "Satu sentuhan. Satu sorakan. Gol pertama Buluh FC musim ni!" | "One touch. One roar. Buluh FC's first goal of the season!" |
+| e7_09 | 896–920 | FARID | "Akhirnya!" | "Finally!" |
 
 - **Overlay:** `MatchHUD` ticks `BUL 1-0 OTK` (`1' → 78' → FT`).
 
@@ -39,9 +39,9 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e7_10 | 929–1021 | NARRATOR | "Whistle panjang. Papan KEK MAJU nampak terang." | "Fulltime. The KEK MAJU board looks brighter." |
-| e7_11 | 1030–1131 | BOS | "Lima belas ribu masuk. Tiket, bukan duit syiling." | "Fifteen grand in. Ticket money, not pocket change." |
-| e7_12 | 1140–1264 | NARRATOR | "Hutang turun. Tiga ratus tiga puluh satu ke tiga ratus enam belas." | "The debt drops. Three-thirty-one to three-sixteen." |
+| e7_10 | 925–1015 | NARRATOR | "Whistle panjang. Papan Kek Maju nampak terang." | "Fulltime. The Kek Maju board looks brighter." |
+| e7_11 | 1016–1125 | BOS | "Lima belas ribu masuk. Tiket, bukan duit syiling." | "Fifteen grand in. Ticket money, not pocket change." |
+| e7_12 | 1126–1258 | NARRATOR | "Hutang turun. Tiga ratus tiga puluh satu ke tiga ratus enam belas." | "The debt drops. Three-thirty-one to three-sixteen." |
 
 - **Debt beat:** `DebtTickerHUD` rolls GREEN **RM331,500 → RM316,500**.
 

@@ -1,7 +1,7 @@
 import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, RayyanApp } from '../../../../characters/character-variants.js';
-import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
@@ -44,7 +44,7 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
       ],
       anim: ({ frame, rig }) => {
         const run = smooth(clamp((frame - L('e8_07')) / Math.max(1, GOAL - L('e8_07')), 0, 1));
-        rig.position.x = lerp(-1.2, -5.2, run);
+        rig.position.x = lerp(-1.2, -5.0, run);
       },
     },
   ],
@@ -63,9 +63,10 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
     keys: [
       [0, [1.8, 1.5, 3.4], [1.6, 1.3, 0.8], 46],
       [sec(L('e8_06')), [1.2, 1.35, 2.6], [1.0, 1.15, 0.6], 42],
-      [sec(L('e8_07')), [0.0, 1.6, 3.2], [0.2, 1.35, 0.5], 46],
-      [sec(GOAL), [-1.6, 1.6, 4.0], [-2.4, 1.3, 0.8], 48],
-      [sec(END), [-4.2, 1.5, 3.6], [-5.2, 1.35, 0], 44],
+      presetKey('MEDIUM_SPEAKER', sec(L('e8_07')), [0.2, 1.4, 0.5], 0.05),
+      presetKey('MEDIUM_SPEAKER', sec(L('e8_07b')), [-3.2, 1.4, 0.8], 0.2),
+      presetKey('MEDIUM_SPEAKER', sec(GOAL), [-4.6, 1.4, 0.8], 0.22),
+      presetKey('WIDE_TWO_SHOT', sec(END), [-5.0, 1.4, 0], 0.18),
     ],
   },
 });

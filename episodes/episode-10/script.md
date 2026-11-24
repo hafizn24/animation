@@ -17,9 +17,9 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e10_01 | 0–91 | NARRATOR | "Kilat Rovers. Serangan gila, pertahanan kosong." | "Kilat Rovers. All attack, no defence." |
-| e10_02 | 103–198 | KAPTEN BOB | "Kami tak percaya pada pertahanan! Kami percaya pada gol!" | "We don't believe in defence! We believe in goals!" |
-| e10_03 | 210–318 | NARRATOR | "Danial penat menjerit pada backline. Skor: tiga-tiga." | "Danial is tired of shouting at his backline. Score: three-three." |
+| e10_01 | 0–99 | NARRATOR | "Kilat Rovers. Serangan gila, pertahanan kosong." | "Kilat Rovers. All attack, no defence." |
+| e10_02 | 104–207 | KAPTEN BOB | "Kami tak percaya pada pertahanan! Kami percaya pada gol!" | "We don't believe in defence! We believe in goals!" |
+| e10_03 | 212–328 | NARRATOR | "Danial penat menjerit pada backline. Skor: tiga-tiga." | "Danial is tired of shouting at his backline. Score: three-three." |
 
 - **Overlay:** `MatchHUD` flips `1-0 → 1-1 → 2-2 → 3-3` on the frame-0 hook.
 
@@ -27,20 +27,20 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e10_04 | 333–356 | JURULATIH | "Semua naik! Sekarang!" | "Everyone forward! Now!" |
-| e10_05 | 368–470 | NARRATOR | "Minit ke-88. Azam blok, then hantar ke Farid." | "88th minute. Azam blocks, then picks out Farid." |
-| e10_06 | 482–507 | AZAM | "Sekali lagi, Farid!" | "One more time, Farid!" |
-| e10_06b | 519–592 | KAPTEN BOB | "Kau blok, aku serang! Terus, Azam!" | "You block, I attack! Straight, Azam!" |
-| e10_07 | 604–710 | NARRATOR | "Satu tendangan. Empat tiga. Buluh FC masih hidup!" | "One strike. Four-three. Buluh FC are still alive!" |
-| e10_08 | 722–742 | FARID | "Sampai juga!" | "Finally made it!" |
+| e10_04 | 335–366 | JURULATIH | "Semua naik! Sekarang!" | "Everyone forward! Now!" |
+| e10_05 | 371–481 | NARRATOR | "Minit ke-88. Azam blok, then hantar ke Farid." | "88th minute. Azam blocks, then picks out Farid." |
+| e10_06 | 486–519 | AZAM | "Sekali lagi, Farid!" | "One more time, Farid!" |
+| e10_06b | 524–588 | FARID | "Kau blok, aku serang! Terus, Azam!" | "You block, I attack! Straight, Azam!" |
+| e10_07 | 593–707 | NARRATOR | "Satu tendangan. Empat tiga. Buluh FC masih hidup!" | "One strike. Four-three. Buluh FC are still alive!" |
+| e10_08 | 712–740 | FARID | "Sampai juga!" | "Finally made it!" |
 
 ## ACT 3 — Second Place (00:31 – 00:40.6) | Touchline — frames 930–1217
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e10_09 | 757–848 | NARRATOR | "Tempat kedua. Tiga mata di belakang Besi Waja." | "Second place. Three points behind Besi Waja." |
-| e10_10 | 860–1016 | BOS | "Tiga ratus ribu tepat. Juara nanti, hadiah dengan bonus penaja lunas semua." | "Three hundred grand exactly. Win the title and the prize plus sponsor bonus clear it all." |
-| e10_11 | 1028–1125 | NARRATOR | "Matchday lima. Besi Waja. Juara atau sita." | "Matchday five. Besi Waja. Champions or seized." |
+| e10_09 | 747–846 | NARRATOR | "Tempat kedua. Tiga mata di belakang Besi Waja." | "Second place. Three points behind Besi Waja." |
+| e10_10 | 851–1015 | BOS | "Tiga ratus ribu tepat. Juara nanti, hadiah dengan bonus penaja lunas semua." | "Three hundred grand exactly. Win the title and the prize plus sponsor bonus clear it all." |
+| e10_11 | 1020–1125 | NARRATOR | "Matchday lima. Besi Waja. Juara atau sita." | "Matchday five. Besi Waja. Champions or seized." |
 
 - **Overlays:** `LeagueTableOverlay` (MD4) → GREEN `DebtTickerHUD` **RM321,500 → RM300,000**.
 

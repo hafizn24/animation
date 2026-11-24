@@ -1,8 +1,80 @@
-import { createSceneDirector, forEachLight } from '../Episode1/sceneKit.js';
+import * as THREE from 'three';
+import { clamp, createSceneDirector, forEachLight } from '../Episode1/sceneKit.js';
 
 export { clamp, lerp, smooth, sampleKeys, forEachLight, createSceneDirector } from '../Episode1/sceneKit.js';
 
 export const sec = (frames) => frames / 30;
+
+/**
+ * Verified 9:16 camera presets. Distances are measured from the look-at target;
+ * every Season 1 shot is additionally passed through sanitizeCamera() so no
+ * shot can crop into a chest, sit under a chin, or fall below a 38° FOV.
+ */
+export const CAMERA_PRESETS = {
+  WIDE_TWO_SHOT: { distance: 6.2, fov: 42 },
+  MEDIUM_SPEAKER: { distance: 4.8, fov: 40 },
+  OVER_SHOULDER: { distance: 4.2, fov: 42 },
+  PENALTY_BOX_1V1: { distance: 6.8, fov: 38 },
+};
+
+/** Build a camera key from a preset, an aim point and an optional yaw in radians. */
+export const presetKey = (name, time, target, yaw = 0) => {
+  const { distance, fov } = CAMERA_PRESETS[name];
+  return [
+    time,
+    [
+      target[0] + Math.sin(yaw) * distance,
+      target[1] + 0.18,
+      target[2] + Math.cos(yaw) * distance,
+    ],
+    target,
+    fov,
+  ];
+};
+
+const FOV_MIN = 38;
+const FOV_MAX = 42;
+const TARGET_Y_MIN = 1.25;
+const TARGET_Y_MAX = 1.45;
+const MIN_ACTOR_DISTANCE = 4.6;
+const _target = new THREE.Vector3();
+const _dir = new THREE.Vector3();
+const _cam = new THREE.Vector3();
+const _actor = new THREE.Vector3();
+
+/** Keep every Season 1 shot in the verified vertical framing envelope. */
+export function sanitizeCamera({ camera, actors = [], target }) {
+  if (!camera || !Array.isArray(target)) return;
+  const fov = clamp(camera.fov, FOV_MIN, FOV_MAX);
+  if (Math.abs(camera.fov - fov) > 0.01) {
+    camera.fov = fov;
+    camera.updateProjectionMatrix();
+  }
+
+  _target.set(target[0], clamp(target[1], TARGET_Y_MIN, TARGET_Y_MAX), target[2]);
+  _dir.copy(camera.position).sub(_target);
+  if (_dir.lengthSq() < 0.0001) _dir.set(0, 0.2, 1);
+  _dir.normalize();
+
+  const active = (actors || [])
+    .filter((actor) => actor && actor.rig && actor.rig.visible !== false)
+    .map((actor) => _actor.copy(actor.rig.position).clone());
+
+  let distance = Math.max(0.4, camera.position.distanceTo(_target));
+  for (let pass = 0; pass < 2 && active.length; pass += 1) {
+    let push = 0;
+    _cam.copy(_target).addScaledVector(_dir, distance);
+    for (const position of active) {
+      const gap = MIN_ACTOR_DISTANCE - _cam.distanceTo(position);
+      if (gap > push) push = gap;
+    }
+    if (push <= 0) break;
+    distance += push * 1.05;
+  }
+
+  camera.position.copy(_target).addScaledVector(_dir, distance);
+  camera.lookAt(_target);
+}
 
 /** Local frame of a scene's first net.wav cue — the authoritative goal moment. */
 export const goalFrame = (scene, index = 0) => {
@@ -35,10 +107,10 @@ export function tunnelGrade(scene, env) {
   });
 }
 
-/** Night crisis grade — the single flickering tower is driven in onFrame. */
+/** Night crisis grade — moonlight keeps silhouettes readable after the tower blows. */
 export function nightGrade(scene, env) {
-  if (env.lights?.ambient) env.lights.ambient.intensity = 0.34;
-  if (env.lights?.hemi) env.lights.hemi.intensity = 0.25;
+  if (env.lights?.ambient) env.lights.ambient.intensity = 0.8;
+  if (env.lights?.hemi) env.lights.hemi.intensity = 0.9;
 }
 
 /** Pick the pose for a frame from a declarative beat list. */
@@ -114,14 +186,14 @@ export function microMotion(parts, frame, pose = 'idle') {
     if (ra) ra.rotation.set(-0.45 + Math.sin(w * 6) * 0.24, 0, 0.26);
   } else if (pose === 'panic') {
     head.rotation.z = Math.sin(w * 11) * 0.09;
-    if (la) la.rotation.set(-1.1 + Math.sin(w * 9) * 0.18, 0, -0.6);
-    if (ra) ra.rotation.set(-1.1 - Math.sin(w * 9) * 0.18, 0, 0.6);
+    if (la) la.rotation.set(-0.8 + Math.sin(w * 9) * 0.12, 0, -0.55);
+    if (ra) ra.rotation.set(-0.8 - Math.sin(w * 9) * 0.12, 0, 0.55);
   } else if (pose === 'block') {
     if (torso) torso.rotation.x = 0.14;
-    if (la) la.rotation.set(-1.15, 0, -0.34);
-    if (ra) ra.rotation.set(-1.15, 0, 0.34);
+    if (la) la.rotation.set(-0.9, 0, -0.36);
+    if (ra) ra.rotation.set(-0.9, 0, 0.36);
   } else if (pose === 'point') {
-    if (ra) ra.rotation.set(-1.35, 0, 0.16);
+    if (ra) ra.rotation.set(-1.1, 0, 0.2);
     head.rotation.y = -0.1;
   } else if (pose === 'celebrate') {
     if (torso) torso.position.y += Math.abs(Math.sin(w * 7)) * 0.12;
@@ -131,16 +203,16 @@ export function microMotion(parts, frame, pose = 'idle') {
   } else if (pose === 'stride') {
     if (parts.leftLeg) parts.leftLeg.rotation.x = Math.sin(w * 8) * 0.4;
     if (parts.rightLeg) parts.rightLeg.rotation.x = -Math.sin(w * 8) * 0.4;
-    if (la) la.rotation.x = 0.5;
-    if (ra) ra.rotation.x = -0.5;
+    if (la) la.rotation.x = 0.32;
+    if (ra) ra.rotation.x = -0.32;
   } else if (pose === 'offer') {
     head.rotation.x = 0.08;
-    if (la) la.rotation.set(-0.82, 0, -0.34);
-    if (ra) ra.rotation.set(-0.82, 0, 0.34);
+    if (la) la.rotation.set(-0.7, 0, -0.36);
+    if (ra) ra.rotation.set(-0.7, 0, 0.36);
   } else if (pose === 'document') {
     head.rotation.x = 0.22;
-    if (la) la.rotation.set(-1.02, 0, -0.22);
-    if (ra) ra.rotation.set(-1.02, 0, 0.22);
+    if (la) la.rotation.set(-0.85, 0, -0.26);
+    if (ra) ra.rotation.set(-0.85, 0, 0.26);
   } else if (pose === 'keys') {
     head.rotation.y = -0.2;
     if (ra) ra.rotation.set(-0.7, -0.3, 0.42);
@@ -196,7 +268,10 @@ export function createCinematicScene(renderer, size, spec) {
     extra: spec.extra,
     actors,
     onFrame: spec.onFrame,
-    postCamera: spec.postCamera,
+    postCamera: (ctx) => {
+      if (spec.postCamera) spec.postCamera(ctx);
+      sanitizeCamera(ctx);
+    },
     dispose: spec.dispose,
     camera: spec.camera,
   });

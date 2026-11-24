@@ -18,10 +18,10 @@
 
 | Line | Time | Frames | Speaker | Malay | English |
 |---|---|---|---|---|---|
-| e6_01 | 0.0–2.7 | 0–81 | NARRATOR | "Cop merah. Meja ni bukan lagi milik kita." | "A red stamp. This desk isn't ours anymore." |
-| e6_02 | 3.0–5.9 | 91–176 | PEGUAM | "Masa awak habis, bos. Stadium ni milik bank." | "Your time is up, boss. This stadium belongs to the bank." |
-| e6_03 | 6.2–12.2 | 186–365 | BOS | "Kasih satu musim. Juara Divisyen 5 — hadiah dengan bonus penaja lunas hutang kita." | "Give us one season. Win Divisyen 5 — the prize and sponsor bonus clear our debt." |
-| e6_04 | 12.5–15.4 | 375–463 | PEGUAM | "Juara atau sita. Kalah, kosong ringgit." | "Champions or seized. Lose, and you get nothing." |
+| e6_01 | 0.0–3.0 | 0–89 | NARRATOR | "Cop merah. Meja ni bukan lagi milik kita." | "A red stamp. This desk isn't ours anymore." |
+| e6_02 | 3.0–6.1 | 91–184 | PEGUAM | "Masa awak habis, bos. Stadium ni milik bank." | "Your time is up, boss. This stadium belongs to the bank." |
+| e6_03 | 6.2–12.4 | 186–373 | BOS | "Kasih satu musim. Juara Divisyen 5 — hadiah dengan bonus penaja lunas hutang kita." | "Give us one season. Win Divisyen 5 — the prize and sponsor bonus clear our debt." |
+| e6_04 | 12.5–15.7 | 375–471 | PEGUAM | "Juara atau sita. Kalah, kosong ringgit." | "Champions or seized. Lose, and you get nothing." |
 
 - **Visual:** stamp close-up → Peguam/Bos two-shot → Bos negotiation push-in → Peguam's cold warning. The gold armband stays on the desk beside the red folder.
 
@@ -29,10 +29,10 @@
 
 | Line | Time | Frames | Speaker | Malay | English |
 |---|---|---|---|---|---|
-| e6_05 | 15.9–19.7 | 478–592 | NARRATOR | "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda." | "Matchday one. Without Karim, Buluh FC has no helmsman." |
-| e6_06 | 20.1–23.4 | 602–701 | KAPTEN ZAKI | "Kau tak ada kapten? Bagus la. Kami nombor satu." | "No captain? Even better. We're number one." |
-| e6_07 | 23.7–26.3 | 711–788 | JURULATIH | "Azam! Tekan! Jangan bagi dia ruang!" | "Azam! Press! Don't give him space!" |
-| e6_08 | 26.6–30.5 | 798–914 | NARRATOR | "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala." | "Two goals. One opponent. And the bank's spotlight is still on." |
+| e6_05 | 15.9–19.9 | 476–598 | NARRATOR | "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda." | "Matchday one. Without Karim, Buluh FC has no helmsman." |
+| e6_06 | 20.0–23.6 | 600–707 | KAPTEN ZAKI | "Kau tak ada kapten? Bagus la. Kami nombor satu." | "No captain? Even better. We're number one." |
+| e6_07 | 23.6–26.5 | 709–794 | JURULATIH | "Azam! Tekan! Jangan bagi dia ruang!" | "Azam! Press! Don't give him space!" |
+| e6_08 | 26.5–30.7 | 796–920 | NARRATOR | "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala." | "Two goals. One opponent. And the bank's spotlight is still on." |
 
 - **Overlays:** `StartingXICard` frames 438–520; `MatchHUD` ticks `BUL 0-2 TKJ` with `1' → 63' → 89'`.
 
@@ -40,9 +40,9 @@
 
 | Line | Time | Frames | Speaker | Malay | English |
 |---|---|---|---|---|---|
-| e6_09 | 31.0–35.5 | 929–1065 | NARRATOR | "Minit ke-89. Azam nampak satu peluang terakhir untuk menahan." | "89th minute. Azam sees one last chance to block." |
-| e6_10 | 35.8–37.8 | 1075–1135 | AZAM | "Tak lepas. Hari ini tak lepas." | "Not through. Not today." |
-| e6_11 | 38.2–41.9 | 1145–1258 | NARRATOR | "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa." | "On the touchline, the lawyer checks his watch. He doesn't need to say a word." |
+| e6_09 | 30.8–35.6 | 925–1069 | NARRATOR | "Minit ke-89. Azam nampak satu peluang terakhir untuk menahan." | "89th minute. Azam sees one last chance to block." |
+| e6_10 | 35.7–38.0 | 1071–1139 | AZAM | "Tak lepas. Hari ini tak lepas." | "Not through. Not today." |
+| e6_11 | 38.0–42.1 | 1141–1262 | NARRATOR | "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa." | "On the touchline, the lawyer checks his watch. He doesn't need to say a word." |
 
 - **Debt beat:** `DebtTickerHUD` flashes neutral grey at **RM331,500** — a loss earns RM0.
 

@@ -17,10 +17,10 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e12_01 | 0–77 | NARRATOR | "Dia ketatkan armband. Terus tunjuk depan." | "He tightens the armband. Then points forward." |
-| e12_02 | 87–146 | AZAM | "Aku kapten sekarang. Ikut aku." | "I'm captain now. Follow me." |
-| e12_03 | 156–262 | NARRATOR | "Azam atur pertahanan, kita balas dua gol. Setarakan!" | "Azam sorts the backline, we hit back with two goals. All square!" |
-| e12_04 | 272–333 | FARID | "Kasih saya satu lagi. Satu je." | "Give me one more. Just one." |
+| e12_01 | 0–85 | NARRATOR | "Dia ketatkan armband. Terus tunjuk depan." | "He tightens the armband. Then points forward." |
+| e12_02 | 87–154 | AZAM | "Aku kapten sekarang. Ikut aku." | "I'm captain now. Follow me." |
+| e12_03 | 156–270 | NARRATOR | "Azam atur pertahanan, kita balas dua gol. Setarakan!" | "Azam sorts the backline, we hit back with two goals. All square!" |
+| e12_04 | 272–341 | FARID | "Kasih saya satu lagi. Satu je." | "Give me one more. Just one." |
 
 - **Overlay:** `MatchHUD` ticks `0-2 (HT) → 1-2 → 2-2`.
 
@@ -28,12 +28,12 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e12_05 | 348–467 | NARRATOR | "Minit ke-90. Dua dua. Satu lawan satu." | "90th minute. Two-all. One against one." |
-| e12_06 | 477–513 | AZAM | "Farid! Sekarang!" | "Farid! Now!" |
-| e12_06b | 523–607 | NARRATOR | "Farid lari ke kotak. Penjaga gol keluar." | "Farid runs into the box. The keeper comes out." |
-| e12_06c | 617–681 | NARRATOR | "Satu lawan satu. Stadium diam." | "One against one. The stadium holds its breath." |
-| e12_07 | 691–798 | NARRATOR | "Slow motion. Tendangan ke penjuru atas. Tiga dua!" | "Slow motion. Strike into the top corner. Three-two!" |
-| e12_08 | 808–823 | FARID | "MASUK!" | "IN!" |
+| e12_05 | 346–473 | NARRATOR | "Minit ke-90. Dua dua. Satu lawan satu." | "90th minute. Two-all. One against one." |
+| e12_06 | 475–519 | AZAM | "Farid! Sekarang!" | "Farid! Now!" |
+| e12_06b | 521–613 | NARRATOR | "Farid lari ke kotak. Penjaga gol keluar." | "Farid runs into the box. The keeper comes out." |
+| e12_06c | 615–687 | NARRATOR | "Satu lawan satu. Stadium diam." | "One against one. The stadium holds its breath." |
+| e12_07 | 689–804 | NARRATOR | "Slow motion. Tendangan ke penjuru atas. Tiga dua!" | "Slow motion. Strike into the top corner. Three-two!" |
+| e12_08 | 806–829 | FARID | "MASUK!" | "IN!" |
 
 - **Visual:** Farid vs Penjaga Gol Besi (#1), low crouch and oversized gloves, slow-motion kick to the top corner; fulltime whistle.
 
@@ -41,10 +41,10 @@
 
 | Line | Frames | Speaker | Malay | English |
 |---|---|---|---|---|
-| e12_09 | 838–961 | NARRATOR | "Peguam tengok telefon. Hadiah juara dan bonus Nexus Sports masuk." | "The lawyer checks his phone. The champion prize and Nexus Sports bonus land." |
-| e12_10 | 971–1067 | BOS | "Tiga ratus lima ribu... kosong. Kita lunas." | "Three hundred and five grand... zero. We're clear." |
-| e12_11 | 1077–1173 | NARRATOR | "Telefon Bos berdering. Divisyen 4. Lawan Karim." | "Boss's phone buzzes. Divisyen 4. Karim's club." |
-| e12_12 | 1183–1255 | AZAM | "Kita akan jumpa dia. Di Divisyen 4." | "We'll meet him. In Divisyen 4." |
+| e12_09 | 834–965 | NARRATOR | "Peguam tengok telefon. Hadiah juara dan bonus Nexus Sports masuk." | "The lawyer checks his phone. The champion prize and Nexus Sports bonus land." |
+| e12_10 | 967–1071 | BOS | "Tiga ratus lima ribu... kosong. Kita lunas." | "Three hundred and five grand... zero. We're clear." |
+| e12_11 | 1073–1177 | NARRATOR | "Telefon Bos berdering. Divisyen 4. Lawan Karim." | "Boss's phone buzzes. Divisyen 4. Karim's club." |
+| e12_12 | 1179–1259 | AZAM | "Kita akan jumpa dia. Di Divisyen 4." | "We'll meet him. In Divisyen 4." |
 
 - **Overlays:** `LeagueTableOverlay` (MD5, champion) → GREEN `DebtTickerHUD` **RM305,000 → RM0 (LUNAS!)** → `Season2Hook` card for frames 1230–1275 (`DIVISYEN 4 / LAWAN PERTAMA: KELAB KARIM`, no CTA).
 
