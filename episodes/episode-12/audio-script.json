@@ -1,555 +1,531 @@
 {
-  "episode": 12,
-  "title": "Juara Divisyen 5",
-  "fps": 30,
-  "width": 1080,
-  "height": 1920,
-  "totalDurationSeconds": 44.43333333333333,
-  "totalFrames": 1333,
-  "language": "ms",
-  "subtitles": "ms+en",
-  "notes": "Source of truth for Episode 12 — Season 1 Finale Part 2. Buluh FC come back from 0-2 to beat Besi Waja 3-2, win Divisyen 5 and clear the debt to RM0 with the Champion Prize + Nexus Sports bonus. Final 3s tease the Divisyen 4 opener against Karim's new club. Ends with the standard 72-frame Buluh FC / EPISOD 12 card. No CTAs.",
-  "cast": {
-    "narrator": {
-      "voice": "voice_1",
-      "label": "NARRATOR"
-    },
-    "azam": {
-      "class": "AzamApp",
-      "outfit": "matchJersey",
-      "voice": "voice_5",
-      "label": "AZAM"
-    },
-    "farid": {
-      "class": "FaridApp",
-      "voice": "voice_4",
-      "label": "FARID"
-    },
-    "besikeeper": {
-      "class": "BesiKeeperApp",
-      "voice": "voice_2",
-      "label": "PENJAGA GOL BESI"
-    },
-    "bos": {
-      "class": "NewOwnerApp",
-      "outfit": "charcoalOwner",
-      "voice": "voice_3",
-      "label": "BOS"
-    },
-    "peguam": {
-      "class": "SuitOutfitApp",
-      "voice": "voice_2",
-      "label": "PEGUAM"
-    }
+ "episode": 12,
+ "title": "Juara Divisyen 5",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalDurationSeconds": 43.433,
+ "totalFrames": 1303,
+ "language": "ms",
+ "subtitles": "ms+en",
+ "notes": "Source of truth for Episode 12 (rework). The comeback is led in dialogue by the new captain: Azam's half-time speech, Farid's strike, then Azam's corner header for 2-2. The 90th-minute winner is staged, not narrated — one narrator breath, then MASUK. Malik's machine breaks on camera. In Act 3 the payout lands through the Peguam's phone, and Karim stands up in the tribun in his Divisyen 4 kit: \"Aku kata dulu — jangan jual kapten aku.\" Debt RM305,000 -> RM0 (LUNAS).",
+ "cast": {
+  "narrator": {
+   "voice": "voice_1",
+   "label": "NARRATOR"
   },
-  "overlays": {
-    "hook": {
-      "title": "KAPTEN BARU, MISI MUSTAHIL",
-      "pill": "EP. 12 • JUARA",
-      "fromFrame": 0,
-      "toFrame": 45
-    },
-    "matchHUD": [
-      {
-        "scene": "act-1-comeback",
-        "fromFrame": 30,
-        "toFrame": 449,
-        "matchday": 5,
-        "homeShort": "BUL",
-        "awayShort": "BSW",
-        "homeColor": "#de1326",
-        "awayColor": "#b3121f",
-        "steps": [
-          {
-            "frame": 30,
-            "home": 0,
-            "away": 2,
-            "clock": "HT"
-          },
-          {
-            "frame": 240,
-            "home": 1,
-            "away": 2,
-            "clock": "67'"
-          },
-          {
-            "frame": 420,
-            "home": 2,
-            "away": 2,
-            "clock": "88'"
-          }
-        ]
-      },
-      {
-        "scene": "act-2-winner",
-        "fromFrame": 346,
-        "toFrame": 795,
-        "matchday": 5,
-        "homeShort": "BUL",
-        "awayShort": "BSW",
-        "homeColor": "#de1326",
-        "awayColor": "#b3121f",
-        "steps": [
-          {
-            "frame": 346,
-            "home": 2,
-            "away": 2,
-            "clock": "90'"
-          },
-          {
-            "frame": 687,
-            "home": 3,
-            "away": 2,
-            "clock": "FT"
-          }
-        ]
-      }
-    ],
-    "leagueTable": {
-      "scene": "act-3-lunas",
-      "fromFrame": 849,
-      "toFrame": 939,
-      "matchday": 5,
-      "highlight": "BUL",
-      "note": "JUARA DIVISYEN 5 • PROMOSI DIV 4"
-    },
-    "debtTicker": {
-      "scene": "act-3-lunas",
-      "fromFrame": 954,
-      "toFrame": 1149,
-      "label": "HUTANG KELAB",
-      "from": 305000,
-      "to": 0,
-      "direction": "down",
-      "currency": "RM",
-      "finalLabel": "LUNAS!",
-      "note": "HADIAH JUARA + BONUS PENAJA NEXUS SPORTS"
-    },
-    "season2Hook": {
-      "scene": "act-3-lunas",
-      "fromFrame": 1164,
-      "toFrame": 1209,
-      "title": "DIVISYEN 4",
-      "subtitle": "LAWAN PERTAMA: KELAB KARIM",
-      "cta": false
-    },
-    "outroCard": {
-      "fromFrame": 1261,
-      "toFrame": 1333,
-      "durationFrames": 72,
-      "label": "EPISOD 12"
-    }
+  "azam": {
+   "class": "AzamApp",
+   "outfit": "matchJersey",
+   "label": "AZAM",
+   "voice": "voice_5"
   },
-  "scenes": [
+  "farid": {
+   "class": "FaridApp",
+   "label": "FARID",
+   "voice": "voice_4"
+  },
+  "kapten_malik": {
+   "class": "MalikApp",
+   "label": "KAPTEN MALIK",
+   "voice": "voice_3"
+  },
+  "bos": {
+   "class": "NewOwnerApp",
+   "outfit": "charcoalOwner",
+   "label": "BOS",
+   "voice": "voice_3"
+  },
+  "karim": {
+   "class": "KarimAwayApp",
+   "outfit": "div4Away",
+   "label": "KARIM",
+   "voice": "voice_4"
+  },
+  "peguam": {
+   "class": "SuitOutfitApp",
+   "label": "PEGUAM",
+   "voice": "voice_2"
+  }
+ },
+ "bgm": [
+  {
+   "file": "match.wav",
+   "from": 0,
+   "to": 1231,
+   "level": 0.18,
+   "duck": 0.05
+  },
+  {
+   "file": "triumph.wav",
+   "from": 700,
+   "to": 1231,
+   "level": 0.16,
+   "duck": 0.05
+  }
+ ],
+ "overlays": {
+  "hook": {
+   "title": "KAPTEN BARU, MISI MUSTAHIL",
+   "pill": "EP. 12 • FINAL",
+   "fromFrame": 0,
+   "toFrame": 45
+  },
+  "matchHUD": {
+   "scene": "act-1-comeback",
+   "fromFrame": 45,
+   "toFrame": 286,
+   "matchday": 5,
+   "homeShort": "BUL",
+   "awayShort": "BSW",
+   "homeColor": "#de1326",
+   "awayColor": "#7a8290",
+   "steps": [
     {
-      "id": "act-1-comeback",
-      "name": "Act 1 — Comeback",
-      "from": 0,
-      "to": 11.533333333333333,
-      "fromFrame": 0,
-      "durationFrames": 346,
-      "environment": "PitchCenterCircleApp (environments/modular-pitch-zone.js)",
-      "director": "createComebackScene",
-      "visual": "Frame 0: tight close-up of Azam tightening the gold armband and pointing forward, stadium roar rising. Rapid montage: 0-2 becomes 1-2 then 2-2 through Azam's vocal leadership and interceptions.",
-      "sfx": "rising stadium roar at frame 0; armband stretch; whistles; two net swishes.",
-      "bgm": "Building triumphant match bed, ducked under dialogue.",
-      "cues": [
-        {
-          "file": "crowd-small.wav",
-          "frame": 0,
-          "volume": 0.85
-        },
-        {
-          "file": "bass-hit.wav",
-          "frame": 0,
-          "volume": 0.6
-        },
-        {
-          "file": "net.wav",
-          "frame": 240,
-          "volume": 0.7
-        },
-        {
-          "file": "net.wav",
-          "frame": 420,
-          "volume": 0.7
-        },
-        {
-          "file": "crowd-small.wav",
-          "frame": 430,
-          "volume": 0.7
-        }
-      ],
-      "events": [
-        {
-          "type": "hook",
-          "frame": 0,
-          "note": "Armband tighten + point, no backstory."
-        },
-        {
-          "type": "cut",
-          "frame": 54,
-          "note": "Armband -> Azam leadership."
-        },
-        {
-          "type": "cut",
-          "frame": 240,
-          "note": "First goal."
-        },
-        {
-          "type": "cut",
-          "frame": 420,
-          "note": "2-2 equaliser."
-        }
-      ],
-      "lines": [
-        {
-          "id": "e12_01",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Dia ketatkan armband. Terus tunjuk depan.",
-          "translation": "He tightens the armband. Then points forward.",
-          "start": 0,
-          "end": 2.8333333333333335,
-          "startFrame": 0,
-          "endFrame": 85,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_02",
-          "type": "dialogue",
-          "speaker": "AZAM",
-          "text": "Aku kapten sekarang. Ikut aku.",
-          "translation": "I'm captain now. Follow me.",
-          "start": 2.9,
-          "end": 5.133333333333334,
-          "startFrame": 87,
-          "endFrame": 154,
-          "voice": "voice_5",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_03",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Azam atur pertahanan, kita balas dua gol. Setarakan!",
-          "translation": "Azam sorts the backline, we hit back with two goals. All square!",
-          "start": 5.2,
-          "end": 9,
-          "startFrame": 156,
-          "endFrame": 270,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_04",
-          "type": "dialogue",
-          "speaker": "FARID",
-          "text": "Kasih saya satu lagi. Satu je.",
-          "translation": "Give me one more. Just one.",
-          "start": 9.066666666666666,
-          "end": 11.366666666666667,
-          "startFrame": 272,
-          "endFrame": 341,
-          "voice": "voice_4",
-          "trimLeadingSilence": true
-        }
-      ]
+     "frame": 49,
+     "home": 0,
+     "away": 2,
+     "clock": "HT"
     },
     {
-      "id": "act-2-winner",
-      "name": "Act 2 — 90th Minute Winner",
-      "from": 11.533333333333333,
-      "to": 27.8,
-      "fromFrame": 346,
-      "durationFrames": 488,
-      "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
-      "director": "createWinnerScene",
-      "visual": "90th minute, 2-2. Farid goes 1v1 against Penjaga Gol Besi (#1). Slow-motion kick to the top corner — 3-2! Fulltime whistle and the whole stadium erupts.",
-      "sfx": "slow-mo kick; net swish; fulltime whistle; stadium roar.",
-      "bgm": "Slow-motion swell breaking into full triumph.",
-      "cues": [
-        {
-          "file": "whistle.wav",
-          "frame": 346,
-          "volume": 0.55
-        },
-        {
-          "file": "whoosh.wav",
-          "frame": 541,
-          "volume": 0.6
-        },
-        {
-          "file": "kick.wav",
-          "frame": 646,
-          "volume": 0.95
-        },
-        {
-          "file": "net.wav",
-          "frame": 687,
-          "volume": 0.85
-        },
-        {
-          "file": "crowd-small.wav",
-          "frame": 696,
-          "volume": 0.9
-        },
-        {
-          "file": "whistle.wav",
-          "frame": 756,
-          "volume": 0.95
-        }
-      ],
-      "events": [
-        {
-          "type": "cut",
-          "frame": 1,
-          "note": "Azam -> Farid breakaway."
-        },
-        {
-          "type": "slowMotion",
-          "frame": 91,
-          "durationFrames": 150,
-          "note": "Kick to top corner."
-        },
-        {
-          "type": "score",
-          "frame": 256,
-          "note": "MatchHUD 3-2 FT."
-        },
-        {
-          "type": "cut",
-          "frame": 316,
-          "note": "Celebration -> Peguam checking phone."
-        }
-      ],
-      "lines": [
-        {
-          "id": "e12_05",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Minit ke-90. Dua dua. Satu lawan satu.",
-          "translation": "90th minute. Two-all. One against one.",
-          "start": 11.533333333333333,
-          "end": 15.766666666666667,
-          "startFrame": 346,
-          "endFrame": 473,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_06",
-          "type": "dialogue",
-          "speaker": "AZAM",
-          "text": "Farid! Sekarang!",
-          "translation": "Farid! Now!",
-          "start": 15.833333333333334,
-          "end": 17.3,
-          "startFrame": 475,
-          "endFrame": 519,
-          "voice": "voice_5",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_06b",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Farid lari ke kotak. Penjaga gol keluar.",
-          "translation": "Farid runs into the box. The keeper comes out.",
-          "start": 17.366666666666667,
-          "end": 20.433333333333334,
-          "startFrame": 521,
-          "endFrame": 613,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_06c",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Satu lawan satu. Stadium diam.",
-          "translation": "One against one. The stadium holds its breath.",
-          "start": 20.5,
-          "end": 22.9,
-          "startFrame": 615,
-          "endFrame": 687,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_07",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Slow motion. Tendangan ke penjuru atas. Tiga dua!",
-          "translation": "Slow motion. Strike into the top corner. Three-two!",
-          "start": 22.966666666666665,
-          "end": 26.8,
-          "startFrame": 689,
-          "endFrame": 804,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_08",
-          "type": "dialogue",
-          "speaker": "FARID",
-          "text": "MASUK!",
-          "translation": "IN!",
-          "start": 26.866666666666667,
-          "end": 27.633333333333333,
-          "startFrame": 806,
-          "endFrame": 829,
-          "voice": "voice_4",
-          "trimLeadingSilence": true
-        }
-      ]
+     "frame": 123,
+     "home": 1,
+     "away": 2,
+     "clock": "58'"
     },
     {
-      "id": "act-3-lunas",
-      "name": "Act 3 — Lunas & Season 2 Hook",
-      "from": 27.8,
-      "to": 42.03333333333333,
-      "fromFrame": 834,
-      "durationFrames": 427,
-      "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
-      "director": "createLunasScene",
-      "visual": "LeagueTableOverlay confirms Buluh FC as Juara Divisyen 5. Peguam checks his phone in disbelief as the Champion Prize and Nexus Sports promotion bonus land; DebtTickerHUD rolls GREEN to RM0 (LUNAS!). Final 3s: Bos's phone buzzes with the Divisyen 4 opener — Karim's new club.",
-      "sfx": "table whoosh; phone buzz; rolling ticker; bell on LUNAS; second phone buzz for the S2 hook.",
-      "bgm": "Full triumph bed, ducked under the debt roll, silent after the cut.",
-      "cues": [
-        {
-          "file": "whoosh.wav",
-          "frame": 849,
-          "volume": 0.6
-        },
-        {
-          "file": "bell.wav",
-          "frame": 954,
-          "volume": 0.5
-        },
-        {
-          "file": "pen-tap.wav",
-          "frame": 994,
-          "volume": 0.45
-        },
-        {
-          "file": "bell.wav",
-          "frame": 1142,
-          "volume": 0.8
-        },
-        {
-          "file": "bell.wav",
-          "frame": 1164,
-          "volume": 0.5
-        }
-      ],
-      "events": [
-        {
-          "type": "leagueTable",
-          "frame": -51,
-          "durationFrames": 90,
-          "note": "Juara Divisyen 5."
-        },
-        {
-          "type": "debtTicker",
-          "frame": 54,
-          "durationFrames": 195,
-          "note": "Green roll to RM0 — LUNAS."
-        },
-        {
-          "type": "season2Hook",
-          "frame": 264,
-          "durationFrames": 45,
-          "note": "Divisyen 4 opener vs Karim's club."
-        },
-        {
-          "type": "hardCut",
-          "frame": 312,
-          "note": "Hard cut to EndCard."
-        }
-      ],
-      "lines": [
-        {
-          "id": "e12_09",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Peguam tengok telefon. Hadiah juara dan bonus Nexus Sports masuk.",
-          "translation": "The lawyer checks his phone. The champion prize and Nexus Sports bonus land.",
-          "start": 27.8,
-          "end": 32.166666666666664,
-          "startFrame": 834,
-          "endFrame": 965,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_10",
-          "type": "dialogue",
-          "speaker": "BOS",
-          "text": "Tiga ratus lima ribu... kosong. Kita lunas.",
-          "translation": "Three hundred and five grand... zero. We're clear.",
-          "start": 32.233333333333334,
-          "end": 35.7,
-          "startFrame": 967,
-          "endFrame": 1071,
-          "voice": "voice_3",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_11",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Telefon Bos berdering. Divisyen 4. Lawan Karim.",
-          "translation": "Boss's phone buzzes. Divisyen 4. Karim's club.",
-          "start": 35.766666666666666,
-          "end": 39.233333333333334,
-          "startFrame": 1073,
-          "endFrame": 1177,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e12_12",
-          "type": "dialogue",
-          "speaker": "AZAM",
-          "text": "Kita akan jumpa dia. Di Divisyen 4.",
-          "translation": "We'll meet him. In Divisyen 4.",
-          "start": 39.3,
-          "end": 41.96666666666667,
-          "startFrame": 1179,
-          "endFrame": 1259,
-          "voice": "voice_5",
-          "trimLeadingSilence": true
-        }
-      ]
+     "frame": 178,
+     "home": 2,
+     "away": 2,
+     "clock": "78'"
     },
     {
-      "id": "outro-card",
-      "name": "Buluh FC Series Outro",
-      "from": 42.03333333333333,
-      "to": 44.43333333333333,
-      "fromFrame": 1261,
-      "durationFrames": 72,
-      "environment": null,
-      "director": null,
-      "visual": "Standard black Buluh FC / EPISOD 12 card. No CTA.",
-      "sfx": "kick.wav + bass-hit.wav on the cut.",
-      "bgm": null,
-      "cues": [
-        {
-          "file": "kick.wav",
-          "frame": 1261,
-          "volume": 0.9
-        },
-        {
-          "file": "bass-hit.wav",
-          "frame": 1261,
-          "volume": 0.9
-        }
-      ],
-      "events": [],
-      "lines": []
+     "frame": 247,
+     "home": 3,
+     "away": 2,
+     "clock": "90'"
+    },
+    {
+     "frame": 285,
+     "home": 3,
+     "away": 2,
+     "clock": "FT"
     }
-  ]
+   ]
+  },
+  "leagueTable": {
+   "scene": "act-3-lunas",
+   "fromFrame": 708,
+   "toFrame": 838,
+   "matchday": 5
+  },
+  "debtTicker": {
+   "scene": "act-3-lunas",
+   "fromFrame": 941,
+   "toFrame": 1065,
+   "label": "HUTANG KELAB",
+   "from": 305000,
+   "to": 0,
+   "direction": "down",
+   "currency": "RM",
+   "note": "HADIAH JUARA + BONUS PENAJA — LUNAS!"
+  },
+  "season2Hook": {
+   "scene": "act-3-lunas",
+   "fromFrame": 1173,
+   "toFrame": 1225
+  },
+  "outroCard": {
+   "fromFrame": 1231,
+   "toFrame": 1303,
+   "durationFrames": 72,
+   "label": "EPISOD 12"
+  }
+ },
+ "scenes": [
+  {
+   "id": "act-1-comeback",
+   "name": "Act 1 — Ucapan Kapten & Comeback",
+   "from": 0.0,
+   "to": 9.733,
+   "fromFrame": 0,
+   "durationFrames": 292,
+   "environment": "PitchCenterCircleApp (environments/modular-pitch-zone.js)",
+   "director": "createComebackScene",
+   "visual": "Frame 0: the new captain mid-speech, armband tight, finger forward. Buluh FC come out swinging: Farid slices the machine for 1-2, then a corner with EVERYONE up — Azam rises for the header, 2-2. Malik repeats his mantra as it stops working. MatchHUD climbs 0-2 -> 1-2 -> 2-2.",
+   "sfx": "kick + net on both comeback goals; crowd-medium swelling; corner whistle.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "whistle.wav",
+     "frame": 0,
+     "volume": 0.7
+    },
+    {
+     "file": "kick.wav",
+     "frame": 87,
+     "volume": 0.75
+    },
+    {
+     "file": "net.wav",
+     "frame": 95,
+     "volume": 0.65
+    },
+    {
+     "file": "kick.wav",
+     "frame": 174,
+     "volume": 0.8
+    },
+    {
+     "file": "net.wav",
+     "frame": 182,
+     "volume": 0.7
+    },
+    {
+     "file": "crowd-medium.wav",
+     "frame": 182,
+     "volume": 0.5
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    },
+    {
+     "type": "cut",
+     "frame": 54,
+     "note": "First cut within the hook window."
+    },
+    {
+     "type": "goal",
+     "frame": 95,
+     "note": "net.wav goal 1 lands mid-gap."
+    },
+    {
+     "type": "goal",
+     "frame": 182,
+     "note": "net.wav goal 2 lands mid-gap."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e12_01",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "Diorang tanam kita. Sekarang kita gali balik!",
+     "translation": "They buried us. Now we dig out!",
+     "start": 0.0,
+     "end": 3.067,
+     "startFrame": 0,
+     "endFrame": 100,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_04",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Corner. Semua naik... termasuk kapten.",
+     "translation": "Corner. Everyone up… including the captain.",
+     "start": 3.333,
+     "end": 5.967,
+     "startFrame": 100,
+     "endFrame": 187,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_05",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "SETARAF! Sekarang diorang yang tengok kita!",
+     "translation": "ALL SQUARE! Now they watch US!",
+     "start": 6.233,
+     "end": 9.2,
+     "startFrame": 187,
+     "endFrame": 284,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "act-2-winner",
+   "name": "Act 2 — Minit ke-90 (Dilakar, Bukan Dicerita)",
+   "from": 9.733,
+   "to": 23.333,
+   "fromFrame": 292,
+   "durationFrames": 408,
+   "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
+   "director": "createWinnerScene",
+   "visual": "Minute 90, two-all. Azam releases Farid behind the machine; the stadium holds its breath — ONE narrator line, then the slow-motion 1v1 against the giant Besi Waja keeper: low crouch, oversized gloves, top corner. MASUK. Azam's captain scream and Malik's machine finally breaking are the only reactions we need.",
+   "sfx": "one heartbeat bass-hit before the strike; kick + net.wav on the winner; crowd-big eruption; whistle.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "bass-hit.wav",
+     "frame": 426,
+     "volume": 0.5
+    },
+    {
+     "file": "kick.wav",
+     "frame": 512,
+     "volume": 0.85
+    },
+    {
+     "file": "net.wav",
+     "frame": 520,
+     "volume": 0.75
+    },
+    {
+     "file": "crowd-big.wav",
+     "frame": 520,
+     "volume": 0.6
+    },
+    {
+     "file": "whistle.wav",
+     "frame": 603,
+     "volume": 0.6
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    },
+    {
+     "type": "goal",
+     "frame": 520,
+     "note": "net.wav goal 1 lands mid-gap."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e12_07",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Minit ke-90. Dua dua. Satu serangan terakhir.",
+     "translation": "Minute 90. Two-all. One last attack.",
+     "start": 9.733,
+     "end": 12.8,
+     "startFrame": 292,
+     "endFrame": 392,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_08",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "FARID! SEKARANG!",
+     "translation": "FARID! NOW!",
+     "start": 13.067,
+     "end": 14.267,
+     "startFrame": 392,
+     "endFrame": 436,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_09",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Stadium diam. Satu peluang. Satu nafas.",
+     "translation": "The stadium holds its breath. One chance. One breath.",
+     "start": 14.533,
+     "end": 17.233,
+     "startFrame": 436,
+     "endFrame": 525,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_10",
+     "type": "dialogue",
+     "speaker": "FARID",
+     "text": "MASUK!!",
+     "translation": "IT'S IN!!",
+     "start": 17.5,
+     "end": 18.433,
+     "startFrame": 525,
+     "endFrame": 561,
+     "voice": "voice_4",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_11",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "JUARA!!! KITA JUARA!!!",
+     "translation": "CHAMPIONS!!! WE'RE CHAMPIONS!!!",
+     "start": 18.7,
+     "end": 20.3,
+     "startFrame": 561,
+     "endFrame": 617,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_12",
+     "type": "dialogue",
+     "speaker": "KAPTEN MALIK",
+     "text": "Kita kalah... pada kelab hutang.",
+     "translation": "We lost… to a club in debt.",
+     "start": 20.567,
+     "end": 22.8,
+     "startFrame": 617,
+     "endFrame": 692,
+     "voice": "voice_3",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "act-3-lunas",
+   "name": "Act 3 — Lunas & Karim di Tribun",
+   "from": 23.333,
+   "to": 41.033,
+   "fromFrame": 700,
+   "durationFrames": 531,
+   "environment": "PitchHeroStandApp (environments/pitch-hero-stand.js)",
+   "director": "createLunasKarimScene",
+   "visual": "The new hero-stand set, floodlit and bannered. The Peguam's phone lands the payout in dialogue — no narrator arithmetic. Bos screams the club back to life; then the camera finds the tribun: Karim in his Divisyen 4 away kit with a Buluh scarf, clapping. His line completes Episode 5's promise. Season2Hook card: DIVISYEN 4 — LAWAN PERTAMA: KELAB KARIM. Confetti falls after the banner flips to JUARA.",
+   "sfx": "phone buzz; crowd-big trophy roar; warm bell on LUNAS; confetti shimmer on the banner flip.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "crowd-big.wav",
+     "frame": 700,
+     "volume": 0.5
+    },
+    {
+     "file": "bell.wav",
+     "frame": 945,
+     "volume": 0.55
+    },
+    {
+     "file": "crowd-big.wav",
+     "frame": 955,
+     "volume": 0.5
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e12_13",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Kat tribun... satu siluet dah lama berdiri.",
+     "translation": "In the stands… one silhouette has been standing a while.",
+     "start": 23.333,
+     "end": 26.3,
+     "startFrame": 700,
+     "endFrame": 797,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_14",
+     "type": "dialogue",
+     "speaker": "BOS",
+     "text": "Rim...? KARIM?!",
+     "translation": "Rim…? KARIM?!",
+     "start": 26.567,
+     "end": 27.7,
+     "startFrame": 797,
+     "endFrame": 839,
+     "voice": "voice_3",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_15",
+     "type": "dialogue",
+     "speaker": "KARIM",
+     "text": "Aku kata dulu — jangan jual kapten. Lagi garang!",
+     "translation": "I told you — do not sell your captain. Even fiercer now!",
+     "start": 27.967,
+     "end": 31.233,
+     "startFrame": 839,
+     "endFrame": 945,
+     "voice": "voice_4",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_16",
+     "type": "dialogue",
+     "speaker": "PEGUAM",
+     "text": "Hadiah juara masuk. Bonus penaja masuk. LUNAS.",
+     "translation": "Champion prize landed. Sponsor bonus landed. CLEARED.",
+     "start": 31.5,
+     "end": 34.633,
+     "startFrame": 945,
+     "endFrame": 1047,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_17",
+     "type": "dialogue",
+     "speaker": "BOS",
+     "text": "Kita lunas!! Buluh FC hidup balik!!",
+     "translation": "We are clear!! Buluh FC lives again!!",
+     "start": 34.9,
+     "end": 37.333,
+     "startFrame": 1047,
+     "endFrame": 1128,
+     "voice": "voice_3",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e12_18",
+     "type": "dialogue",
+     "speaker": "KARIM",
+     "text": "Divisyen 4 tunggu. Jumpa kat sana, kapten.",
+     "translation": "Division 4 is waiting. See you there, captain.",
+     "start": 37.6,
+     "end": 40.5,
+     "startFrame": 1128,
+     "endFrame": 1223,
+     "voice": "voice_4",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "outro-card",
+   "name": "Buluh FC Series Outro",
+   "from": 41.033,
+   "to": 43.433,
+   "fromFrame": 1231,
+   "durationFrames": 72,
+   "environment": null,
+   "director": null,
+   "visual": "Standard black Buluh FC / EPISOD 12 card. No CTA.",
+   "sfx": "kick.wav + bass-hit.wav on the cut.",
+   "bgm": null,
+   "cues": [
+    {
+     "file": "kick.wav",
+     "frame": 1231,
+     "volume": 0.9
+    },
+    {
+     "file": "bass-hit.wav",
+     "frame": 1231,
+     "volume": 0.9
+    }
+   ],
+   "events": [],
+   "lines": []
+  }
+ ]
 }
