@@ -254,20 +254,28 @@ Use these shared modules instead of copying fixes into individual scenes.
   `Math.random()` is allowed in any environment.
 
 ### 10.5 Verification stills
-Render from `remotion/` after any camera/rig/environment change:
+Render from `remotion/` after any camera/rig/environment change. Reworked
+frames target the rework's key beats (armband covenant, goals, the blackout,
+the armband handover, Karim's tribun reveal):
 
 ```bash
-npx remotion still Episode7 out/verify/ep7-330.png --frame=330
-npx remotion still Episode7 out/verify/ep7-810.png --frame=810
-npx remotion still Episode8 out/verify/ep8-360.png --frame=360
-npx remotion still Episode9 out/verify/ep9-120.png --frame=120
-npx remotion still Episode10 out/verify/ep10-360.png --frame=360
-npx remotion still Episode10 out/verify/ep10-690.png --frame=690
-npx remotion still Episode12 out/verify/ep12-060.png --frame=60
-npx remotion still Episode12 out/verify/ep12-600.png --frame=600
-npx remotion still Episode12 out/verify/ep12-690.png --frame=690
+npx remotion still Episode6 out/verify/ep6-309.png --frame=309
+npx remotion still Episode6 out/verify/ep6-820.png --frame=820
+npx remotion still Episode7 out/verify/ep7-605.png --frame=605
+npx remotion still Episode7 out/verify/ep7-729.png --frame=729
+npx remotion still Episode8 out/verify/ep8-651.png --frame=651
+npx remotion still Episode9 out/verify/ep9-190.png --frame=190
+npx remotion still Episode9 out/verify/ep9-1056.png --frame=1056
+npx remotion still Episode10 out/verify/ep10-286.png --frame=286
+npx remotion still Episode11 out/verify/ep11-806.png --frame=806
+npx remotion still Episode11 out/verify/ep11-1107.png --frame=1107
+npx remotion still Episode12 out/verify/ep12-839.png --frame=839
+npx remotion still Episode12 out/verify/ep12-945.png --frame=945
 ```
 
+After `npm run retime` (measured MP3 durations), re-derive these frames from
+`audio-script.json` (line `startFrame` for `e6_04`, `e7_08`, `e8_09`, `e9_03`,
+`e10_04`, `e11_15`, `e12_15`).
 ---
 
 ## 11. Season 1 Canon (Episodes 6–12 — Divisyen 5)
@@ -286,8 +294,21 @@ each episode's `audio-script.json` mirrors the debt HUD value for that episode.
 - **Captaincy:** vacant until **Episode 11**, when BOS gives Karim's gold armband to
   **Azam (#7)**. Azam wears it from Episode 12 onward.
 - **Karim (#8):** at a **Divisyen 4** club — that club is Buluh FC's first Divisyen 4
-  fixture in Season 2. The RM50,000 fee stayed in the club.
+  fixture in Season 2. The RM50,000 fee stayed in the club. **Rework canon bend
+  (showrunner-approved):** Karim returns in the tribun for the MD5 final (Ep. 12) in his
+  Divisyen 4 away kit with a Buluh scarf (`characters/character-karim-away.js`) and lands
+  the callback line: Aku kata dulu - jangan jual kapten aku.
 - **Rivals:** Taktik Jaya (M1), Otai Kampung (M2), Vanguard Elite (M3), Kilat Rovers
   (M4), Besi Waja (M5). League table tiebreak: head-to-head, then goal difference.
+- **Finale set:** `environments/pitch-hero-stand.js` (`PitchHeroStandApp`) - floodlit
+  grandstand with `anchors.heroSpot` (Karim's tier), a flip banner (BULUH FC -> JUARA via
+  `flipBanner()`), seeded flag sway, its own instanced crowd and deterministic confetti
+  (`updateConfetti(frame, active)`).
+- **Storytelling standard (rework):** dialogue carries the story; NARRATOR bridges only
+  (max ~2 lines per act). No HUD digits are spoken - numbers live in the overlays plus at
+  most one narrator line syncing the DebtTicker beat. Rivals keep recurring personalities
+  (Zaki's clipboard, Pak Din's otai mind games, Rayyan's bribe, Bob's chaos, Malik's
+  machine commands), and the RM5 salary stays a running gag. BGM windows live in each
+  episode's `audio-script.json` (`bgm`) and `SeasonEpisode` reads them from there.
 - **Format:** 1080x1920 @ 30fps, 40–45s, 0–2s pattern-interrupt hook, first cut by
   frame 60, no CTAs, standard 72-frame EndCard.

@@ -11,13 +11,8 @@ const DIRECTORS = {
   createSecondPlaceScene,
 };
 
-const BGM = [
-  { file: 'match.wav', from: 0, to: 930, level: 0.18, duck: 0.05 },
-  { file: 'triumph.wav', from: 720, to: 1218, level: 0.12, duck: 0.04 },
-];
-
 export const Episode10Composition = () => (
-  <SeasonEpisode episode={10} script={script} directors={DIRECTORS} bgm={BGM} />
+  <SeasonEpisode episode={10} script={script} directors={DIRECTORS} />
 );
 
 export const EPISODE_10_FRAMES = script.totalFrames;

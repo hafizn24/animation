@@ -1,51 +1,58 @@
-# Episode 6 — *Janji Bank & Matchday 1* (Script)
+# Episode 6 — *Janji Bank* (Script)
 
-> Governed by [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md), including the Section 0 0–2s hook standard.
+> **Reworked Season 1 script.** Governed by [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md), including the Section 0 0–2s hook standard. Dialogue carries the story; the narrator only bridges. No HUD digits are spoken — numbers live in the overlays.
 
-- **Runtime:** 00:00 – 00:43.0 (1,290 frames @ 30fps), 1080×1920 vertical.
-- **Result:** Kalah 0–2 (0 mata) • **Debt:** RM331,500 → RM331,500 (±RM0 — loss pays RM0).
-- **Structure:** NARRATOR alternates with BOS, PEGUAM, KAPTEN ZAKI, JURULATIH and AZAM. No narrator-only stretch. **No CTAs.**
-- **Settings:** Act 1 `ClubOffice` (with red NOTIS SITA folder, stamp and Karim's vacant gold armband) → Act 2 `ModularPitchZone` center circle → Act 3 `ModularPitchZone` touchline bench.
-- **Hook:** frame 0 is already bright and moving — a red bank stamp slams onto the NOTIS SITA folder (`stamp.wav` transient). `HookTitle` "JANJI JUARA ATAU SITA!" spring-pops for frames 0–45; first cut at frame 54.
-- **11-a-side:** a 2.7s `StartingXICard` reads all 11 Buluh FC players from `story/division5-league.json` (featured names in gold); only 2–4 Three.js rigs render per shot.
+- **Runtime:** 00:00 – 00:43.7 (1,311 frames @ 30fps), 1080×1920 vertical.
+- **Debt:** RM331,500 → RM331,500 (FLAT — KALAH MATCHDAY 1 = TIADA BONUS).
+- **Result:** Matchday 1 — BUL 0–2 TKJ (89').
+- **Structure:** narrator bridges only; every act is carried by named character dialogue. **No CTAs.**
+- **Hook:** JANJI JUARA ATAU SITA! — spring-pop frames 0–45, first cut at frame 54, frame-0 SFX transient.
 - **Ending:** hard cut to the standard 72-frame **Buluh FC / EPISOD 6** EndCard. No credits, no CTA.
 
-**Machine-readable source of truth:** [`audio-script.json`](./audio-script.json) and `story/season1-debt.json`.
+**Machine-readable source of truth:** [`audio-script.json`](./audio-script.json) and `story/season1-debt.json`. The JSON wins on conflict; `npm run retime` rebuilds all frames from the measured e6_* MP3s after regeneration.
 
 ---
 
-## ACT 1 — Janji Bank (00:00 – 00:14) | `ClubOffice` — frames 0–419
+## Act 1 — Janji Bank (dengan Armband) — frames 0–524 | `ClubOfficeApp`
 
-| Line | Time | Frames | Speaker | Malay | English |
-|---|---|---|---|---|---|
-| e6_01 | 0.0–3.0 | 0–89 | NARRATOR | "Cop merah. Meja ni bukan lagi milik kita." | "A red stamp. This desk isn't ours anymore." |
-| e6_02 | 3.0–6.1 | 91–184 | PEGUAM | "Masa awak habis, bos. Stadium ni milik bank." | "Your time is up, boss. This stadium belongs to the bank." |
-| e6_03 | 6.2–12.4 | 186–373 | BOS | "Kasih satu musim. Juara Divisyen 5 — hadiah dengan bonus penaja lunas hutang kita." | "Give us one season. Win Divisyen 5 — the prize and sponsor bonus clear our debt." |
-| e6_04 | 12.5–15.7 | 375–471 | PEGUAM | "Juara atau sita. Kalah, kosong ringgit." | "Champions or seized. Lose, and you get nothing." |
+- **Visual:** Frame 0: the heavy red stamp slams onto the NOTIS SITA folder; Karim's gold armband sits beside it. Peguam gives the ultimatum; Bos signs the one-season freeze and points at the armband — it stays on the desk until Buluh FC lift the trophy. Peguam's answer defines the season: armbands don't pay debt — goals do.
+- **SFX:** stamp slam at frame 0; paper slide; pen-tap ticks on the signing.
+- **Cues:** stamp.wav@0, paper.wav@93, pen-tap.wav@309, pen-tap.wav@321
 
-- **Visual:** stamp close-up → Peguam/Bos two-shot → Bos negotiation push-in → Peguam's cold warning. The gold armband stays on the desk beside the red folder.
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e6_01 | 0–93 | NARRATOR | "Cop merah. Meja ni bukan lagi milik kita." | "A red stamp. This desk isn't ours anymore." |
+| e6_02 | 93–201 | PEGUAM | "Tujuh hari, bos. Juara atau sita. Awak yang sign." | "Seven days, boss. Champions or seized. You're the one signing." |
+| e6_03 | 201–309 | BOS | "Kasih satu musim. Juara Divisyen 5, hutang lunas." | "Give us one season. Win Divisyen 5, debt cleared." |
+| e6_04 | 309–423 | BOS | "Armband Karim kekal atas meja ni. Sampai kita juara." | "Karim's armband stays on this desk. Until we're champions." |
+| e6_05 | 423–516 | PEGUAM | "Armband tak bayar hutang. Gol yang bayar." | "Armbands don't pay debt. Goals do." |
 
-## ACT 2 — Matchday 1 (00:14 – 00:30) | `ModularPitchZone` Center Circle — frames 420–899
+## Act 2 — Matchday 1 vs Taktik Jaya — frames 524–998 | `PitchCenterCircleApp`
 
-| Line | Time | Frames | Speaker | Malay | English |
-|---|---|---|---|---|---|
-| e6_05 | 15.9–19.9 | 476–598 | NARRATOR | "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda." | "Matchday one. Without Karim, Buluh FC has no helmsman." |
-| e6_06 | 20.0–23.6 | 600–707 | KAPTEN ZAKI | "Kau tak ada kapten? Bagus la. Kami nombor satu." | "No captain? Even better. We're number one." |
-| e6_07 | 23.6–26.5 | 709–794 | JURULATIH | "Azam! Tekan! Jangan bagi dia ruang!" | "Azam! Press! Don't give him space!" |
-| e6_08 | 26.5–30.7 | 796–920 | NARRATOR | "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala." | "Two goals. One opponent. And the bank's spotlight is still on." |
+- **Visual:** Kickoff vs neon-green Taktik Jaya. Kapten Zaki struts with his clipboard — a try-hard tactician, not a one-line extra. Danial screams at the backline as Taktik Jaya score twice; Azam organises, Jurulatih refuses to let heads drop. The loss lands through the players' voices.
+- **SFX:** kickoff whistle; crowd murmur; boot-on-ball kicks; net swish on both conceded goals.
+- **Cues:** whistle.wav@524, crowd-small.wav@617, kick.wav@807, net.wav@815, kick.wav@894, net.wav@902
 
-- **Overlays:** `StartingXICard` frames 438–520; `MatchHUD` ticks `BUL 0-2 TKJ` with `1' → 63' → 89'`.
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e6_06 | 524–617 | NARRATOR | "Matchday satu. Tanpa kapten, tanpa Karim." | "Matchday one. No captain, no Karim." |
+| e6_07 | 617–725 | KAPTEN ZAKI | "Tak ada kapten? Aku ada clipboard. Itu beza kita." | "No captain? I have a clipboard. That's the difference." |
+| e6_08 | 725–820 | AZAM | "Hutang bukan mati, bro. Aku jaga belakang." | "Debt isn't death, bro. I guard the back." |
+| e6_09 | 820–907 | DANIAL | "Belakang!! Siapa jaga lurus belakang?!" | "Backline!! Who's holding the line?!" |
+| e6_10 | 907–990 | JURULATIH | "Fokus! Susun balik! Belum mati lagi!" | "Focus! Line up again! Not dead yet!" |
 
-## ACT 3 — Last-Ditch Block (00:30 – 00:40.6) | Touchline Bench — frames 900–1217
+## Act 3 — Blok Terakhir & Skrip Peguam — frames 998–1239 | `PitchTouchlineApp`
 
-| Line | Time | Frames | Speaker | Malay | English |
-|---|---|---|---|---|---|
-| e6_09 | 30.8–35.6 | 925–1069 | NARRATOR | "Minit ke-89. Azam nampak satu peluang terakhir untuk menahan." | "89th minute. Azam sees one last chance to block." |
-| e6_10 | 35.7–38.0 | 1071–1139 | AZAM | "Tak lepas. Hari ini tak lepas." | "Not through. Not today." |
-| e6_11 | 38.0–42.1 | 1141–1262 | NARRATOR | "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa." | "On the touchline, the lawyer checks his watch. He doesn't need to say a word." |
+- **Visual:** Minute 89, Zaki wants a third for his clipboard. Azam throws his body in front of the shot — his line, his responsibility. On the touchline Peguam writes it all down without a word. DebtTickerHUD flashes NEUTRAL at RM331,500 — a loss pays RM0.
+- **SFX:** block thud (bass-hit); sharp whistle; pen-tap as the lawyer writes.
+- **Cues:** whistle.wav@998, bass-hit.wav@1067, pen-tap.wav@1144, pen-tap.wav@1158
 
-- **Debt beat:** `DebtTickerHUD` flashes neutral grey at **RM331,500** — a loss earns RM0.
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e6_11 | 998–1073 | NARRATOR | "Minit ke-89. Zaki nak satu lagi." | "Minute 89. Zaki wants one more." |
+| e6_13 | 1073–1144 | AZAM | "Tak lepas. Hari ini tak lepas." | "Not through. Not today." |
+| e6_14 | 1144–1231 | NARRATOR | "Peguam catat semua. Tanpa sepatah pun." | "The lawyer writes it all down. Not one word." |
 
 ## Ending
 
-Frame 1218: hard cut to **Buluh FC / EPISOD 6** (72 frames). No CTA.
+Frame 1239: hard cut to **Buluh FC / EPISOD 6** (72 frames). No CTA.

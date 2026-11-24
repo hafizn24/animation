@@ -41,6 +41,7 @@ const VOICE_BY_SPEAKER = {
   'KAPTEN MALIK': 'voice_3',
   'PENJAGA GOL BESI': 'voice_2',
   PENGADIL: 'voice_2',
+  KARIM: 'voice_4',
 };
 
 const audioDir = path.join(root, 'remotion/public/audio');
@@ -144,7 +145,8 @@ for (let ep = 6; ep <= 12; ep += 1) {
 }
 
 // Goal narration must start at or after the net.wav cue that scores the goal.
-const GOAL_LINE = { e7_08: 'act-2-first-win', e8_08: 'act-2-bribe-revenge', e10_07: 'act-2-last-gasp', e12_07: 'act-2-winner' };
+// Reworked ids: the in-scene celebration line that lands after each final goal.
+const GOAL_LINE = { e7_10: 'act-2-first-win', e8_13: 'act-2-bribe-revenge', e10_09: 'act-2-last-gasp', e12_10: 'act-2-winner' };
 for (let ep = 6; ep <= 12; ep += 1) {
   const script = JSON.parse(fs.readFileSync(path.join(root, 'episodes', `episode-${ep}`, 'audio-script.json'), 'utf8'));
   for (const [lineId, sceneId] of Object.entries(GOAL_LINE)) {

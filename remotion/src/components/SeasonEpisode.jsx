@@ -37,10 +37,12 @@ const sceneLines = (scene) =>
 
 /**
  * One composition driver for every Season 1 episode (Ep. 6-12).
- * All timings come from the episode's audio-script.json — the JSON wins.
+ * All timings come from the episode's audio-script.json — the JSON wins,
+ * including the BGM beds (script.bgm) unless the composition overrides them.
  */
-export const SeasonEpisode = ({ episode, script, directors, bgm = [] }) => {
+export const SeasonEpisode = ({ episode, script, directors, bgm }) => {
   const { scenes, overlays = {}, totalFrames } = script;
+  const beds = (bgm && bgm.length ? bgm : script.bgm) || [];
   const allLines = scenes.flatMap((scene) => scene.lines || []);
   const allCues = scenes.flatMap((scene) => (scene.cues || []).map((cue) => ({ ...cue })));
   const outro = overlays.outroCard || {
@@ -100,8 +102,8 @@ export const SeasonEpisode = ({ episode, script, directors, bgm = [] }) => {
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#05070d' }}>
-      {bgm.map((bed) => (
-        <Audio key={bed.file} src={staticFile(`audio/bgm/${bed.file}`)} volume={volumeFor(bed)} />
+      {beds.map((bed, bedIndex) => (
+        <Audio key={`${bed.file}-${bedIndex}`} src={staticFile(`audio/bgm/${bed.file}`)} volume={volumeFor(bed)} />
       ))}
 
       {allLines.map((line) => (

@@ -19,7 +19,11 @@ import { ACT_1 } from '../timings.js';
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
 const END = ACT_1.durationFrames;
 
-/** Act 1 — the red NOTIS SITA stamp lands and the Bank Promise is negotiated. */
+/**
+ * Act 1 (rework) — the red NOTIS SITA stamp lands, the Bank Promise is signed,
+ * and Bos swears the season's covenant over Karim's armband: it stays on this
+ * desk until Buluh FC are champions. Peguam's reply defines the year.
+ */
 export const createBankPromiseScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: ClubOfficeApp,
   grade: (scene, env) => applyOfficeGrade(scene, env, 'scene1'),
@@ -30,7 +34,7 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
         title: 'NOTIS SITA BANK',
         subtitle: 'MAHKAMAH • BULUH FC',
         amount: 'RM331,500',
-        note: 'TARIKH: 7 HARI • HUBUNGI PEGUAM',
+        note: 'JANJI BANK: JUARA DIVISYEN 5',
       });
     }
     const folder = new THREE.Mesh(
@@ -41,12 +45,20 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
     folder.position.set(-0.55, 0.884, 0.22);
     scene.add(folder);
 
-    const armband = new THREE.Mesh(
-      new THREE.TorusGeometry(0.13, 0.026, 10, 28),
-      new THREE.MeshStandardMaterial({ color: 0xd8b26a, roughness: 0.7 })
+    const armband = new THREE.Group();
+    const band = new THREE.Mesh(
+      new THREE.TorusGeometry(0.115, 0.02, 10, 28),
+      new THREE.MeshStandardMaterial({ color: 0xd8b26a, metalness: 0.35, roughness: 0.5 })
     );
-    armband.rotation.x = Math.PI / 2;
-    armband.position.set(0.42, 0.89, 0.3);
+    band.rotation.x = Math.PI / 2;
+    armband.add(band);
+    const crest = new THREE.Mesh(
+      new THREE.BoxGeometry(0.055, 0.012, 0.055),
+      new THREE.MeshStandardMaterial({ color: 0x1b1d22 })
+    );
+    crest.position.y = 0.014;
+    armband.add(crest);
+    armband.position.set(0.42, 0.9, 0.3);
     scene.add(armband);
 
     const stamp = new THREE.Group();
@@ -60,7 +72,7 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       new THREE.MeshStandardMaterial({ color: 0xb3121f, roughness: 0.5 })
     );
     stamp.add(handle, base);
-    stamp.position.set(-0.55, 1.55, 0.22);
+    stamp.position.set(-0.55, 0.94, 0.22);
     scene.add(stamp);
 
     return { folder, armband, stamp };
@@ -70,9 +82,11 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       name: 'boss', Class: NewOwnerApp, outfit: 'charcoalOwner',
       scale: 0.95, position: [0.2, 0, -1.4], rotationY: 0.06,
       beats: [
-        { from: L('e6_02'), to: L('e6_03'), pose: 'talk' },
-        { from: L('e6_03'), to: L('e6_04'), pose: 'document', emotion: 'worried' },
-        { from: L('e6_04'), to: END, pose: 'idle', emotion: 'stressed' },
+        { from: 0, to: L('e6_02'), pose: 'idle', emotion: 'stressed' },
+        { from: L('e6_02'), to: L('e6_03'), pose: 'idle', emotion: 'worried' },
+        { from: L('e6_03'), to: L('e6_04'), pose: 'document' },
+        { from: L('e6_04'), to: L('e6_05'), pose: 'point', emotion: 'angry' },
+        { from: L('e6_05'), to: END, pose: 'idle', emotion: 'stressed' },
       ],
     },
     {
@@ -80,9 +94,10 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       scale: 0.94, position: [-1.35, 0, -2.3], rotationY: -0.24,
       beats: [
         { from: 0, to: L('e6_02'), pose: 'idle' },
-        { from: L('e6_02'), to: L('e6_03'), pose: 'offer' },
-        { from: L('e6_03'), to: L('e6_04'), pose: 'talk' },
-        { from: L('e6_04'), to: END, pose: 'talk', emotion: 'angry' },
+        { from: L('e6_02'), to: L('e6_03'), pose: 'talk', emotion: 'angry' },
+        { from: L('e6_03'), to: L('e6_04'), pose: 'offer' },
+        { from: L('e6_04'), to: L('e6_05'), pose: 'idle' },
+        { from: L('e6_05'), to: END, pose: 'talk', emotion: 'angry' },
       ],
     },
   ],
@@ -93,6 +108,8 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
     const rebound = smooth(clamp((frame - 2) / 12, 0, 1));
     extra.stamp.position.y = lerp(0.94, 1.12, rebound);
     extra.stamp.visible = frame < 60;
+    // Bos points at the armband through the covenant line.
+    if (extra.armband) extra.armband.rotation.y = Math.sin(frame * 0.05) * 0.04;
   },
   camera: {
     fov: 46, ease: smooth,
@@ -100,11 +117,15 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       const boss = findActor(actors, 'boss');
       const peguam = findActor(actors, 'peguam');
       return [
+        // Frame 0: the stamp slams into the lens.
         [0, [-0.4, 1.5, 2.7], [-0.5, 0.9, 0.2], 42],
+        // Hook cut: Peguam/Bos two-shot across the desk.
         [sec(54), [-0.2, 1.5, 1.5], [-0.8, 1.0, -1.2], 42],
         shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.7 }), sec(L('e6_02'))),
         shotKey(getSpeakerThreeQuarterShot(boss, peguam, { distance: 3.8 }), sec(L('e6_03'))),
-        shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.6 }), sec(L('e6_04'))),
+        // The covenant insert: armband + signing hand.
+        [sec(L('e6_04')), [0.1, 1.35, 0.75], [0.42, 0.95, 0.3], 42],
+        shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.6 }), sec(L('e6_05'))),
         [sec(END), [0.1, 1.6, 1.8], [0.2, 1.1, -0.6], 42],
       ];
     },

@@ -111,14 +111,25 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a cru
 
 ---
 
-## Season 1 — Divisyen 5 (Episodes 6–12)
+## Season 1 — Divisyen 5 (Episodes 6–12, reworked)
 
 **Master data:** `story/season1-debt.json` (debt progression) and `story/division5-league.json` (6 clubs × 11 players, fixtures, standings). Both are read directly by the Remotion overlays.
 
-### The Bank Promise (Ep. 6)
-PEGUAM arrives with a seizure notice. BOS negotiates a one-season foreclosure freeze: **win the Divisyen 5 Championship by Matchday 5**, and the **Champion Prize + Nexus Sports (PENAJA) Promotion Bonus (RM305,000)** clears the debt. Losses pay **RM0**; matchday fines/emergencies are added to the balance; finishing 2nd or lower triggers immediate seizure.
+**Rework storytelling standard (showrunner-approved):** dialogue carries the story; the NARRATOR only bridges (max ~2 lines per act). No HUD digits are ever spoken — numbers live in the overlays plus at most one narrator line syncing the DebtTicker beat. Every episode gives the rivals real personalities (Zaki's clipboard, Pak Din's otai mind games, Rayyan's flash + bribe, Bob's chaos, Malik's machine commands) and keeps the RM5 salary as a running gag. The gold armband is a covenant: sworn over the desk in Ep. 6, handed over in Ep. 11, paid off in Ep. 12. The night-training motif planted in Ep. 9 pays off in the Ep. 12 comeback.
 
-### Debt Tracker (canonical)
+### The Bank Promise (Ep. 6)
+PEGUAM arrives with a seizure notice; Bos signs the one-season freeze — **win the Divisyen 5 Championship by Matchday 5**, and the **Champion Prize + Nexus Sports (PENAJA) Promotion Bonus (RM305,000)** clears the debt — then points at Karim's armband: *"Armband Karim kekal atas meja ni. Sampai kita juara."* Peguam's answer defines the season: *"Armband tak bayar hutang. Gol yang bayar."* Losses pay **RM0**; fines/emergencies are added to the balance; finishing 2nd or lower triggers immediate seizure.
+
+### Episode beats (reworked)
+- **Ep. 6 — Janji Bank:** armband covenant signed (Act 1) → Matchday 1 vs Taktik Jaya: Zaki's clipboard mockery, Danial's backline scream, Azam's "Hutang bukan mati" (Act 2) → minute-89 Azam block, Peguam writes it all down (Act 3). Loss pays RM0.
+- **Ep. 7 — Menang Pertama:** Pak Din's mind games + Azam's RM5 reply → the first goal told in-scene (press, read, Farid finish) → Bos on trust money + Azam refuses a raise until the trophy. Debt −RM15,000.
+- **Ep. 8 — Duit vs Maruah:** Rayyan's tunnel bribe; Bos keeps the envelope as evidence → Rayyan scores "for the envelope", Azam guards the class, Farid's double wins it → table + green debt. −RM20,000, under RM300k.
+- **Ep. 9 — Hutang Naik Balik:** Azam's night-training drills, the floodlight tower blows (+RM25,000) → Bos's phone call, the Peguam softens one degree for the kids → lights blaze again and Azam promises to pay the lamps back with a trophy.
+- **Ep. 10 — Hidup Mati:** Kilat Rovers' chaos (Bob's no-defence manifesto, Danial's fury, Azam commanding like a captain) → the 88th-minute Azam-block → Farid-winner; the RM5 legend spreads to the enemy camp → second place, Besi Waja's machine planted ("Mesin boleh rosak. Kita ada jantung.").
+- **Ep. 11 — Separuh Masa Neraka:** Besi Waja's machine + Malik's commands; the referee books AZAM — the card whose fine + bank charge (+RM5,000) is his guilt → locker-room despair (Farid without Karim, Danial hollow, Azam stands) → the armband scene: Bos explains the wait, Azam confesses, Bos explains why guilt is the point. Cliffhanger on the band going on.
+- **Ep. 12 — Juara Divisyen 5:** Azam's half-time speech → Farid 1-2, Azam's corner header 2-2 → the staged (not narrated) 90th-minute 1v1, MASUK, Malik's machine breaks → the Peguam's phone lands RM305,000 (LUNAS) and **Karim stands up in the tribun in his Divisyen 4 kit with a Buluh scarf**: *"Aku kata dulu — jangan jual kapten aku."* Banner flips to JUARA, seeded confetti falls, Season 2 hook card.
+
+### Debt Tracker (canonical, unchanged)
 | Ep | Result | Delta | Ending debt |
 |---|---|---|---|
 | 6 | Kalah 0–2 (TKJ) | ±RM0 | RM331,500 |
@@ -131,7 +142,9 @@ PEGUAM arrives with a seizure notice. BOS negotiates a one-season foreclosure fr
 
 ### Continuity
 - **Azam (#7)** is named captain in Ep. 11 and wears Karim's gold armband from Ep. 12.
+- **Karim (#8)** returns in the stands for the MD5 final (Ep. 12) — showrunner-approved bend; his Divisyen 4 club remains Buluh FC's first Divisyen 4 fixture in Season 2. New rig: `characters/character-karim-away.js` (navy away kit, `KARIM 8` panels, Buluh scarf, boots slot hidden).
 - **FARID (#9)** and **DANIAL (#1, GK)** are promoted from the squad; rival captains Zaki, Pak Din, Rayyan, Bob, Malik plus Penjaga Gol Besi and PENGADIL are built as profile variants of the shared rig (`characters/character-variants.js`).
+- **New finale set:** `environments/pitch-hero-stand.js` (`PitchHeroStandApp`) — floodlit grandstand with hero spot, railing, flip banner (BULUH FC → JUARA), seeded flag sway + confetti and its own instanced crowd.
 - **Season 2 hook:** Divisyen 4's opening fixture is Karim (#8)'s new club.
 
-**Script locations:** `episodes/episode-6/` … `episodes/episode-12/` (`script.md` + `audio-script.json`). Compositions: `remotion/src/Episode6/` … `Episode12/`, all driven by the shared `SeasonEpisode` component. TTS entries use prefixes `e6_` … `e12_`.
+**Script locations:** `episodes/episode-6/` … `episodes/episode-12/` (`script.md` + `audio-script.json`). Compositions: `remotion/src/Episode6/` … `Episode12/`, all driven by the shared `SeasonEpisode` component (BGM windows now live in each episode's `audio-script.json` under `bgm`). TTS entries use prefixes `e6_` … `e12_`; after regenerating, run `npm run retime` to rebuild all frames from the measured MP3s.
