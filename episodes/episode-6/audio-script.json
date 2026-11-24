@@ -1,468 +1,483 @@
 {
-  "episode": 6,
-  "title": "Janji Bank & Matchday 1",
-  "fps": 30,
-  "width": 1080,
-  "height": 1920,
-  "totalDurationSeconds": 44.53333333333333,
-  "totalFrames": 1336,
-  "language": "ms",
-  "subtitles": "ms+en",
-  "notes": "Source of truth for Episode 6. Frame-0 red bank stamp slam on NOTIS SITA. Bank Promise signed in ClubOffice, then Matchday 1 vs Taktik Jaya FC loses 0-2 and the debt holds at RM331,500 (loss pays RM0). No match bonus. Ends on the standard 72-frame Buluh FC / EPISOD 6 card. No CTAs.",
-  "cast": {
-    "narrator": {
-      "voice": "voice_1",
-      "label": "NARRATOR"
-    },
-    "bos": {
-      "class": "NewOwnerApp",
-      "outfit": "charcoalOwner",
-      "voice": "voice_3",
-      "label": "BOS"
-    },
-    "peguam": {
-      "class": "SuitOutfitApp",
-      "voice": "voice_2",
-      "label": "PEGUAM"
-    },
-    "jurulatih": {
-      "class": "SoccerCoachOutfitApp",
-      "outfit": "navyCoach",
-      "voice": "voice_2",
-      "label": "JURULATIH"
-    },
-    "azam": {
-      "class": "AzamApp",
-      "outfit": "matchJersey",
-      "voice": "voice_5",
-      "label": "AZAM"
-    },
-    "zaki": {
-      "class": "ZakiApp",
-      "voice": "voice_2",
-      "label": "KAPTEN ZAKI"
-    }
+ "episode": 6,
+ "title": "Janji Bank",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalDurationSeconds": 43.7,
+ "totalFrames": 1311,
+ "language": "ms",
+ "subtitles": "ms+en",
+ "notes": "Source of truth for Episode 6 (rework). Frame-0 red NOTIS SITA stamp slam. Bos signs the Bank Promise but vows Karim's armband stays on the desk until Buluh FC are champions — the armband covenant that runs all season. Matchday 1 vs Taktik Jaya loses 0-2; Danial screams at the backline, Zaki plays clipboard villain, Azam takes responsibility at the touchline. Debt holds at RM331,500 (loss pays RM0). No CTAs.",
+ "cast": {
+  "narrator": {
+   "voice": "voice_1",
+   "label": "NARRATOR"
   },
-  "overlays": {
-    "hook": {
-      "title": "JANJI JUARA ATAU SITA!",
-      "pill": "EP. 6 • BANK",
-      "fromFrame": 0,
-      "toFrame": 45
-    },
-    "startingXI": {
-      "scene": "act-2-matchday1",
-      "fromFrame": 494,
-      "toFrame": 576,
-      "teamShort": "BUL"
-    },
-    "matchHUD": {
-      "scene": "act-2-matchday1",
-      "fromFrame": 480,
-      "toFrame": 955,
-      "matchday": 1,
-      "homeShort": "BUL",
-      "awayShort": "TKJ",
-      "homeColor": "#de1326",
-      "awayColor": "#39ff88",
-      "steps": [
-        {
-          "frame": 480,
-          "home": 0,
-          "away": 0,
-          "clock": "1'"
-        },
-        {
-          "frame": 756,
-          "home": 0,
-          "away": 1,
-          "clock": "63'"
-        },
-        {
-          "frame": 860,
-          "home": 0,
-          "away": 2,
-          "clock": "89'"
-        }
-      ]
-    },
-    "debtTicker": {
-      "scene": "act-3-desperate-block",
-      "fromFrame": 1111,
-      "toFrame": 1235,
-      "label": "HUTANG KELAB",
-      "from": 331500,
-      "to": 331500,
-      "direction": "flat",
-      "currency": "RM",
-      "note": "KALAH MATCHDAY 1 = TIADA BONUS"
-    },
-    "outroCard": {
-      "fromFrame": 1264,
-      "toFrame": 1336,
-      "durationFrames": 72,
-      "label": "EPISOD 6"
-    }
+  "peguam": {
+   "class": "SuitOutfitApp",
+   "label": "PEGUAM",
+   "voice": "voice_2"
   },
-  "scenes": [
+  "bos": {
+   "class": "NewOwnerApp",
+   "outfit": "charcoalOwner",
+   "label": "BOS",
+   "voice": "voice_3"
+  },
+  "kapten_zaki": {
+   "class": "ZakiApp",
+   "label": "KAPTEN ZAKI",
+   "voice": "voice_2"
+  },
+  "azam": {
+   "class": "AzamApp",
+   "outfit": "matchJersey",
+   "label": "AZAM",
+   "voice": "voice_5"
+  },
+  "danial": {
+   "class": "DanialApp",
+   "label": "DANIAL",
+   "voice": "voice_5"
+  },
+  "jurulatih": {
+   "class": "SoccerCoachOutfitApp",
+   "outfit": "navyCoach",
+   "label": "JURULATIH",
+   "voice": "voice_2"
+  }
+ },
+ "bgm": [
+  {
+   "file": "office.wav",
+   "from": 0,
+   "to": 524,
+   "level": 0.15,
+   "duck": 0.05
+  },
+  {
+   "file": "match.wav",
+   "from": 524,
+   "to": 1239,
+   "level": 0.18,
+   "duck": 0.05
+  }
+ ],
+ "overlays": {
+  "hook": {
+   "title": "JANJI JUARA ATAU SITA!",
+   "pill": "EP. 6 • BANK",
+   "fromFrame": 0,
+   "toFrame": 45
+  },
+  "startingXI": {
+   "scene": "act-2-matchday1",
+   "fromFrame": 542,
+   "toFrame": 624,
+   "teamShort": "BUL"
+  },
+  "matchHUD": {
+   "scene": "act-2-matchday1",
+   "fromFrame": 524,
+   "toFrame": 992,
+   "matchday": 1,
+   "homeShort": "BUL",
+   "awayShort": "TKJ",
+   "homeColor": "#de1326",
+   "awayColor": "#39ff88",
+   "steps": [
     {
-      "id": "act-1-bank-promise",
-      "name": "Act 1 — Janji Bank",
-      "from": 0,
-      "to": 15.866666666666667,
-      "fromFrame": 0,
-      "durationFrames": 476,
-      "environment": "ClubOfficeApp (environments/club-office.js)",
-      "director": "createBankPromiseScene",
-      "visual": "Frame 0: red NOTIS SITA folder and a heavy stamp slam onto BOS's desk. Karim's vacant gold armband sits beside it. Peguam slides the seizure notice across; Bos negotiates the one-season freeze in exchange for the Divisyen 5 title.",
-      "sfx": "stamp slam at frame 0; paper slide; pen taps as the deal is signed.",
-      "bgm": "Low-tension office drone, ducked under dialogue.",
-      "cues": [
-        {
-          "file": "stamp.wav",
-          "frame": 0,
-          "volume": 0.9
-        },
-        {
-          "file": "paper.wav",
-          "frame": 90,
-          "volume": 0.55
-        },
-        {
-          "file": "pen-tap.wav",
-          "frame": 330,
-          "volume": 0.45
-        },
-        {
-          "file": "pen-tap.wav",
-          "frame": 348,
-          "volume": 0.45
-        }
-      ],
-      "events": [
-        {
-          "type": "hook",
-          "frame": 0,
-          "note": "HookTitle spring-pop, clears by frame 45."
-        },
-        {
-          "type": "cut",
-          "frame": 54,
-          "note": "Stamp close-up -> Peguam two-shot."
-        },
-        {
-          "type": "cut",
-          "frame": 225,
-          "note": "Peguam -> Bos negotiation push-in."
-        },
-        {
-          "type": "cut",
-          "frame": 360,
-          "note": "Bos -> Peguam cold warning."
-        }
-      ],
-      "lines": [
-        {
-          "id": "e6_01",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Cop merah. Meja ni bukan lagi milik kita.",
-          "translation": "A red stamp. This desk isn't ours anymore.",
-          "start": 0,
-          "end": 2.966666666666667,
-          "startFrame": 0,
-          "endFrame": 89,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_02",
-          "type": "dialogue",
-          "speaker": "PEGUAM",
-          "text": "Masa awak habis, bos. Stadium ni milik bank.",
-          "translation": "Your time is up, boss. This stadium belongs to the bank.",
-          "start": 3.033333333333333,
-          "end": 6.133333333333334,
-          "startFrame": 91,
-          "endFrame": 184,
-          "voice": "voice_2",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_03",
-          "type": "dialogue",
-          "speaker": "BOS",
-          "text": "Kasih satu musim. Juara Divisyen 5 — hadiah dengan bonus penaja lunas hutang kita.",
-          "translation": "Give us one season. Win Divisyen 5 — the prize and sponsor bonus clear our debt.",
-          "start": 6.2,
-          "end": 12.433333333333334,
-          "startFrame": 186,
-          "endFrame": 373,
-          "voice": "voice_3",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_04",
-          "type": "dialogue",
-          "speaker": "PEGUAM",
-          "text": "Juara atau sita. Kalah, kosong ringgit.",
-          "translation": "Champions or seized. Lose, and you get nothing.",
-          "start": 12.5,
-          "end": 15.7,
-          "startFrame": 375,
-          "endFrame": 471,
-          "voice": "voice_2",
-          "trimLeadingSilence": true
-        }
-      ]
+     "frame": 528,
+     "home": 0,
+     "away": 0,
+     "clock": "1'"
     },
     {
-      "id": "act-2-matchday1",
-      "name": "Act 2 — Matchday 1",
-      "from": 15.866666666666667,
-      "to": 30.833333333333332,
-      "fromFrame": 476,
-      "durationFrames": 449,
-      "environment": "PitchCenterCircleApp (environments/modular-pitch-zone.js)",
-      "director": "createMatchdayOneScene",
-      "visual": "2.7s StartingXICard sells the full 11, then kickoff vs neon-green Taktik Jaya FC. Without Karim the midfield is disorganised; Kapten Zaki struts and mocks. MatchHUD ticks 0-2.",
-      "sfx": "kickoff whistle; crowd murmur; boot-on-ball kicks; net swish on both goals.",
-      "bgm": "Match bed, ducked under dialogue.",
-      "cues": [
-        {
-          "file": "whistle.wav",
-          "frame": 476,
-          "volume": 0.85
-        },
-        {
-          "file": "crowd-small.wav",
-          "frame": 596,
-          "volume": 0.4
-        },
-        {
-          "file": "kick.wav",
-          "frame": 756,
-          "volume": 0.7
-        },
-        {
-          "file": "net.wav",
-          "frame": 760,
-          "volume": 0.6
-        },
-        {
-          "file": "kick.wav",
-          "frame": 860,
-          "volume": 0.7
-        },
-        {
-          "file": "net.wav",
-          "frame": 864,
-          "volume": 0.6
-        }
-      ],
-      "events": [
-        {
-          "type": "startingXI",
-          "frame": 74,
-          "durationFrames": 82,
-          "note": "11v11 tactical card, gold-highlighted featured players."
-        },
-        {
-          "type": "cut",
-          "frame": 176,
-          "note": "XI card -> kickoff center circle."
-        },
-        {
-          "type": "cut",
-          "frame": 326,
-          "note": "Zaki mock -> Coach touchline shout."
-        },
-        {
-          "type": "score",
-          "frame": 336,
-          "note": "MatchHUD 0-1."
-        },
-        {
-          "type": "score",
-          "frame": 440,
-          "note": "MatchHUD 0-2."
-        }
-      ],
-      "lines": [
-        {
-          "id": "e6_05",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda.",
-          "translation": "Matchday one. Without Karim, Buluh FC has no helmsman.",
-          "start": 15.866666666666667,
-          "end": 19.933333333333334,
-          "startFrame": 476,
-          "endFrame": 598,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_06",
-          "type": "dialogue",
-          "speaker": "KAPTEN ZAKI",
-          "text": "Kau tak ada kapten? Bagus la. Kami nombor satu.",
-          "translation": "No captain? Even better. We're number one.",
-          "start": 20,
-          "end": 23.566666666666666,
-          "startFrame": 600,
-          "endFrame": 707,
-          "voice": "voice_2",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_07",
-          "type": "dialogue",
-          "speaker": "JURULATIH",
-          "text": "Azam! Tekan! Jangan bagi dia ruang!",
-          "translation": "Azam! Press! Don't give him space!",
-          "start": 23.633333333333333,
-          "end": 26.466666666666665,
-          "startFrame": 709,
-          "endFrame": 794,
-          "voice": "voice_2",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_08",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala.",
-          "translation": "Two goals. One opponent. And the bank's spotlight is still on.",
-          "start": 26.533333333333335,
-          "end": 30.666666666666668,
-          "startFrame": 796,
-          "endFrame": 920,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        }
-      ]
+     "frame": 795,
+     "home": 0,
+     "away": 1,
+     "clock": "63'"
     },
     {
-      "id": "act-3-desperate-block",
-      "name": "Act 3 — Last-Ditch Block",
-      "from": 30.833333333333332,
-      "to": 42.13333333333333,
-      "fromFrame": 925,
-      "durationFrames": 339,
-      "environment": "PitchTouchlineApp (environments/modular-pitch-zone.js)",
-      "director": "createDesperateBlockScene",
-      "visual": "Azam throws his body in front of a shot at the touchline; camera cuts to the bench where Peguam sits behind Jurulatih, tapping his watch. DebtTickerHUD flashes NEUTRAL at RM331,500 — a loss pays RM0.",
-      "sfx": "block thud; sharp whistle; watch-tap ticks; neutral HUD sting.",
-      "bgm": "Tense bed swelling under the neutral debt hold.",
-      "cues": [
-        {
-          "file": "whistle.wav",
-          "frame": 925,
-          "volume": 0.6
-        },
-        {
-          "file": "bass-hit.wav",
-          "frame": 1030,
-          "volume": 0.7
-        },
-        {
-          "file": "pen-tap.wav",
-          "frame": 1165,
-          "volume": 0.4
-        },
-        {
-          "file": "pen-tap.wav",
-          "frame": 1183,
-          "volume": 0.4
-        }
-      ],
-      "events": [
-        {
-          "type": "cut",
-          "frame": 130,
-          "note": "Block close-up -> bench two-shot."
-        },
-        {
-          "type": "debtTicker",
-          "frame": 211,
-          "durationFrames": 124,
-          "note": "Neutral RM331,500 hold."
-        },
-        {
-          "type": "hardCut",
-          "frame": 343,
-          "note": "Hard cut to EndCard."
-        }
-      ],
-      "lines": [
-        {
-          "id": "e6_09",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Minit ke-89. Azam nampak satu peluang terakhir untuk menahan.",
-          "translation": "89th minute. Azam sees one last chance to block.",
-          "start": 30.833333333333332,
-          "end": 35.63333333333333,
-          "startFrame": 925,
-          "endFrame": 1069,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_10",
-          "type": "dialogue",
-          "speaker": "AZAM",
-          "text": "Tak lepas. Hari ini tak lepas.",
-          "translation": "Not through. Not today.",
-          "start": 35.7,
-          "end": 37.96666666666667,
-          "startFrame": 1071,
-          "endFrame": 1139,
-          "voice": "voice_5",
-          "trimLeadingSilence": true
-        },
-        {
-          "id": "e6_11",
-          "type": "narrator",
-          "speaker": "NARRATOR",
-          "text": "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa.",
-          "translation": "On the touchline, the lawyer checks his watch. He doesn't need to say a word.",
-          "start": 38.03333333333333,
-          "end": 42.06666666666667,
-          "startFrame": 1141,
-          "endFrame": 1262,
-          "voice": "voice_1",
-          "trimLeadingSilence": true
-        }
-      ]
-    },
-    {
-      "id": "outro-card",
-      "name": "Buluh FC Series Outro",
-      "from": 42.13333333333333,
-      "to": 44.53333333333333,
-      "fromFrame": 1264,
-      "durationFrames": 72,
-      "environment": null,
-      "director": null,
-      "visual": "Standard black Buluh FC / EPISOD 6 card. No CTA.",
-      "sfx": "kick.wav + bass-hit.wav on the cut.",
-      "bgm": null,
-      "cues": [
-        {
-          "file": "kick.wav",
-          "frame": 1264,
-          "volume": 0.9
-        },
-        {
-          "file": "bass-hit.wav",
-          "frame": 1264,
-          "volume": 0.9
-        }
-      ],
-      "events": [],
-      "lines": []
+     "frame": 881,
+     "home": 0,
+     "away": 2,
+     "clock": "89'"
     }
-  ]
+   ]
+  },
+  "debtTicker": {
+   "scene": "act-3-desperate-block",
+   "fromFrame": 1105,
+   "toFrame": 1229,
+   "label": "HUTANG KELAB",
+   "from": 331500,
+   "to": 331500,
+   "direction": "flat",
+   "currency": "RM",
+   "note": "KALAH MATCHDAY 1 = TIADA BONUS"
+  },
+  "outroCard": {
+   "fromFrame": 1239,
+   "toFrame": 1311,
+   "durationFrames": 72,
+   "label": "EPISOD 6"
+  }
+ },
+ "scenes": [
+  {
+   "id": "act-1-bank-promise",
+   "name": "Act 1 — Janji Bank (dengan Armband)",
+   "from": 0.0,
+   "to": 17.467,
+   "fromFrame": 0,
+   "durationFrames": 524,
+   "environment": "ClubOfficeApp (environments/club-office.js)",
+   "director": "createBankPromiseScene",
+   "visual": "Frame 0: the heavy red stamp slams onto the NOTIS SITA folder; Karim's gold armband sits beside it. Peguam gives the ultimatum; Bos signs the one-season freeze and points at the armband — it stays on the desk until Buluh FC lift the trophy. Peguam's answer defines the season: armbands don't pay debt — goals do.",
+   "sfx": "stamp slam at frame 0; paper slide; pen-tap ticks on the signing.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "stamp.wav",
+     "frame": 0,
+     "volume": 0.9
+    },
+    {
+     "file": "paper.wav",
+     "frame": 93,
+     "volume": 0.55
+    },
+    {
+     "file": "pen-tap.wav",
+     "frame": 309,
+     "volume": 0.45
+    },
+    {
+     "file": "pen-tap.wav",
+     "frame": 321,
+     "volume": 0.45
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    },
+    {
+     "type": "cut",
+     "frame": 54,
+     "note": "First cut within the hook window."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e6_01",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Cop merah. Meja ni bukan lagi milik kita.",
+     "translation": "A red stamp. This desk isn't ours anymore.",
+     "start": 0.0,
+     "end": 2.833,
+     "startFrame": 0,
+     "endFrame": 93,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_02",
+     "type": "dialogue",
+     "speaker": "PEGUAM",
+     "text": "Tujuh hari, bos. Juara atau sita. Awak yang sign.",
+     "translation": "Seven days, boss. Champions or seized. You're the one signing.",
+     "start": 3.1,
+     "end": 6.433,
+     "startFrame": 93,
+     "endFrame": 201,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_03",
+     "type": "dialogue",
+     "speaker": "BOS",
+     "text": "Kasih satu musim. Juara Divisyen 5, hutang lunas.",
+     "translation": "Give us one season. Win Divisyen 5, debt cleared.",
+     "start": 6.7,
+     "end": 10.033,
+     "startFrame": 201,
+     "endFrame": 309,
+     "voice": "voice_3",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_04",
+     "type": "dialogue",
+     "speaker": "BOS",
+     "text": "Armband Karim kekal atas meja ni. Sampai kita juara.",
+     "translation": "Karim's armband stays on this desk. Until we're champions.",
+     "start": 10.3,
+     "end": 13.833,
+     "startFrame": 309,
+     "endFrame": 423,
+     "voice": "voice_3",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_05",
+     "type": "dialogue",
+     "speaker": "PEGUAM",
+     "text": "Armband tak bayar hutang. Gol yang bayar.",
+     "translation": "Armbands don't pay debt. Goals do.",
+     "start": 14.1,
+     "end": 16.933,
+     "startFrame": 423,
+     "endFrame": 516,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "act-2-matchday1",
+   "name": "Act 2 — Matchday 1 vs Taktik Jaya",
+   "from": 17.467,
+   "to": 33.267,
+   "fromFrame": 524,
+   "durationFrames": 474,
+   "environment": "PitchCenterCircleApp (environments/modular-pitch-zone.js)",
+   "director": "createMatchdayOneScene",
+   "visual": "Kickoff vs neon-green Taktik Jaya. Kapten Zaki struts with his clipboard — a try-hard tactician, not a one-line extra. Danial screams at the backline as Taktik Jaya score twice; Azam organises, Jurulatih refuses to let heads drop. The loss lands through the players' voices.",
+   "sfx": "kickoff whistle; crowd murmur; boot-on-ball kicks; net swish on both conceded goals.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "whistle.wav",
+     "frame": 524,
+     "volume": 0.85
+    },
+    {
+     "file": "crowd-small.wav",
+     "frame": 617,
+     "volume": 0.4
+    },
+    {
+     "file": "kick.wav",
+     "frame": 807,
+     "volume": 0.7
+    },
+    {
+     "file": "net.wav",
+     "frame": 815,
+     "volume": 0.6
+    },
+    {
+     "file": "kick.wav",
+     "frame": 894,
+     "volume": 0.7
+    },
+    {
+     "file": "net.wav",
+     "frame": 902,
+     "volume": 0.6
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    },
+    {
+     "type": "goal",
+     "frame": 815,
+     "note": "net.wav goal 1 lands mid-gap."
+    },
+    {
+     "type": "goal",
+     "frame": 902,
+     "note": "net.wav goal 2 lands mid-gap."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e6_06",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Matchday satu. Tanpa kapten, tanpa Karim.",
+     "translation": "Matchday one. No captain, no Karim.",
+     "start": 17.467,
+     "end": 20.3,
+     "startFrame": 524,
+     "endFrame": 617,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_07",
+     "type": "dialogue",
+     "speaker": "KAPTEN ZAKI",
+     "text": "Tak ada kapten? Aku ada clipboard. Itu beza kita.",
+     "translation": "No captain? I have a clipboard. That's the difference.",
+     "start": 20.567,
+     "end": 23.9,
+     "startFrame": 617,
+     "endFrame": 725,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_08",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "Hutang bukan mati, bro. Aku jaga belakang.",
+     "translation": "Debt isn't death, bro. I guard the back.",
+     "start": 24.167,
+     "end": 27.067,
+     "startFrame": 725,
+     "endFrame": 820,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_09",
+     "type": "dialogue",
+     "speaker": "DANIAL",
+     "text": "Belakang!! Siapa jaga lurus belakang?!",
+     "translation": "Backline!! Who's holding the line?!",
+     "start": 27.333,
+     "end": 29.967,
+     "startFrame": 820,
+     "endFrame": 907,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_10",
+     "type": "dialogue",
+     "speaker": "JURULATIH",
+     "text": "Fokus! Susun balik! Belum mati lagi!",
+     "translation": "Focus! Line up again! Not dead yet!",
+     "start": 30.233,
+     "end": 32.733,
+     "startFrame": 907,
+     "endFrame": 990,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "act-3-desperate-block",
+   "name": "Act 3 — Blok Terakhir & Skrip Peguam",
+   "from": 33.267,
+   "to": 41.3,
+   "fromFrame": 998,
+   "durationFrames": 241,
+   "environment": "PitchTouchlineApp (environments/modular-pitch-zone.js)",
+   "director": "createDesperateBlockScene",
+   "visual": "Minute 89, Zaki wants a third for his clipboard. Azam throws his body in front of the shot — his line, his responsibility. On the touchline Peguam writes it all down without a word. DebtTickerHUD flashes NEUTRAL at RM331,500 — a loss pays RM0.",
+   "sfx": "block thud (bass-hit); sharp whistle; pen-tap as the lawyer writes.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "whistle.wav",
+     "frame": 998,
+     "volume": 0.6
+    },
+    {
+     "file": "bass-hit.wav",
+     "frame": 1067,
+     "volume": 0.7
+    },
+    {
+     "file": "pen-tap.wav",
+     "frame": 1144,
+     "volume": 0.4
+    },
+    {
+     "file": "pen-tap.wav",
+     "frame": 1158,
+     "volume": 0.4
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e6_11",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Minit ke-89. Zaki nak satu lagi.",
+     "translation": "Minute 89. Zaki wants one more.",
+     "start": 33.267,
+     "end": 35.5,
+     "startFrame": 998,
+     "endFrame": 1073,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_13",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "Tak lepas. Hari ini tak lepas.",
+     "translation": "Not through. Not today.",
+     "start": 35.767,
+     "end": 37.867,
+     "startFrame": 1073,
+     "endFrame": 1144,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e6_14",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Peguam catat semua. Tanpa sepatah pun.",
+     "translation": "The lawyer writes it all down. Not one word.",
+     "start": 38.133,
+     "end": 40.767,
+     "startFrame": 1144,
+     "endFrame": 1231,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "outro-card",
+   "name": "Buluh FC Series Outro",
+   "from": 41.3,
+   "to": 43.7,
+   "fromFrame": 1239,
+   "durationFrames": 72,
+   "environment": null,
+   "director": null,
+   "visual": "Standard black Buluh FC / EPISOD 6 card. No CTA.",
+   "sfx": "kick.wav + bass-hit.wav on the cut.",
+   "bgm": null,
+   "cues": [
+    {
+     "file": "kick.wav",
+     "frame": 1239,
+     "volume": 0.9
+    },
+    {
+     "file": "bass-hit.wav",
+     "frame": 1239,
+     "volume": 0.9
+    }
+   ],
+   "events": [],
+   "lines": []
+  }
+ ]
 }
