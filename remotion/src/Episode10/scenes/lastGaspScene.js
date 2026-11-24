@@ -2,10 +2,11 @@ import { PitchPenaltyBoxApp } from '../../../../environments/modular-pitch-zone.
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, BobApp } from '../../../../characters/character-variants.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const GOAL = goalFrame(ACT_2);
 
 /** Act 2 — 88th minute: block, release, winner. */
 export const createLastGaspScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -32,11 +33,11 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       scale: 0.97, position: [-1.6, 0, 0.8], rotationY: -0.2,
       beats: [
         { from: 0, to: L('e10_06'), pose: 'stride' },
-        { from: L('e10_06'), to: L('e10_07'), pose: 'stride' },
-        { from: L('e10_07'), to: 510, pose: 'celebrate' },
+        { from: L('e10_06'), to: GOAL, pose: 'stride' },
+        { from: GOAL, to: 510, pose: 'celebrate' },
       ],
       anim: ({ frame, rig }) => {
-        const run = smooth(clamp((frame - L('e10_06')) / 190, 0, 1));
+        const run = smooth(clamp((frame - L('e10_06')) / Math.max(1, GOAL - L('e10_06')), 0, 1));
         rig.position.x = lerp(-1.6, -5.4, run);
       },
     },
@@ -52,9 +53,10 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
   onFrame: ({ frame, extra }) => {
     const ball = extra && extra.ball;
     if (!ball) return;
-    const run = smooth(clamp((frame - L('e10_06')) / 190, 0, 1));
+    const run = smooth(clamp((frame - L('e10_06')) / Math.max(1, GOAL - L('e10_06')), 0, 1));
     ball.position.x = lerp(0.6, -5.6, run);
     ball.position.z = lerp(1.2, 0, run);
+    ball.position.y = 0.22 + (frame >= GOAL && frame < GOAL + 12 ? 0.34 : 0);
   },
   camera: {
     fov: 50, ease: smooth,
@@ -62,7 +64,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       [0, [-2.4, 1.7, 4.6], [-2.8, 1.4, 3.4], 48],
       [sec(L('e10_05')), [1.4, 1.4, 3.0], [0.6, 1.1, 1.0], 44],
       [sec(L('e10_06')), [-0.6, 1.6, 3.4], [-2.0, 1.3, 0.8], 48],
-      [sec(L('e10_07')), [-4.6, 1.5, 3.2], [-5.6, 1.4, 0], 44],
+      [sec(GOAL), [-4.6, 1.5, 3.2], [-5.6, 1.4, 0], 44],
       [sec(510), [-3.6, 1.8, 4.2], [-4.4, 1.4, 0], 50],
     ],
   },

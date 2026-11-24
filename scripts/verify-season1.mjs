@@ -143,6 +143,22 @@ for (let ep = 6; ep <= 12; ep += 1) {
   }
 }
 
+// Goal narration must start at or after the net.wav cue that scores the goal.
+const GOAL_LINE = { e7_08: 'act-2-first-win', e8_08: 'act-2-bribe-revenge', e10_07: 'act-2-last-gasp', e12_07: 'act-2-winner' };
+for (let ep = 6; ep <= 12; ep += 1) {
+  const script = JSON.parse(fs.readFileSync(path.join(root, 'episodes', `episode-${ep}`, 'audio-script.json'), 'utf8'));
+  for (const [lineId, sceneId] of Object.entries(GOAL_LINE)) {
+    const scene = script.scenes.find((item) => item.id === sceneId);
+    const line = scene?.lines.find((item) => item.id === lineId);
+    if (!line) continue;
+    const netFrames = (scene.cues || []).filter((cue) => cue.file === 'net.wav').map((cue) => cue.frame);
+    if (!netFrames.length) continue;
+    check(`Ep${ep} ${lineId} after goal`, () => {
+      assert.ok(line.startFrame >= Math.max(...netFrames), `${line.startFrame} < goal ${Math.max(...netFrames)}`);
+    });
+  }
+}
+
 // Line gaps inside a single scene must never exceed 0.8s (24 frames).
 for (let ep = 6; ep <= 12; ep += 1) {
   const script = JSON.parse(fs.readFileSync(path.join(root, 'episodes', `episode-${ep}`, 'audio-script.json'), 'utf8'));

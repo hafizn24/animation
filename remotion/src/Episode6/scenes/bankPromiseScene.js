@@ -67,8 +67,10 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
   ],
   onFrame: ({ frame, extra }) => {
     if (!extra || !extra.stamp) return;
-    const slam = smooth(clamp(frame / 14, 0, 1));
-    extra.stamp.position.y = lerp(1.55, 0.94, slam);
+    // The stamp audio hits on frame 0, so the prop is already down at frame 0
+    // and only rebounds before it leaves frame.
+    const rebound = smooth(clamp((frame - 2) / 12, 0, 1));
+    extra.stamp.position.y = lerp(0.94, 1.12, rebound);
     extra.stamp.visible = frame < 60;
   },
   camera: {

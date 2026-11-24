@@ -36,7 +36,7 @@
         "homeColor": "#de1326", "awayColor": "#b3121f",
         "steps": [
           { "frame": 450, "home": 2, "away": 2, "clock": "90'" },
-          { "frame": 810, "home": 3, "away": 2, "clock": "FT" }
+          { "frame": 790, "home": 3, "away": 2, "clock": "FT" }
         ]
       }
     ],
@@ -110,8 +110,10 @@
       "lines": [
         { "id": "e12_05", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-90. Dua dua. Satu lawan satu.", "translation": "90th minute. Two-all. One against one.", "start": 15.5, "end": 18.0, "startFrame": 465, "endFrame": 540, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e12_06", "type": "dialogue", "speaker": "AZAM", "text": "Farid! Sekarang!", "translation": "Farid! Now!", "start": 18.5, "end": 21.0, "startFrame": 555, "endFrame": 630, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e12_07", "type": "narrator", "speaker": "NARRATOR", "text": "Slow motion. Tendangan ke penjuru atas. Tiga dua!", "translation": "Slow motion. Strike into the top corner. Three-two!", "start": 21.5, "end": 25.5, "startFrame": 645, "endFrame": 765, "voice": "voice_6", "trimLeadingSilence": true },
-        { "id": "e12_08", "type": "dialogue", "speaker": "FARID", "text": "MASUK!", "translation": "IN!", "start": 26.0, "end": 29.0, "startFrame": 780, "endFrame": 870, "voice": "voice_4", "trimLeadingSilence": true }
+        { "id": "e12_06b", "type": "narrator", "speaker": "NARRATOR", "text": "Farid lari ke kotak. Penjaga gol keluar.", "translation": "Farid runs into the box. The keeper comes out.", "start": 21.5, "end": 24.0, "startFrame": 645, "endFrame": 720, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e12_06c", "type": "narrator", "speaker": "NARRATOR", "text": "Satu lawan satu. Stadium diam.", "translation": "One against one. The stadium holds its breath.", "start": 24.5, "end": 26.0, "startFrame": 735, "endFrame": 780, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e12_07", "type": "narrator", "speaker": "NARRATOR", "text": "Slow motion. Tendangan ke penjuru atas. Tiga dua!", "translation": "Slow motion. Strike into the top corner. Three-two!", "start": 26.5, "end": 28.83, "startFrame": 795, "endFrame": 865, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e12_08", "type": "dialogue", "speaker": "FARID", "text": "MASUK!", "translation": "IN!", "start": 29.0, "end": 29.83, "startFrame": 870, "endFrame": 895, "voice": "voice_4", "trimLeadingSilence": true }
       ]
     },
     {

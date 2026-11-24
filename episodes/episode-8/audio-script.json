@@ -26,7 +26,7 @@
         { "frame": 482, "home": 0, "away": 0, "clock": "1'" },
         { "frame": 700, "home": 1, "away": 0, "clock": "52'" },
         { "frame": 800, "home": 1, "away": 1, "clock": "71'" },
-        { "frame": 898, "home": 2, "away": 1, "clock": "88'" }
+        { "frame": 858, "home": 2, "away": 1, "clock": "88'" }
       ]
     },
     "leagueTable": {
@@ -79,23 +79,26 @@
         { "file": "whistle.wav", "frame": 480, "volume": 0.7 },
         { "file": "kick.wav", "frame": 585, "volume": 0.65 },
         { "file": "bass-hit.wav", "frame": 690, "volume": 0.7 },
-        { "file": "kick.wav", "frame": 894, "volume": 0.9 },
-        { "file": "net.wav", "frame": 900, "volume": 0.75 },
-        { "file": "crowd-small.wav", "frame": 906, "volume": 0.7 }
+        { "file": "net.wav", "frame": 700, "volume": 0.65 },
+        { "file": "net.wav", "frame": 800, "volume": 0.65 },
+        { "file": "kick.wav", "frame": 852, "volume": 0.9 },
+        { "file": "net.wav", "frame": 860, "volume": 0.75 },
+        { "file": "crowd-small.wav", "frame": 864, "volume": 0.7 }
       ],
       "events": [
         { "type": "cut", "frame": 105, "note": "Rayyan skill -> Azam shut-down." },
         { "type": "cut", "frame": 210, "note": "Azam -> Farid counter." },
         { "type": "score", "frame": 220, "note": "MatchHUD 1-0." },
         { "type": "score", "frame": 320, "note": "MatchHUD 1-1." },
-        { "type": "score", "frame": 418, "note": "MatchHUD 2-1." }
+        { "type": "score", "frame": 378, "note": "MatchHUD 2-1." }
       ],
       "lines": [
         { "id": "e8_05", "type": "narrator", "speaker": "NARRATOR", "text": "Rayyan main cantik. Skill, feint, nampak macam iklan.", "translation": "Rayyan plays pretty. Skills, feints, like a commercial.", "start": 16.5, "end": 19.0, "startFrame": 495, "endFrame": 570, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e8_06", "type": "dialogue", "speaker": "RAYYAN", "text": "Nampak tak? Ini kelas divisyen empat.", "translation": "See that? This is Division Four class.", "start": 19.5, "end": 22.5, "startFrame": 585, "endFrame": 675, "voice": "voice_4", "trimLeadingSilence": true },
         { "id": "e8_07", "type": "dialogue", "speaker": "AZAM", "text": "Kelas? Saya jaga kelas, bro.", "translation": "Class? I guard the class, bro.", "start": 23.0, "end": 25.0, "startFrame": 690, "endFrame": 750, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e8_08", "type": "narrator", "speaker": "NARRATOR", "text": "Azam tutup ruang. Farid lari. Dua satu.", "translation": "Azam shuts the door. Farid runs. Two-one.", "start": 25.5, "end": 28.5, "startFrame": 765, "endFrame": 855, "voice": "voice_6", "trimLeadingSilence": true },
-        { "id": "e8_09", "type": "dialogue", "speaker": "FARID", "text": "Maruah tak dijual, tapi gol dijual!", "translation": "Pride isn't for sale — but goals are!", "start": 29.0, "end": 31.5, "startFrame": 870, "endFrame": 945, "voice": "voice_4", "trimLeadingSilence": true }
+        { "id": "e8_07b", "type": "narrator", "speaker": "NARRATOR", "text": "Azam tutup ruang. Farid lari.", "translation": "Azam shuts the door. Farid runs.", "start": 25.5, "end": 28.5, "startFrame": 765, "endFrame": 855, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e8_08", "type": "narrator", "speaker": "NARRATOR", "text": "Dua satu. Gol!", "translation": "Two-one. Goal!", "start": 28.87, "end": 30.5, "startFrame": 866, "endFrame": 915, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e8_09", "type": "dialogue", "speaker": "FARID", "text": "Maruah tak dijual, tapi gol dijual!", "translation": "Pride isn't for sale — but goals are!", "start": 30.67, "end": 31.67, "startFrame": 920, "endFrame": 950, "voice": "voice_4", "trimLeadingSilence": true }
       ]
     },
     {

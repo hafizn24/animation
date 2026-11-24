@@ -30,8 +30,10 @@
 |---|---|---|---|---|
 | e12_05 | 465–540 | NARRATOR | "Minit ke-90. Dua dua. Satu lawan satu." | "90th minute. Two-all. One against one." |
 | e12_06 | 555–630 | AZAM | "Farid! Sekarang!" | "Farid! Now!" |
-| e12_07 | 645–765 | NARRATOR | "Slow motion. Tendangan ke penjuru atas. Tiga dua!" | "Slow motion. Strike into the top corner. Three-two!" |
-| e12_08 | 780–870 | FARID | "MASUK!" | "IN!" |
+| e12_06b | 645–720 | NARRATOR | "Farid lari ke kotak. Penjaga gol keluar." | "Farid runs into the box. The keeper comes out." |
+| e12_06c | 735–780 | NARRATOR | "Satu lawan satu. Stadium diam." | "One against one. The stadium holds its breath." |
+| e12_07 | 795–865 | NARRATOR | "Slow motion. Tendangan ke penjuru atas. Tiga dua!" | "Slow motion. Strike into the top corner. Three-two!" |
+| e12_08 | 870–895 | FARID | "MASUK!" | "IN!" |
 
 - **Visual:** Farid vs Penjaga Gol Besi (#1), low crouch and oversized gloves, slow-motion kick to the top corner; fulltime whistle.
 

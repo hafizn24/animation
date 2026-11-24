@@ -37,7 +37,7 @@
         "homeColor": "#de1326", "awayColor": "#ff7a00",
         "steps": [
           { "frame": 420, "home": 3, "away": 3, "clock": "88'" },
-          { "frame": 870, "home": 4, "away": 3, "clock": "FT" }
+          { "frame": 776, "home": 4, "away": 3, "clock": "FT" }
         ]
       }
     ],
@@ -91,9 +91,9 @@
       "cues": [
         { "file": "whistle.wav", "frame": 420, "volume": 0.5 },
         { "file": "bass-hit.wav", "frame": 645, "volume": 0.75 },
-        { "file": "kick.wav", "frame": 768, "volume": 0.9 },
-        { "file": "net.wav", "frame": 784, "volume": 0.8 },
-        { "file": "crowd-small.wav", "frame": 790, "volume": 0.8 },
+        { "file": "kick.wav", "frame": 760, "volume": 0.9 },
+        { "file": "net.wav", "frame": 776, "volume": 0.8 },
+        { "file": "crowd-small.wav", "frame": 780, "volume": 0.8 },
         { "file": "whistle.wav", "frame": 920, "volume": 0.9 }
       ],
       "events": [

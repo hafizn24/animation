@@ -57,7 +57,7 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
   ],
   onFrame: ({ frame, extra }) => {
     if (!extra || !extra.armband) return;
-    const reveal = smooth(clamp((frame - L('e11_09') + 12) / 48, 0, 1));
+    const reveal = smooth(clamp((frame - L('e11_10') + 8) / 36, 0, 1));
     extra.armband.position.x = lerp(-0.5, 0.1, reveal);
     extra.armband.position.y = lerp(1.3, 1.42, reveal);
     extra.armband.position.z = lerp(-1.9, -0.9, reveal);

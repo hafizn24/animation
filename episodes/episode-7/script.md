@@ -29,8 +29,9 @@
 | e7_05 | 465–555 | JURULATIH | "Tinggi! Press dari depan! Jangan tunggu dia bagi pass!" | "Push up! Press from the front! Don't wait for his pass!" |
 | e7_06 | 570–660 | NARRATOR | "Pak Din bagi pass kecil — Azam baca, dan potong." | "Pak Din slips a little pass — Azam reads it and cuts it out." |
 | e7_07 | 675–720 | AZAM | "Farid! Pergi!" | "Farid! Go!" |
-| e7_08 | 735–825 | NARRATOR | "Satu sentuhan. Satu sorakan. Gol pertama Buluh FC musim ni!" | "One touch. One roar. Buluh FC's first goal of the season!" |
-| e7_09 | 840–890 | FARID | "Akhirnya!" | "Finally!" |
+| e7_07b | 735–765 | NARRATOR | "Bola keluar. Farid dah tunggu kat depan." | "The ball breaks free. Farid is waiting up front." |
+| e7_08 | 776–850 | NARRATOR | "Satu sentuhan. Satu sorakan. Gol pertama Buluh FC musim ni!" | "One touch. One roar. Buluh FC's first goal of the season!" |
+| e7_09 | 860–895 | FARID | "Akhirnya!" | "Finally!" |
 
 - **Overlay:** `MatchHUD` ticks `BUL 1-0 OTK` (`1' → 78' → FT`).
 

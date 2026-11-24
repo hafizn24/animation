@@ -4,6 +4,12 @@ export { clamp, lerp, smooth, sampleKeys, forEachLight, createSceneDirector } fr
 
 export const sec = (frames) => frames / 30;
 
+/** Local frame of a scene's first net.wav cue — the authoritative goal moment. */
+export const goalFrame = (scene, index = 0) => {
+  const cue = (scene.cues || []).filter((item) => item.file === 'net.wav')[index];
+  return cue ? cue.frame - scene.fromFrame : 0;
+};
+
 /** Daylight pitch grade — bright and punchy for the vertical match frames. */
 export function pitchGrade(scene, env, mode = 'day') {
   const { ambient, hemi, sun, fill } = env.lights || {};

@@ -2,24 +2,28 @@ import * as THREE from 'three';
 import { PitchCenterCircleApp } from '../../../../environments/modular-pitch-zone.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, MalikApp } from '../../../../characters/character-variants.js';
-import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const GOALS = [goalFrame(ACT_1, 0), goalFrame(ACT_1, 1)];
 
 /** Act 1 — armband close-up hook, then the vocal comeback. */
 export const createComebackScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: PitchCenterCircleApp,
   grade: (scene, env) => pitchGrade(scene, env, 'dusk'),
-  extra: (scene) => {
+  extra: (scene, { env, actors }) => {
+    const azam = actors.find((actor) => actor.name === 'azam');
     const armband = new THREE.Mesh(
       new THREE.TorusGeometry(0.16, 0.032, 12, 30),
       new THREE.MeshStandardMaterial({ color: 0xd8b26a, metalness: 0.35, roughness: 0.5 })
     );
-    armband.position.set(0.2, 1.45, 1.3);
-    armband.rotation.set(0.4, 0.2, -0.3);
-    scene.add(armband);
-    return { armband };
+    armband.rotation.x = Math.PI / 2;
+    armband.scale.setScalar(1.25);
+    // Worn on the upper left arm, not floating in front of the lens.
+    if (azam && azam.parts.leftArm) azam.parts.leftArm.add(armband);
+    armband.position.set(0, -0.2, 0);
+    return { armband, ball: env.anchors.ball };
   },
   actors: [
     {
@@ -46,15 +50,29 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
     },
   ],
   onFrame: ({ frame, extra }) => {
-    if (!extra || !extra.armband) return;
-    extra.armband.visible = frame < 90;
-    const tighten = smooth(clamp(frame / 36, 0, 1));
-    extra.armband.scale.setScalar(lerp(1.18, 0.9, tighten));
+    if (!extra) return;
+    if (extra.armband) {
+      const tighten = smooth(clamp(frame / 24, 0, 1));
+      extra.armband.scale.setScalar(lerp(1.25, 0.92, tighten));
+    }
+    const ball = extra.ball;
+    if (!ball) return;
+    const goal = GOALS.find((value) => frame >= value && frame < value + 14);
+    if (goal) {
+      const settle = smooth(clamp((frame - goal) / 12, 0, 1));
+      ball.position.x = lerp(-5.2, -6.0, settle);
+      ball.position.y = 0.22 + Math.sin(settle * Math.PI) * 0.3;
+      ball.position.z = lerp(0.3, 0, settle);
+    } else {
+      ball.position.x = 0;
+      ball.position.y = 0.22;
+      ball.position.z = 0;
+    }
   },
   camera: {
     fov: 46, ease: smooth,
     keys: [
-      [0, [0.2, 1.5, 2.2], [0.2, 1.45, 1.3], 42],
+      [0, [0.3, 1.72, 1.55], [0.11, 1.62, 0.62], 40],
       [sec(54), [0.8, 1.62, 2.8], [0.4, 1.45, 0.6], 44],
       [sec(L('e12_03')), [-0.8, 1.6, 3.2], [-0.6, 1.3, 0.8], 48],
       [sec(L('e12_04')), [-1.4, 1.55, 3.4], [-1.2, 1.4, 1.0], 46],

@@ -2,10 +2,11 @@ import { PitchCenterCircleApp } from '../../../../environments/modular-pitch-zon
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { FaridApp, ZakiApp } from '../../../../characters/character-variants.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
+import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const GOALS = [goalFrame(ACT_2, 0), goalFrame(ACT_2, 1)];
 
 /** Act 2 — StartingXI sells 11-a-side; only four rigs are actually rendered. */
 export const createMatchdayOneScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -52,10 +53,20 @@ export const createMatchdayOneScene = (renderer, size) => createCinematicScene(r
   onFrame: ({ frame, extra }) => {
     const ball = extra && extra.ball;
     if (!ball) return;
-    const k = smooth(clamp((frame - L('e6_08')) / 40, 0, 1));
-    ball.position.x = lerp(0, 3.2, k);
-    ball.position.z = lerp(0, -1.4, k);
-    ball.rotation.x = k * 8;
+    const inNet = GOALS.some((goal) => frame >= goal && frame < goal + 16);
+    if (inNet) {
+      const goal = GOALS.find((value) => frame >= value && frame < value + 16);
+      const settle = smooth(clamp((frame - goal) / 12, 0, 1));
+      ball.position.x = lerp(-4.6, -5.9, settle);
+      ball.position.y = 0.22 + Math.sin(settle * Math.PI) * 0.28;
+      ball.position.z = lerp(0.4, 0, settle);
+    } else {
+      const k = smooth(clamp((frame - L('e6_08')) / 40, 0, 1));
+      ball.position.x = lerp(0, 3.2, k);
+      ball.position.z = lerp(0, -1.4, k);
+      ball.position.y = 0.22;
+    }
+    ball.rotation.x = frame * 0.12;
   },
   camera: {
     fov: 50, ease: smooth,

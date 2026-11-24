@@ -29,8 +29,9 @@
 | e8_05 | 495–570 | NARRATOR | "Rayyan main cantik. Skill, feint, nampak macam iklan." | "Rayyan plays pretty. Skills, feints, like a commercial." |
 | e8_06 | 585–675 | RAYYAN | "Nampak tak? Ini kelas divisyen empat." | "See that? This is Division Four class." |
 | e8_07 | 690–750 | AZAM | "Kelas? Saya jaga kelas, bro." | "Class? I guard the class, bro." |
-| e8_08 | 765–855 | NARRATOR | "Azam tutup ruang. Farid lari. Dua satu." | "Azam shuts the door. Farid runs. Two-one." |
-| e8_09 | 870–945 | FARID | "Maruah tak dijual, tapi gol dijual!" | "Pride isn't for sale — but goals are!" |
+| e8_07b | 765–855 | NARRATOR | "Azam tutup ruang. Farid lari." | "Azam shuts the door. Farid runs." |
+| e8_08 | 866–915 | NARRATOR | "Dua satu. Gol!" | "Two-one. Goal!" |
+| e8_09 | 920–950 | FARID | "Maruah tak dijual, tapi gol dijual!" | "Pride isn't for sale — but goals are!" |
 
 - **Overlay:** `MatchHUD` ticks `0-0 → 1-0 → 1-1 → 2-1`.
 
