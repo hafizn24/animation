@@ -6,7 +6,7 @@
 - **Result:** *No match* • **Debt:** RM296,500 → RM321,500 (**+RM25,000 🔴** emergency floodlight loan).
 - **Structure:** NARRATOR alternates with JURULATIH, BOS and PEGUAM. Zero new rival rigs — only the 3 existing office/coach characters.
 - **Settings:** Act 1 `PitchCrisisNight` (reused penalty-box zone, night state) → Acts 2–3 `ClubOffice`.
-- **Hook:** loud electrical pop and sparks at frame 0; the floodlight dies by frame 18. HookTitle "HUTANG NAIK BALIK?!" for frames 0–45; first cut at frame 90.
+- **Hook:** loud electrical pop and sparks at frame 0; the floodlight dies by frame 18. HookTitle "HUTANG NAIK BALIK?!" for frames 0–45; first cut at frame 54.
 - **Ending:** hard cut to the standard 72-frame **Buluh FC / EPISOD 9** EndCard.
 
 **Machine-readable source of truth:** [`audio-script.json`](./audio-script.json).

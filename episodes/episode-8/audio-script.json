@@ -10,9 +10,9 @@
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 8. Matchday 3: Vanguard Elite offers a bribe in the tunnel, Buluh FC refuses and wins 2-1, breaking the RM300k barrier at RM296,500. Ends with the standard 72-frame Buluh FC / EPISOD 8 card. No CTAs.",
   "cast": {
-    "narrator": { "voice": "voice_5", "label": "NARRATOR" },
+    "narrator": { "voice": "voice_6", "label": "NARRATOR" },
     "bos": { "class": "NewOwnerApp", "outfit": "charcoalOwner", "voice": "voice_3", "label": "BOS" },
-    "rayyan": { "class": "RayyanApp", "voice": "voice_4", "label": "RAYAN" },
+    "rayyan": { "class": "RayyanApp", "voice": "voice_4", "label": "RAYYAN" },
     "azam": { "class": "AzamApp", "outfit": "matchJersey", "voice": "voice_5", "label": "AZAM" },
     "farid": { "class": "FaridApp", "voice": "voice_4", "label": "FARID" }
   },
@@ -56,15 +56,15 @@
       ],
       "events": [
         { "type": "hook", "frame": 0, "note": "HookTitle clears by frame 45." },
-        { "type": "cut", "frame": 90, "note": "Envelope slap -> Rayyan sneer." },
+        { "type": "cut", "frame": 54, "note": "Envelope slap -> RAYYAN sneer." },
         { "type": "cut", "frame": 225, "note": "Rayyan -> Bos refusal." },
         { "type": "cut", "frame": 345, "note": "Bos -> envelope returned." }
       ],
       "lines": [
-        { "id": "e8_01", "type": "narrator", "speaker": "NARRATOR", "text": "Vanguard Elite. Kasut emas, kereta mewah, dan satu sampul tebal.", "translation": "Vanguard Elite. Gold boots, fancy cars, and one thick envelope.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e8_02", "type": "dialogue", "speaker": "RAYAN", "text": "Kelab kau hutang, kan? Ambil la ini. Kalah je esok.", "translation": "Your club's in debt, right? Take this. Just lose tomorrow.", "start": 3.0, "end": 7.0, "startFrame": 90, "endFrame": 210, "voice": "voice_4", "trimLeadingSilence": true },
+        { "id": "e8_01", "type": "narrator", "speaker": "NARRATOR", "text": "Vanguard Elite. Kasut emas, kereta mewah, dan satu sampul tebal.", "translation": "Vanguard Elite. Gold boots, fancy cars, and one thick envelope.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e8_02", "type": "dialogue", "speaker": "RAYYAN", "text": "Kelab kau hutang, kan? Ambil la ini. Kalah je hari ni.", "translation": "Your club's in debt, right? Take this. Just lose today.", "start": 3.0, "end": 7.0, "startFrame": 90, "endFrame": 210, "voice": "voice_4", "trimLeadingSilence": true },
         { "id": "e8_03", "type": "dialogue", "speaker": "BOS", "text": "Kau fikir kami jual maruah sekali dengan hutang?", "translation": "You think we sold our pride along with the debt?", "start": 7.5, "end": 11.0, "startFrame": 225, "endFrame": 330, "voice": "voice_3", "trimLeadingSilence": true },
-        { "id": "e8_04", "type": "narrator", "speaker": "NARRATOR", "text": "Bos letak sampul tu balik ke tangan Rayyan. Tenang je.", "translation": "Boss puts the envelope back in Rayyan's hand. Calm as you like.", "start": 11.5, "end": 15.5, "startFrame": 345, "endFrame": 465, "voice": "voice_5", "trimLeadingSilence": true }
+        { "id": "e8_04", "type": "narrator", "speaker": "NARRATOR", "text": "Bos letak sampul tu balik ke tangan Rayyan. Tenang je.", "translation": "Boss puts the envelope back in Rayyan's hand. Calm as you like.", "start": 11.5, "end": 15.5, "startFrame": 345, "endFrame": 465, "voice": "voice_6", "trimLeadingSilence": true }
       ]
     },
     {
@@ -91,10 +91,10 @@
         { "type": "score", "frame": 418, "note": "MatchHUD 2-1." }
       ],
       "lines": [
-        { "id": "e8_05", "type": "narrator", "speaker": "NARRATOR", "text": "Rayyan main cantik. Skill, feint, nampak macam iklan.", "translation": "Rayyan plays pretty. Skills, feints, like a commercial.", "start": 16.5, "end": 19.0, "startFrame": 495, "endFrame": 570, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e8_06", "type": "dialogue", "speaker": "RAYAN", "text": "Nampak tak? Ini kelas divisyen empat.", "translation": "See that? This is Division Four class.", "start": 19.5, "end": 22.5, "startFrame": 585, "endFrame": 675, "voice": "voice_4", "trimLeadingSilence": true },
+        { "id": "e8_05", "type": "narrator", "speaker": "NARRATOR", "text": "Rayyan main cantik. Skill, feint, nampak macam iklan.", "translation": "Rayyan plays pretty. Skills, feints, like a commercial.", "start": 16.5, "end": 19.0, "startFrame": 495, "endFrame": 570, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e8_06", "type": "dialogue", "speaker": "RAYYAN", "text": "Nampak tak? Ini kelas divisyen empat.", "translation": "See that? This is Division Four class.", "start": 19.5, "end": 22.5, "startFrame": 585, "endFrame": 675, "voice": "voice_4", "trimLeadingSilence": true },
         { "id": "e8_07", "type": "dialogue", "speaker": "AZAM", "text": "Kelas? Saya jaga kelas, bro.", "translation": "Class? I guard the class, bro.", "start": 23.0, "end": 25.0, "startFrame": 690, "endFrame": 750, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e8_08", "type": "narrator", "speaker": "NARRATOR", "text": "Azam tutup ruang. Farid lari. Dua satu.", "translation": "Azam shuts the door. Farid runs. Two-one.", "start": 25.5, "end": 28.5, "startFrame": 765, "endFrame": 855, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e8_08", "type": "narrator", "speaker": "NARRATOR", "text": "Azam tutup ruang. Farid lari. Dua satu.", "translation": "Azam shuts the door. Farid runs. Two-one.", "start": 25.5, "end": 28.5, "startFrame": 765, "endFrame": 855, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e8_09", "type": "dialogue", "speaker": "FARID", "text": "Maruah tak dijual, tapi gol dijual!", "translation": "Pride isn't for sale — but goals are!", "start": 29.0, "end": 31.5, "startFrame": 870, "endFrame": 945, "voice": "voice_4", "trimLeadingSilence": true }
       ]
     },
@@ -118,9 +118,9 @@
         { "type": "hardCut", "frame": 288, "note": "Hard cut to EndCard." }
       ],
       "lines": [
-        { "id": "e8_10", "type": "narrator", "speaker": "NARRATOR", "text": "Papan kedudukan: Buluh FC kekal tempat ketiga. Dua menang berturut-turut.", "translation": "The table: Buluh FC stay third. Two wins in a row.", "start": 32.5, "end": 35.0, "startFrame": 975, "endFrame": 1050, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e8_10", "type": "narrator", "speaker": "NARRATOR", "text": "Papan kedudukan: Buluh FC kekal tempat ketiga. Dua menang berturut-turut.", "translation": "The table: Buluh FC stay third. Two wins in a row.", "start": 32.5, "end": 35.0, "startFrame": 975, "endFrame": 1050, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e8_11", "type": "dialogue", "speaker": "BOS", "text": "Tiga ratus ribu... tak. Dua ratus sembilan puluh enam.", "translation": "Three hundred grand... no. Two hundred and ninety-six.", "start": 35.5, "end": 38.0, "startFrame": 1065, "endFrame": 1140, "voice": "voice_3", "trimLeadingSilence": true },
-        { "id": "e8_12", "type": "narrator", "speaker": "NARRATOR", "text": "RM296,500. Kali pertama kita nampak garisan tiga ratus.", "translation": "RM296,500. The first time we see below the three-hundred line.", "start": 38.5, "end": 41.0, "startFrame": 1155, "endFrame": 1230, "voice": "voice_5", "trimLeadingSilence": true }
+        { "id": "e8_12", "type": "narrator", "speaker": "NARRATOR", "text": "RM296,500. Kali pertama kita nampak garisan tiga ratus.", "translation": "RM296,500. The first time we see below the three-hundred line.", "start": 38.5, "end": 41.0, "startFrame": 1155, "endFrame": 1230, "voice": "voice_6", "trimLeadingSilence": true }
       ]
     },
     {

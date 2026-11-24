@@ -6,7 +6,7 @@
 - **Result:** Menang 1–0 (3 mata) • **Debt:** RM331,500 → RM316,500 (−RM15,000 🟢).
 - **Structure:** NARRATOR alternates with PAK DIN, AZAM, FARID, JURULATIH and BOS. **No CTAs.**
 - **Settings:** Act 1 & 2 `ModularPitchZone` penalty box → Act 3 touchline with the glowing `KEK MAJU` ad-board.
-- **Hook:** ball whizzes past the post and clangs the crossbar at frame 0 (`bell.wav` + `kick.wav`). HookTitle "OTAI KAMPUNG TAK LARAT?" for frames 0–45; first cut at frame 90.
+- **Hook:** ball whizzes past the post and clangs the crossbar at frame 0 (`bell.wav` + `kick.wav`). HookTitle "OTAI KAMPUNG TAK LARAT?" for frames 0–45; first cut at frame 54.
 - **Ending:** hard cut to the standard 72-frame **Buluh FC / EPISOD 7** EndCard.
 
 **Machine-readable source of truth:** [`audio-script.json`](./audio-script.json).
@@ -29,8 +29,8 @@
 | e7_05 | 465–555 | JURULATIH | "Tinggi! Press dari depan! Jangan tunggu dia bagi pass!" | "Push up! Press from the front! Don't wait for his pass!" |
 | e7_06 | 570–660 | NARRATOR | "Pak Din bagi pass kecil — Azam baca, dan potong." | "Pak Din slips a little pass — Azam reads it and cuts it out." |
 | e7_07 | 675–720 | AZAM | "Farid! Pergi!" | "Farid! Go!" |
-| e7_08 | 735–825 | NARRATOR | "Satu sentuhan. Satu deretan. Gol pertama Buluh FC musim ni!" | "One touch. One roar. Buluh FC's first goal of the season!" |
-| e7_09 | 840–890 | FARID | "Akhirnya juga!" | "Finally!" |
+| e7_08 | 735–825 | NARRATOR | "Satu sentuhan. Satu sorakan. Gol pertama Buluh FC musim ni!" | "One touch. One roar. Buluh FC's first goal of the season!" |
+| e7_09 | 840–890 | FARID | "Akhirnya!" | "Finally!" |
 
 - **Overlay:** `MatchHUD` ticks `BUL 1-0 OTK` (`1' → 78' → FT`).
 

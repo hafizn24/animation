@@ -17,6 +17,8 @@ FPS = 30
 
 VOICES = {
     "narrator": "voice_5",
+    # Season 1 narrator is a separate key so regenerating Ep1–5 TTS stays unchanged.
+    "narrator_s1": "voice_6",
     "peguam": "voice_2",
     "pemilik": "voice_3",
     "jurulatih": "voice_2",
@@ -64,6 +66,14 @@ VOICE_STYLE = {
     "azam": {"speed": 1.06, "pitch": 1.06},
     "teammate1": {"speed": 1.06, "pitch": 1.05},
     "teammate2": {"speed": 1.08, "pitch": 1.05},
+    # Season 1 — the narrator never shares a voice ID with a character, and the
+    # three voice_2 speakers are separated by pace/pitch.
+    "narrator_s1": {"speed": 0.98, "pitch": 0.92},
+    "peguam": {"speed": 0.94, "pitch": 0.88},
+    "zaki": {"speed": 1.1, "pitch": 1.08},
+    "coach": {"speed": 1.04, "pitch": 1.0},
+    "bob": {"speed": 1.12, "pitch": 0.86},
+    "azam": {"speed": 1.06, "pitch": 1.06},
 }
 
 # Episode 5 is generated at natural speed only. No fit-to-budget pass and no
@@ -154,15 +164,15 @@ MANIFEST = [
     # Frames are locked to the JSON; the standard fitting path trims/fits each
     # clip to those budgets so timed subtitles stay aligned.
     # Episode 6 — Janji Bank & Matchday 1 (1290f / 43s).
-    ("e6_01", "narrator", 0, 75, "Notis sita. Tiga puluh hari dah lepas."),
+    ("e6_01", "narrator", 0, 75, "Cop merah. Meja ni bukan lagi milik kita."),
     ("e6_02", "peguam", 90, 210, "Masa awak habis, bos. Stadium ni milik bank."),
-    ("e6_03", "bos", 225, 345, "Kasih satu musim lagi. Kami akan juara Divisyen 5."),
+    ("e6_03", "bos", 225, 345, "Kasih satu musim. Juara Divisyen 5 — hadiah dengan bonus penaja lunas hutang kita."),
     ("e6_04", "peguam", 360, 414, "Juara atau sita. Kalah, kosong ringgit."),
     ("e6_05", "narrator", 435, 555, "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda."),
     ("e6_06", "zaki", 570, 675, "Kau tak ada kapten? Bagus la. Kami nombor satu."),
     ("e6_07", "coach", 690, 765, "Azam! Tekan! Jangan bagi dia ruang!"),
     ("e6_08", "narrator", 780, 870, "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala."),
-    ("e6_09", "narrator", 915, 1005, "Minit ke-89. Azam nampak satu peluang untuk berhenti akhir."),
+    ("e6_09", "narrator", 915, 1005, "Minit ke-89. Azam nampak satu peluang terakhir untuk menahan."),
     ("e6_10", "azam", 1020, 1080, "Tak lepas. Hari ini tak lepas."),
     ("e6_11", "narrator", 1095, 1200, "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa."),
     # Episode 7 — Menang Pertama (1260f / 42s).
@@ -173,14 +183,14 @@ MANIFEST = [
     ("e7_05", "coach", 465, 555, "Tinggi! Press dari depan! Jangan tunggu dia bagi pass!"),
     ("e7_06", "narrator", 570, 660, "Pak Din bagi pass kecil — Azam baca, dan potong."),
     ("e7_07", "azam", 675, 720, "Farid! Pergi!"),
-    ("e7_08", "narrator", 735, 825, "Satu sentuhan. Satu deretan. Gol pertama Buluh FC musim ni!"),
-    ("e7_09", "farid", 840, 890, "Akhirnya juga!"),
+    ("e7_08", "narrator", 735, 825, "Satu sentuhan. Satu sorakan. Gol pertama Buluh FC musim ni!"),
+    ("e7_09", "farid", 840, 890, "Akhirnya!"),
     ("e7_10", "narrator", 915, 990, "Whistle panjang. KEK MAJU berdiri depan, papan iklan dia nampak lebih terang."),
     ("e7_11", "bos", 1005, 1080, "Lima belas ribu masuk. Tiket, bukan duit syiling."),
     ("e7_12", "narrator", 1095, 1170, "Hutang turun. Tiga ratus tiga puluh satu ke tiga ratus enam belas."),
     # Episode 8 — Duit vs Maruah (1320f / 44s).
     ("e8_01", "narrator", 0, 75, "Vanguard Elite. Kasut emas, kereta mewah, dan satu sampul tebal."),
-    ("e8_02", "rayyan", 90, 210, "Kelab kau hutang, kan? Ambil la ini. Kalah je esok."),
+    ("e8_02", "rayyan", 90, 210, "Kelab kau hutang, kan? Ambil la ini. Kalah je hari ni."),
     ("e8_03", "bos", 225, 330, "Kau fikir kami jual maruah sekali dengan hutang?"),
     ("e8_04", "narrator", 345, 465, "Bos letak sampul tu balik ke tangan Rayyan. Tenang je."),
     ("e8_05", "narrator", 495, 570, "Rayyan main cantik. Skill, feint, nampak macam iklan."),
@@ -206,38 +216,49 @@ MANIFEST = [
     ("e10_02", "bob", 90, 195, "Kami tak percaya pada pertahanan! Kami percaya pada gol!"),
     ("e10_03", "narrator", 210, 405, "Danial penat menjerit pada backline. Skor: tiga-tiga."),
     ("e10_04", "coach", 435, 525, "Semua naik! Sekarang!"),
-    ("e10_05", "narrator", 540, 630, "Minit ke-88. Azam blok, then hantar ke Farid."),
-    ("e10_06", "azam", 645, 705, "Sekali lagi, Farid!"),
-    ("e10_07", "narrator", 720, 825, "Satu tendangan. Empat tiga. Buluh FC masih hidup!"),
-    ("e10_08", "farid", 840, 915, "Masih hidup!"),
+    ("e10_05", "narrator", 540, 615, "Minit ke-88. Azam blok, then hantar ke Farid."),
+    ("e10_06", "azam", 630, 690, "Sekali lagi, Farid!"),
+    ("e10_06b", "bob", 705, 765, "Kau blok, aku serang! Terus, Azam!"),
+    ("e10_07", "narrator", 780, 855, "Satu tendangan. Empat tiga. Buluh FC masih hidup!"),
+    ("e10_08", "farid", 870, 920, "Sampai juga!"),
     ("e10_09", "narrator", 945, 1035, "Tempat kedua. Tiga mata di belakang Besi Waja."),
-    ("e10_10", "bos", 1050, 1125, "Tiga ratus ribu tepat. Satu perlawanan lagi."),
+    ("e10_10", "bos", 1050, 1125, "Tiga ratus ribu tepat. Juara nanti, hadiah dengan bonus penaja lunas semua."),
     ("e10_11", "narrator", 1140, 1200, "Matchday lima. Besi Waja. Juara atau sita."),
     # Episode 11 — Separuh Masa Neraka (1320f / 44s).
-    ("e11_01", "narrator", 0, 75, "Besi Waja. Tak kalah. Senyap. Dan mereka datang untuk mengubur kita."),
+    ("e11_01", "narrator", 0, 75, "Besi Waja. Tak kalah. Senyap. Dan mereka datang nak tanam kita."),
     ("e11_02", "pengadil", 90, 165, "Kad kuning. Amaran terakhir."),
     ("e11_03", "malik", 180, 255, "Kau tak boleh lari."),
     ("e11_04", "narrator", 270, 465, "Nol dua di separuh masa. Denda kad dan caj bank: lima ribu. Hutang naik."),
     ("e11_05", "narrator", 495, 570, "Bilik ganti sunyi. Semua kepala down. Baju basah, lampu berkelip."),
     ("e11_06", "farid", 585, 720, "Kita tak boleh lawan diorang tanpa Karim. Serius."),
-    ("e11_07", "azam", 735, 825, "Karim dah pergi. Kita masih kat sini."),
+    ("e11_07", "azam", 735, 825, "Dia dah pergi. Kita masih kena berdiri."),
     ("e11_08", "narrator", 840, 945, "Pintu terbuka. Bos masuk, tak cakap apa-apa lagi."),
     ("e11_09", "bos", 975, 1110, "Karim dah pergi. Hari ni, kau kapten Buluh FC."),
     ("e11_10", "narrator", 1125, 1230, "Armband emas itu keluar dari poket. Azam tak tunduk."),
     # Episode 12 — Juara Divisyen 5 (1350f / 45s).
-    ("e12_01", "narrator", 0, 75, "Armband emas. Empat puluh lima minit. Satu kelab untuk diselamatkan."),
-    ("e12_02", "azam", 90, 180, "Kita tak tunggu Karim. Kita jadi kapten sekarang."),
-    ("e12_03", "narrator", 195, 285, "Satu. Dua. Azam bina semula pertahanan. Kedua-duanya."),
+    ("e12_01", "narrator", 0, 75, "Dia ketatkan armband. Terus tunjuk depan."),
+    ("e12_02", "azam", 90, 180, "Aku kapten sekarang. Ikut aku."),
+    ("e12_03", "narrator", 195, 285, "Azam atur pertahanan, kita balas dua gol. Setarakan!"),
     ("e12_04", "farid", 300, 435, "Kasih saya satu lagi. Satu je."),
     ("e12_05", "narrator", 465, 540, "Minit ke-90. Dua dua. Satu lawan satu."),
     ("e12_06", "azam", 555, 630, "Farid! Sekarang!"),
     ("e12_07", "narrator", 645, 765, "Slow motion. Tendangan ke penjuru atas. Tiga dua!"),
-    ("e12_08", "farid", 780, 870, "LUNAS!"),
+    ("e12_08", "farid", 780, 870, "MASUK!"),
     ("e12_09", "narrator", 915, 1005, "Peguam tengok telefon. Hadiah juara dan bonus Nexus Sports masuk."),
     ("e12_10", "bos", 1020, 1110, "Tiga ratus lima ribu... kosong. Kita lunas."),
     ("e12_11", "narrator", 1125, 1215, "Telefon Bos berdering. Divisyen 4. Lawan pertama: kelab Karim."),
     ("e12_12", "azam", 1230, 1265, "Kita akan jumpa dia. Di Divisyen 4."),
 ]
+
+
+S1_PREFIXES = {f"e{n}" for n in range(6, 13)}
+
+
+def voice_profile(name, speaker):
+    """Season 1 uses a dedicated narrator voice so Ep1–5 TTS is unchanged."""
+    if name.split("_", 1)[0] in S1_PREFIXES and speaker == "narrator":
+        return "narrator_s1"
+    return speaker
 
 
 def load_key():
@@ -329,7 +350,8 @@ def main():
         budget = (end - start) / FPS
         raw = raw_dir / f"{name}.mp3"
         final = OUT_DIR / f"{name}.mp3"
-        style = VOICE_STYLE.get(speaker, {})
+        voice_id = voice_profile(name, speaker)
+        style = VOICE_STYLE.get(voice_id, {})
         base_speed = style.get("speed", 1.0)
         pitch = style.get("pitch", 1.0)
         speed = base_speed
@@ -337,7 +359,7 @@ def main():
         if name.startswith("e5_"):
             # Natural-speed path: no budget fitting, no stretching of any kind.
             speed = E5_NATURAL_SPEEDS[speaker]
-            synthesize(key, text, VOICES[speaker], speed, raw)
+            synthesize(key, text, VOICES[voice_id], speed, raw)
             normalize(raw, final, pitch)
             strip_leading_silence(final)
             length = duration(final)
@@ -345,7 +367,7 @@ def main():
             print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x {flag}")
             continue
 
-        synthesize(key, text, VOICES[speaker], speed, raw)
+        synthesize(key, text, VOICES[voice_id], speed, raw)
         normalize(raw, final, pitch)
         length = duration(final)
 
@@ -353,7 +375,7 @@ def main():
             if length <= budget + 0.15:
                 break
             speed = min(candidate, 1.2)
-            synthesize(key, text, VOICES[speaker], speed, raw)
+            synthesize(key, text, VOICES[voice_id], speed, raw)
             normalize(raw, final, pitch)
             length = duration(final)
 

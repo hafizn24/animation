@@ -10,7 +10,7 @@
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 6. Frame-0 red bank stamp slam on NOTIS SITA. Bank Promise signed in ClubOffice, then Matchday 1 vs Taktik Jaya FC loses 0-2 and the debt holds at RM331,500 (loss pays RM0). No match bonus. Ends on the standard 72-frame Buluh FC / EPISOD 6 card. No CTAs.",
   "cast": {
-    "narrator": { "voice": "voice_5", "label": "NARRATOR" },
+    "narrator": { "voice": "voice_6", "label": "NARRATOR" },
     "bos": { "class": "NewOwnerApp", "outfit": "charcoalOwner", "voice": "voice_3", "label": "BOS" },
     "peguam": { "class": "SuitOutfitApp", "voice": "voice_2", "label": "PEGUAM" },
     "jurulatih": { "class": "SoccerCoachOutfitApp", "outfit": "navyCoach", "voice": "voice_2", "label": "JURULATIH" },
@@ -54,14 +54,14 @@
       ],
       "events": [
         { "type": "hook", "frame": 0, "note": "HookTitle spring-pop, clears by frame 45." },
-        { "type": "cut", "frame": 90, "note": "Stamp close-up -> Peguam two-shot." },
+        { "type": "cut", "frame": 54, "note": "Stamp close-up -> Peguam two-shot." },
         { "type": "cut", "frame": 225, "note": "Peguam -> Bos negotiation push-in." },
         { "type": "cut", "frame": 360, "note": "Bos -> Peguam cold warning." }
       ],
       "lines": [
-        { "id": "e6_01", "type": "narrator", "speaker": "NARRATOR", "text": "Notis sita. Tiga puluh hari dah lepas.", "translation": "Seizure notice. Thirty days are up.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e6_01", "type": "narrator", "speaker": "NARRATOR", "text": "Cop merah. Meja ni bukan lagi milik kita.", "translation": "A red stamp. This desk isn't ours anymore.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e6_02", "type": "dialogue", "speaker": "PEGUAM", "text": "Masa awak habis, bos. Stadium ni milik bank.", "translation": "Your time is up, boss. This stadium belongs to the bank.", "start": 3.0, "end": 7.0, "startFrame": 90, "endFrame": 210, "voice": "voice_2", "trimLeadingSilence": true },
-        { "id": "e6_03", "type": "dialogue", "speaker": "BOS", "text": "Kasih satu musim lagi. Kami akan juara Divisyen 5.", "translation": "Give us one more season. We'll win Divisyen 5.", "start": 7.5, "end": 11.5, "startFrame": 225, "endFrame": 345, "voice": "voice_3", "trimLeadingSilence": true },
+        { "id": "e6_03", "type": "dialogue", "speaker": "BOS", "text": "Kasih satu musim. Juara Divisyen 5 — hadiah dengan bonus penaja lunas hutang kita.", "translation": "Give us one season. Win Divisyen 5 — the prize and sponsor bonus clear our debt.", "start": 7.5, "end": 11.5, "startFrame": 225, "endFrame": 345, "voice": "voice_3", "trimLeadingSilence": true },
         { "id": "e6_04", "type": "dialogue", "speaker": "PEGUAM", "text": "Juara atau sita. Kalah, kosong ringgit.", "translation": "Champions or seized. Lose, and you get nothing.", "start": 12.0, "end": 13.8, "startFrame": 360, "endFrame": 414, "voice": "voice_2", "trimLeadingSilence": true }
       ]
     },
@@ -89,10 +89,10 @@
         { "type": "score", "frame": 384, "note": "MatchHUD 0-2." }
       ],
       "lines": [
-        { "id": "e6_05", "type": "narrator", "speaker": "NARRATOR", "text": "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda.", "translation": "Matchday one. Without Karim, Buluh FC has no helmsman.", "start": 14.5, "end": 18.5, "startFrame": 435, "endFrame": 555, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e6_05", "type": "narrator", "speaker": "NARRATOR", "text": "Matchday satu. Tanpa Karim, Buluh FC macam tak ada nakhoda.", "translation": "Matchday one. Without Karim, Buluh FC has no helmsman.", "start": 14.5, "end": 18.5, "startFrame": 435, "endFrame": 555, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e6_06", "type": "dialogue", "speaker": "KAPTEN ZAKI", "text": "Kau tak ada kapten? Bagus la. Kami nombor satu.", "translation": "No captain? Even better. We're number one.", "start": 19.0, "end": 22.5, "startFrame": 570, "endFrame": 675, "voice": "voice_2", "trimLeadingSilence": true },
         { "id": "e6_07", "type": "dialogue", "speaker": "JURULATIH", "text": "Azam! Tekan! Jangan bagi dia ruang!", "translation": "Azam! Press! Don't give him space!", "start": 23.0, "end": 25.5, "startFrame": 690, "endFrame": 765, "voice": "voice_2", "trimLeadingSilence": true },
-        { "id": "e6_08", "type": "narrator", "speaker": "NARRATOR", "text": "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala.", "translation": "Two goals down. And the bank's spotlight is still on.", "start": 26.0, "end": 29.0, "startFrame": 780, "endFrame": 870, "voice": "voice_5", "trimLeadingSilence": true }
+        { "id": "e6_08", "type": "narrator", "speaker": "NARRATOR", "text": "Dua gol. Satu lawan. Dan lampu sorot bank masih menyala.", "translation": "Two goals. One opponent. And the bank's spotlight is still on.", "start": 26.0, "end": 29.0, "startFrame": 780, "endFrame": 870, "voice": "voice_6", "trimLeadingSilence": true }
       ]
     },
     {
@@ -115,9 +115,9 @@
         { "type": "hardCut", "frame": 318, "note": "Hard cut to EndCard." }
       ],
       "lines": [
-        { "id": "e6_09", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-89. Azam nampak satu peluang untuk berhenti akhir.", "translation": "89th minute. Azam sees one chance to stop the rot.", "start": 30.5, "end": 33.5, "startFrame": 915, "endFrame": 1005, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e6_09", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-89. Azam nampak satu peluang terakhir untuk menahan.", "translation": "89th minute. Azam sees one last chance to block.", "start": 30.5, "end": 33.5, "startFrame": 915, "endFrame": 1005, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e6_10", "type": "dialogue", "speaker": "AZAM", "text": "Tak lepas. Hari ini tak lepas.", "translation": "Not through. Not today.", "start": 34.0, "end": 36.0, "startFrame": 1020, "endFrame": 1080, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e6_11", "type": "narrator", "speaker": "NARRATOR", "text": "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa.", "translation": "On the touchline, the lawyer checks his watch. He doesn't need to say a word.", "start": 36.5, "end": 40.0, "startFrame": 1095, "endFrame": 1200, "voice": "voice_5", "trimLeadingSilence": true }
+        { "id": "e6_11", "type": "narrator", "speaker": "NARRATOR", "text": "Di tepi padang, Peguam tengok jam. Dia tak perlu cakap apa-apa.", "translation": "On the touchline, the lawyer checks his watch. He doesn't need to say a word.", "start": 36.5, "end": 40.0, "startFrame": 1095, "endFrame": 1200, "voice": "voice_6", "trimLeadingSilence": true }
       ]
     },
     {

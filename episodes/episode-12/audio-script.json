@@ -10,7 +10,7 @@
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 12 — Season 1 Finale Part 2. Buluh FC come back from 0-2 to beat Besi Waja 3-2, win Divisyen 5 and clear the debt to RM0 with the Champion Prize + Nexus Sports bonus. Final 3s tease the Divisyen 4 opener against Karim's new club. Ends with the standard 72-frame Buluh FC / EPISOD 12 card. No CTAs.",
   "cast": {
-    "narrator": { "voice": "voice_5", "label": "NARRATOR" },
+    "narrator": { "voice": "voice_6", "label": "NARRATOR" },
     "azam": { "class": "AzamApp", "outfit": "matchJersey", "voice": "voice_5", "label": "AZAM" },
     "farid": { "class": "FaridApp", "voice": "voice_4", "label": "FARID" },
     "besikeeper": { "class": "BesiKeeperApp", "voice": "voice_2", "label": "PENJAGA GOL BESI" },
@@ -18,7 +18,7 @@
     "peguam": { "class": "SuitOutfitApp", "voice": "voice_2", "label": "PEGUAM" }
   },
   "overlays": {
-    "hook": { "title": "45 MINIT UNTUK SELAMATKAN KELAB!", "pill": "EP. 12 • JUARA", "fromFrame": 0, "toFrame": 45 },
+    "hook": { "title": "KAPTEN BARU, MISI MUSTAHIL", "pill": "EP. 12 • JUARA", "fromFrame": 0, "toFrame": 45 },
     "matchHUD": [
       {
         "scene": "act-1-comeback", "fromFrame": 30, "toFrame": 449,
@@ -50,6 +50,10 @@
       "direction": "down", "currency": "RM", "finalLabel": "LUNAS!",
       "note": "HADIAH JUARA + BONUS PENAJA NEXUS SPORTS"
     },
+    "season2Hook": {
+      "scene": "act-3-lunas", "fromFrame": 1230, "toFrame": 1275,
+      "title": "DIVISYEN 4", "subtitle": "LAWAN PERTAMA: KELAB KARIM", "cta": false
+    },
     "outroCard": { "fromFrame": 1278, "toFrame": 1350, "durationFrames": 72, "label": "EPISOD 12" }
   },
   "scenes": [
@@ -70,14 +74,14 @@
       ],
       "events": [
         { "type": "hook", "frame": 0, "note": "Armband tighten + point, no backstory." },
-        { "type": "cut", "frame": 90, "note": "Armband -> Azam leadership." },
+        { "type": "cut", "frame": 54, "note": "Armband -> Azam leadership." },
         { "type": "cut", "frame": 240, "note": "First goal." },
         { "type": "cut", "frame": 420, "note": "2-2 equaliser." }
       ],
       "lines": [
-        { "id": "e12_01", "type": "narrator", "speaker": "NARRATOR", "text": "Armband emas. Empat puluh lima minit. Satu kelab untuk diselamatkan.", "translation": "A gold armband. Forty-five minutes. One club to save.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e12_02", "type": "dialogue", "speaker": "AZAM", "text": "Kita tak tunggu Karim. Kita jadi kapten sekarang.", "translation": "We're not waiting for Karim. We're captains right now.", "start": 3.0, "end": 6.0, "startFrame": 90, "endFrame": 180, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e12_03", "type": "narrator", "speaker": "NARRATOR", "text": "Satu. Dua. Azam bina semula pertahanan. Kedua-duanya." , "translation": "One. Two. Azam rebuilds the backline. Both of them.", "start": 6.5, "end": 9.5, "startFrame": 195, "endFrame": 285, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e12_01", "type": "narrator", "speaker": "NARRATOR", "text": "Dia ketatkan armband. Terus tunjuk depan.", "translation": "He tightens the armband. Then points forward.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e12_02", "type": "dialogue", "speaker": "AZAM", "text": "Aku kapten sekarang. Ikut aku.", "translation": "I'm captain now. Follow me.", "start": 3.0, "end": 6.0, "startFrame": 90, "endFrame": 180, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e12_03", "type": "narrator", "speaker": "NARRATOR", "text": "Azam atur pertahanan, kita balas dua gol. Setarakan!", "translation": "Azam sorts the backline, we hit back with two goals. All square!", "start": 6.5, "end": 9.5, "startFrame": 195, "endFrame": 285, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e12_04", "type": "dialogue", "speaker": "FARID", "text": "Kasih saya satu lagi. Satu je.", "translation": "Give me one more. Just one.", "start": 10.0, "end": 14.5, "startFrame": 300, "endFrame": 435, "voice": "voice_4", "trimLeadingSilence": true }
       ]
     },
@@ -104,10 +108,10 @@
         { "type": "cut", "frame": 420, "note": "Celebration -> Peguam checking phone." }
       ],
       "lines": [
-        { "id": "e12_05", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-90. Dua dua. Satu lawan satu.", "translation": "90th minute. Two-all. One against one.", "start": 15.5, "end": 18.0, "startFrame": 465, "endFrame": 540, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e12_05", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-90. Dua dua. Satu lawan satu.", "translation": "90th minute. Two-all. One against one.", "start": 15.5, "end": 18.0, "startFrame": 465, "endFrame": 540, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e12_06", "type": "dialogue", "speaker": "AZAM", "text": "Farid! Sekarang!", "translation": "Farid! Now!", "start": 18.5, "end": 21.0, "startFrame": 555, "endFrame": 630, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e12_07", "type": "narrator", "speaker": "NARRATOR", "text": "Slow motion. Tendangan ke penjuru atas. Tiga dua!", "translation": "Slow motion. Strike into the top corner. Three-two!", "start": 21.5, "end": 25.5, "startFrame": 645, "endFrame": 765, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e12_08", "type": "dialogue", "speaker": "FARID", "text": "LUNAS!", "translation": "PAID OFF!", "start": 26.0, "end": 29.0, "startFrame": 780, "endFrame": 870, "voice": "voice_4", "trimLeadingSilence": true }
+        { "id": "e12_07", "type": "narrator", "speaker": "NARRATOR", "text": "Slow motion. Tendangan ke penjuru atas. Tiga dua!", "translation": "Slow motion. Strike into the top corner. Three-two!", "start": 21.5, "end": 25.5, "startFrame": 645, "endFrame": 765, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e12_08", "type": "dialogue", "speaker": "FARID", "text": "MASUK!", "translation": "IN!", "start": 26.0, "end": 29.0, "startFrame": 780, "endFrame": 870, "voice": "voice_4", "trimLeadingSilence": true }
       ]
     },
     {
@@ -132,9 +136,9 @@
         { "type": "hardCut", "frame": 378, "note": "Hard cut to EndCard." }
       ],
       "lines": [
-        { "id": "e12_09", "type": "narrator", "speaker": "NARRATOR", "text": "Peguam tengok telefon. Hadiah juara dan bonus Nexus Sports masuk.", "translation": "The lawyer checks his phone. The champion prize and Nexus Sports bonus land.", "start": 30.5, "end": 33.5, "startFrame": 915, "endFrame": 1005, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e12_09", "type": "narrator", "speaker": "NARRATOR", "text": "Peguam tengok telefon. Hadiah juara dan bonus Nexus Sports masuk.", "translation": "The lawyer checks his phone. The champion prize and Nexus Sports bonus land.", "start": 30.5, "end": 33.5, "startFrame": 915, "endFrame": 1005, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e12_10", "type": "dialogue", "speaker": "BOS", "text": "Tiga ratus lima ribu... kosong. Kita lunas.", "translation": "Three hundred and five grand... zero. We're clear.", "start": 34.0, "end": 37.0, "startFrame": 1020, "endFrame": 1110, "voice": "voice_3", "trimLeadingSilence": true },
-        { "id": "e12_11", "type": "narrator", "speaker": "NARRATOR", "text": "Telefon Bos berdering. Divisyen 4. Lawan pertama: kelab Karim.", "translation": "Boss's phone buzzes. Divisyen 4. First opponents: Karim's club.", "start": 37.5, "end": 40.5, "startFrame": 1125, "endFrame": 1215, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e12_11", "type": "narrator", "speaker": "NARRATOR", "text": "Telefon Bos berdering. Divisyen 4. Lawan pertama: kelab Karim.", "translation": "Boss's phone buzzes. Divisyen 4. First opponents: Karim's club.", "start": 37.5, "end": 40.5, "startFrame": 1125, "endFrame": 1215, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e12_12", "type": "dialogue", "speaker": "AZAM", "text": "Kita akan jumpa dia. Di Divisyen 4.", "translation": "We'll meet him. In Divisyen 4.", "start": 41.0, "end": 42.17, "startFrame": 1230, "endFrame": 1265, "voice": "voice_5", "trimLeadingSilence": true }
       ]
     },

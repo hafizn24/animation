@@ -10,9 +10,8 @@
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 10. Matchday 4 vs Kilat Rovers: chaotic 4-3 win, Buluh FC jump to 2nd, debt RM321,500 -> RM300,000. Ends with the standard 72-frame Buluh FC / EPISOD 10 card. No CTAs.",
   "cast": {
-    "narrator": { "voice": "voice_5", "label": "NARRATOR" },
+    "narrator": { "voice": "voice_6", "label": "NARRATOR" },
     "bob": { "class": "BobApp", "voice": "voice_5", "label": "KAPTEN BOB" },
-    "danial": { "class": "DanialApp", "voice": "voice_6", "label": "DANIAL" },
     "jurulatih": { "class": "SoccerCoachOutfitApp", "outfit": "navyCoach", "voice": "voice_2", "label": "JURULATIH" },
     "azam": { "class": "AzamApp", "outfit": "matchJersey", "voice": "voice_5", "label": "AZAM" },
     "farid": { "class": "FaridApp", "voice": "voice_4", "label": "FARID" },
@@ -22,15 +21,14 @@
     "hook": { "title": "PERLAWANAN PALING GILA!", "pill": "EP. 10 • HIDUP MATI", "fromFrame": 0, "toFrame": 45 },
     "matchHUD": [
       {
-        "scene": "act-1-chaos", "fromFrame": 20, "toFrame": 419,
+        "scene": "act-1-chaos", "fromFrame": 0, "toFrame": 419,
         "matchday": 4, "homeShort": "BUL", "awayShort": "KLT",
         "homeColor": "#de1326", "awayColor": "#ff7a00",
         "steps": [
-          { "frame": 20, "home": 0, "away": 0, "clock": "1'" },
-          { "frame": 130, "home": 1, "away": 0, "clock": "19'" },
-          { "frame": 230, "home": 1, "away": 1, "clock": "38'" },
-          { "frame": 320, "home": 2, "away": 2, "clock": "61'" },
-          { "frame": 400, "home": 3, "away": 3, "clock": "87'" }
+          { "frame": 0, "home": 1, "away": 0, "clock": "9'" },
+          { "frame": 14, "home": 1, "away": 1, "clock": "18'" },
+          { "frame": 28, "home": 2, "away": 2, "clock": "41'" },
+          { "frame": 42, "home": 3, "away": 3, "clock": "87'" }
         ]
       },
       {
@@ -65,22 +63,21 @@
       "bgm": "High-energy chaotic match bed, ducked under dialogue.",
       "cues": [
         { "file": "whistle.wav", "frame": 0, "volume": 0.85 },
-        { "file": "net.wav", "frame": 130, "volume": 0.7 },
-        { "file": "net.wav", "frame": 230, "volume": 0.7 },
-        { "file": "net.wav", "frame": 320, "volume": 0.7 },
-        { "file": "net.wav", "frame": 400, "volume": 0.7 },
-        { "file": "crowd-small.wav", "frame": 410, "volume": 0.6 }
+        { "file": "net.wav", "frame": 14, "volume": 0.7 },
+        { "file": "net.wav", "frame": 28, "volume": 0.7 },
+        { "file": "net.wav", "frame": 42, "volume": 0.7 },
+        { "file": "crowd-small.wav", "frame": 48, "volume": 0.6 }
       ],
       "events": [
         { "type": "hook", "frame": 0, "note": "Scoreboard flips immediately, no backstory." },
-        { "type": "cut", "frame": 90, "note": "Score flips -> Bob laughing." },
+        { "type": "cut", "frame": 54, "note": "Score flips -> Bob laughing." },
         { "type": "cut", "frame": 210, "note": "Bob -> panicking Danial." },
         { "type": "cut", "frame": 330, "note": "Danial -> chaotic box." }
       ],
       "lines": [
-        { "id": "e10_01", "type": "narrator", "speaker": "NARRATOR", "text": "Kilat Rovers. Serangan gila, pertahanan kosong.", "translation": "Kilat Rovers. All attack, no defence.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e10_01", "type": "narrator", "speaker": "NARRATOR", "text": "Kilat Rovers. Serangan gila, pertahanan kosong.", "translation": "Kilat Rovers. All attack, no defence.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_6", "trimLeadingSilence": true },
         { "id": "e10_02", "type": "dialogue", "speaker": "KAPTEN BOB", "text": "Kami tak percaya pada pertahanan! Kami percaya pada gol!", "translation": "We don't believe in defence! We believe in goals!", "start": 3.0, "end": 6.5, "startFrame": 90, "endFrame": 195, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e10_03", "type": "narrator", "speaker": "NARRATOR", "text": "Danial penat menjerit pada backline. Skor: tiga-tiga.", "translation": "Danial is tired of shouting at his backline. Score: three-three.", "start": 7.0, "end": 13.5, "startFrame": 210, "endFrame": 405, "voice": "voice_5", "trimLeadingSilence": true }
+        { "id": "e10_03", "type": "narrator", "speaker": "NARRATOR", "text": "Danial penat menjerit pada backline. Skor: tiga-tiga.", "translation": "Danial is tired of shouting at his backline. Score: three-three.", "start": 7.0, "end": 13.5, "startFrame": 210, "endFrame": 405, "voice": "voice_6", "trimLeadingSilence": true }
       ]
     },
     {
@@ -94,9 +91,9 @@
       "cues": [
         { "file": "whistle.wav", "frame": 420, "volume": 0.5 },
         { "file": "bass-hit.wav", "frame": 645, "volume": 0.75 },
-        { "file": "kick.wav", "frame": 860, "volume": 0.9 },
-        { "file": "net.wav", "frame": 866, "volume": 0.8 },
-        { "file": "crowd-small.wav", "frame": 872, "volume": 0.8 },
+        { "file": "kick.wav", "frame": 768, "volume": 0.9 },
+        { "file": "net.wav", "frame": 784, "volume": 0.8 },
+        { "file": "crowd-small.wav", "frame": 790, "volume": 0.8 },
         { "file": "whistle.wav", "frame": 920, "volume": 0.9 }
       ],
       "events": [
@@ -106,10 +103,11 @@
       ],
       "lines": [
         { "id": "e10_04", "type": "dialogue", "speaker": "JURULATIH", "text": "Semua naik! Sekarang!", "translation": "Everyone forward! Now!", "start": 14.5, "end": 17.5, "startFrame": 435, "endFrame": 525, "voice": "voice_2", "trimLeadingSilence": true },
-        { "id": "e10_05", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-88. Azam blok, then hantar ke Farid.", "translation": "88th minute. Azam blocks, then picks out Farid.", "start": 18.0, "end": 21.0, "startFrame": 540, "endFrame": 630, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e10_06", "type": "dialogue", "speaker": "AZAM", "text": "Sekali lagi, Farid!", "translation": "One more time, Farid!", "start": 21.5, "end": 23.5, "startFrame": 645, "endFrame": 705, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e10_07", "type": "narrator", "speaker": "NARRATOR", "text": "Satu tendangan. Empat tiga. Buluh FC masih hidup!", "translation": "One strike. Four-three. Buluh FC are still alive!", "start": 24.0, "end": 27.5, "startFrame": 720, "endFrame": 825, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e10_08", "type": "dialogue", "speaker": "FARID", "text": "Masih hidup!", "translation": "Still alive!", "start": 28.0, "end": 30.5, "startFrame": 840, "endFrame": 915, "voice": "voice_4", "trimLeadingSilence": true }
+        { "id": "e10_05", "type": "narrator", "speaker": "NARRATOR", "text": "Minit ke-88. Azam blok, then hantar ke Farid.", "translation": "88th minute. Azam blocks, then picks out Farid.", "start": 18.0, "end": 20.5, "startFrame": 540, "endFrame": 615, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e10_06", "type": "dialogue", "speaker": "AZAM", "text": "Sekali lagi, Farid!", "translation": "One more time, Farid!", "start": 21.0, "end": 23.0, "startFrame": 630, "endFrame": 690, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e10_06b", "type": "dialogue", "speaker": "KAPTEN BOB", "text": "Kau blok, aku serang! Terus, Azam!", "translation": "You block, I attack! Straight, Azam!", "start": 23.5, "end": 25.5, "startFrame": 705, "endFrame": 765, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e10_07", "type": "narrator", "speaker": "NARRATOR", "text": "Satu tendangan. Empat tiga. Buluh FC masih hidup!", "translation": "One strike. Four-three. Buluh FC are still alive!", "start": 26.0, "end": 28.5, "startFrame": 780, "endFrame": 855, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e10_08", "type": "dialogue", "speaker": "FARID", "text": "Sampai juga!", "translation": "Finally made it!", "start": 29.0, "end": 30.67, "startFrame": 870, "endFrame": 920, "voice": "voice_4", "trimLeadingSilence": true }
       ]
     },
     {
@@ -131,9 +129,9 @@
         { "type": "hardCut", "frame": 288, "note": "Hard cut to EndCard." }
       ],
       "lines": [
-        { "id": "e10_09", "type": "narrator", "speaker": "NARRATOR", "text": "Tempat kedua. Tiga mata di belakang Besi Waja.", "translation": "Second place. Three points behind Besi Waja.", "start": 31.5, "end": 34.5, "startFrame": 945, "endFrame": 1035, "voice": "voice_5", "trimLeadingSilence": true },
-        { "id": "e10_10", "type": "dialogue", "speaker": "BOS", "text": "Tiga ratus ribu tepat. Satu perlawanan lagi.", "translation": "Three hundred grand exactly. One match left.", "start": 35.0, "end": 37.5, "startFrame": 1050, "endFrame": 1125, "voice": "voice_3", "trimLeadingSilence": true },
-        { "id": "e10_11", "type": "narrator", "speaker": "NARRATOR", "text": "Matchday lima. Besi Waja. Juara atau sita.", "translation": "Matchday five. Besi Waja. Champions or seized.", "start": 38.0, "end": 40.0, "startFrame": 1140, "endFrame": 1200, "voice": "voice_5", "trimLeadingSilence": true }
+        { "id": "e10_09", "type": "narrator", "speaker": "NARRATOR", "text": "Tempat kedua. Tiga mata di belakang Besi Waja.", "translation": "Second place. Three points behind Besi Waja.", "start": 31.5, "end": 34.5, "startFrame": 945, "endFrame": 1035, "voice": "voice_6", "trimLeadingSilence": true },
+        { "id": "e10_10", "type": "dialogue", "speaker": "BOS", "text": "Tiga ratus ribu tepat. Juara nanti, hadiah dengan bonus penaja lunas semua.", "translation": "Three hundred grand exactly. Win the title and the prize plus sponsor bonus clear it all.", "start": 35.0, "end": 37.5, "startFrame": 1050, "endFrame": 1125, "voice": "voice_3", "trimLeadingSilence": true },
+        { "id": "e10_11", "type": "narrator", "speaker": "NARRATOR", "text": "Matchday lima. Besi Waja. Juara atau sita.", "translation": "Matchday five. Besi Waja. Champions or seized.", "start": 38.0, "end": 40.0, "startFrame": 1140, "endFrame": 1200, "voice": "voice_6", "trimLeadingSilence": true }
       ]
     },
     {

@@ -9,6 +9,7 @@ import { SeasonDebtTickerHUD } from './SeasonDebtTickerHUD.jsx';
 import { MatchHUD } from './MatchHUD.jsx';
 import { StartingXICard } from './StartingXICard.jsx';
 import { LeagueTableOverlay } from './LeagueTableOverlay.jsx';
+import { Season2Hook } from './Season2Hook.jsx';
 
 const clampOpts = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' };
 const asArray = (value) => (value == null ? [] : Array.isArray(value) ? value : [value]);
@@ -93,6 +94,7 @@ export const SeasonEpisode = ({ episode, script, directors, bgm = [] }) => {
     push('matchHUD', MatchHUD);
     push('startingXI', StartingXICard);
     push('leagueTable', LeagueTableOverlay);
+    push('season2Hook', Season2Hook);
     return nodes;
   };
 
