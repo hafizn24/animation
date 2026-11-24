@@ -1,0 +1,130 @@
+{
+  "episode": 11,
+  "title": "Separuh Masa Neraka",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalDurationSeconds": 44.0,
+  "totalFrames": 1320,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 11 — Finale Part 1. Besi Waja lead 0-2 at halftime; a tactical foul adds a RM5,000 league fine and bank late fee (RM300,000 -> RM305,000). Bos hands the vacant captain armband to Azam. Ends with the standard 72-frame Buluh FC / EPISOD 11 card. No CTAs.",
+  "cast": {
+    "narrator": { "voice": "voice_5", "label": "NARRATOR" },
+    "malik": { "class": "MalikApp", "voice": "voice_3", "label": "KAPTEN MALIK" },
+    "pengadil": { "class": "RefereeApp", "voice": "voice_2", "label": "PENGADIL" },
+    "azam": { "class": "AzamApp", "outfit": "matchJersey", "voice": "voice_5", "label": "AZAM" },
+    "bos": { "class": "NewOwnerApp", "outfit": "charcoalOwner", "voice": "voice_3", "label": "BOS" },
+    "farid": { "class": "FaridApp", "voice": "voice_4", "label": "FARID" },
+    "jurulatih": { "class": "SoccerCoachOutfitApp", "outfit": "navyCoach", "voice": "voice_2", "label": "JURULATIH" }
+  },
+  "overlays": {
+    "hook": { "title": "KETINGGALAN 0–2! TAMAT?", "pill": "EP. 11 • SEPARUH MASA", "fromFrame": 0, "toFrame": 45 },
+    "matchHUD": {
+      "scene": "act-1-besi-waja", "fromFrame": 30, "toFrame": 479,
+      "matchday": 5, "homeShort": "BUL", "awayShort": "BSW",
+      "homeColor": "#de1326", "awayColor": "#b3121f",
+      "steps": [
+        { "frame": 30, "home": 0, "away": 0, "clock": "1'" },
+        { "frame": 180, "home": 0, "away": 1, "clock": "24'" },
+        { "frame": 330, "home": 0, "away": 2, "clock": "41'" },
+        { "frame": 450, "home": 0, "away": 2, "clock": "HT" }
+      ]
+    },
+    "debtTicker": {
+      "scene": "act-1-besi-waja", "fromFrame": 270, "toFrame": 470,
+      "label": "HUTANG KELAB", "from": 300000, "to": 305000,
+      "direction": "up", "currency": "RM", "note": "DENDA KAD + CAJ BANK LEWAT"
+    },
+    "outroCard": { "fromFrame": 1248, "toFrame": 1320, "durationFrames": 72, "label": "EPISOD 11" }
+  },
+  "scenes": [
+    {
+      "id": "act-1-besi-waja", "name": "Act 1 — Silenced by Besi Waja",
+      "from": 0.0, "to": 16.0, "fromFrame": 0, "durationFrames": 480,
+      "environment": "PitchCenterCircleApp (environments/modular-pitch-zone.js)",
+      "director": "createBesiWajaScene",
+      "visual": "Frame 0: PENGADIL flashes a yellow card straight into the camera. Silent, disciplined Besi Waja shut Buluh FC down; Malik is an immovable wall. MatchHUD 0-2 at halftime and the debt ticks RED to RM305,000 as the lawyer watches from the sideline.",
+      "sfx": "sharp whistle at frame 0; card flick; heavy tackle thud; cold bank tick.",
+      "bgm": "Oppressive low match bed, ducked under dialogue.",
+      "cues": [
+        { "file": "whistle.wav", "frame": 0, "volume": 0.95 },
+        { "file": "paper.wav", "frame": 90, "volume": 0.5 },
+        { "file": "bass-hit.wav", "frame": 270, "volume": 0.6 },
+        { "file": "pen-tap.wav", "frame": 400, "volume": 0.45 },
+        { "file": "whistle.wav", "frame": 450, "volume": 0.8 }
+      ],
+      "events": [
+        { "type": "hook", "frame": 0, "note": "Yellow card fills frame 0." },
+        { "type": "cut", "frame": 90, "note": "Card -> Malik wall." },
+        { "type": "cut", "frame": 180, "note": "Malik -> Azam getting shut down." },
+        { "type": "cut", "frame": 270, "note": "Foul -> red debt tick." },
+        { "type": "cut", "frame": 450, "note": "Halftime whistle." }
+      ],
+      "lines": [
+        { "id": "e11_01", "type": "narrator", "speaker": "NARRATOR", "text": "Besi Waja. Tak kalah. Senyap. Dan mereka datang untuk mengubur kita.", "translation": "Besi Waja. Undefeated. Silent. And they're here to bury us.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e11_02", "type": "dialogue", "speaker": "PENGADIL", "text": "Kad kuning. Amaran terakhir.", "translation": "Yellow card. Last warning.", "start": 3.0, "end": 5.5, "startFrame": 90, "endFrame": 165, "voice": "voice_2", "trimLeadingSilence": true },
+        { "id": "e11_03", "type": "dialogue", "speaker": "KAPTEN MALIK", "text": "Kau tak boleh lari.", "translation": "You can't run from this.", "start": 6.0, "end": 8.5, "startFrame": 180, "endFrame": 255, "voice": "voice_3", "trimLeadingSilence": true },
+        { "id": "e11_04", "type": "narrator", "speaker": "NARRATOR", "text": "Nol dua di separuh masa. Denda kad dan caj bank: lima ribu. Hutang naik.", "translation": "Nil-two at halftime. Card fine and bank late fee: five grand. The debt climbs.", "start": 9.0, "end": 15.5, "startFrame": 270, "endFrame": 465, "voice": "voice_5", "trimLeadingSilence": true }
+      ]
+    },
+    {
+      "id": "act-2-halftime-panic", "name": "Act 2 — Halftime Despair",
+      "from": 16.0, "to": 32.0, "fromFrame": 480, "durationFrames": 480,
+      "environment": "LockerRoomApp (environments/locker-room.js)",
+      "director": "createHalftimeScene",
+      "visual": "Halftime. Heads down in the locker room; the tactical whiteboard shows 4-4-2 magnets and a red HUTANG sticky note. Farid says they can't beat Besi Waja without Karim.",
+      "sfx": "door click; low room tone; board magnet tap; heavy sigh.",
+      "bgm": "Sparse, unhappy locker-room bed, ducked under dialogue.",
+      "cues": [
+        { "file": "door.wav", "frame": 480, "volume": 0.6 },
+        { "file": "pen-tap.wav", "frame": 585, "volume": 0.3 },
+        { "file": "bass-hit.wav", "frame": 840, "volume": 0.5 }
+      ],
+      "events": [
+        { "type": "cut", "frame": 105, "note": "Wide room -> Farid." },
+        { "type": "cut", "frame": 255, "note": "Farid -> Azam." },
+        { "type": "cut", "frame": 360, "note": "Azam -> door opening." }
+      ],
+      "lines": [
+        { "id": "e11_05", "type": "narrator", "speaker": "NARRATOR", "text": "Bilik ganti sunyi. Semua kepala down. Baju basah, lampu berkelip.", "translation": "The locker room is silent. Every head down. Wet kits, flickering lights.", "start": 16.5, "end": 19.0, "startFrame": 495, "endFrame": 570, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e11_06", "type": "dialogue", "speaker": "FARID", "text": "Kita tak boleh lawan diorang tanpa Karim. Serius.", "translation": "We can't beat them without Karim. Seriously.", "start": 19.5, "end": 24.0, "startFrame": 585, "endFrame": 720, "voice": "voice_4", "trimLeadingSilence": true },
+        { "id": "e11_07", "type": "dialogue", "speaker": "AZAM", "text": "Karim dah pergi. Kita masih kat sini.", "translation": "Karim's gone. We're still here.", "start": 24.5, "end": 27.5, "startFrame": 735, "endFrame": 825, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e11_08", "type": "narrator", "speaker": "NARRATOR", "text": "Pintu terbuka. Bos masuk, tak cakap apa-apa lagi.", "translation": "The door opens. Boss walks in and says nothing.", "start": 28.0, "end": 31.5, "startFrame": 840, "endFrame": 945, "voice": "voice_5", "trimLeadingSilence": true }
+      ]
+    },
+    {
+      "id": "act-3-armband-reveal", "name": "Act 3 — The Armband",
+      "from": 32.0, "to": 41.6, "fromFrame": 960, "durationFrames": 288,
+      "environment": "LockerRoomApp (environments/locker-room.js)",
+      "director": "createArmbandRevealScene",
+      "visual": "Bos pulls Karim's gold captain armband from his pocket and holds it out to Azam: \"Karim dah pergi. Hari ni, kau kapten Buluh FC.\" Hard cut on the cliffhanger.",
+      "sfx": "soft cloth/gold scuff; bass swell; hard-cut impact.",
+      "bgm": "Rising emotional bed, silent after the hard cut.",
+      "cues": [
+        { "file": "paper.wav", "frame": 975, "volume": 0.4 },
+        { "file": "bass-hit.wav", "frame": 1125, "volume": 0.7 },
+        { "file": "kick.wav", "frame": 1248, "volume": 0.9 }
+      ],
+      "events": [
+        { "type": "armbandReveal", "frame": 15, "durationFrames": 165, "note": "Gold armband held out to Azam." },
+        { "type": "hardCut", "frame": 288, "note": "Cliffhanger hard cut to EndCard." }
+      ],
+      "lines": [
+        { "id": "e11_09", "type": "dialogue", "speaker": "BOS", "text": "Karim dah pergi. Hari ni, kau kapten Buluh FC.", "translation": "Karim is gone. Today, you're the captain of Buluh FC.", "start": 32.5, "end": 37.0, "startFrame": 975, "endFrame": 1110, "voice": "voice_3", "trimLeadingSilence": true },
+        { "id": "e11_10", "type": "narrator", "speaker": "NARRATOR", "text": "Armband emas itu keluar dari poket. Azam tak tunduk.", "translation": "The gold armband comes out of the pocket. Azam doesn't look away.", "start": 37.5, "end": 41.0, "startFrame": 1125, "endFrame": 1230, "voice": "voice_5", "trimLeadingSilence": true }
+      ]
+    },
+    {
+      "id": "outro-card", "name": "Buluh FC Series Outro",
+      "from": 41.6, "to": 44.0, "fromFrame": 1248, "durationFrames": 72,
+      "environment": null, "director": null,
+      "visual": "Standard black Buluh FC / EPISOD 11 card. No CTA.",
+      "sfx": "kick.wav + bass-hit.wav on the cut.", "bgm": null,
+      "cues": [
+        { "file": "kick.wav", "frame": 1248, "volume": 0.9 },
+        { "file": "bass-hit.wav", "frame": 1248, "volume": 0.9 }
+      ], "events": [], "lines": []
+    }
+  ]
+}

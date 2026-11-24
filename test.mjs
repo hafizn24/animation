@@ -10,6 +10,15 @@ import { SponsorApp } from './characters/character-sponsor.js';
 import { KarimApp } from './characters/character-karim.js';
 import { AzamApp } from './characters/character-azam.js';
 import { ClubOfficeApp } from './environments/club-office.js';
+import {
+  FaridApp, DanialApp, ZakiApp, PakDinApp, RayyanApp,
+  BobApp, MalikApp, BesiKeeperApp, RefereeApp,
+} from './characters/character-variants.js';
+import {
+  PitchCenterCircleApp, PitchPenaltyBoxApp, PitchTouchlineApp,
+} from './environments/modular-pitch-zone.js';
+import { MatchTunnelApp } from './environments/match-tunnel.js';
+import { PitchCrisisNightApp } from './environments/pitch-crisis-night.js';
 import { HAIR_STYLES } from './characters/character-hair.js';
 import { CharacterInspector } from './Inspector.js';
 
@@ -153,5 +162,67 @@ assert.ok(officeSet, 'ClubOffice builds a procedural set');
 assert.ok(office.lights.lamp && office.lights.hallway, 'ClubOffice has lamp and hallway lights');
 office.dispose();
 assert.strictEqual(office.character, null, 'ClubOffice disposes cleanly');
+
+// --- Season 1 (Ep. 6-12) new rig variants and modular pitch environments ---
+const VARIANTS = [
+  [FaridApp, 'Farid #9', ['point', 'block', 'celebrate', 'intercept', 'talk']],
+  [DanialApp, 'Danial #1 GK', ['panic', 'crouch']],
+  [ZakiApp, 'Kapten Zaki #10', ['talk', 'point', 'stride']],
+  [PakDinApp, 'Pak Din #6', ['talk', 'stride']],
+  [RayyanApp, 'Rayyan #11', ['stride', 'panic']],
+  [BobApp, 'Kapten Bob #9', ['celebrate', 'stride', 'panic']],
+  [MalikApp, 'Kapten Malik #4', ['block', 'idle']],
+  [BesiKeeperApp, 'Penjaga Gol Besi #1', ['crouch', 'panic']],
+  [RefereeApp, 'PENGADIL', ['point', 'talk']],
+];
+
+for (const [Cls, label, poses] of VARIANTS) {
+  const actor = new Cls(container);
+  actor.setupScene();
+  actor.addLights();
+  const body = actor.createProceduralCharacter();
+  assert.strictEqual(body.children.length, 7, `${label} has 7 part groups`);
+  assert.ok(body.getObjectByName('Head').getObjectByName('Hair'), `${label} has a hairstyle`);
+  assert.ok(actor.characterParts.backPanel && actor.characterParts.frontPanel, `${label} has jersey name panels`);
+  assert.ok(actor.characterParts.leftArm.getObjectByName('Hand'), `${label} has a hand group`);
+  for (const pose of poses) {
+    actor.setPose(pose);
+    assert.strictEqual(actor.currentPose, pose, `${label} pose "${pose}" applied`);
+  }
+  actor.dispose();
+  assert.strictEqual(actor.character, null, `${label} disposes cleanly`);
+}
+
+const PITCH_ZONES = [
+  [PitchCenterCircleApp, 'centerSpot', 'Pitch center circle'],
+  [PitchPenaltyBoxApp, 'goal', 'Pitch penalty box'],
+  [PitchTouchlineApp, 'adBoard', 'Pitch touchline'],
+];
+for (const [Cls, anchor, label] of PITCH_ZONES) {
+  const pitch = new Cls(container);
+  pitch.setupScene();
+  pitch.addLights();
+  assert.ok(pitch.createProceduralCharacter(), `${label} builds geometry`);
+  assert.ok(pitch.anchors[anchor], `${label} exposes ${anchor}`);
+  assert.ok(pitch.anchors.ball, `${label} exposes the ball`);
+  assert.ok(pitch.lights.sun, `${label} has a sun light`);
+  pitch.dispose();
+}
+
+const tunnel = new MatchTunnelApp(container);
+tunnel.setupScene();
+tunnel.addLights();
+assert.ok(tunnel.createProceduralCharacter(), 'MatchTunnel builds geometry');
+assert.ok(tunnel.anchors.exitGlow && tunnel.anchors.banner, 'MatchTunnel exposes exit + banner anchors');
+tunnel.dispose();
+
+const crisis = new PitchCrisisNightApp(container);
+crisis.setupScene();
+crisis.addLights();
+assert.ok(crisis.createProceduralCharacter(), 'PitchCrisisNight builds geometry');
+assert.ok(crisis.anchors.floodTower && crisis.anchors.cautionTape && crisis.anchors.sparks, 'Crisis exposes floodlight + tape + sparks');
+crisis.setCrisisFrame(30);
+assert.ok(crisis.lights.flood.intensity < 11, 'Crisis floodlight flickers off');
+crisis.dispose();
 
 console.log('ALL CHECKS PASSED');

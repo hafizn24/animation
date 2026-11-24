@@ -1,0 +1,132 @@
+{
+  "episode": 7,
+  "title": "Menang Pertama",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalDurationSeconds": 42.0,
+  "totalFrames": 1260,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 7. Matchday 2 vs Otai Kampung FC: menang 1-0, first win bonus + KEK MAJU gate boost drops the debt RM331,500 -> RM316,500. Ends with the standard 72-frame Buluh FC / EPISOD 7 card. No CTAs.",
+  "cast": {
+    "narrator": { "voice": "voice_5", "label": "NARRATOR" },
+    "pakdin": { "class": "PakDinApp", "voice": "voice_2", "label": "PAK DIN" },
+    "azam": { "class": "AzamApp", "outfit": "matchJersey", "voice": "voice_5", "label": "AZAM" },
+    "farid": { "class": "FaridApp", "voice": "voice_4", "label": "FARID" },
+    "jurulatih": { "class": "SoccerCoachOutfitApp", "outfit": "navyCoach", "voice": "voice_2", "label": "JURULATIH" },
+    "bos": { "class": "NewOwnerApp", "outfit": "charcoalOwner", "voice": "voice_3", "label": "BOS" }
+  },
+  "overlays": {
+    "hook": { "title": "OTAI KAMPUNG TAK LARAT?", "pill": "EP. 7 • MENANG PERTAMA", "fromFrame": 0, "toFrame": 45 },
+    "matchHUD": {
+      "scene": "act-2-first-win", "fromFrame": 452, "toFrame": 899,
+      "matchday": 2, "homeShort": "BUL", "awayShort": "OTK",
+      "homeColor": "#de1326", "awayColor": "#d8b26a",
+      "steps": [
+        { "frame": 452, "home": 0, "away": 0, "clock": "1'" },
+        { "frame": 826, "home": 1, "away": 0, "clock": "78'" },
+        { "frame": 870, "home": 1, "away": 0, "clock": "FT" }
+      ]
+    },
+    "debtTicker": {
+      "scene": "act-3-fulltime", "fromFrame": 990, "toFrame": 1175,
+      "label": "HUTANG KELAB", "from": 331500, "to": 316500,
+      "direction": "down", "currency": "RM", "note": "BONUS MENANG + TIKET KEK MAJU"
+    },
+    "outroCard": { "fromFrame": 1188, "toFrame": 1260, "durationFrames": 72, "label": "EPISOD 7" }
+  },
+  "scenes": [
+    {
+      "id": "act-1-otai-taunt", "name": "Act 1 — Otai Mind Games",
+      "from": 0.0, "to": 15.0, "fromFrame": 0, "durationFrames": 450,
+      "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
+      "director": "createOtaiTauntScene",
+      "visual": "Frame 0: a ball whizzes past the post and clangs the crossbar. Pak Din jogs at walking pace past the Buluh FC press, flashing a cheeky grin and needling Azam about his RM5 salary.",
+      "sfx": "crossbar clang (bell + kick) at frame 0; slow sneakers; light crowd murmur.",
+      "bgm": "Warm-but-tense match bed, ducked under dialogue.",
+      "cues": [
+        { "file": "bell.wav", "frame": 0, "volume": 0.8 },
+        { "file": "kick.wav", "frame": 0, "volume": 0.6 },
+        { "file": "crowd-small.wav", "frame": 290, "volume": 0.35 }
+      ],
+      "events": [
+        { "type": "hook", "frame": 0, "note": "HookTitle clears by frame 45." },
+        { "type": "cut", "frame": 90, "note": "Crossbar -> Pak Din strolling." },
+        { "type": "cut", "frame": 210, "note": "Pak Din -> deadpan Azam." },
+        { "type": "cut", "frame": 285, "note": "Azam -> Pak Din reading the pitch." }
+      ],
+      "lines": [
+        { "id": "e7_01", "type": "narrator", "speaker": "NARRATOR", "text": "Otai Kampung FC. Lambat jalan, tapi mulut lebih laju dari kaki.", "translation": "Otai Kampung FC. Slow on the feet, faster with the mouth.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e7_02", "type": "dialogue", "speaker": "PAK DIN", "text": "Gaji lima ringgit? Anak muda, aku boleh bayar seminggu dengan duit poket.", "translation": "Five ringgit salary? Kid, I can pay you a week's wage from my pocket money.", "start": 3.0, "end": 6.5, "startFrame": 90, "endFrame": 195, "voice": "voice_2", "trimLeadingSilence": true },
+        { "id": "e7_03", "type": "dialogue", "speaker": "AZAM", "text": "Boleh la. Tarikh gaji nanti saya panjang tangan sikit.", "translation": "Sure. On payday I might get a little grabby.", "start": 7.0, "end": 9.0, "startFrame": 210, "endFrame": 270, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e7_04", "type": "narrator", "speaker": "NARRATOR", "text": "Dia jalan perlahan. Tapi matanya baca padang macam main catur.", "translation": "He walks slowly. But he reads the pitch like a chessboard.", "start": 9.5, "end": 14.5, "startFrame": 285, "endFrame": 435, "voice": "voice_5", "trimLeadingSilence": true }
+      ]
+    },
+    {
+      "id": "act-2-first-win", "name": "Act 2 — First Goal",
+      "from": 15.0, "to": 30.0, "fromFrame": 450, "durationFrames": 450,
+      "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
+      "director": "createFirstWinScene",
+      "visual": "High press from the touchline; Azam reads Pak Din's cheeky pass, intercepts and launches Farid, who blasts in Buluh FC's first Divisyen 5 goal. MatchHUD ticks 1-0.",
+      "sfx": "coach shout; boot-on-ball; crowd swell; net swish on the goal.",
+      "bgm": "Match bed lifting into the counter-attack.",
+      "cues": [
+        { "file": "whistle.wav", "frame": 450, "volume": 0.5 },
+        { "file": "kick.wav", "frame": 675, "volume": 0.8 },
+        { "file": "whoosh.wav", "frame": 760, "volume": 0.5 },
+        { "file": "kick.wav", "frame": 822, "volume": 0.9 },
+        { "file": "net.wav", "frame": 828, "volume": 0.75 },
+        { "file": "crowd-small.wav", "frame": 834, "volume": 0.65 }
+      ],
+      "events": [
+        { "type": "cut", "frame": 120, "note": "Coach shout -> Azam interception." },
+        { "type": "cut", "frame": 225, "note": "Interception -> Farid breakaway." },
+        { "type": "cut", "frame": 384, "note": "Farid -> goal/net." },
+        { "type": "score", "frame": 376, "note": "MatchHUD 1-0." }
+      ],
+      "lines": [
+        { "id": "e7_05", "type": "dialogue", "speaker": "JURULATIH", "text": "Tinggi! Press dari depan! Jangan tunggu dia bagi pass!", "translation": "Push up! Press from the front! Don't wait for his pass!", "start": 15.5, "end": 18.5, "startFrame": 465, "endFrame": 555, "voice": "voice_2", "trimLeadingSilence": true },
+        { "id": "e7_06", "type": "narrator", "speaker": "NARRATOR", "text": "Pak Din bagi pass kecil — Azam baca, dan potong.", "translation": "Pak Din slips a little pass — Azam reads it and cuts it out.", "start": 19.0, "end": 22.0, "startFrame": 570, "endFrame": 660, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e7_07", "type": "dialogue", "speaker": "AZAM", "text": "Farid! Pergi!", "translation": "Farid! Go!", "start": 22.5, "end": 24.0, "startFrame": 675, "endFrame": 720, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e7_08", "type": "narrator", "speaker": "NARRATOR", "text": "Satu sentuhan. Satu deretan. Gol pertama Buluh FC musim ni!", "translation": "One touch. One roar. Buluh FC's first goal of the season!", "start": 24.5, "end": 27.5, "startFrame": 735, "endFrame": 825, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e7_09", "type": "dialogue", "speaker": "FARID", "text": "Akhirnya juga!", "translation": "Finally!", "start": 28.0, "end": 29.67, "startFrame": 840, "endFrame": 890, "voice": "voice_4", "trimLeadingSilence": true }
+      ]
+    },
+    {
+      "id": "act-3-fulltime", "name": "Act 3 — Fulltime Payout",
+      "from": 30.0, "to": 39.6, "fromFrame": 900, "durationFrames": 288,
+      "environment": "PitchTouchlineApp (environments/modular-pitch-zone.js)",
+      "director": "createFulltimeScene",
+      "visual": "Fulltime whistle. The KEK MAJU ad-board glows behind the celebration; Bos pockets the first win bonus and local gate receipts. DebtTickerHUD rolls GREEN to RM316,500.",
+      "sfx": "fulltime whistle; crowd cheer; coin/bell sting on the debt landing.",
+      "bgm": "Warm triumph bed under the payout.",
+      "cues": [
+        { "file": "whistle.wav", "frame": 900, "volume": 0.9 },
+        { "file": "crowd-small.wav", "frame": 915, "volume": 0.7 },
+        { "file": "bell.wav", "frame": 1166, "volume": 0.6 }
+      ],
+      "events": [
+        { "type": "cut", "frame": 60, "note": "Celebration -> Bos at the KEK MAJU board." },
+        { "type": "debtTicker", "frame": 90, "durationFrames": 185, "note": "Green roll -RM15,000." },
+        { "type": "hardCut", "frame": 288, "note": "Hard cut to EndCard." }
+      ],
+      "lines": [
+        { "id": "e7_10", "type": "narrator", "speaker": "NARRATOR", "text": "Whistle panjang. KEK MAJU berdiri depan, papan iklan dia nampak lebih terang.", "translation": "Fulltime. KEK MAJU is front and centre, and her ad-board never looked brighter.", "start": 30.5, "end": 33.0, "startFrame": 915, "endFrame": 990, "voice": "voice_5", "trimLeadingSilence": true },
+        { "id": "e7_11", "type": "dialogue", "speaker": "BOS", "text": "Lima belas ribu masuk. Tiket, bukan duit syiling.", "translation": "Fifteen grand in. Ticket money, not pocket change.", "start": 33.5, "end": 36.0, "startFrame": 1005, "endFrame": 1080, "voice": "voice_3", "trimLeadingSilence": true },
+        { "id": "e7_12", "type": "narrator", "speaker": "NARRATOR", "text": "Hutang turun. Tiga ratus tiga puluh satu ke tiga ratus enam belas.", "translation": "The debt drops. Three-thirty-one to three-sixteen.", "start": 36.5, "end": 39.0, "startFrame": 1095, "endFrame": 1170, "voice": "voice_5", "trimLeadingSilence": true }
+      ]
+    },
+    {
+      "id": "outro-card", "name": "Buluh FC Series Outro",
+      "from": 39.6, "to": 42.0, "fromFrame": 1188, "durationFrames": 72,
+      "environment": null, "director": null,
+      "visual": "Standard black Buluh FC / EPISOD 7 card. No CTA.",
+      "sfx": "kick.wav + bass-hit.wav on the cut.", "bgm": null,
+      "cues": [
+        { "file": "kick.wav", "frame": 1188, "volume": 0.9 },
+        { "file": "bass-hit.wav", "frame": 1188, "volume": 0.9 }
+      ], "events": [], "lines": []
+    }
+  ]
+}

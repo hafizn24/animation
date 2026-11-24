@@ -23,7 +23,7 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a cru
 | **Transfer income** | **RM50,000** from a Kelab Divisyen 4 club for Karim — all of it went to debt |
 | **Karim (#8)** | **Departed.** Former captain / centre midfielder; sold in Ep. 5, armband left on the Boss's desk |
 | **Azam (#7)** | **New signing.** Defender, fan character `@akudingin-d1f`, salary **RM5**, enters on **"Assalamualaikum. Saya Azam. Defender baru."** |
-| **Captaincy** | Vacant since Karim's departure — no new captain has been named on screen |
+| **Captaincy** | Vacant since Karim's departure until **Episode 11**, when Bos gives the gold armband to **Azam (#7)** |
 
 ---
 
@@ -108,3 +108,30 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a cru
 - **Ending:** 0.25s stunned beat → comedic percussion hit → the standard 72-frame **Buluh FC / EPISOD 5** EndCard, matching Ep. 2–4. No CTA.
 
 **Script location:** `episodes/episode-5/script.md` and `episodes/episode-5/audio-script.json` are the source of truth. `remotion/src/Episode5/Episode5Composition.jsx` imports the JSON directly. TTS text/voices are in `remotion/scripts/generate_tts.py` (prefix `e5_`). Regenerate with `python scripts/generate_tts.py e5_`.
+
+---
+
+## Season 1 — Divisyen 5 (Episodes 6–12)
+
+**Master data:** `story/season1-debt.json` (debt progression) and `story/division5-league.json` (6 clubs × 11 players, fixtures, standings). Both are read directly by the Remotion overlays.
+
+### The Bank Promise (Ep. 6)
+PEGUAM arrives with a seizure notice. BOS negotiates a one-season foreclosure freeze: **win the Divisyen 5 Championship by Matchday 5**, and the **Champion Prize + Nexus Sports (PENAJA) Promotion Bonus (RM305,000)** clears the debt. Losses pay **RM0**; matchday fines/emergencies are added to the balance; finishing 2nd or lower triggers immediate seizure.
+
+### Debt Tracker (canonical)
+| Ep | Result | Delta | Ending debt |
+|---|---|---|---|
+| 6 | Kalah 0–2 (TKJ) | ±RM0 | RM331,500 |
+| 7 | Menang 1–0 (OTK) | −RM15,000 | RM316,500 |
+| 8 | Menang 2–1 (VGE) | −RM20,000 | RM296,500 |
+| 9 | *No match* — floodlight emergency | **+RM25,000** | RM321,500 |
+| 10 | Menang 4–3 (KLT) | −RM21,500 | RM300,000 |
+| 11 | *0–2 HT* (BSW) — card fine + bank late fee | **+RM5,000** | RM305,000 |
+| 12 | Menang 3–2 (BSW) — **JUARA** | −RM305,000 | **RM0 (LUNAS!)** |
+
+### Continuity
+- **Azam (#7)** is named captain in Ep. 11 and wears Karim's gold armband from Ep. 12.
+- **FARID (#9)** and **DANIAL (#1, GK)** are promoted from the squad; rival captains Zaki, Pak Din, Rayyan, Bob, Malik plus Penjaga Gol Besi and PENGADIL are built as profile variants of the shared rig (`characters/character-variants.js`).
+- **Season 2 hook:** Divisyen 4's opening fixture is Karim (#8)'s new club.
+
+**Script locations:** `episodes/episode-6/` … `episodes/episode-12/` (`script.md` + `audio-script.json`). Compositions: `remotion/src/Episode6/` … `Episode12/`, all driven by the shared `SeasonEpisode` component. TTS entries use prefixes `e6_` … `e12_`.

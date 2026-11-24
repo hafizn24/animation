@@ -1,0 +1,17 @@
+{
+  "currency": "RM",
+  "season": 1,
+  "division": "Divisyen 5",
+  "bankCondition": "Juara Divisyen 5",
+  "baselineDebt": 331500,
+  "promotionBonus": 305000,
+  "episodes": [
+    { "ep": 6,  "start": 331500, "delta": 0,       "end": 331500, "reason": "Kalah Matchday 1 (Tiada Bonus)" },
+    { "ep": 7,  "start": 331500, "delta": -15000,  "end": 316500, "reason": "Bonus Menang + Tiket KEK MAJU" },
+    { "ep": 8,  "start": 316500, "delta": -20000,  "end": 296500, "reason": "Bonus Menang Matchday 3" },
+    { "ep": 9,  "start": 296500, "delta": 25000,   "end": 321500, "reason": "Pinjaman Kecemasan Lampu Stadium" },
+    { "ep": 10, "start": 321500, "delta": -21500,  "end": 300000, "reason": "Bonus Menang + Kutipan Tiket" },
+    { "ep": 11, "start": 300000, "delta": 5000,    "end": 305000, "reason": "Denda Kad & Caj Bank" },
+    { "ep": 12, "start": 305000, "delta": -305000, "end": 0,      "reason": "Hadiah Juara Div 5 + Bonus Penaja!" }
+  ]
+}
