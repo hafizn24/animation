@@ -8,6 +8,7 @@ import { createCinematicScene, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const END = ACT_2.durationFrames;
 
 /** Act 2 — heads down at halftime; Farid voices the doubt, Azam refuses it. */
 export const createHalftimeScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -20,7 +21,7 @@ export const createHalftimeScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e11_06'), pose: 'idle' },
         { from: L('e11_06'), to: L('e11_07'), pose: 'talk' },
-        { from: L('e11_07'), to: 480, pose: 'idle' },
+        { from: L('e11_07'), to: END, pose: 'idle' },
       ],
       anim: ({ frame, parts }) => {
         if (parts.head && frame < L('e11_07')) parts.head.rotation.x = 0.2;
@@ -32,18 +33,18 @@ export const createHalftimeScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e11_07'), pose: 'idle' },
         { from: L('e11_07'), to: L('e11_08'), pose: 'talk' },
-        { from: L('e11_08'), to: 480, pose: 'idle' },
+        { from: L('e11_08'), to: END, pose: 'idle' },
       ],
     },
     {
       name: 'jurulatih', Class: SoccerCoachOutfitApp, outfit: 'navyCoach',
       scale: 0.9, position: [1.8, 0, -1.4], rotationY: -0.4,
-      beats: [{ from: L('e11_08'), to: 480, pose: 'idle' }],
+      beats: [{ from: L('e11_08'), to: END, pose: 'idle' }],
     },
     {
       name: 'bos', Class: NewOwnerApp, outfit: 'charcoalOwner',
       scale: 0.92, position: [-0.2, 0, -3.4], rotationY: 0.05,
-      beats: [{ from: L('e11_08'), to: 480, pose: 'idle' }],
+      beats: [{ from: L('e11_08'), to: END, pose: 'idle' }],
       anim: ({ frame, rig }) => {
         rig.visible = frame >= L('e11_08') - 12;
       },
@@ -56,7 +57,7 @@ export const createHalftimeScene = (renderer, size) => createCinematicScene(rend
       [sec(L('e11_06')), [-1.2, 1.55, 2.4], [-1.6, 1.4, -0.8], 44],
       [sec(L('e11_07')), [0.8, 1.6, 2.6], [0.6, 1.45, -0.6], 44],
       [sec(L('e11_08')), [0.0, 1.65, 3.0], [-0.2, 1.5, -2.4], 48],
-      [sec(480), [-0.2, 1.6, 2.4], [-0.2, 1.4, -1.6], 46],
+      [sec(END), [-0.2, 1.6, 2.4], [-0.2, 1.4, -1.6], 46],
     ],
   },
 });

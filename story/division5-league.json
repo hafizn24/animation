@@ -55,7 +55,7 @@
       "players": [
         { "no": 1,  "name": "Pak Mat",  "pos": "GK" }, { "no": 2,  "name": "Abu",     "pos": "RB" },
         { "no": 3,  "name": "Pak Semi", "pos": "CB" }, { "no": 4,  "name": "Tok Man", "pos": "CB" },
-        { "no": 5,  "name": "Pak Long", "pos": "LB" }, { "no": 6,  "name": "Pak Din", "pos": "CM", "featured": "PakDinApp", "voice": "voice_1", "note": "Kapten — torso 1.12, rambut putih, stoking retro" },
+        { "no": 5,  "name": "Pak Long", "pos": "LB" }, { "no": 6,  "name": "Pak Din", "pos": "CM", "featured": "PakDinApp", "voice": "voice_2", "note": "Kapten — torso 1.12, rambut putih, stoking retro" },
         { "no": 7,  "name": "Pak Samad", "pos": "RM" }, { "no": 8,  "name": "Pak Wan",  "pos": "CM" },
         { "no": 9,  "name": "Pak Chot", "pos": "CM" }, { "no": 10, "name": "Pak Kadir","pos": "LM" },
         { "no": 11, "name": "Pak Ali",  "pos": "ST" }

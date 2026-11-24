@@ -9,15 +9,15 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
 const CAST_VOICE = {
-  narrator: 'voice_6',
+  narrator: 'voice_1',
   bos: 'voice_3',
   jurulatih: 'voice_2',
   peguam: 'voice_2',
   azam: 'voice_5',
   farid: 'voice_4',
-  danial: 'voice_6',
+  danial: 'voice_5',
   zaki: 'voice_2',
-  pakdin: 'voice_1',
+  pakdin: 'voice_2',
   rayyan: 'voice_4',
   bob: 'voice_5',
   malik: 'voice_3',
@@ -26,15 +26,15 @@ const CAST_VOICE = {
 };
 
 const SPEAKER_VOICE = {
-  NARRATOR: 'voice_6',
+  NARRATOR: 'voice_1',
   BOS: 'voice_3',
   JURULATIH: 'voice_2',
   PEGUAM: 'voice_2',
   AZAM: 'voice_5',
   FARID: 'voice_4',
-  DANIAL: 'voice_6',
+  DANIAL: 'voice_5',
   'KAPTEN ZAKI': 'voice_2',
-  'PAK DIN': 'voice_1',
+  'PAK DIN': 'voice_2',
   RAYAN: 'voice_4',
   RAYYAN: 'voice_4',
   'KAPTEN BOB': 'voice_5',

@@ -6,6 +6,7 @@ import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth }
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 const GOALS = [goalFrame(ACT_1, 0), goalFrame(ACT_1, 1)];
 
 /** Act 1 — armband close-up hook, then the vocal comeback. */
@@ -32,7 +33,7 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e12_03'), pose: 'point' },
         { from: L('e12_03'), to: L('e12_04'), pose: 'talk' },
-        { from: L('e12_04'), to: 450, pose: 'block' },
+        { from: L('e12_04'), to: END, pose: 'block' },
       ],
     },
     {
@@ -40,13 +41,13 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
       scale: 0.97, position: [-1.2, 0, 1.0], rotationY: -0.3,
       beats: [
         { from: 0, to: L('e12_04'), pose: 'stride' },
-        { from: L('e12_04'), to: 450, pose: 'talk' },
+        { from: L('e12_04'), to: END, pose: 'talk' },
       ],
     },
     {
       name: 'malik', Class: MalikApp,
       scale: 1.0, position: [1.8, 0, -1.4], rotationY: -0.3,
-      beats: [{ from: L('e12_03'), to: 450, pose: 'idle' }],
+      beats: [{ from: L('e12_03'), to: END, pose: 'idle' }],
     },
   ],
   onFrame: ({ frame, extra }) => {
@@ -76,7 +77,7 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
       [sec(54), [0.8, 1.62, 2.8], [0.4, 1.45, 0.6], 44],
       [sec(L('e12_03')), [-0.8, 1.6, 3.2], [-0.6, 1.3, 0.8], 48],
       [sec(L('e12_04')), [-1.4, 1.55, 3.4], [-1.2, 1.4, 1.0], 46],
-      [sec(450), [0.2, 1.7, 3.8], [0.4, 1.3, 0.4], 50],
+      [sec(END), [0.2, 1.7, 3.8], [0.4, 1.3, 0.4], 50],
     ],
   },
 });

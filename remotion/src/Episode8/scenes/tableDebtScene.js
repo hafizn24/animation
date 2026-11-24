@@ -4,6 +4,7 @@ import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../s
 import { ACT_3 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_3.lines.find((line) => line.id === id)[key] - ACT_3.fromFrame;
+const END = ACT_3.durationFrames;
 
 /** Act 3 — a quiet battlefield shot behind the league table and debt overlays. */
 export const createTableDebtScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -16,7 +17,7 @@ export const createTableDebtScene = (renderer, size) => createCinematicScene(ren
       beats: [
         { from: 0, to: L('e8_11'), pose: 'idle' },
         { from: L('e8_11'), to: L('e8_12'), pose: 'document' },
-        { from: L('e8_12'), to: 288, pose: 'idle' },
+        { from: L('e8_12'), to: END, pose: 'idle' },
       ],
     },
   ],
@@ -30,7 +31,7 @@ export const createTableDebtScene = (renderer, size) => createCinematicScene(ren
     keys: [
       [0, [-0.6, 1.6, 4.6], [-1.2, 1.4, 2.0], 48],
       [sec(L('e8_11')), [-1.0, 1.58, 4.0], [-1.4, 1.4, 2.4], 44],
-      [sec(288), [-1.2, 1.55, 3.6], [-1.3, 1.35, 1.6], 44],
+      [sec(END), [-1.2, 1.55, 3.6], [-1.3, 1.35, 1.6], 44],
     ],
   },
 });

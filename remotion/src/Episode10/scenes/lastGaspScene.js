@@ -6,6 +6,7 @@ import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth }
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const END = ACT_2.durationFrames;
 const GOAL = goalFrame(ACT_2);
 
 /** Act 2 — 88th minute: block, release, winner. */
@@ -17,7 +18,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
     {
       name: 'jurulatih', Class: SoccerCoachOutfitApp, outfit: 'navyCoach',
       scale: 0.88, position: [-3.0, 0, 3.6], rotationY: 0.45,
-      beats: [{ from: 0, to: L('e10_05'), pose: 'point' }, { from: L('e10_05'), to: 510, pose: 'idle' }],
+      beats: [{ from: 0, to: L('e10_05'), pose: 'point' }, { from: L('e10_05'), to: END, pose: 'idle' }],
     },
     {
       name: 'azam', Class: AzamApp, outfit: 'matchJersey',
@@ -25,7 +26,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e10_05'), pose: 'stride' },
         { from: L('e10_05'), to: L('e10_06'), pose: 'block' },
-        { from: L('e10_06'), to: 510, pose: 'point' },
+        { from: L('e10_06'), to: END, pose: 'point' },
       ],
     },
     {
@@ -34,7 +35,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e10_06'), pose: 'stride' },
         { from: L('e10_06'), to: GOAL, pose: 'stride' },
-        { from: GOAL, to: 510, pose: 'celebrate' },
+        { from: GOAL, to: END, pose: 'celebrate' },
       ],
       anim: ({ frame, rig }) => {
         const run = smooth(clamp((frame - L('e10_06')) / Math.max(1, GOAL - L('e10_06')), 0, 1));
@@ -46,7 +47,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       scale: 0.95, position: [2.4, 0, -1.0], rotationY: -0.5,
       beats: [
         { from: 0, to: L('e10_07'), pose: 'stride' },
-        { from: L('e10_07'), to: 510, pose: 'panic' },
+        { from: L('e10_07'), to: END, pose: 'panic' },
       ],
     },
   ],
@@ -65,7 +66,7 @@ export const createLastGaspScene = (renderer, size) => createCinematicScene(rend
       [sec(L('e10_05')), [1.4, 1.4, 3.0], [0.6, 1.1, 1.0], 44],
       [sec(L('e10_06')), [-0.6, 1.6, 3.4], [-2.0, 1.3, 0.8], 48],
       [sec(GOAL), [-4.6, 1.5, 3.2], [-5.6, 1.4, 0], 44],
-      [sec(510), [-3.6, 1.8, 4.2], [-4.4, 1.4, 0], 50],
+      [sec(END), [-3.6, 1.8, 4.2], [-4.4, 1.4, 0], 50],
     ],
   },
 });

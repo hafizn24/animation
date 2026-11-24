@@ -7,6 +7,7 @@ import { clamp, createCinematicScene, lerp, sec, smooth } from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const END = ACT_2.durationFrames;
 
 /** Act 2 — Peguam is called back and the emergency top-up is signed. */
 export const createTopupLoanScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -36,7 +37,7 @@ export const createTopupLoanScene = (renderer, size) => createCinematicScene(ren
       beats: [
         { from: 0, to: L('e9_05'), pose: 'coffee' },
         { from: L('e9_05'), to: L('e9_06'), pose: 'document' },
-        { from: L('e9_06'), to: 510, pose: 'idle' },
+        { from: L('e9_06'), to: END, pose: 'idle' },
       ],
     },
     {
@@ -44,7 +45,7 @@ export const createTopupLoanScene = (renderer, size) => createCinematicScene(ren
       scale: 0.94, position: [-1.4, 0, -2.2], rotationY: -0.2,
       beats: [
         { from: L('e9_06'), to: L('e9_07'), pose: 'talk' },
-        { from: L('e9_07'), to: 510, pose: 'idle' },
+        { from: L('e9_07'), to: END, pose: 'idle' },
       ],
       anim: ({ frame, rig }) => {
         rig.visible = frame >= 80;
@@ -58,7 +59,7 @@ export const createTopupLoanScene = (renderer, size) => createCinematicScene(ren
       [0, [0.0, 1.6, 2.0], [0.2, 1.3, -1.0], 46],
       [sec(L('e9_05')), [0.5, 1.58, 1.6], [0.2, 1.4, -1.4], 44],
       [sec(L('e9_06')), [-0.6, 1.6, 1.5], [-1.4, 1.45, -2.2], 44],
-      [sec(510), [0.3, 1.55, 1.4], [0.1, 0.95, 0.1], 48],
+      [sec(END), [0.3, 1.55, 1.4], [0.1, 0.95, 0.1], 48],
     ],
   },
 });

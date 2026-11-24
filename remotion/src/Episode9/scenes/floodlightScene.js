@@ -4,6 +4,7 @@ import { clamp, createCinematicScene, lerp, nightGrade, sec, smooth } from '../s
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 
 /** Act 1 — the floodlight blows and the pitch falls dark behind caution tape. */
 export const createFloodlightScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -16,7 +17,7 @@ export const createFloodlightScene = (renderer, size) => createCinematicScene(re
       beats: [
         { from: 0, to: L('e9_02'), pose: 'idle' },
         { from: L('e9_02'), to: L('e9_03'), pose: 'panic' },
-        { from: L('e9_03'), to: 420, pose: 'point' },
+        { from: L('e9_03'), to: END, pose: 'point' },
       ],
     },
   ],
@@ -29,7 +30,7 @@ export const createFloodlightScene = (renderer, size) => createCinematicScene(re
       [0, [-4.2, 3.2, 6.0], [-5.0, 8.2, 8.0], 54],
       [sec(54), [1.8, 1.7, 4.0], [1.2, 1.5, 2.4], 46],
       [sec(L('e9_03')), [-0.5, 1.9, 4.6], [-2.0, 1.2, 4.4], 50],
-      [sec(420), [0.8, 1.7, 4.2], [-3.0, 2.4, 6.0], 52],
+      [sec(END), [0.8, 1.7, 4.2], [-3.0, 2.4, 6.0], 52],
     ],
   },
 });

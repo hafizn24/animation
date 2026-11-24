@@ -5,6 +5,7 @@ import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth }
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const END = ACT_2.durationFrames;
 const GOAL = goalFrame(ACT_2, 2);
 
 /** Act 2 — flashy skills get shut down; the counter-attack winner makes it 2-1. */
@@ -18,7 +19,7 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
       scale: 0.96, position: [1.6, 0, 0.8], rotationY: -0.4,
       beats: [
         { from: 0, to: L('e8_07'), pose: 'stride' },
-        { from: L('e8_07'), to: 480, pose: 'panic' },
+        { from: L('e8_07'), to: END, pose: 'panic' },
       ],
       anim: ({ frame, rig }) => {
         const dance = Math.sin(frame / 5) * 0.18;
@@ -31,7 +32,7 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
       beats: [
         { from: 0, to: L('e8_07'), pose: 'idle' },
         { from: L('e8_07'), to: L('e8_08'), pose: 'block' },
-        { from: L('e8_08'), to: 480, pose: 'intercept' },
+        { from: L('e8_08'), to: END, pose: 'intercept' },
       ],
     },
     {
@@ -39,7 +40,7 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
       scale: 0.97, position: [-1.2, 0, 1.4], rotationY: -0.2,
       beats: [
         { from: 0, to: GOAL, pose: 'stride' },
-        { from: GOAL, to: 480, pose: 'celebrate' },
+        { from: GOAL, to: END, pose: 'celebrate' },
       ],
       anim: ({ frame, rig }) => {
         const run = smooth(clamp((frame - L('e8_07')) / Math.max(1, GOAL - L('e8_07')), 0, 1));
@@ -64,7 +65,7 @@ export const createBribeRevengeScene = (renderer, size) => createCinematicScene(
       [sec(L('e8_06')), [1.2, 1.35, 2.6], [1.0, 1.15, 0.6], 42],
       [sec(L('e8_07')), [0.0, 1.6, 3.2], [0.2, 1.35, 0.5], 46],
       [sec(GOAL), [-1.6, 1.6, 4.0], [-2.4, 1.3, 0.8], 48],
-      [sec(480), [-4.2, 1.5, 3.6], [-5.2, 1.35, 0], 44],
+      [sec(END), [-4.2, 1.5, 3.6], [-5.2, 1.35, 0], 44],
     ],
   },
 });

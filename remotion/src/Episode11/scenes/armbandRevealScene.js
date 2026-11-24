@@ -7,6 +7,7 @@ import { clamp, createCinematicScene, lerp, sec, smooth } from '../sceneKit.js';
 import { ACT_3 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_3.lines.find((line) => line.id === id)[key] - ACT_3.fromFrame;
+const END = ACT_3.durationFrames;
 
 /** Act 3 — the vacant gold armband finally changes hands. Cliffhanger. */
 export const createArmbandRevealScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -37,7 +38,7 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
       scale: 0.94, position: [-0.7, 0, -1.4], rotationY: 0.18,
       beats: [
         { from: 0, to: L('e11_09'), pose: 'idle' },
-        { from: L('e11_09'), to: 288, pose: 'keys' },
+        { from: L('e11_09'), to: END, pose: 'keys' },
       ],
       anim: ({ frame, parts }) => {
         if (parts.rightArm && frame >= L('e11_09')) parts.rightArm.rotation.x = -0.95;
@@ -48,7 +49,7 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
       scale: 0.98, position: [0.8, 0, -0.7], rotationY: -0.28,
       beats: [
         { from: 0, to: L('e11_10'), pose: 'idle' },
-        { from: L('e11_10'), to: 288, pose: 'point' },
+        { from: L('e11_10'), to: END, pose: 'point' },
       ],
       anim: ({ frame, parts }) => {
         if (parts.head && frame >= L('e11_09')) parts.head.rotation.x = -0.05;
@@ -68,7 +69,7 @@ export const createArmbandRevealScene = (renderer, size) => createCinematicScene
       [0, [0.2, 1.6, 2.6], [0.0, 1.4, -1.2], 44],
       [sec(L('e11_09')), [-0.4, 1.55, 1.9], [-0.5, 1.4, -1.4], 42],
       [sec(L('e11_10')), [0.1, 1.55, 1.6], [0.1, 1.45, -1.0], 40],
-      [sec(288), [0.3, 1.6, 1.8], [0.4, 1.5, -0.8], 42],
+      [sec(END), [0.3, 1.6, 1.8], [0.4, 1.5, -0.8], 42],
     ],
   },
 });

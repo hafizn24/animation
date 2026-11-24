@@ -5,6 +5,7 @@ import { clamp, createCinematicScene, goalFrame, lerp, pitchGrade, sec, smooth }
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
+const END = ACT_2.durationFrames;
 const GOAL = goalFrame(ACT_2);
 
 /** Act 2 — the 90th-minute 1v1 and the slow-motion winner. */
@@ -18,7 +19,7 @@ export const createWinnerScene = (renderer, size) => createCinematicScene(render
       scale: 0.98, position: [0.4, 0, 1.4], rotationY: 0.1,
       beats: [
         { from: 0, to: L('e12_06'), pose: 'stride' },
-        { from: L('e12_06'), to: 450, pose: 'point' },
+        { from: L('e12_06'), to: END, pose: 'point' },
       ],
     },
     {
@@ -27,7 +28,7 @@ export const createWinnerScene = (renderer, size) => createCinematicScene(render
       beats: [
         { from: 0, to: L('e12_06'), pose: 'stride' },
         { from: L('e12_06'), to: GOAL, pose: 'stride' },
-        { from: GOAL, to: 450, pose: 'celebrate' },
+        { from: GOAL, to: END, pose: 'celebrate' },
       ],
       anim: ({ frame, rig }) => {
         const run = smooth(clamp((frame - L('e12_06')) / Math.max(1, GOAL - L('e12_06')), 0, 1));
@@ -39,7 +40,7 @@ export const createWinnerScene = (renderer, size) => createCinematicScene(render
       scale: 0.98, position: [-6.2, 0, 0], rotationY: Math.PI / 2,
       beats: [
         { from: 0, to: GOAL, pose: 'crouch' },
-        { from: GOAL, to: 450, pose: 'panic' },
+        { from: GOAL, to: END, pose: 'panic' },
       ],
       anim: ({ frame, rig }) => {
         const dive = smooth(clamp((frame - GOAL - 12) / 36, 0, 1));
@@ -64,7 +65,7 @@ export const createWinnerScene = (renderer, size) => createCinematicScene(render
       [sec(L('e12_06')), [-1.0, 1.6, 3.6], [-3.0, 1.3, 0.6], 46],
       [sec(GOAL - 20), [-5.0, 1.45, 2.6], [-6.2, 1.5, 0], 42],
       [sec(GOAL), [-4.2, 1.8, 3.8], [-5.2, 1.4, 0], 50],
-      [sec(450), [-2.4, 1.9, 4.6], [-3.0, 1.5, 0.6], 52],
+      [sec(END), [-2.4, 1.9, 4.6], [-3.0, 1.5, 0.6], 52],
     ],
   },
 });

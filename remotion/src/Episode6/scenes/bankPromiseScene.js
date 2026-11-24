@@ -7,6 +7,7 @@ import { clamp, createCinematicScene, lerp, sec, smooth } from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 
 /** Act 1 — the red NOTIS SITA stamp lands and the Bank Promise is negotiated. */
 export const createBankPromiseScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -52,7 +53,7 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       beats: [
         { from: L('e6_02'), to: L('e6_03'), pose: 'talk' },
         { from: L('e6_03'), to: L('e6_04'), pose: 'document' },
-        { from: L('e6_04'), to: 420, pose: 'idle' },
+        { from: L('e6_04'), to: END, pose: 'idle' },
       ],
     },
     {
@@ -61,7 +62,7 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       beats: [
         { from: 0, to: L('e6_02'), pose: 'idle' },
         { from: L('e6_02'), to: L('e6_03'), pose: 'offer' },
-        { from: L('e6_03'), to: 420, pose: 'talk' },
+        { from: L('e6_03'), to: END, pose: 'talk' },
       ],
     },
   ],
@@ -80,7 +81,7 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
       [sec(54), [-0.2, 1.5, 1.5], [-0.8, 1.0, -1.2], 46],
       [sec(L('e6_03')), [0.45, 1.62, 1.5], [0.2, 1.4, -1.4], 44],
       [sec(L('e6_04')), [-0.65, 1.58, 1.35], [-1.35, 1.45, -2.3], 44],
-      [sec(420), [0.1, 1.6, 1.8], [0.2, 1.1, -0.6], 50],
+      [sec(END), [0.1, 1.6, 1.8], [0.2, 1.1, -0.6], 50],
     ],
   },
   postCamera: ({ camera, frame }) => {

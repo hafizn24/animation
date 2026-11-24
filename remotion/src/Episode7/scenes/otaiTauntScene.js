@@ -5,6 +5,7 @@ import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../s
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 
 /** Act 1 — Pak Din strolls past the press and needles Azam about his RM5 wage. */
 export const createOtaiTauntScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -18,7 +19,7 @@ export const createOtaiTauntScene = (renderer, size) => createCinematicScene(ren
       beats: [
         { from: 0, to: L('e7_02'), pose: 'stride' },
         { from: L('e7_02'), to: L('e7_04'), pose: 'talk' },
-        { from: L('e7_04'), to: 450, pose: 'stride' },
+        { from: L('e7_04'), to: END, pose: 'stride' },
       ],
       anim: ({ frame, rig }) => {
         const walk = smooth(clamp(frame / 420, 0, 1));
@@ -32,7 +33,7 @@ export const createOtaiTauntScene = (renderer, size) => createCinematicScene(ren
       beats: [
         { from: 0, to: L('e7_03'), pose: 'idle' },
         { from: L('e7_03'), to: L('e7_04'), pose: 'talk' },
-        { from: L('e7_04'), to: 450, pose: 'idle' },
+        { from: L('e7_04'), to: END, pose: 'idle' },
       ],
     },
   ],
@@ -49,7 +50,7 @@ export const createOtaiTauntScene = (renderer, size) => createCinematicScene(ren
       [sec(54), [2.6, 1.5, 3.4], [2.2, 1.4, 1.6], 44],
       [sec(L('e7_03')), [-1.0, 1.55, 3.2], [-1.5, 1.45, 0.4], 44],
       [sec(L('e7_04')), [0.4, 1.6, 4.4], [0.6, 1.25, 0.8], 50],
-      [sec(450), [1.2, 1.55, 3.8], [1.0, 1.3, 0.6], 46],
+      [sec(END), [1.2, 1.55, 3.8], [1.0, 1.3, 0.6], 46],
     ],
   },
 });

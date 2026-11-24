@@ -6,6 +6,7 @@ import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../s
 import { ACT_3 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_3.lines.find((line) => line.id === id)[key] - ACT_3.fromFrame;
+const END = ACT_3.durationFrames;
 
 /** Act 3 — fulltime whistle, glowing KEK MAJU board and the green debt roll. */
 export const createFulltimeScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -20,17 +21,17 @@ export const createFulltimeScene = (renderer, size) => createCinematicScene(rend
     {
       name: 'farid', Class: FaridApp,
       scale: 0.97, position: [0.8, 0, 1.2], rotationY: -0.4,
-      beats: [{ from: 0, to: L('e7_11'), pose: 'celebrate' }, { from: L('e7_11'), to: 288, pose: 'idle' }],
+      beats: [{ from: 0, to: L('e7_11'), pose: 'celebrate' }, { from: L('e7_11'), to: END, pose: 'idle' }],
     },
     {
       name: 'azam', Class: AzamApp, outfit: 'matchJersey',
       scale: 0.96, position: [-0.4, 0, 0.6], rotationY: 0.2,
-      beats: [{ from: 0, to: L('e7_11'), pose: 'celebrate' }, { from: L('e7_11'), to: 288, pose: 'idle' }],
+      beats: [{ from: 0, to: L('e7_11'), pose: 'celebrate' }, { from: L('e7_11'), to: END, pose: 'idle' }],
     },
     {
       name: 'bos', Class: NewOwnerApp, outfit: 'charcoalOwner',
       scale: 0.92, position: [-1.8, 0, 3.4], rotationY: 0.35,
-      beats: [{ from: L('e7_11'), to: 288, pose: 'keys' }],
+      beats: [{ from: L('e7_11'), to: END, pose: 'keys' }],
     },
   ],
   onFrame: ({ frame, extra }) => {
@@ -44,7 +45,7 @@ export const createFulltimeScene = (renderer, size) => createCinematicScene(rend
     keys: [
       [0, [0.6, 1.5, 4.2], [0.4, 1.4, 1.0], 48],
       [sec(L('e7_11')), [-1.0, 1.6, 4.2], [-1.6, 1.4, 3.2], 46],
-      [sec(288), [-1.4, 1.55, 3.6], [-1.0, 1.3, 3.8], 44],
+      [sec(END), [-1.4, 1.55, 3.6], [-1.0, 1.3, 3.8], 44],
     ],
   },
 });

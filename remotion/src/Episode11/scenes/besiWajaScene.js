@@ -7,6 +7,7 @@ import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../s
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 
 /** Act 1 — yellow card in the lens, Malik the wall, and the halftime fine. */
 export const createBesiWajaScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -29,7 +30,7 @@ export const createBesiWajaScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e11_02'), pose: 'point' },
         { from: L('e11_02'), to: L('e11_03'), pose: 'talk' },
-        { from: L('e11_03'), to: 480, pose: 'idle' },
+        { from: L('e11_03'), to: END, pose: 'idle' },
       ],
       anim: ({ frame, extra, parts }) => {
         if (frame < 90 && parts.rightArm) parts.rightArm.rotation.set(-2.1, 0, 0.2);
@@ -41,7 +42,7 @@ export const createBesiWajaScene = (renderer, size) => createCinematicScene(rend
       beats: [
         { from: 0, to: L('e11_03'), pose: 'idle' },
         { from: L('e11_03'), to: L('e11_04'), pose: 'block' },
-        { from: L('e11_04'), to: 480, pose: 'idle' },
+        { from: L('e11_04'), to: END, pose: 'idle' },
       ],
     },
     {
@@ -49,13 +50,13 @@ export const createBesiWajaScene = (renderer, size) => createCinematicScene(rend
       scale: 0.96, position: [1.4, 0, 0.8], rotationY: -0.3,
       beats: [
         { from: 0, to: L('e11_04'), pose: 'stride' },
-        { from: L('e11_04'), to: 480, pose: 'block' },
+        { from: L('e11_04'), to: END, pose: 'block' },
       ],
     },
     {
       name: 'peg', Class: SuitOutfitApp,
       scale: 0.84, position: [3.2, 0, 3.6], rotationY: -0.3,
-      beats: [{ from: L('e11_04'), to: 480, pose: 'idle' }],
+      beats: [{ from: L('e11_04'), to: END, pose: 'idle' }],
     },
   ],
   onFrame: ({ frame, extra }) => {
@@ -72,7 +73,7 @@ export const createBesiWajaScene = (renderer, size) => createCinematicScene(rend
       [sec(54), [0.6, 1.6, 2.8], [0.1, 1.5, 0.4], 46],
       [sec(L('e11_03')), [-0.4, 1.7, 2.4], [-0.9, 1.55, -1.6], 44],
       [sec(L('e11_04')), [1.8, 1.6, 3.2], [1.4, 1.4, 0.8], 48],
-      [sec(480), [0.8, 1.7, 3.6], [0.4, 1.3, 0.4], 50],
+      [sec(END), [0.8, 1.7, 3.6], [0.4, 1.3, 0.4], 50],
     ],
   },
 });

@@ -4,6 +4,7 @@ import { clamp, createCinematicScene, lerp, pitchGrade, sec, smooth } from '../s
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 
 /** Act 1 — Bob's chaos and a panicking Danial behind a 3-3 scoreline. */
 export const createChaosScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -16,7 +17,7 @@ export const createChaosScene = (renderer, size) => createCinematicScene(rendere
       scale: 0.97, position: [1.6, 0, 1.0], rotationY: -0.3,
       beats: [
         { from: 0, to: L('e10_03'), pose: 'celebrate' },
-        { from: L('e10_03'), to: 420, pose: 'stride' },
+        { from: L('e10_03'), to: END, pose: 'stride' },
       ],
       anim: ({ rig, frame }) => {
         rig.position.y = Math.abs(Math.sin(frame / 4)) * 0.09;
@@ -27,7 +28,7 @@ export const createChaosScene = (renderer, size) => createCinematicScene(rendere
       scale: 0.95, position: [-5.4, 0, 0], rotationY: Math.PI / 2,
       beats: [
         { from: 0, to: L('e10_03'), pose: 'idle' },
-        { from: L('e10_03'), to: 420, pose: 'panic' },
+        { from: L('e10_03'), to: END, pose: 'panic' },
       ],
     },
   ],
@@ -43,7 +44,7 @@ export const createChaosScene = (renderer, size) => createCinematicScene(rendere
       [0, [0.4, 1.6, 4.6], [0.0, 1.3, 0.4], 54],
       [sec(54), [1.8, 1.5, 3.2], [1.6, 1.4, 1.0], 46],
       [sec(L('e10_03')), [-4.0, 1.6, 3.4], [-5.4, 1.5, 0], 44],
-      [sec(420), [-2.0, 1.7, 4.4], [-2.6, 1.2, 0.6], 50],
+      [sec(END), [-2.0, 1.7, 4.4], [-2.6, 1.2, 0.6], 50],
     ],
   },
 });

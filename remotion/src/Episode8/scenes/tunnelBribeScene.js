@@ -6,6 +6,7 @@ import { clamp, createCinematicScene, lerp, sec, smooth, tunnelGrade } from '../
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
+const END = ACT_1.durationFrames;
 
 /** Act 1 — the envelope slap and the refusal, staged in hard corridor light. */
 export const createTunnelBribeScene = (renderer, size) => createCinematicScene(renderer, size, {
@@ -27,7 +28,7 @@ export const createTunnelBribeScene = (renderer, size) => createCinematicScene(r
       beats: [
         { from: 0, to: L('e8_03'), pose: 'idle' },
         { from: L('e8_03'), to: L('e8_04'), pose: 'document' },
-        { from: L('e8_04'), to: 480, pose: 'idle' },
+        { from: L('e8_04'), to: END, pose: 'idle' },
       ],
     },
     {
@@ -35,7 +36,7 @@ export const createTunnelBribeScene = (renderer, size) => createCinematicScene(r
       scale: 0.95, position: [1.1, 0, -1.4], rotationY: -0.42,
       beats: [
         { from: 0, to: L('e8_03'), pose: 'talk' },
-        { from: L('e8_03'), to: 480, pose: 'idle' },
+        { from: L('e8_03'), to: END, pose: 'idle' },
       ],
     },
   ],
@@ -55,7 +56,7 @@ export const createTunnelBribeScene = (renderer, size) => createCinematicScene(r
       [sec(54), [1.4, 1.6, 1.6], [1.1, 1.4, -1.4], 44],
       [sec(L('e8_03')), [-0.2, 1.62, 2.2], [-0.7, 1.45, 0.4], 44],
       [sec(L('e8_04')), [0.4, 1.58, 2.0], [0.3, 1.3, -0.8], 48],
-      [sec(480), [0.8, 1.6, 1.4], [0.6, 1.5, -2.0], 50],
+      [sec(END), [0.8, 1.6, 1.4], [0.6, 1.5, -2.0], 50],
     ],
   },
 });

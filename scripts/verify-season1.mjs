@@ -27,15 +27,15 @@ for (const match of ttsSource.matchAll(/\("(e(?:[6-9]|1[0-2])_[^"]+)",\s*"([^"]+
 }
 
 const VOICE_BY_SPEAKER = {
-  NARRATOR: 'voice_6',
+  NARRATOR: 'voice_1',
   BOS: 'voice_3',
   JURULATIH: 'voice_2',
   PEGUAM: 'voice_2',
   AZAM: 'voice_5',
   FARID: 'voice_4',
-  DANIAL: 'voice_6',
+  DANIAL: 'voice_5',
   'KAPTEN ZAKI': 'voice_2',
-  'PAK DIN': 'voice_1',
+  'PAK DIN': 'voice_2',
   RAYYAN: 'voice_4',
   'KAPTEN BOB': 'voice_5',
   'KAPTEN MALIK': 'voice_3',

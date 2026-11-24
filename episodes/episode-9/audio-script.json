@@ -4,112 +4,379 @@
   "fps": 30,
   "width": 1080,
   "height": 1920,
-  "totalDurationSeconds": 41.0,
-  "totalFrames": 1230,
+  "totalDurationSeconds": 42.13333333333333,
+  "totalFrames": 1264,
   "language": "ms",
   "subtitles": "ms+en",
   "notes": "Source of truth for Episode 9 — the dedicated added-debt crisis (no match, zero new rival rigs). Floodlight explosion forces an emergency RM25,000 bank top-up: RM296,500 -> RM321,500. Ends with the standard 72-frame Buluh FC / EPISOD 9 card. No CTAs.",
   "cast": {
-    "narrator": { "voice": "voice_6", "label": "NARRATOR" },
-    "jurulatih": { "class": "SoccerCoachOutfitApp", "outfit": "navyCoach", "voice": "voice_2", "label": "JURULATIH" },
-    "bos": { "class": "NewOwnerApp", "outfit": "charcoalOwner", "voice": "voice_3", "label": "BOS" },
-    "peguam": { "class": "SuitOutfitApp", "voice": "voice_2", "label": "PEGUAM" }
+    "narrator": {
+      "voice": "voice_1",
+      "label": "NARRATOR"
+    },
+    "jurulatih": {
+      "class": "SoccerCoachOutfitApp",
+      "outfit": "navyCoach",
+      "voice": "voice_2",
+      "label": "JURULATIH"
+    },
+    "bos": {
+      "class": "NewOwnerApp",
+      "outfit": "charcoalOwner",
+      "voice": "voice_3",
+      "label": "BOS"
+    },
+    "peguam": {
+      "class": "SuitOutfitApp",
+      "voice": "voice_2",
+      "label": "PEGUAM"
+    }
   },
   "overlays": {
-    "hook": { "title": "HUTANG NAIK BALIK?!", "pill": "EP. 9 • KRISIS", "fromFrame": 0, "toFrame": 45 },
-    "debtTicker": {
-      "scene": "act-3-emergency-loan", "fromFrame": 945, "toFrame": 1150,
-      "label": "HUTANG KELAB", "from": 296500, "to": 321500,
-      "direction": "up", "currency": "RM", "note": "PINJAMAN KECEMASAN LAMPU STADIUM"
+    "hook": {
+      "title": "HUTANG NAIK BALIK?!",
+      "pill": "EP. 9 • KRISIS",
+      "fromFrame": 0,
+      "toFrame": 45
     },
-    "outroCard": { "fromFrame": 1158, "toFrame": 1230, "durationFrames": 72, "label": "EPISOD 9" }
+    "debtTicker": {
+      "scene": "act-3-emergency-loan",
+      "fromFrame": 847,
+      "toFrame": 1052,
+      "label": "HUTANG KELAB",
+      "from": 296500,
+      "to": 321500,
+      "direction": "up",
+      "currency": "RM",
+      "note": "PINJAMAN KECEMASAN LAMPU STADIUM"
+    },
+    "outroCard": {
+      "fromFrame": 1192,
+      "toFrame": 1264,
+      "durationFrames": 72,
+      "label": "EPISOD 9"
+    }
   },
   "scenes": [
     {
-      "id": "act-1-floodlight", "name": "Act 1 — Floodlight Blowout",
-      "from": 0.0, "to": 14.0, "fromFrame": 0, "durationFrames": 420,
+      "id": "act-1-floodlight",
+      "name": "Act 1 — Floodlight Blowout",
+      "from": 0,
+      "to": 12.6,
+      "fromFrame": 0,
+      "durationFrames": 378,
       "environment": "PitchCrisisNightApp (environments/pitch-crisis-night.js)",
       "director": "createFloodlightScene",
       "visual": "Frame 0: the floodlight tower explodes into sparks and the pitch drops into darkness. Jurulatih reports the RM25,000 repair order; yellow caution tape flutters across the touchline.",
       "sfx": "electrical pop + spark crackle at frame 0; flickering hum; distant rain.",
       "bgm": "Low night drone, ducked under dialogue.",
       "cues": [
-        { "file": "bass-hit.wav", "frame": 0, "volume": 0.95 },
-        { "file": "whoosh.wav", "frame": 4, "volume": 0.7 },
-        { "file": "crowd-small.wav", "frame": 240, "volume": 0.25 },
-        { "file": "bass-hit.wav", "frame": 300, "volume": 0.45 }
+        {
+          "file": "bass-hit.wav",
+          "frame": 0,
+          "volume": 0.95
+        },
+        {
+          "file": "whoosh.wav",
+          "frame": 4,
+          "volume": 0.7
+        },
+        {
+          "file": "crowd-small.wav",
+          "frame": 240,
+          "volume": 0.25
+        },
+        {
+          "file": "bass-hit.wav",
+          "frame": 300,
+          "volume": 0.45
+        }
       ],
       "events": [
-        { "type": "hook", "frame": 0, "note": "Explosion transient and flicker into darkness." },
-        { "type": "cut", "frame": 54, "note": "Tower close-up -> Jurulatih." },
-        { "type": "cut", "frame": 240, "note": "Jurulatih -> taped-off touchline." },
-        { "type": "blackout", "frame": 18, "note": "Floodlight dies; only sparks remain." }
+        {
+          "type": "hook",
+          "frame": 0,
+          "note": "Explosion transient and flicker into darkness."
+        },
+        {
+          "type": "cut",
+          "frame": 54,
+          "note": "Tower close-up -> Jurulatih."
+        },
+        {
+          "type": "cut",
+          "frame": 240,
+          "note": "Jurulatih -> taped-off touchline."
+        },
+        {
+          "type": "blackout",
+          "frame": 18,
+          "note": "Floodlight dies; only sparks remain."
+        }
       ],
       "lines": [
-        { "id": "e9_01", "type": "narrator", "speaker": "NARRATOR", "text": "Malamnya. Satu letupan, dan stadium gelap terus.", "translation": "That night. One explosion, and the stadium goes dark.", "start": 0.0, "end": 2.5, "startFrame": 0, "endFrame": 75, "voice": "voice_6", "trimLeadingSilence": true },
-        { "id": "e9_02", "type": "dialogue", "speaker": "JURULATIH", "text": "Tiang lampu meletup. Inspector kata padang kena tutup sampai bayar.", "translation": "The floodlight blew. Inspectors say the pitch is closed until we pay.", "start": 3.0, "end": 7.5, "startFrame": 90, "endFrame": 225, "voice": "voice_2", "trimLeadingSilence": true },
-        { "id": "e9_03", "type": "narrator", "speaker": "NARRATOR", "text": "Dua puluh lima ribu. Sebelum Matchday empat. Atau forfeit.", "translation": "Twenty-five grand. Before Matchday four. Or forfeit.", "start": 8.0, "end": 13.5, "startFrame": 240, "endFrame": 405, "voice": "voice_6", "trimLeadingSilence": true }
+        {
+          "id": "e9_01",
+          "type": "narrator",
+          "speaker": "NARRATOR",
+          "text": "Malamnya. Satu letupan, dan stadium gelap terus.",
+          "translation": "That night. One explosion, and the stadium goes dark.",
+          "start": 0,
+          "end": 3.1666666666666665,
+          "startFrame": 0,
+          "endFrame": 95,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_02",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Tiang lampu meletup. Inspector kata padang kena tutup sampai bayar.",
+          "translation": "The floodlight blew. Inspectors say the pitch is closed until we pay.",
+          "start": 3.966666666666667,
+          "end": 7.5,
+          "startFrame": 119,
+          "endFrame": 225,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_03",
+          "type": "narrator",
+          "speaker": "NARRATOR",
+          "text": "Dua puluh lima ribu. Sebelum Matchday empat. Atau forfeit.",
+          "translation": "Twenty-five grand. Before Matchday four. Or forfeit.",
+          "start": 8.3,
+          "end": 11.8,
+          "startFrame": 249,
+          "endFrame": 354,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        }
       ]
     },
     {
-      "id": "act-2-topup-loan", "name": "Act 2 — Emergency Top-Up",
-      "from": 14.0, "to": 31.0, "fromFrame": 420, "durationFrames": 510,
+      "id": "act-2-topup-loan",
+      "name": "Act 2 — Emergency Top-Up",
+      "from": 12.6,
+      "to": 27.733333333333334,
+      "fromFrame": 378,
+      "durationFrames": 454,
       "environment": "ClubOfficeApp (environments/club-office.js)",
       "director": "createTopupLoanScene",
       "visual": "Same office as Ep. 6, lit colder. Bos calls Peguam back and signs the Emergency Top-Up Loan; the red NOTIS SITA folder is back on the desk beside Karim's vacant armband.",
       "sfx": "phone buzz; door click; pen scratch; cold stamp on the loan form.",
       "bgm": "Tense office drone, ducked under dialogue.",
       "cues": [
-        { "file": "bell.wav", "frame": 420, "volume": 0.4 },
-        { "file": "door.wav", "frame": 500, "volume": 0.6 },
-        { "file": "pen-tap.wav", "frame": 700, "volume": 0.45 },
-        { "file": "stamp.wav", "frame": 840, "volume": 0.7 }
+        {
+          "file": "bell.wav",
+          "frame": 378,
+          "volume": 0.4
+        },
+        {
+          "file": "door.wav",
+          "frame": 458,
+          "volume": 0.6
+        },
+        {
+          "file": "pen-tap.wav",
+          "frame": 658,
+          "volume": 0.45
+        },
+        {
+          "file": "stamp.wav",
+          "frame": 798,
+          "volume": 0.7
+        }
       ],
       "events": [
-        { "type": "cut", "frame": 105, "note": "Phone -> Peguam enters." },
-        { "type": "cut", "frame": 270, "note": "Bos -> Peguam smirk." },
-        { "type": "cut", "frame": 450, "note": "Peguam -> signed loan form." }
+        {
+          "type": "cut",
+          "frame": 63,
+          "note": "Phone -> Peguam enters."
+        },
+        {
+          "type": "cut",
+          "frame": 228,
+          "note": "Bos -> Peguam smirk."
+        },
+        {
+          "type": "cut",
+          "frame": 408,
+          "note": "Peguam -> signed loan form."
+        }
       ],
       "lines": [
-        { "id": "e9_04", "type": "narrator", "speaker": "NARRATOR", "text": "Bos angkat telefon. Satu nama yang dia harap tak perlu jumpa lagi.", "translation": "Boss picks up the phone. One name he hoped he'd never call again.", "start": 14.5, "end": 17.0, "startFrame": 435, "endFrame": 510, "voice": "voice_6", "trimLeadingSilence": true },
-        { "id": "e9_05", "type": "dialogue", "speaker": "BOS", "text": "Satu top-up lagi. Aku tak ada pilihan.", "translation": "One more top-up. I have no choice.", "start": 17.5, "end": 22.5, "startFrame": 525, "endFrame": 675, "voice": "voice_3", "trimLeadingSilence": true },
-        { "id": "e9_06", "type": "dialogue", "speaker": "PEGUAM", "text": "Satu langkah depan, dua langkah belakang, bos.", "translation": "One step forward, two steps back, boss.", "start": 23.0, "end": 28.5, "startFrame": 690, "endFrame": 855, "voice": "voice_2", "trimLeadingSilence": true },
-        { "id": "e9_07", "type": "narrator", "speaker": "NARRATOR", "text": "Dia senyum. Macam dah lama tunggu hari ini.", "translation": "He smiles. Like he's been waiting for this day.", "start": 29.0, "end": 30.5, "startFrame": 870, "endFrame": 915, "voice": "voice_6", "trimLeadingSilence": true }
+        {
+          "id": "e9_04",
+          "type": "narrator",
+          "speaker": "NARRATOR",
+          "text": "Bos angkat telefon. Satu nama yang dia harap tak perlu jumpa lagi.",
+          "translation": "Boss picks up the phone. One name he hoped he'd never call again.",
+          "start": 12.6,
+          "end": 16.466666666666665,
+          "startFrame": 378,
+          "endFrame": 494,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_05",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Satu top-up lagi. Aku tak ada pilihan.",
+          "translation": "One more top-up. I have no choice.",
+          "start": 17.266666666666666,
+          "end": 19.7,
+          "startFrame": 518,
+          "endFrame": 591,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_06",
+          "type": "dialogue",
+          "speaker": "PEGUAM",
+          "text": "Satu langkah depan, dua langkah belakang, bos.",
+          "translation": "One step forward, two steps back, boss.",
+          "start": 20.5,
+          "end": 23.633333333333333,
+          "startFrame": 615,
+          "endFrame": 709,
+          "voice": "voice_2",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_07",
+          "type": "narrator",
+          "speaker": "NARRATOR",
+          "text": "Dia senyum. Macam dah lama tunggu hari ini.",
+          "translation": "He smiles. Like he's been waiting for this day.",
+          "start": 24.433333333333334,
+          "end": 26.933333333333334,
+          "startFrame": 733,
+          "endFrame": 808,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        }
       ]
     },
     {
-      "id": "act-3-emergency-loan", "name": "Act 3 — Debt Spikes",
-      "from": 31.0, "to": 38.6, "fromFrame": 930, "durationFrames": 228,
+      "id": "act-3-emergency-loan",
+      "name": "Act 3 — Debt Spikes",
+      "from": 27.733333333333334,
+      "to": 39.733333333333334,
+      "fromFrame": 832,
+      "durationFrames": 360,
       "environment": "ClubOfficeApp (environments/club-office.js)",
       "director": "createDebtSpikeScene",
       "visual": "DebtTickerHUD slams RED and ticks upward to RM321,500 with a shake. Bos stares silently at Karim's vacant gold armband on the desk.",
       "sfx": "red HUD impact; upward ticks; low bass sting.",
       "bgm": "Sparse drone under the final beat.",
       "cues": [
-        { "file": "bass-hit.wav", "frame": 945, "volume": 0.8 },
-        { "file": "pen-tap.wav", "frame": 1010, "volume": 0.5 },
-        { "file": "pen-tap.wav", "frame": 1030, "volume": 0.5 },
-        { "file": "pen-tap.wav", "frame": 1050, "volume": 0.5 }
+        {
+          "file": "bass-hit.wav",
+          "frame": 847,
+          "volume": 0.8
+        },
+        {
+          "file": "pen-tap.wav",
+          "frame": 912,
+          "volume": 0.5
+        },
+        {
+          "file": "pen-tap.wav",
+          "frame": 932,
+          "volume": 0.5
+        },
+        {
+          "file": "pen-tap.wav",
+          "frame": 952,
+          "volume": 0.5
+        }
       ],
       "events": [
-        { "type": "debtTicker", "frame": 15, "durationFrames": 205, "note": "Red spike +RM25,000." },
-        { "type": "hardCut", "frame": 228, "note": "Hard cut to EndCard." }
+        {
+          "type": "debtTicker",
+          "frame": -83,
+          "durationFrames": 205,
+          "note": "Red spike +RM25,000."
+        },
+        {
+          "type": "hardCut",
+          "frame": 130,
+          "note": "Hard cut to EndCard."
+        }
       ],
       "lines": [
-        { "id": "e9_08", "type": "narrator", "speaker": "NARRATOR", "text": "Tiga ratus dua puluh satu ribu. Lampu balik menyala, hutang pun balik naik.", "translation": "Three hundred twenty-one grand. The lights come back, and so does the debt.", "start": 31.5, "end": 34.5, "startFrame": 945, "endFrame": 1035, "voice": "voice_6", "trimLeadingSilence": true },
-        { "id": "e9_09", "type": "dialogue", "speaker": "BOS", "text": "Armband Karim masih kat meja. Still tak ada kapten.", "translation": "Karim's armband is still on the desk. Still no captain.", "start": 35.0, "end": 38.0, "startFrame": 1050, "endFrame": 1140, "voice": "voice_3", "trimLeadingSilence": true }
+        {
+          "id": "e9_08",
+          "type": "narrator",
+          "speaker": "NARRATOR",
+          "text": "Tiga ratus dua puluh satu ribu. Lampu balik menyala, hutang pun balik naik.",
+          "translation": "Three hundred twenty-one grand. The lights come back, and so does the debt.",
+          "start": 27.733333333333334,
+          "end": 32.06666666666667,
+          "startFrame": 832,
+          "endFrame": 962,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_09",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Armband Karim masih kat meja. Still tak ada kapten.",
+          "translation": "Karim's armband is still on the desk. Still no captain.",
+          "start": 32.86666666666667,
+          "end": 36.166666666666664,
+          "startFrame": 986,
+          "endFrame": 1085,
+          "voice": "voice_3",
+          "trimLeadingSilence": true
+        },
+        {
+          "id": "e9_09b",
+          "type": "narrator",
+          "speaker": "NARRATOR",
+          "text": "Lampu dah menyala. Hutang pun naik.",
+          "translation": "The lights are back on. So is the debt.",
+          "start": 36.96666666666667,
+          "end": 38.93333333333333,
+          "startFrame": 1109,
+          "endFrame": 1168,
+          "voice": "voice_1",
+          "trimLeadingSilence": true
+        }
       ]
     },
     {
-      "id": "outro-card", "name": "Buluh FC Series Outro",
-      "from": 38.6, "to": 41.0, "fromFrame": 1158, "durationFrames": 72,
-      "environment": null, "director": null,
+      "id": "outro-card",
+      "name": "Buluh FC Series Outro",
+      "from": 39.733333333333334,
+      "to": 42.13333333333333,
+      "fromFrame": 1192,
+      "durationFrames": 72,
+      "environment": null,
+      "director": null,
       "visual": "Standard black Buluh FC / EPISOD 9 card. No CTA.",
-      "sfx": "kick.wav + bass-hit.wav on the cut.", "bgm": null,
+      "sfx": "kick.wav + bass-hit.wav on the cut.",
+      "bgm": null,
       "cues": [
-        { "file": "kick.wav", "frame": 1158, "volume": 0.9 },
-        { "file": "bass-hit.wav", "frame": 1158, "volume": 0.9 }
-      ], "events": [], "lines": []
+        {
+          "file": "kick.wav",
+          "frame": 1192,
+          "volume": 0.9
+        },
+        {
+          "file": "bass-hit.wav",
+          "frame": 1192,
+          "volume": 0.9
+        }
+      ],
+      "events": [],
+      "lines": []
     }
   ]
 }
