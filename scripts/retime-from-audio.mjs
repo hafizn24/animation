@@ -19,14 +19,14 @@ const TAIL_FRAMES = 8;
 // Gaps are measured before the 8-frame tail is added to each line's endFrame,
 // so the effective dialogue gap stays at 4–16 frames and runtime is unchanged.
 const GAPS = {
-  6: [10, 13], 7: [9, 13], 8: [9, 4], 9: [24, 24],
-  10: [13, 15], 11: [13, 15], 12: [10, 13],
+  6: [10, 26], 7: [10, 26], 8: [10, 26], 9: [10, 26],
+  10: [10, 26], 11: [10, 26], 12: [8, 24],
 };
 const GOAL_LINE = {
-  e7_08: 'act-2-first-win',
-  e8_08: 'act-2-bribe-revenge',
-  e10_07: 'act-2-last-gasp',
-  e12_07: 'act-2-winner',
+  e7_10: 'act-2-first-win',
+  e8_13: 'act-2-bribe-revenge',
+  e10_09: 'act-2-last-gasp',
+  e12_10: 'act-2-winner',
 };
 
 const ttsPath = path.join(root, 'remotion/scripts/generate_tts.py');
