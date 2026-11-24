@@ -41,13 +41,65 @@ export const beatPose = (frame, beats = [], fallback = 'idle') => {
   return active ? active.pose : fallback;
 };
 
-/** Subtle faceless body language layered on top of the discrete pose. */
+/** Every pose name that a Season 1 scene is allowed to use. */
+export const SEASON_POSES = [
+  'idle', 'talk', 'panic', 'block', 'point', 'celebrate', 'stride',
+  'offer', 'document', 'keys', 'intercept', 'coffee', 'phone', 'crouch',
+];
+
+// Baselines are captured once per rig (the pose set by createProceduralCharacter).
+// microMotion restores them before applying a pose, so rendering frame N alone is
+// identical to rendering it after frames 0..N-1.
+const BASELINES = new WeakMap();
+
+const baselineFor = (parts) => {
+  let baseline = BASELINES.get(parts);
+  if (!baseline) {
+    baseline = {
+      head: { position: parts.head.position.clone(), rotation: parts.head.rotation.clone() },
+      torso: parts.torso
+        ? {
+            position: parts.torso.position.clone(),
+            rotation: parts.torso.rotation.clone(),
+            scale: parts.torso.scale.clone(),
+          }
+        : null,
+      leftArm: parts.leftArm?.rotation.clone() ?? null,
+      rightArm: parts.rightArm?.rotation.clone() ?? null,
+      leftLeg: parts.leftLeg?.rotation.clone() ?? null,
+      rightLeg: parts.rightLeg?.rotation.clone() ?? null,
+      leftHand: parts.leftHand?.rotation.clone() ?? null,
+      rightHand: parts.rightHand?.rotation.clone() ?? null,
+    };
+    BASELINES.set(parts, baseline);
+  }
+  return baseline;
+};
+
+/** Restore the neutral rig state before layering a new pose on top. */
+export function resetMotion(parts) {
+  if (!parts || !parts.head) return;
+  const base = baselineFor(parts);
+  parts.head.position.copy(base.head.position);
+  parts.head.rotation.copy(base.head.rotation);
+  if (parts.torso && base.torso) {
+    parts.torso.position.copy(base.torso.position);
+    parts.torso.rotation.copy(base.torso.rotation);
+    parts.torso.scale.copy(base.torso.scale);
+  }
+  if (parts.leftArm && base.leftArm) parts.leftArm.rotation.copy(base.leftArm);
+  if (parts.rightArm && base.rightArm) parts.rightArm.rotation.copy(base.rightArm);
+  if (parts.leftLeg && base.leftLeg) parts.leftLeg.rotation.copy(base.leftLeg);
+  if (parts.rightLeg && base.rightLeg) parts.rightLeg.rotation.copy(base.rightLeg);
+  if (parts.leftHand && base.leftHand) parts.leftHand.rotation.copy(base.leftHand);
+  if (parts.rightHand && base.rightHand) parts.rightHand.rotation.copy(base.rightHand);
+}
+
+/** Deterministic faceless body language: always reset, then apply the pose. */
 export function microMotion(parts, frame, pose = 'idle') {
   if (!parts || !parts.head) return;
-  const head = parts.head;
-  const torso = parts.torso;
-  const la = parts.leftArm;
-  const ra = parts.rightArm;
+  resetMotion(parts);
+  const { head, torso, leftArm: la, rightArm: ra } = parts;
   const w = frame / 30;
 
   if (pose === 'talk') {
@@ -66,7 +118,7 @@ export function microMotion(parts, frame, pose = 'idle') {
     if (ra) ra.rotation.set(-1.35, 0, 0.16);
     head.rotation.y = -0.1;
   } else if (pose === 'celebrate') {
-    if (torso) torso.position.y = Math.abs(Math.sin(w * 7)) * 0.12;
+    if (torso) torso.position.y += Math.abs(Math.sin(w * 7)) * 0.12;
     if (la) la.rotation.set(-2.2, 0, -0.4);
     if (ra) ra.rotation.set(-2.2, 0, 0.4);
     head.rotation.x = -0.14;
@@ -75,10 +127,44 @@ export function microMotion(parts, frame, pose = 'idle') {
     if (parts.rightLeg) parts.rightLeg.rotation.x = -Math.sin(w * 8) * 0.4;
     if (la) la.rotation.x = 0.5;
     if (ra) ra.rotation.x = -0.5;
+  } else if (pose === 'offer') {
+    head.rotation.x = 0.08;
+    if (la) la.rotation.set(-0.82, 0, -0.34);
+    if (ra) ra.rotation.set(-0.82, 0, 0.34);
+  } else if (pose === 'document') {
+    head.rotation.x = 0.22;
+    if (la) la.rotation.set(-1.02, 0, -0.22);
+    if (ra) ra.rotation.set(-1.02, 0, 0.22);
+  } else if (pose === 'keys') {
+    head.rotation.y = -0.2;
+    if (ra) ra.rotation.set(-0.7, -0.3, 0.42);
+    if (la) la.rotation.set(0.04, 0, -0.18);
+  } else if (pose === 'intercept') {
+    if (torso) torso.rotation.x = -0.16;
+    if (parts.leftLeg) parts.leftLeg.rotation.x = -0.7;
+    if (parts.rightLeg) parts.rightLeg.rotation.x = 0.34;
+    if (ra) ra.rotation.set(-0.9, 0, 0.24);
+    if (la) la.rotation.set(0.5, 0, -0.24);
+  } else if (pose === 'coffee') {
+    head.rotation.x = 0.05;
+    if (ra) ra.rotation.set(-1.2, -0.1, 0.5);
+  } else if (pose === 'phone') {
+    head.rotation.y = -0.12;
+    if (ra) ra.rotation.set(-1.5, -0.2, 0.35);
+  } else if (pose === 'crouch') {
+    if (torso) {
+      torso.rotation.x = 0.3;
+      torso.position.y -= 0.22;
+    }
+    head.rotation.x = 0.12;
+    if (parts.leftLeg) parts.leftLeg.rotation.x = -0.6;
+    if (parts.rightLeg) parts.rightLeg.rotation.x = 0.6;
+    if (la) la.rotation.set(-0.8, 0, -0.7);
+    if (ra) ra.rotation.set(-0.8, 0, 0.7);
   } else {
     const breath = Math.sin(w * 2.3);
-    head.position.y = 1.96 + breath * 0.016;
-    if (torso) torso.scale.y = 1 + breath * 0.012;
+    head.position.y += breath * 0.016;
+    if (torso) torso.scale.y *= 1 + breath * 0.012;
     head.rotation.y = Math.sin(w * 1.3) * 0.05;
   }
 }
