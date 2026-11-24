@@ -3,72 +3,101 @@ import { ClubOfficeApp } from '../../../../environments/club-office.js';
 import { NewOwnerApp } from '../../../../characters/character-new-owner.js';
 import { SuitOutfitApp } from '../../../../characters/character-suit.js';
 import { applyOfficeGrade } from '../../Episode5/sceneKit.js';
-import { clamp, createCinematicScene, lerp, presetKey, sec, smooth } from '../sceneKit.js';
+import {
+  clamp,
+  createCinematicScene,
+  faceEachOther,
+  findActor,
+  getSpeakerThreeQuarterShot,
+  lerp,
+  sec,
+  shotKey,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_2 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_2.lines.find((line) => line.id === id)[key] - ACT_2.fromFrame;
 const END = ACT_2.durationFrames;
 
-/** Act 2 — Peguam is called back and the emergency top-up is signed. */
+/**
+ * Act 2 (rework) — the office at its lowest. Bos lifts the phone to the one
+ * name he never wanted to call again; the Peguam's proverb lands cold, then
+ * one degree warmer for the kids training at night. Bos vows: never again.
+ */
 export const createTopupLoanScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: ClubOfficeApp,
-  grade: (scene, env) => applyOfficeGrade(scene, env, 'scene2'),
-  extra: (scene, { env }) => {
+  grade: (scene, env) => applyOfficeGrade(scene, env, 'scene1'),
+  extra: (scene, { env, actors }) => {
+    faceEachOther(findActor(actors, 'boss'), findActor(actors, 'peguam'));
     if (env && typeof env.setDocument === 'function') {
       env.setDocument({
-        title: 'BORANG PINJAMAN KECEMASAN',
-        subtitle: 'BULUH FC • KECEMASAN',
-        amount: 'RM25,000',
-        note: 'UNTUK: BAYAR GAJI PEMAIN',
-        accent: '#9a6b12',
+        title: 'PERJANJIAN TOP-UP',
+        subtitle: 'BANK • BULUH FC',
+        amount: '+RM25,000',
+        note: 'LAMPU STADIUM — KECEMASAN',
       });
     }
-    const folder = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.6, 0.44),
-      new THREE.MeshBasicMaterial({ color: 0xb3121f, side: THREE.DoubleSide })
+    // The phone: a dark slab on the desk that Bos lifts on the call.
+    const phone = new THREE.Mesh(
+      new THREE.BoxGeometry(0.18, 0.02, 0.34),
+      new THREE.MeshStandardMaterial({ color: 0x141821, roughness: 0.4, metalness: 0.2 })
     );
-    folder.rotation.x = -Math.PI / 2;
-    folder.position.set(-0.5, 0.885, 0.24);
-    scene.add(folder);
-    const armband = new THREE.Mesh(
-      new THREE.TorusGeometry(0.13, 0.026, 10, 28),
-      new THREE.MeshStandardMaterial({ color: 0xd8b26a, roughness: 0.7 })
-    );
-    armband.rotation.x = Math.PI / 2;
-    armband.position.set(0.42, 0.89, 0.3);
-    scene.add(armband);
-    return { folder, armband };
+    phone.position.set(0.45, 0.9, 0.05);
+    scene.add(phone);
+    return { phone };
   },
   actors: [
     {
-      name: 'bos', Class: NewOwnerApp, outfit: 'charcoalOwner',
-      scale: 0.95, position: [0.2, 0, -1.4], rotationY: 0.05,
+      name: 'boss', Class: NewOwnerApp, outfit: 'charcoalOwner',
+      scale: 0.95, position: [0.2, 0, -1.4], rotationY: 0.06,
       beats: [
-        { from: 0, to: L('e9_05'), pose: 'coffee' },
-        { from: L('e9_05'), to: L('e9_06'), pose: 'document' },
-        { from: L('e9_06'), to: END, pose: 'idle' },
+        { from: 0, to: L('e9_07'), pose: 'phone', emotion: 'stressed' },
+        { from: L('e9_07'), to: L('e9_08'), pose: 'phone', emotion: 'worried' },
+        { from: L('e9_08'), to: L('e9_09'), pose: 'idle', emotion: 'stressed' },
+        { from: L('e9_09'), to: END, pose: 'keys', emotion: 'worried' },
       ],
     },
     {
       name: 'peguam', Class: SuitOutfitApp,
-      scale: 0.94, position: [-1.4, 0, -2.2], rotationY: -0.2,
+      scale: 0.94, position: [-1.35, 0, -2.3], rotationY: -0.24,
       beats: [
-        { from: L('e9_06'), to: L('e9_07'), pose: 'talk' },
-        { from: L('e9_07'), to: END, pose: 'idle' },
+        { from: 0, to: L('e9_08'), pose: 'idle' },
+        { from: L('e9_08'), to: L('e9_09'), pose: 'talk', emotion: 'angry' },
+        { from: L('e9_09'), to: END, pose: 'offer', emotion: 'neutral' },
       ],
-      anim: ({ frame, rig }) => {
-        rig.visible = frame >= 80;
-        rig.position.z = lerp(-4.2, -2.2, smooth(clamp((frame - 80) / 70, 0, 1)));
-      },
     },
   ],
+  onFrame: ({ frame, extra, actors }) => {
+    // Bos picks the phone up off the desk on his first word, sets it down
+    // after the Peguam's final term.
+    if (extra && extra.phone) {
+      const boss = findActor(actors, 'boss');
+      const lift = smooth(clamp((frame - L('e9_07')) / 14, 0, 1));
+      const drop = smooth(clamp((frame - L('e9_09') - 40) / 14, 0, 1));
+      const handY = lerp(0.9, 1.45, lift) - drop * 0.55;
+      const handZ = lerp(0.05, -0.5, lift) + drop * 0.55;
+      extra.phone.position.set(lerp(0.45, 0.32, lift), handY, handZ);
+      if (boss && lift >= 1) {
+        boss.rig.rotation.y = 0.06 + Math.sin(frame * 0.03) * 0.02;
+      }
+    }
+  },
   camera: {
     fov: 46, ease: smooth,
-    keys: [
-      presetKey('MEDIUM_SPEAKER', 0, [0.2, 1.4, -1.0], 0.0),
-      presetKey('MEDIUM_SPEAKER', sec(L('e9_05')), [0.2, 1.4, -1.4], 0.0),
-      presetKey('MEDIUM_SPEAKER', sec(L('e9_06')), [-1.4, 1.4, -2.2], -0.1),
-      presetKey('WIDE_TWO_SHOT', sec(END), [0.1, 1.4, 0.1], 0.0),
-    ],
+    keys: ({ actors }) => {
+      const boss = findActor(actors, 'boss');
+      const peguam = findActor(actors, 'peguam');
+      return [
+        // Open on the phone on the desk — the call he never wanted to make.
+        [0, [0.35, 1.35, 0.85], [0.45, 0.92, 0.05], 42],
+        [sec(54), [-0.2, 1.5, 1.5], [-0.7, 1.05, -1.2], 42],
+        shotKey(getSpeakerThreeQuarterShot(boss, peguam, { distance: 3.7 }), sec(L('e9_07'))),
+        shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.7 }), sec(L('e9_08'))),
+        // The one degree of warmth lands on the reverse shot.
+        shotKey(getSpeakerThreeQuarterShot(peguam, boss, { distance: 3.4 }), sec(L('e9_09'))),
+        shotKey(getSpeakerThreeQuarterShot(boss, peguam, { distance: 3.6 }), sec(END - 40)),
+        [sec(END), [0.1, 1.6, 1.8], [0.2, 1.1, -0.6], 42],
+      ];
+    },
   },
 });
