@@ -154,12 +154,13 @@ Before an episode is called finished:
 
 ---
 
-## 9. Series Canon (after Episode 5)
+## 9. Series Canon (baseline after Episode 5)
 Single source of truth for numbers and roster continuity. Episode entries below
-describe the state *at the time of that episode*; this section is the state now.
+describe the state *at the time of that episode*; this section is the state **at
+the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 10.
 
 - **Club debt:** **RM331,500** (RM450,000 at Ep. 1 → RM381,500 before Ep. 5 →
-  RM331,500 after the sale). **KOS GAJI: -35%**. No other figure is current.
+  RM331,500 after the sale). **KOS GAJI: -35%**. This is the Season 1 starting figure.
 - **Transfer income:** **RM50,000** from a Kelab Divisyen 4 club for Karim; all
   of it went to debt. Target remains **Divisyen 1**.
 - **Roster:** **Karim (#8)** — former captain / centre midfielder — **departed in
@@ -170,3 +171,27 @@ describe the state *at the time of that episode*; this section is the state now.
   card (`Azam · #7 · Defender · Gaji RM5`) is an in-world detail only and is
   **never** an engagement prompt.
 - **Continuity reference:** [`remotion/story/storyline.md`](./remotion/story/storyline.md).
+
+---
+
+## 10. Season 1 Canon (Episodes 6–12 — Divisyen 5)
+The baseline in Section 9 applies until Episode 6. From there the machine-readable
+sources of truth are `story/season1-debt.json` and `story/division5-league.json`;
+each episode's `audio-script.json` mirrors the debt HUD value for that episode.
+
+- **The Bank Promise (Ep. 6):** PEGUAM freezes foreclosure for one Divisyen 5 season.
+  Buluh FC must win the championship by Matchday 5. Winning pays the Champion Prize
+  plus the Nexus Sports (`PENAJA`) promotion bonus — **RM305,000** — which clears the
+  debt. Losses pay **RM0**; fines and emergencies are added directly to the balance;
+  finishing 2nd or lower triggers immediate seizure.
+- **Debt path:** RM331,500 (Ep6) → RM316,500 (Ep7) → RM296,500 (Ep8) →
+  **RM321,500** (Ep9 floodlight emergency, +RM25,000) → RM300,000 (Ep10) →
+  **RM305,000** (Ep11 card fine + bank late fee, +RM5,000) → **RM0 / LUNAS** (Ep12).
+- **Captaincy:** vacant until **Episode 11**, when BOS gives Karim's gold armband to
+  **Azam (#7)**. Azam wears it from Episode 12 onward.
+- **Karim (#8):** at a **Divisyen 4** club — that club is Buluh FC's first Divisyen 4
+  fixture in Season 2. The RM50,000 fee stayed in the club.
+- **Rivals:** Taktik Jaya (M1), Otai Kampung (M2), Vanguard Elite (M3), Kilat Rovers
+  (M4), Besi Waja (M5). League table tiebreak: head-to-head, then goal difference.
+- **Format:** 1080x1920 @ 30fps, 40–45s, 0–2s pattern-interrupt hook, first cut by
+  frame 60, no CTAs, standard 72-frame EndCard.
