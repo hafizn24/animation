@@ -87,8 +87,18 @@ python scripts/generate_audio_beds.py     # procedural SFX + BGM beds (incl. off
 ```
 
 **Never commit `.env`** (it holds `ILMU_API_KEY`). Generated MP3s in
-`remotion/public/audio/tts/` are the only TTS source of truth for frame timings;
-`scripts/retime-from-audio.mjs` rebuilds `audio-script.json` from measured clips.
+`remotion/public/audio/tts/` are the only TTS source of truth for frame timings.
+Season 1 uses the natural-speed path (no atempo stretching, both-end silence
+trim). After generating `e6_` … `e12_`, run `npm run retime` to rebuild every
+`audio-script.json` timeline and its `script.md` table from measured durations.
+
+Verification (no API key or rendering needed):
+
+```bash
+npm test                 # rigs, pose determinism, league table, Season 1 sources
+npm run verify:season1   # frames, gaps, voices, overlays, HUD scores, cue files
+npm run verify:season1 -- --audio   # additionally require every e6_–e12_ MP3
+```
 
 ### Episode 4 notes
 - `ClubOffice` (`environments/club-office.js`) is a lightweight 9:16 indoor set: dark plaster shell,
