@@ -117,20 +117,20 @@
         <option value="sponsor">💼 Sponsor Executive</option>
         <option value="karim">⭐ Karim (Captain #8 — Match Jersey)</option>
         <option value="azam">🙅 Azam (#7 Defender)</option>
-        <option value="karim-away">🏟️ Karim Away Kit</option>
+        <option value="karimAway">🏟️ Karim Away Kit</option>
       </optgroup>
       <optgroup label="Environments">
         <option value="stadium">⚽ Stadium (Buluh FC)</option>
         <option value="locker">🚿 Locker Room</option>
-        <option value="manager-office">🏢 Manager Office</option>
+        <option value="managerOffice">🏢 Manager Office</option>
         <option value="boardroom">🏛️ Lender Boardroom</option>
-        <option value="players-tunnel">🚇 Players Tunnel</option>
-        <option value="sponsor-office">🏢 Sponsor Office (Nexus Sports)</option>
+        <option value="playersTunnel">🚇 Players Tunnel</option>
+        <option value="sponsorOffice">🏢 Sponsor Office (Nexus Sports)</option>
         <option value="bakery">🥐 Bakery (Kek Maju)</option>
-        <option value="club-office">🚪 Club Office (Episode 4)</option>
-        <option value="pitch-hero-stand">🏆 Pitch Hero Stand (Finale)</option>
-        <option value="pitch-crisis-night">⛈️ Pitch Crisis Night</option>
-        <option value="modular-pitch-zone">📐 Modular Pitch Zone</option>
+        <option value="clubOffice">🚪 Club Office (Episode 4)</option>
+        <option value="pitchHeroStand">🏆 Pitch Hero Stand (Finale)</option>
+        <option value="pitchCrisisNight">⛈️ Pitch Crisis Night</option>
+        <option value="modularPitchZone">📐 Modular Pitch Zone</option>
       </optgroup>
     </select>
     <button id="btn-procedural">Load Selected</button>
@@ -147,24 +147,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DefaultApp } from './characters/character-default.js';
-import { SuitOutfitApp } from './characters/character-suit.js';
-import { SoccerCoachOutfitApp } from './characters/character-coach.js';
-import { SoccerOutfitApp } from './characters/character-soccer.js';
-import { AnotherCasualOutfitApp } from './characters/character-casual.js';
-import { ChairmanApp } from './characters/character-chairman.js';
-import { NewOwnerApp } from './characters/character-new-owner.js';
-import { SponsorApp } from './characters/character-sponsor.js';
 import { KarimApp } from './characters/character-karim.js';
 import { AzamApp } from './characters/character-azam.js';
 import { KarimAwayApp } from './characters/character-karim-away.js';
-import { StadiumApp } from './environments/stadium.js';
-import { LockerRoomApp } from './environments/locker-room.js';
-import { ManagerOfficeApp } from './environments/manager-office.js';
-import { LenderBoardroomApp } from './environments/lender-boardroom.js';
-import { PlayersTunnelApp } from './environments/players-tunnel.js';
-import { SponsorOfficeApp } from './environments/sponsor-office.js';
-import { BakeryApp } from './environments/bakery.js';
 import { ClubOfficeApp } from './environments/club-office.js';
 import { PitchHeroStandApp } from './environments/pitch-hero-stand.js';
 import { PitchCrisisNightApp } from './environments/pitch-crisis-night.js';
@@ -10119,20 +10104,20 @@ const inspectorEl = document.getElementById('btn-inspector');
 const characterSelector = document.getElementById('character-selector');
 
 const characterClasses = {
-  // Basic Characters
-  default: DefaultApp,
+  // Basic Characters (locally defined in this file)
+  default: App,
   suit: SuitOutfitApp,
+  coach: SoccerCoachOutfitApp,
   soccer: SoccerOutfitApp,
   casual: AnotherCasualOutfitApp,
-  coach: SoccerCoachOutfitApp,
   chairman: ChairmanApp,
   newowner: NewOwnerApp,
   sponsor: SponsorApp,
-  // Season 1 Characters
+  // Season 1 Characters (imported)
   karim: KarimApp,
   azam: AzamApp,
   karimAway: KarimAwayApp,
-  // Environments
+  // Environments (locally defined + imported)
   stadium: StadiumApp,
   locker: LockerRoomApp,
   managerOffice: ManagerOfficeApp,
