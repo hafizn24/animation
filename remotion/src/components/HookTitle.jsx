@@ -28,7 +28,7 @@ export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45, scale: siz
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const enter = interpolate(local, [0, 2], [0.35, 1], {
+  const enter = interpolate(local, [0, 2], [0.75, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });

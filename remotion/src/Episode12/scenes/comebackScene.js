@@ -22,7 +22,7 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
     armband.scale.setScalar(1.25);
     // Worn on the upper left arm, not floating in front of the lens.
     if (azam && azam.parts.leftArm) azam.parts.leftArm.add(armband);
-    armband.position.set(0, -0.2, 0);
+    armband.position.set(0, -0.2, 0.05);
     return { armband, ball: env.anchors.ball };
   },
   actors: [
@@ -72,7 +72,7 @@ export const createComebackScene = (renderer, size) => createCinematicScene(rend
   camera: {
     fov: 46, ease: smooth,
     keys: [
-      [0, [0.3, 1.72, 1.55], [0.11, 1.62, 0.62], 40],
+      [0, [1.0, 1.85, 3.2], [0.2, 1.6, 0.6], 46],
       [sec(54), [0.8, 1.62, 2.8], [0.4, 1.45, 0.6], 44],
       [sec(L('e12_03')), [-0.8, 1.6, 3.2], [-0.6, 1.3, 0.8], 48],
       [sec(L('e12_04')), [-1.4, 1.55, 3.4], [-1.2, 1.4, 1.0], 46],

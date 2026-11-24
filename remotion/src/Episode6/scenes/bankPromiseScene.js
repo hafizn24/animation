@@ -31,12 +31,12 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
 
     const stamp = new THREE.Group();
     const handle = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.06, 0.09, 0.24, 14),
+      new THREE.CylinderGeometry(0.04, 0.055, 0.16, 14),
       new THREE.MeshStandardMaterial({ color: 0x2a1414, roughness: 0.6 })
     );
-    handle.position.y = 0.14;
+    handle.position.y = 0.1;
     const base = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.1, 0.1, 0.06, 14),
+      new THREE.CylinderGeometry(0.075, 0.075, 0.045, 14),
       new THREE.MeshStandardMaterial({ color: 0xb3121f, roughness: 0.5 })
     );
     stamp.add(handle, base);
@@ -76,7 +76,7 @@ export const createBankPromiseScene = (renderer, size) => createCinematicScene(r
   camera: {
     fov: 46, ease: smooth,
     keys: [
-      [0, [-0.55, 1.14, 1.1], [-0.55, 0.88, 0.2], 40],
+      [0, [-0.4, 1.5, 2.7], [-0.5, 0.9, 0.2], 46],
       [sec(54), [-0.2, 1.5, 1.5], [-0.8, 1.0, -1.2], 46],
       [sec(L('e6_03')), [0.45, 1.62, 1.5], [0.2, 1.4, -1.4], 44],
       [sec(L('e6_04')), [-0.65, 1.58, 1.35], [-1.35, 1.45, -2.3], 44],

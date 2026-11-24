@@ -17,7 +17,7 @@ export const MatchHUD = ({ config, sceneFrom = 0 }) => {
   const local = frame - fromFrame;
   const span = Math.max(1, toFrame - fromFrame);
   const opacity = Math.min(
-    interpolate(local, [0, 8], [0, 1], clampOpts),
+    interpolate(local, [0, 4], [0.85, 1], clampOpts),
     interpolate(local, [span - 12, span], [1, 0], clampOpts)
   );
   let score = { home: 0, away: 0, clock: "'" };
