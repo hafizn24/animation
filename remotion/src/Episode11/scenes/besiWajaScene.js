@@ -1,79 +1,114 @@
-import * as THREE from 'three';
 import { PitchCenterCircleApp } from '../../../../environments/modular-pitch-zone.js';
-import { MalikApp, RefereeApp } from '../../../../characters/character-variants.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
-import { SuitOutfitApp } from '../../../../characters/character-suit.js';
-import { clamp, createCinematicScene, lerp, pitchGrade, presetKey, sec, smooth } from '../sceneKit.js';
+import { MalikApp, RefereeApp } from '../../../../characters/character-variants.js';
+import {
+  animateKickAndGoal,
+  clamp,
+  createCinematicScene,
+  findActor,
+  getSpeakerThreeQuarterShot,
+  getTwoShot,
+  goalFrame,
+  lerp,
+  pitchGrade,
+  placeBallAtFeet,
+  sec,
+  shotKey,
+  smooth,
+} from '../sceneKit.js';
 import { ACT_1 } from '../timings.js';
 
 const L = (id, key = 'startFrame') => ACT_1.lines.find((line) => line.id === id)[key] - ACT_1.fromFrame;
 const END = ACT_1.durationFrames;
+const GOAL1 = goalFrame(ACT_1, 0); // 0-1, minute 24
+const GOAL2 = goalFrame(ACT_1, 1); // 0-2, minute 41
 
-/** Act 1 — yellow card in the lens, Malik the wall, and the halftime fine. */
+/**
+ * Act 1 (rework) — Besi Waja play like a machine and Kapten Malik commands in
+ * three-word bursts. The referee's yellow card goes to AZAM at frame 0's hook,
+ * and the fine it triggers is his guilt to carry. HUD: 0-1 (24') -> 0-2 (41')
+ * -> 0-2 (HT), never reversed.
+ */
 export const createBesiWajaScene = (renderer, size) => createCinematicScene(renderer, size, {
   environment: PitchCenterCircleApp,
-  grade: (scene, env) => pitchGrade(scene, env, 'dusk'),
-  extra: (scene) => {
-    const card = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.3, 0.42),
-      new THREE.MeshBasicMaterial({ color: 0xffd400, side: THREE.DoubleSide })
-    );
-    card.position.set(0.55, 1.5, 1.9);
-    card.rotation.z = -0.18;
-    scene.add(card);
-    return { card };
-  },
+  grade: (scene, env) => pitchGrade(scene, env, 'day'),
+  extra: (scene, { env }) => ({ ...env.anchors }),
   actors: [
     {
-      name: 'pengadil', Class: RefereeApp,
-      scale: 0.96, position: [0.1, 0, 0.4], rotationY: 0.05,
+      name: 'malik', Class: MalikApp,
+      scale: 0.95, position: [-1.0, 0, -0.4], rotationY: 0.3,
       beats: [
-        { from: 0, to: L('e11_02'), pose: 'point' },
-        { from: L('e11_02'), to: L('e11_03'), pose: 'talk' },
-        { from: L('e11_03'), to: END, pose: 'idle' },
+        { from: 0, to: L('e11_02'), pose: 'stride' },
+        { from: L('e11_02'), to: L('e11_03'), pose: 'point', emotion: 'angry' },
+        { from: L('e11_03'), to: END, pose: 'block', emotion: 'neutral' },
       ],
-      anim: ({ frame, extra, parts }) => {
-        if (frame < 90 && parts.rightArm) parts.rightArm.rotation.set(-2.1, 0, 0.2);
-      },
     },
     {
-      name: 'malik', Class: MalikApp,
-      scale: 1.0, position: [-0.9, 0, -1.6], rotationY: 0.12,
+      name: 'pengadil', Class: RefereeApp,
+      scale: 0.92, position: [1.9, 0, 1.8], rotationY: -0.55,
       beats: [
-        { from: 0, to: L('e11_03'), pose: 'idle' },
-        { from: L('e11_03'), to: L('e11_04'), pose: 'block' },
-        { from: L('e11_04'), to: END, pose: 'idle' },
+        { from: 0, to: L('e11_03'), pose: 'point', emotion: 'angry' },
+        { from: L('e11_03'), to: END, pose: 'idle' },
       ],
     },
     {
       name: 'azam', Class: AzamApp, outfit: 'matchJersey',
-      scale: 0.96, position: [1.4, 0, 0.8], rotationY: -0.3,
+      scale: 0.98, position: [0.7, 0, 1.2], rotationY: -0.4,
       beats: [
-        { from: 0, to: L('e11_04'), pose: 'stride' },
-        { from: L('e11_04'), to: END, pose: 'block' },
+        { from: 0, to: L('e11_03'), pose: 'stride' },
+        { from: L('e11_03'), to: L('e11_04'), pose: 'block', emotion: 'worried' },
+        { from: L('e11_04'), to: END, pose: 'idle', emotion: 'stressed' },
       ],
     },
-    {
-      name: 'peg', Class: SuitOutfitApp,
-      scale: 0.84, position: [3.2, 0, 3.6], rotationY: -0.3,
-      beats: [{ from: L('e11_04'), to: END, pose: 'idle' }],
-    },
   ],
-  onFrame: ({ frame, extra }) => {
-    if (extra && extra.card) {
-      extra.card.visible = frame < 90;
-      const pop = 1 + Math.sin(Math.min(frame, 12) / 12 * Math.PI) * 0.15;
-      extra.card.scale.setScalar(pop);
+  onFrame: ({ frame, actors, extra }) => {
+    const ball = extra && extra.ball;
+    if (!ball) return;
+    const malik = findActor(actors, 'malik');
+    let shake = null;
+    if (frame < GOAL1 - 8) {
+      placeBallAtFeet(malik, ball, 0.55);
+    } else if (frame < GOAL1) {
+      const result = animateKickAndGoal({
+        frame, kicker: malik, ball, net: extra.net,
+        target: [-5.5, 0.9, -0.4],
+        kickFrame: GOAL1 - 24, contactFrame: GOAL1 - 8, hitFrame: GOAL1,
+      });
+      shake = result.shake;
+    } else if (frame < GOAL2 - 8) {
+      placeBallAtFeet(malik, ball, 0.55);
+    } else if (frame < GOAL2 + 6) {
+      const result = animateKickAndGoal({
+        frame, kicker: malik, ball, net: extra.net,
+        target: [-5.6, 1.6, 0.5],
+        kickFrame: GOAL2 - 20, contactFrame: GOAL2 - 6, hitFrame: GOAL2,
+      });
+      shake = result.shake;
+    } else {
+      placeBallAtFeet(malik, ball, 0.55);
     }
+    extra.shake = shake;
+    extra.crowdExcitement = frame >= GOAL2 ? 0.5 : 0.14;
   },
   camera: {
-    fov: 46, ease: smooth,
-    keys: [
-      presetKey('MEDIUM_SPEAKER', 0, [0.1, 1.4, 0.4], 0.05),
-      presetKey('MEDIUM_SPEAKER', sec(54), [0.1, 1.4, 0.4], 0.12),
-      presetKey('MEDIUM_SPEAKER', sec(L('e11_03')), [-0.9, 1.4, -1.6], -0.15),
-      presetKey('MEDIUM_SPEAKER', sec(L('e11_04')), [1.4, 1.4, 0.8], 0.3),
-      presetKey('WIDE_TWO_SHOT', sec(END), [0.4, 1.4, 0.4], 0.1),
-    ],
+    fov: 44, ease: smooth,
+    keys: ({ actors }) => {
+      const malik = findActor(actors, 'malik');
+      const pengadil = findActor(actors, 'pengadil');
+      const azam = findActor(actors, 'azam');
+      return [
+        // Hook: the card flashes straight into the lens.
+        [0, [1.4, 1.5, 4.2], [1.9, 1.4, 1.8], 42],
+        [sec(54), [-2.2, 1.7, 4.4], [-1.0, 1.35, -0.4], 42],
+        shotKey(getSpeakerThreeQuarterShot(malik, azam, { distance: 4.2 }), sec(L('e11_02'))),
+        shotKey(getSpeakerThreeQuarterShot(pengadil, azam, { distance: 3.8 }), sec(L('e11_03'))),
+        // The card is Azam's — his guilt, his fine.
+        shotKey(getSpeakerThreeQuarterShot(azam, malik, { distance: 4.0 }), sec(L('e11_04'))),
+        // 0-2 and the machine closes in.
+        [sec(Math.max(0, GOAL2 - 16)), [-1.6, 1.6, 5.6], [-4.6, 1.3, -0.2], 44],
+        shotKey(getTwoShot(malik, azam, { distance: 4.4 }), sec(END - 40)),
+        [sec(END), [0.6, 2.0, 6.8], [-1.0, 1.3, 0.4], 46],
+      ];
+    },
   },
 });

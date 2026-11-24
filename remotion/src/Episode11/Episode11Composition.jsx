@@ -11,13 +11,8 @@ const DIRECTORS = {
   createArmbandRevealScene,
 };
 
-const BGM = [
-  { file: 'match.wav', from: 0, to: 480, level: 0.16, duck: 0.05 },
-  { file: 'tense.wav', from: 480, to: 1248, level: 0.13, duck: 0.04 },
-];
-
 export const Episode11Composition = () => (
-  <SeasonEpisode episode={11} script={script} directors={DIRECTORS} bgm={BGM} />
+  <SeasonEpisode episode={11} script={script} directors={DIRECTORS} />
 );
 
 export const EPISODE_11_FRAMES = script.totalFrames;
