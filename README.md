@@ -143,22 +143,41 @@ npm run verify:season1 -- --audio   # additionally require every e6_–e12_ MP3
   `... --frames=470-515`, `... --frames=730-795`, `... --frames=830-1070`, and
   `... --frames=1233-1352`.
 
-## Season 1 notes (Episodes 6–12)
+## Season 1 notes (Episodes 6–12, reworked)
 
+- **Rework standard:** dialogue carries the story — the narrator only bridges (max ~2 lines
+  per act). HUD digits are never spoken; numbers live in the overlays plus at most one
+  narrator line syncing the `SeasonDebtTickerHUD` beat. Rivals keep recurring personalities
+  (Zaki's clipboard, Pak Din's otai mind games, Rayyan's bribe, Bob's chaos, Malik's machine
+  commands) and the RM5 salary stays a running gag. The gold armband is a covenant: sworn
+  over the desk in Ep. 6, handed over in Ep. 11, paid off in Ep. 12.
 - **Arc:** PEGUAM freezes foreclosure for one Divisyen 5 season. Buluh FC must win the
   championship by Matchday 5; the Champion Prize + Nexus Sports (PENAJA) promotion bonus
   (RM305,000) clears the debt. Losses pay RM0; fines/emergencies are added to the balance.
 - **Debt:** RM331,500 → RM331,500 (Ep6) → RM316,500 → RM296,500 → **RM321,500** (Ep9 crisis)
   → RM300,000 → **RM305,000** (Ep11 fine) → **RM0 / LUNAS** (Ep12).
-- **Cast:** BOS, JURULATIH, PEGUAM, AZAM (#7) and FARID (#9) carry the season. New profile-based
+- **Cast:** BOS, JURULATIH, PEGUAM, AZAM (#7) and FARID (#9) carry the season. Profile-based
   rigs in `characters/character-variants.js` cover Danial (#1 GK), Zaki, Pak Din, Rayyan, Bob,
-  Malik, Penjaga Gol Besi and PENGADIL — no new skeletons.
+  Malik, Penjaga Gol Besi and PENGADIL — no new skeletons. **New for the rework:**
+  `characters/character-karim-away.js` — Karim in his Divisyen 4 away kit (navy, `KARIM 8`
+  panels, Buluh scarf, hidden boots slot) who returns in the stands for the MD5 final.
+- **New finale set:** `environments/pitch-hero-stand.js` (`PitchHeroStandApp`) — floodlit
+  grandstand with `anchors.heroSpot`, railing, flip banner (`flipBanner()`: BULUH FC → JUARA),
+  seeded flags, its own instanced crowd and deterministic confetti (`updateConfetti`).
 - **11-a-side:** `StartingXICard` shows the full XI from `story/division5-league.json`; only 2–4
   Three.js rigs render per shot. Modular pitch zones swap by camera, not by new stadium builds.
-- **Captaincy:** vacant until Ep. 11, when Bos hands Karim's gold armband to Azam (#7).
+- **Captaincy:** Bos swears the armband covenant on his desk in Ep. 6; vacant until Ep. 11,
+  when he hands Karim's gold armband to Azam (#7); Azam wears it from Ep. 12 onward.
+- **Karim:** absent through Ep. 11, then in the tribun for the final (Ep. 12) —
+  "Aku kata dulu — jangan jual kapten aku." His Divisyen 4 club remains the Season 2 opener.
 - Every episode ends with the standard 72-frame black **Buluh FC / EPISOD X** card, no CTA.
 - All match shots use the verified 9:16 camera presets in `remotion/src/Season1/sceneKit.js`
   (`WIDE_TWO_SHOT`, `MEDIUM_SPEAKER`, `OVER_SHOULDER`, `PENALTY_BOX_1V1`) and pass through
   `sanitizeCamera()` (38–42° FOV, ≥4.6-unit actor clearance, 1.25–1.45 look-at height).
 - Every dialogue line carries an 8-frame (250ms) subtitle/audio tail; `MatchHUD` enters after
   frame 45 and `SeasonDebtTickerHUD` is anchored below it, so overlays never collide.
+- **BGM windows now live in each episode's `audio-script.json` (`bgm`)** — the compositions no
+  longer hardcode them; `SeasonEpisode` reads the JSON first.
+- Verification (no rendering needed): `npm test` covers the rigs/environments (incl. the new
+  assets), and `npm run verify:season1` cross-checks JSON ↔ TTS manifest ↔ script.md ↔ debt
+  JSON ↔ league table for every episode.
