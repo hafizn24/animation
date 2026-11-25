@@ -275,9 +275,7 @@ export function createCinematicScene(renderer, size, spec) {
     ...actor,
     animate: ({ frame, rig, parts, app }) => {
       const pose = beatPose(frame, actor.beats, actor.pose || 'idle');
-      microMotion(parts, frame, pose);
-      updateFace(parts, frame, resolveEmotion(actor, frame, pose), actor.name || actor.id || rig.name);
-      if (actor.anim) actor.anim({ frame, rig, parts, app });
+      microMotion(parts, frame, pose);      if (actor.anim) actor.anim({ frame, rig, parts, app });
     },
   }));
 
