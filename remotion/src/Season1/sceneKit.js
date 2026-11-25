@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { clamp, createSceneDirector, forEachLight } from '../Episode1/sceneKit.js';
-import { MIN_CHARACTER_SEPARATION, resolveEmotion, updateFace } from '../../../characters/rig-kit.js';
+import { MIN_CHARACTER_SEPARATION } from '../../../characters/rig-kit.js';
 
 export { clamp, lerp, smooth, sampleKeys, forEachLight, createSceneDirector } from '../Episode1/sceneKit.js';
 export * from './cameraKit.js';
