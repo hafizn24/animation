@@ -25,7 +25,7 @@ export const MIN_CHARACTER_SEPARATION = 0.95;
 
 const fract = (value) => value - Math.floor(value);
 
-/** Deterministic 0..1 hash used for blinks, crowd jitter and spark seeds. */
+/** Deterministic 0..1 hash used for crowd jitter and spark seeds. */
 export function seededUnit(seed = 0) {
   return fract(Math.sin(seed * 12.9898 + 78.233) * 43758.5453);
 }
