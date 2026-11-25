@@ -94,6 +94,35 @@ const headSphere = (headGroup) => {
  * Installs the strict hierarchy on an already-built faceless character.
  * Safe to call more than once; returns the same characterParts object.
  */
+function addTorsoCap(torso, headGroup) {
+  if (!torso || torso.getObjectByName('TorsoCap')) return;
+  let top = 0.34;
+  torso.traverse((child) => {
+    if (!isMesh(child) || child.geometry?.type !== 'CylinderGeometry') return;
+    const height = child.geometry.parameters?.height;
+    if (height) top = Math.max(top, height / 2);
+  });
+  const sphere = headSphere(headGroup);
+  const skin = sphere?.mesh?.material;
+  const material = skin?.isMaterial ? skin.clone() : new THREE.MeshStandardMaterial({ color: 0xb08d6a });
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.195, 0.11, 16), material);
+  cap.name = 'TorsoCap';
+  cap.position.y = top - 0.02;
+  cap.scale.z = 0.82;
+  torso.add(cap);
+}
+
+function restoreHierarchyOffsets(parts) {
+  const rest = parts?.__rest;
+  if (!rest) return;
+  if (parts.torso) parts.torso.position.y = rest.torsoY;
+  if (parts.head) parts.head.position.y = rest.headY;
+}
+
+/**
+ * Installs the strict hierarchy and shared face on an already-built character.
+ * Safe to call more than once; returns the same characterParts object.
+ */
 export function normalizeRig(root, parts, { app = null } = {}) {
   if (!root || !parts) return parts;
   if (parts.__normalized) return parts;
