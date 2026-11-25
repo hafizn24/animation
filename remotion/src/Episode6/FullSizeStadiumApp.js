@@ -60,7 +60,7 @@ export class FullSizeStadiumApp extends StadiumApp {
     const southGoal = root.getObjectByName('Goal_South');
     this.anchors = {
       ball,
-      net: northGoal || southGoal || null,
+      net: southGoal || northGoal || null,
       northGoal,
       southGoal,
     };
