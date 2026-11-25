@@ -2,6 +2,8 @@ import * as THREE from 'three';
 
 /**
  * Shared hairstyle builder used by every character in the viewer.
+ * Geometry uses denser subdivisions for smoother silhouettes while retaining
+ * the series' stylised toon proportions and bold outline treatment.
  *
  * Styles are built against the standard head rig used across the codebase:
  * a 0.46 radius sphere centred at y = 0.36 inside a head group placed at
@@ -43,16 +45,16 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
   switch (style) {
     // Very short, close to the scalp
     case 'buzz': {
-      const cap = add(new THREE.SphereGeometry(0.468, 22, 16, 0, Math.PI * 2, 0, Math.PI * 0.30));
+      const cap = add(new THREE.SphereGeometry(0.468, 28, 20, 0, Math.PI * 2, 0, Math.PI * 0.30));
       cap.position.y = 0.352;
       break;
     }
 
     // Short hair with an even fringe
     case 'crop': {
-      const cap = add(new THREE.SphereGeometry(0.478, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.40));
+      const cap = add(new THREE.SphereGeometry(0.478, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.40));
       cap.position.y = 0.348;
-      const fringe = add(new THREE.SphereGeometry(0.2, 16, 12));
+      const fringe = add(new THREE.SphereGeometry(0.2, 24, 18));
       fringe.position.set(0, 0.47, 0.31);
       fringe.scale.set(1.55, 0.55, 0.75);
       break;
@@ -60,7 +62,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Short hair pushed up and out of place
     case 'messy': {
-      const cap = add(new THREE.SphereGeometry(0.478, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.40));
+      const cap = add(new THREE.SphereGeometry(0.478, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.40));
       cap.position.y = 0.348;
       const tufts = [
         [0.16, 0.60, 0.16, 0.19],
@@ -69,7 +71,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
         [-0.08, 0.58, 0.26, 0.15]
       ];
       tufts.forEach(([tx, ty, tz, r]) => {
-        const tuft = add(new THREE.SphereGeometry(r, 14, 12));
+        const tuft = add(new THREE.SphereGeometry(r, 18, 14));
         tuft.position.set(tx, ty, tz);
         tuft.scale.set(1, 0.7, 1);
       });
@@ -78,12 +80,12 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Volume swept back off the forehead
     case 'swept': {
-      const cap = add(new THREE.SphereGeometry(0.482, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.38));
+      const cap = add(new THREE.SphereGeometry(0.482, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.38));
       cap.position.y = 0.345;
-      const quiff = add(new THREE.SphereGeometry(0.30, 20, 16));
+      const quiff = add(new THREE.SphereGeometry(0.30, 24, 18));
       quiff.position.set(0.03, 0.60, 0.17);
       quiff.scale.set(1.02, 0.72, 1.06);
-      const sweep = add(new THREE.SphereGeometry(0.22, 16, 14));
+      const sweep = add(new THREE.SphereGeometry(0.28, 20, 14));
       sweep.position.set(-0.17, 0.53, 0.26);
       sweep.scale.set(1.25, 0.52, 0.85);
       sweep.rotation.z = 0.5;
@@ -92,9 +94,9 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Neat side part
     case 'sidePart': {
-      const cap = add(new THREE.SphereGeometry(0.478, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.38));
+      const cap = add(new THREE.SphereGeometry(0.478, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.38));
       cap.position.y = 0.348;
-      const parting = add(new THREE.SphereGeometry(0.23, 16, 14));
+      const parting = add(new THREE.SphereGeometry(0.23, 20, 16));
       parting.position.set(0.13, 0.50, 0.30);
       parting.scale.set(1.3, 0.55, 0.85);
       parting.rotation.z = -0.35;
@@ -103,13 +105,13 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Longer hair falling past the ears
     case 'long': {
-      const cap = add(new THREE.SphereGeometry(0.492, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.46));
+      const cap = add(new THREE.SphereGeometry(0.492, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.46));
       cap.position.y = 0.345;
       [-1, 1].forEach((dir) => {
-        const side = add(new THREE.SphereGeometry(0.22, 16, 14));
+        const side = add(new THREE.SphereGeometry(0.28, 20, 14));
         side.position.set(dir * 0.40, 0.16, -0.02);
         side.scale.set(0.85, 1.5, 1.05);
-        const fringe = add(new THREE.SphereGeometry(0.19, 16, 14));
+        const fringe = add(new THREE.SphereGeometry(0.19, 20, 16));
         fringe.position.set(dir * 0.19, 0.45, 0.30);
         fringe.scale.set(1.1, 0.6, 0.8);
         fringe.rotation.z = dir * 0.25;
@@ -119,7 +121,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
 
     // Rounded volume
     case 'afro': {
-      const cap = add(new THREE.SphereGeometry(0.56, 24, 18, 0, Math.PI * 2, 0, Math.PI * 0.56));
+      const cap = add(new THREE.SphereGeometry(0.56, 32, 24, 0, Math.PI * 2, 0, Math.PI * 0.56));
       cap.position.y = 0.325;
       cap.scale.set(1, 0.92, 1);
       const bumps = [
@@ -128,7 +130,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
         [0.05, 0.74, -0.26, 0.19]
       ];
       bumps.forEach(([bx, by, bz, r]) => {
-        const bump = add(new THREE.SphereGeometry(r, 14, 12));
+        const bump = add(new THREE.SphereGeometry(r, 18, 14));
         bump.position.set(bx, by, bz);
       });
       break;
@@ -137,7 +139,7 @@ export function createHairstyle(style, material, createOutlinedMesh, radius = 0.
     // High hairline with hair only at the sides and back
     case 'receding': {
       const band = add(new THREE.SphereGeometry(
-        0.478, 26, 20,
+        0.478, 32, 24,
         Math.PI * 0.72, Math.PI * 1.56,
         Math.PI * 0.30, Math.PI * 0.70
       ));
