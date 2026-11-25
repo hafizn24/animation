@@ -1,8 +1,24 @@
 import * as THREE from 'three';
 
 /**
- * Shared Season 1 rig utilities. Characters remain fully faceless; emotion is
- * communicated through body language and pose animation.
+ * Shared Season 1 rig utilities.
+ *
+ * Every procedural character is authored as a flat group of part pivots so the
+ * standalone viewer keeps working. createSceneDirector() calls normalizeRig()
+ * once per actor to install the animation contract used by every episode:
+ *
+ *   characterRoot
+ *     └─ pelvis
+ *          ├─ torso
+ *          │    ├─ head
+ *          │    ├─ leftArm
+ *          │    └─ rightArm
+ *          ├─ leftLeg
+ *          └─ rightLeg
+ *
+ * Vertical bounce/jump offsets must always be applied to characterRoot.position.y,
+ * never to the torso. normalizeRig() also adds a collar plug so no hollow
+ * torso interior can show when the head turns.
  */
 
 export const MIN_CHARACTER_SEPARATION = 0.95;
@@ -46,6 +62,32 @@ const findPart = (root, parts, key, name, predicate) => {
 const namePart = (part, name) => {
   if (part && !part.name) part.name = name;
   return part;
+};
+
+const headSphere = (headGroup) => {
+  const outlined = headGroup?.children?.find((child) => child.userData && child.userData.mainMesh);
+  const mesh = outlined?.userData?.mainMesh;
+  if (mesh && mesh.geometry?.type === 'SphereGeometry') {
+    return {
+      group: outlined,
+      mesh,
+      radius: mesh.geometry.parameters.radius ?? 0.46,
+      centerY: outlined.position.y ?? 0.36,
+    };
+  }
+  let found = null;
+  headGroup?.traverse((child) => {
+    if (found || !isMesh(child) || child.geometry?.type !== 'SphereGeometry') return;
+    const radius = child.geometry.parameters?.radius ?? 0;
+    if (radius > 0.35 && radius < 0.62) found = child;
+  });
+  if (!found) return { radius: 0.46, centerY: 0.36, group: null, mesh: null };
+  return {
+    radius: found.geometry.parameters.radius,
+    centerY: found.parent?.position?.y ?? 0.36,
+    group: found.parent,
+    mesh: found,
+  };
 };
 
 /**
