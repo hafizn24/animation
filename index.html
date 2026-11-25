@@ -107,30 +107,25 @@
   <div class="controls">
     <select id="character-selector">
       <optgroup label="Characters">
-        <option value="default">👨 Default Hoodie</option>
-        <option value="suit">👔 Three-Piece Suit</option>
-        <option value="coach">👕 Coach Tracksuit</option>
-        <option value="soccer">⚽ Soccer Jersey</option>
-        <option value="casual">🧥 Casual Sweater</option>
-        <option value="chairman">👤 The Chairman</option>
-        <option value="newowner">👔 The New Owner</option>
-        <option value="sponsor">💼 Sponsor Executive</option>
-        <option value="karim">⭐ Karim (Captain #8 — Match Jersey)</option>
-        <option value="azam">🙅 Azam (#7 Defender)</option>
-        <option value="karimAway">🏟️ Karim Away Kit</option>
+        <option value="default">Default Hoodie</option>
+        <option value="suit">Three-Piece Suit</option>
+        <option value="coach">Coach Tracksuit</option>
+        <option value="soccer">Soccer Jersey</option>
+        <option value="casual">Casual Sweater</option>
+        <option value="chairman">The Chairman</option>
+        <option value="newowner">The New Owner</option>
+        <option value="sponsor">Sponsor Executive</option>
+        <option value="karim">Karim (Captain #8 — Match Jersey)</option>
       </optgroup>
       <optgroup label="Environments">
         <option value="stadium">⚽ Stadium (Buluh FC)</option>
         <option value="locker">🚿 Locker Room</option>
-        <option value="managerOffice">🏢 Manager Office</option>
+        <option value="office">🏢 Manager Office</option>
         <option value="boardroom">🏛️ Lender Boardroom</option>
-        <option value="playersTunnel">🚇 Players Tunnel</option>
-        <option value="sponsorOffice">🏢 Sponsor Office (Nexus Sports)</option>
+        <option value="tunnel">🚇 Players Tunnel</option>
+        <option value="sponsoroffice">🏢 Sponsor Office (Nexus Sports)</option>
         <option value="bakery">🥐 Bakery (Kek Maju)</option>
-        <option value="clubOffice">🚪 Club Office (Episode 4)</option>
-        <option value="pitchHeroStand">🏆 Pitch Hero Stand (Finale)</option>
-        <option value="pitchCrisisNight">⛈️ Pitch Crisis Night</option>
-        <option value="modularPitchZone">📐 Modular Pitch Zone</option>
+        <option value="cluboffice">🚪 Club Office (Episode 4)</option>
       </optgroup>
     </select>
     <button id="btn-procedural">Load Selected</button>
@@ -148,12 +143,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { KarimApp } from './characters/character-karim.js';
-import { AzamApp } from './characters/character-azam.js';
-import { KarimAwayApp } from './characters/character-karim-away.js';
 import { ClubOfficeApp } from './environments/club-office.js';
-import { PitchHeroStandApp } from './environments/pitch-hero-stand.js';
-import { PitchCrisisNightApp } from './environments/pitch-crisis-night.js';
-import { ModularPitchZoneApp } from './environments/modular-pitch-zone.js';
 
 /**
  * Shared hairstyle builder used by every character in the viewer.
@@ -10104,7 +10094,6 @@ const inspectorEl = document.getElementById('btn-inspector');
 const characterSelector = document.getElementById('character-selector');
 
 const characterClasses = {
-  // Basic Characters (locally defined in this file)
   default: App,
   suit: SuitOutfitApp,
   coach: SoccerCoachOutfitApp,
@@ -10113,49 +10102,34 @@ const characterClasses = {
   chairman: ChairmanApp,
   newowner: NewOwnerApp,
   sponsor: SponsorApp,
-  // Season 1 Characters (imported)
-  karim: KarimApp,
-  azam: AzamApp,
-  karimAway: KarimAwayApp,
-  // Environments (locally defined + imported)
   stadium: StadiumApp,
   locker: LockerRoomApp,
-  managerOffice: ManagerOfficeApp,
+  office: ManagerOfficeApp,
   boardroom: LenderBoardroomApp,
-  playersTunnel: PlayersTunnelApp,
-  sponsorOffice: SponsorOfficeApp,
+  tunnel: PlayersTunnelApp,
+  sponsoroffice: SponsorOfficeApp,
   bakery: BakeryApp,
-  clubOffice: ClubOfficeApp,
-  pitchHeroStand: PitchHeroStandApp,
-  pitchCrisisNight: PitchCrisisNightApp,
-  modularPitchZone: ModularPitchZoneApp
+  karim: KarimApp,
+  cluboffice: ClubOfficeApp
 };
 const characterLabels = {
-  // Basic Characters
   default: 'Default Hoodie',
   suit: 'Three-Piece Suit',
+  coach: 'Coach Tracksuit',
   soccer: 'Soccer Jersey',
   casual: 'Casual Sweater',
-  coach: 'Coach Tracksuit',
   chairman: 'The Chairman',
   newowner: 'The New Owner',
   sponsor: 'Sponsor Executive',
-  // Season 1 Characters
-  karim: 'Karim – Captain #8 (Match Jersey)',
-  azam: 'Azam – Defender #7 (RM5)',
-  karimAway: 'Karim Away – Divisyen 4 Kit (Ep. 12)',
-  // Environments
   stadium: 'Stadium – Buluh FC',
   locker: 'Locker Room',
-  managerOffice: 'Manager Office',
+  office: 'Manager Office',
   boardroom: 'Lender Boardroom',
-  playersTunnel: 'Players Tunnel',
-  sponsorOffice: 'Sponsor Office – Nexus Sports',
+  tunnel: 'Players Tunnel',
+  sponsoroffice: 'Sponsor Office – Nexus Sports',
   bakery: 'Bakery – Kek Maju',
-  clubOffice: 'Club Office – Episode 4',
-  pitchHeroStand: 'Pitch Hero Stand – Finale Set',
-  pitchCrisisNight: 'Pitch Crisis Night – Floodlight Emergency',
-  modularPitchZone: 'Modular Pitch Zone'
+  karim: 'Karim – Captain #8 (Match Jersey)',
+  cluboffice: 'Club Office – Episode 4'
 };
 
 let manager = null;

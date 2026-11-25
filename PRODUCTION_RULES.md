@@ -130,31 +130,10 @@ There is no pure-black exception and no CTA.
 
 - Never repeat the same static camera angle more than twice in a scene. Use
   smooth eased push-ins, pans, cutaways and over-the-shoulder shots like Ep. 1.
-- Every dialogue line needs a **speaker-facing** angle: three-quarter speaker,
-  over-the-shoulder reverse, or angled two-shot. Never open a line on the back
-  of a head. Use the shared helpers in `remotion/src/Season1/cameraKit.js`:
-  `getSpeakerThreeQuarterShot`, `getOverTheShoulderShot`, `getTwoShot`,
-  `shotKey`, `faceTarget`, `faceEachOther`, `findActor`.
-- Season 1 camera keys may be an array or a function
-  `({ actors, extra, env }) => keys`; use the function form for actor-derived
-  dialogue shots. All Season 1 shots still pass through `sanitizeCamera()`
-  (FOV 38–42, target Y 1.25–1.45, minimum 4.6m actor distance).
-- Characters are always fully faceless in every episode: no eyes, eyebrows,
-  mouths, facial textures or expression meshes. Exaggerate body language — head
-  shakes on Y axis, nods, shoulder slumps, hand gestures and subtle idle
-  breathing. Express emotion only through poses, head movement and full-body acting.
-- Rig contract: `root → pelvis → torso → head/arms`, legs under pelvis.
-  `normalizeRig()` installs it at scene-director level only; do not change the
-  standalone character hierarchy (tests assert 7 root children). **Vertical
-  bounce/jump/crouch offsets always go on `parts.root.position.y`, never on the
-  torso** — moving the torso tears it off the pelvis/shorts.
-- Keep characters at least `MIN_CHARACTER_SEPARATION` (0.95m) apart on XZ.
-  Waypoint animations are resolved centrally after all actors move; avoid
-  end-points that walk through another actor.
+- Characters are faceless: exaggerate body language — head shakes on Y axis,
+  nods, shoulder slumps, hand gestures, subtle idle breathing.
 - No stiff A-poses. No prop clipping (hands through laptops, folders through
-  desks, balls through shins). Attach held props with `holdProp()` and the
-  captain's armband with `attachArmband()`. Keep the ball at the carrier's feet
-  with `placeBallAtFeet()` until the kick contact frame.
+  desks). Give distinct characters distinct hair, outfit colors and proportions.
 - Keep environments distinct. Never reuse the Buluh FC office as a bakery or a
   sponsor office. No outdoor signposts indoors.
 - Use `<SafeArea />` and `<CutFlash />` in every scene sequence.
@@ -170,22 +149,17 @@ Before an episode is called finished:
       white dialogue).
 - [ ] Final line hard-cuts to the black `Buluh FC / EPISOD X` title card.
 - [ ] No silent gap over 0.8s; no repeated static angle; no clipping.
-- [ ] Dialogue shots are speaker-facing; no back-of-head staging.
-- [ ] Character feet stay on the floor; bounce/crouch uses the root, not torso.
-- [ ] Actors do not overlap (`MIN_CHARACTER_SEPARATION`); goal ball never
-      crosses shins or the net.
 - [ ] `npm run studio` opens the composition; a still render succeeds.
 - [ ] Story docs (`remotion/story/`) match the current canon in Section 9.
 
 ---
 
-## 9. Series Canon (baseline after Episode 5)
+## 9. Series Canon (after Episode 5)
 Single source of truth for numbers and roster continuity. Episode entries below
-describe the state *at the time of that episode*; this section is the state **at
-the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 11.
+describe the state *at the time of that episode*; this section is the state now.
 
 - **Club debt:** **RM331,500** (RM450,000 at Ep. 1 → RM381,500 before Ep. 5 →
-  RM331,500 after the sale). **KOS GAJI: -35%**. This is the Season 1 starting figure.
+  RM331,500 after the sale). **KOS GAJI: -35%**. No other figure is current.
 - **Transfer income:** **RM50,000** from a Kelab Divisyen 4 club for Karim; all
   of it went to debt. Target remains **Divisyen 1**.
 - **Roster:** **Karim (#8)** — former captain / centre midfielder — **departed in
@@ -196,117 +170,3 @@ the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 11.
   card (`Azam · #7 · Defender · Gaji RM5`) is an in-world detail only and is
   **never** an engagement prompt.
 - **Continuity reference:** [`remotion/story/storyline.md`](./remotion/story/storyline.md).
-
----
-
-## 10. Season 1 Shared Systems (MANDATORY)
-
-Use these shared modules instead of copying fixes into individual scenes.
-
-### 10.1 Faceless rig and separation — `characters/rig-kit.js`
-- `normalizeRig(root, parts, { app })` runs once per actor inside
-  `createSceneDirector()`. It reparents the flat character into
-  `root → pelvis → torso → head/arms`, adds a torso cap, and wraps
-  `app.setPose()` so the torso offset survives outfit/pose changes.
-- Facial features and facial-expression animation are prohibited. Use the
-  scene pose beats and full-body animation to communicate emotion.
-- `resolveActorSeparation(actors, 0.95)` runs after all actor animation and
-  before the camera sample. It is deterministic; do not disable it to hide a
-  bad waypoint.
-- Props: `holdProp(character, 'right', mesh, { position, rotation })` parents a
-  mesh to a hand. `attachArmband(character, { arm: 'left' })` parents the gold
-  captain's band to the upper arm.
-
-### 10.2 Dialogue cameras — `remotion/src/Season1/cameraKit.js`
-- `getSpeakerThreeQuarterShot(speaker, listener)` — guaranteed face-forward
-  medium; auto-picks the shoulder side from the listener position.
-- `getOverTheShoulderShot(speaker, listener)` — reverse shot behind the
-  listener's shoulder.
-- `getTwoShot(a, b)` — angled two-shot that scores both facing vectors.
-- `faceEachOther(a, b)` / `faceTarget(actor, point, { camera })` — set yaw
-  before sampling the camera; `camera` cheats a few degrees toward the lens.
-- `shotKey(shot, time)` — converts a helper result into a camera key tuple.
-
-### 10.3 Football action — `remotion/src/Season1/actionKit.js`
-- `placeBallAtFeet(carrier, ball, 0.55)` — pins the ball clear of the shins.
-- `animateKickAndGoal({ frame, kicker, ball, net, start, target, kickFrame,
-  contactFrame, hitFrame })` — owns the ball from contact onward, applies the
-  three-key kick pose, parabolic flight, net ripple, camera shake and returns
-  `{ hit, shake }`.
-- Set `extra.shake = result.shake` and
-  `extra.crowdExcitement = goalExcitement(frame, GOAL)` from `onFrame`.
-  `createCinematicScene()` applies shake **after** `sanitizeCamera()`.
-- Goal timing is derived from `goalFrame(scene)` (`net.wav` cue), never typed
-  as a magic frame.
-
-### 10.4 Stadium grounding — `environments/modular-pitch-zone.js`
-- The shared pitch now builds a sky dome, distance fog, terraced stands,
-  perimeter ad boards, four corner floodlight towers, and a deterministic
-  `InstancedMesh` crowd.
-- `env.updateCrowd(frame, excitement)` and `env.updateFloodlights(frame)` are
-  called centrally by `createSceneDirector()`; scenes only set
-  `extra.crowdExcitement`.
-- `anchors.net` is the goal net plane for `updateNetRipple()`.
-- `PitchCrisisNightApp` reuses the same perimeter, adds one hero tower inside
-  the camera frame at `(-5.6, 0, -4.6)`, and is fully seeded — no
-  `Math.random()` is allowed in any environment.
-
-### 10.5 Verification stills
-Render from `remotion/` after any camera/rig/environment change. Reworked
-frames target the rework's key beats (armband covenant, goals, the blackout,
-the armband handover, Karim's tribun reveal):
-
-```bash
-npx remotion still Episode6 out/verify/ep6-309.png --frame=309
-npx remotion still Episode6 out/verify/ep6-820.png --frame=820
-npx remotion still Episode7 out/verify/ep7-605.png --frame=605
-npx remotion still Episode7 out/verify/ep7-729.png --frame=729
-npx remotion still Episode8 out/verify/ep8-651.png --frame=651
-npx remotion still Episode9 out/verify/ep9-190.png --frame=190
-npx remotion still Episode9 out/verify/ep9-1056.png --frame=1056
-npx remotion still Episode10 out/verify/ep10-286.png --frame=286
-npx remotion still Episode11 out/verify/ep11-806.png --frame=806
-npx remotion still Episode11 out/verify/ep11-1107.png --frame=1107
-npx remotion still Episode12 out/verify/ep12-839.png --frame=839
-npx remotion still Episode12 out/verify/ep12-945.png --frame=945
-```
-
-After `npm run retime` (measured MP3 durations), re-derive these frames from
-`audio-script.json` (line `startFrame` for `e6_04`, `e7_08`, `e8_09`, `e9_03`,
-`e10_04`, `e11_15`, `e12_15`).
----
-
-## 11. Season 1 Canon (Episodes 6–12 — Divisyen 5)
-The baseline in Section 9 applies until Episode 6. From there the machine-readable
-sources of truth are `story/season1-debt.json` and `story/division5-league.json`;
-each episode's `audio-script.json` mirrors the debt HUD value for that episode.
-
-- **The Bank Promise (Ep. 6):** PEGUAM freezes foreclosure for one Divisyen 5 season.
-  Buluh FC must win the championship by Matchday 5. Winning pays the Champion Prize
-  plus the Nexus Sports (`PENAJA`) promotion bonus — **RM305,000** — which clears the
-  debt. Losses pay **RM0**; fines and emergencies are added directly to the balance;
-  finishing 2nd or lower triggers immediate seizure.
-- **Debt path:** RM331,500 (Ep6) → RM316,500 (Ep7) → RM296,500 (Ep8) →
-  **RM321,500** (Ep9 floodlight emergency, +RM25,000) → RM300,000 (Ep10) →
-  **RM305,000** (Ep11 card fine + bank late fee, +RM5,000) → **RM0 / LUNAS** (Ep12).
-- **Captaincy:** vacant until **Episode 11**, when BOS gives Karim's gold armband to
-  **Azam (#7)**. Azam wears it from Episode 12 onward.
-- **Karim (#8):** at a **Divisyen 4** club — that club is Buluh FC's first Divisyen 4
-  fixture in Season 2. The RM50,000 fee stayed in the club. **Rework canon bend
-  (showrunner-approved):** Karim returns in the tribun for the MD5 final (Ep. 12) in his
-  Divisyen 4 away kit with a Buluh scarf (`characters/character-karim-away.js`) and lands
-  the callback line: Aku kata dulu - jangan jual kapten aku.
-- **Rivals:** Taktik Jaya (M1), Otai Kampung (M2), Vanguard Elite (M3), Kilat Rovers
-  (M4), Besi Waja (M5). League table tiebreak: head-to-head, then goal difference.
-- **Finale set:** `environments/pitch-hero-stand.js` (`PitchHeroStandApp`) - floodlit
-  grandstand with `anchors.heroSpot` (Karim's tier), a flip banner (BULUH FC -> JUARA via
-  `flipBanner()`), seeded flag sway, its own instanced crowd and deterministic confetti
-  (`updateConfetti(frame, active)`).
-- **Storytelling standard (rework):** dialogue carries the story; NARRATOR bridges only
-  (max ~2 lines per act). No HUD digits are spoken - numbers live in the overlays plus at
-  most one narrator line syncing the DebtTicker beat. Rivals keep recurring personalities
-  (Zaki's clipboard, Pak Din's otai mind games, Rayyan's bribe, Bob's chaos, Malik's
-  machine commands), and the RM5 salary stays a running gag. BGM windows live in each
-  episode's `audio-script.json` (`bgm`) and `SeasonEpisode` reads them from there.
-- **Format:** 1080x1920 @ 30fps, 40–45s, 0–2s pattern-interrupt hook, first cut by
-  frame 60, no CTAs, standard 72-frame EndCard.
