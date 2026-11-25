@@ -74,3 +74,25 @@ leading silence trimmed and a sharp SFX transient fires on frame 0. See
 - **Beats:** Karim's sacrifice and debt ticker (`RM381,500 → RM331,500`, `KOS GAJI: -35%`) → `ESOKNYA...` + #7 rumour → Azam's reveal + 1.5s fan comment card → `Lima ringgit.` punchline.
 - **Audio:** Bos (`voice_3`), Karim (`voice_4`), Jurulatih (`voice_2`), teammates, Azam (`voice_5`). `e5_06` J-cuts 0.5s into Act 2.
 - **Ending:** 0.25s stunned beat → comedic percussion hit → standard 72-frame **Buluh FC / EPISOD 5** EndCard. No CTA.
+
+## Division 5 title-run quick reference (Episode 6 onward)
+
+- **Format:** 1080x1920 @ 30fps, 40–46s target (never above 51s), 0–2s
+  pattern-interrupt hook, first cut by frame 60, 72-frame EndCard, no CTAs.
+- **Language:** casual Malay plus a smaller English line under every subtitle;
+  narration bridges at most twice per episode on an unused voice.
+- **Sources of truth:** `audio-script.json` wins over `script.md` and code;
+  `story/*.json` wins over prose. TTS rows and `(voice, speed, pitch)` come
+  from the JSON and `story/cast.json` for Episode 6+.
+- **Clock:** `BULAN n • MD m`, `HUTANG` always, `KITI` only in instalment
+  episodes. No line merely reads the HUD aloud.
+- **Arcs:** Freeze (6–11), Antagonist (12–17), The fall (18–22), Champions
+  (23–27). Champion is decided on MD14, Buluh vs Hulubalang United.
+- **Cast:** returning Bos, Jurulatih, Peguam, Penaja, Kek Maju, Azam (#7), Rizal
+  and the Ep 3 teammates; at least six new named Buluh players; one recurring
+  off-pitch antagonist. No Karim.
+- **Settings:** reuse `ClubOffice`, `LockerRoomApp`, `StadiumApp`,
+  `PlayersTunnelApp`, `BakeryApp`, `SponsorOfficeApp`, `LenderBoardroomApp`,
+  `ManagerOfficeApp`; add one new set per arc from `story/environments.json`.
+- **Verification:** `node scripts/verify-episode.mjs N`, `npm run verify:season`,
+  `npm test`, `CHROME_PATH=... npm run test:viewer`.

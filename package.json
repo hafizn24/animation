@@ -5,9 +5,10 @@
   "scripts": {
     "start": "npx live-server --port=3000 --watch=. --open=index.html",
     "serve": "npx serve .",
-    "test": "node test.mjs",
+    "test": "node test.mjs && node scripts/check-repo.mjs && node scripts/test-episode-tools.mjs",
     "test:viewer": "node scripts/smoke-viewer.mjs",
-    "check:viewer-registry": "node scripts/check-viewer-registry.mjs"
+    "check:viewer-registry": "node scripts/check-viewer-registry.mjs",
+    "verify:season": "node scripts/verify-season.mjs"
   },
   "dependencies": {
     "three": "^0.162.0"

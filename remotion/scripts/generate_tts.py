@@ -229,73 +229,137 @@ def duration(path):
     return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
 
 
-def main():
-    key = load_key()
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    raw_dir = OUT_DIR / "_raw"
-    raw_dir.mkdir(exist_ok=True)
+CAST_FILE = ROOT / "story" / "cast.json"
+EPISODES_DIR = ROOT / "episodes"
 
-    prefix = sys.argv[1] if len(sys.argv) > 1 else ""
-    entries = [row for row in MANIFEST if row[0].startswith(prefix)]
+
+def episode_number(prefix):
+    match = re.match(r"^e(\d+)_", prefix)
+    return int(match.group(1)) if match else 0
+
+
+def load_cast():
+    data = json.loads(CAST_FILE.read_text(encoding="utf-8"))
+    lookup = {}
+    for character in data["characters"]:
+        lookup[character["id"].lower()] = character
+        lookup[character["name"].lower()] = character
+        lookup[character["name"].split(" (")[0].lower()] = character
+    return lookup
+
+
+def episode_rows(number, cast_lookup):
+    script = EPISODES_DIR / f"episode-{number}" / "audio-script.json"
+    data = json.loads(script.read_text(encoding="utf-8"))
+    rows = []
+    for scene in data.get("scenes", []):
+        for line in scene.get("lines", []):
+            speaker = str(line.get("speaker", "")).lower()
+            character = cast_lookup.get(speaker)
+            if not character:
+                raise SystemExit(f"Episode {number}: speaker {speaker!r} is not in story/cast.json")
+            rows.append({
+                "name": line.get("file") or line["id"],
+                "speaker": character["id"],
+                "text": line["text"],
+                "voice": character["voice"],
+                "speed": character["speed"],
+                "pitch": character["pitch"],
+            })
+    return rows
+
+
+def main():
+    dry_run = "--dry-run" in sys.argv
+    args = [arg for arg in sys.argv[1:] if arg != "--dry-run"]
+    prefix = args[0] if args else ""
+    number = episode_number(prefix)
+    key = None
+
+    if number >= 6:
+        rows = [row for row in episode_rows(number, load_cast()) if row["name"].startswith(prefix)]
+        entries = [
+            (row["name"], row["speaker"], 0, 0, row["text"], row["voice"], row["speed"], row["pitch"])
+            for row in rows
+        ]
+    else:
+        entries = [
+            (name, speaker, start, end, text, None, None, None)
+            for name, speaker, start, end, text in MANIFEST
+            if name.startswith(prefix)
+        ]
+
     if not entries:
         raise SystemExit(f"No TTS entries match prefix {prefix!r}")
 
-    print(f"{'file':20} {'budget':>7} {'duration':>9} {'speed':>6}")
-    for name, speaker, start, end, text in entries:
+    if not dry_run:
+        OUT_DIR.mkdir(parents=True, exist_ok=True)
+        raw_dir = OUT_DIR / "_raw"
+        raw_dir.mkdir(exist_ok=True)
+        key = load_key()
+
+    print(f"{'file':20} {'voice':9} {'speed':>6} {'pitch':>6} {'chars':>6}")
+    for name, speaker, start, end, text, cast_voice, cast_speed, cast_pitch in entries:
+        if cast_voice:
+            voice_id = cast_voice
+            speed = cast_speed
+            pitch = cast_pitch
+        else:
+            voice_id = voice_profile(name, speaker)
+            style = VOICE_STYLE.get(voice_id, {})
+            speed = style.get("speed", 1.0)
+            pitch = style.get("pitch", 1.0)
+            if is_natural(name):
+                speed = NATURAL_SPEEDS.get(voice_id, 1.0)
+
+        if dry_run:
+            print(f"{name + '.mp3':20} {voice_id:9} {speed:6.2f} {pitch:6.2f} {len(text):6}")
+            continue
+
         budget = (end - start) / FPS
         raw = raw_dir / f"{name}.mp3"
         final = OUT_DIR / f"{name}.mp3"
-        voice_id = voice_profile(name, speaker)
-        style = VOICE_STYLE.get(voice_id, {})
-        base_speed = style.get("speed", 1.0)
-        pitch = style.get("pitch", 1.0)
-        speed = base_speed
+        api_voice = voice_id if voice_id.startswith("voice_") else VOICES[voice_id]
 
-        if is_natural(name):
-            # No fitting, no atempo stretching from Episode 5 onward.
-            speed = NATURAL_SPEEDS.get(voice_id, 1.0)
-            synthesize(key, text, VOICES[voice_id], speed, raw)
+        if not cast_voice and not is_natural(name):
+            synthesize(key, text, api_voice, speed, raw)
             normalize(raw, final, pitch)
-            strip_leading_silence(final)
             length = duration(final)
-            flag = "NATURAL"
+            for candidate in (speed * 1.05, speed * 1.1):
+                if length <= budget + 0.15:
+                    break
+                speed = min(candidate, 1.2)
+                synthesize(key, text, api_voice, speed, raw)
+                normalize(raw, final, pitch)
+                length = duration(final)
+            if length > budget + 0.15:
+                tempo = min(length / budget, 1.9)
+                fitted = raw_dir / f"{name}_fit.mp3"
+                subprocess.run(
+                    [FFMPEG, "-y", "-loglevel", "error", "-i", str(final),
+                     "-filter:a", f"atempo={tempo:.4f}", "-ar", "44100", "-b:a", "160k", str(fitted)],
+                    check=True,
+                )
+                fitted.replace(final)
+                length = duration(final)
+                speed = round(speed * tempo, 2)
+            if name == "e3_01" or name.startswith("e4_"):
+                strip_leading_silence(final)
+                length = duration(final)
+            flag = "OK" if length <= budget + 0.15 else "OVER"
             print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x {flag}")
             continue
 
-        synthesize(key, text, VOICES[voice_id], speed, raw)
+        synthesize(key, text, api_voice, speed, raw)
         normalize(raw, final, pitch)
+        strip_leading_silence(final)
         length = duration(final)
+        print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x NATURAL")
 
-        for candidate in (base_speed * 1.05, base_speed * 1.1):
-            if length <= budget + 0.15:
-                break
-            speed = min(candidate, 1.2)
-            synthesize(key, text, VOICES[voice_id], speed, raw)
-            normalize(raw, final, pitch)
-            length = duration(final)
-
-        if length > budget + 0.15:
-            tempo = min(length / budget, 1.9)
-            fitted = raw_dir / f"{name}_fit.mp3"
-            subprocess.run(
-                [FFMPEG, "-y", "-loglevel", "error", "-i", str(final),
-                 "-filter:a", f"atempo={tempo:.4f}", "-ar", "44100", "-b:a", "160k", str(fitted)],
-                check=True,
-            )
-            fitted.replace(final)
-            length = duration(final)
-            speed = round(speed * tempo, 2)
-
-        if name == "e3_01" or name.startswith("e4_"):
-            strip_leading_silence(final)
-            length = duration(final)
-
-        flag = "OK" if length <= budget + 0.15 else "OVER"
-        print(f"{name + '.mp3':20} {budget:6.2f}s {length:8.2f}s {speed:5.2f}x {flag}")
-
-    for stale in raw_dir.glob("*.mp3"):
-        stale.unlink()
-    raw_dir.rmdir()
+    if not dry_run:
+        for stale in raw_dir.glob("*.mp3"):
+            stale.unlink()
+        raw_dir.rmdir()
 
 
 if __name__ == "__main__":

@@ -132,8 +132,11 @@ There is no pure-black exception and no CTA.
   smooth eased push-ins, pans, cutaways and over-the-shoulder shots like Ep. 1.
 - Every dialogue line needs a **face-forward** angle: three-quarter speaker,
   over-the-shoulder reverse, or angled two-shot. Never open a line on the back
-  of a head. All shots pass through `sanitizeCamera()` (FOV 38–42, target Y
-  1.25–1.45, minimum 4.6m actor distance).
+  of a head. Use the deterministic helpers in `remotion/src/shared/cameraKit.js`
+  (`getSpeakerThreeQuarterShot`, `getOverTheShoulderShot`, `getTwoShot`,
+  `faceTarget`, `faceEachOther`, `findActor`, `shotKey`). All shots pass through
+  `sanitizeCamera()` (FOV 38–42, target Y 1.25–1.45, minimum 4.6m actor distance).
+  No `Math.random()` or `Date.now()` in scenes or environments — use seeded helpers.
 - Characters are faceless: exaggerate body language — head shakes on Y axis,
   nods, shoulder slumps, hand gestures, subtle idle breathing. The shared
   minimalist face lives in `characters/rig-kit.js`; emotion is derived from
@@ -170,7 +173,9 @@ Before an episode is called finished:
 - [ ] Actors do not overlap (`MIN_CHARACTER_SEPARATION`); goal ball never
       crosses shins or the net.
 - [ ] `npm run studio` opens the composition; a still render succeeds.
-- [ ] Story docs (`remotion/story/`) match the current canon in Section 9.
+- [ ] `node scripts/verify-episode.mjs N` and `npm run verify:season` pass.
+- [ ] Story docs (`remotion/story/`) match the current canon in Section 9 and
+      the approved title-run canon in Section 10.
 
 ---
 
@@ -191,4 +196,24 @@ the end of Episode 5**.
   card (`Azam · #7 · Defender · Gaji RM5`) is an in-world detail only and is
   **never** an engagement prompt.
 - **Continuity reference:** [`remotion/story/storyline.md`](./remotion/story/storyline.md).
+
+---
+
+## 10. Division 5 title-run canon (Episode 6 onward)
+
+The machine-readable sources of truth are `story/season-money.json`,
+`story/league.json`, `story/cast.json`, `story/environments.json` and
+`story/season-bible.md`. No number is copied into prose where a JSON file holds
+it; `npm run verify:season` recomputes and enforces all of them.
+
+Instalment rules, in five lines:
+
+1. The 30-day countdown is retired; Peguam freezes foreclosure for the season.
+2. A fixed instalment is due at each month-end (see `story/season-money.json`);
+   miss one and the freeze is void, subject to one cure window.
+3. Wins, draws, home gates and approved boosts fill the kitty; the kitty pays
+   each instalment against the debt.
+4. Fines and emergencies add to the debt directly.
+5. After Matchday 14 the Champion Prize plus the Nexus Sports promotion bonus
+   clears the balloon; anything left is the club's first profit.
 

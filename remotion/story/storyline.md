@@ -109,3 +109,35 @@ A struggling **Divisyen 5** (fifth-division) Malaysian football club faces a cru
 
 **Script location:** `episodes/episode-5/script.md` and `episodes/episode-5/audio-script.json` are the source of truth. `remotion/src/Episode5/Episode5Composition.jsx` imports the JSON directly. TTS text/voices are in `remotion/scripts/generate_tts.py` (prefix `e5_`). Regenerate with `python scripts/generate_tts.py e5_`.
 
+---
+
+## Division 5 title run (Episode 6 onward)
+
+The machine-readable canon for this season is `story/season-money.json`,
+`story/league.json`, `story/cast.json` and `story/environments.json`; the prose
+bible is `story/season-bible.md`. Karim is fully out of the story — no cameo,
+call, letter or reunion tease — and his gold armband stays on Bos's desk until
+Azam takes it in Episode 8.
+
+- **Arc 1 — Freeze (Ep 6–11, MD1–4):** the 30-day countdown is replaced by a
+  season-long foreclosure freeze conditional on a fixed instalment at every
+  month-end. Ep 6 explains the change in Peguam's dialogue inside its first 25
+  seconds, introduces the expanded squad and settles on a bank-branch set; the
+  captaincy is resolved by Ep 8; the first instalment is paid at the end of Ep 11.
+- **Arc 2 — Antagonist (Ep 12–17, MD5–8):** a recurring off-pitch antagonist makes
+  his first move, a squad member is tempted away, and Hulubalang United's first
+  leg is played. Rival-clubhouse and press-room sets join the rotation; the
+  second instalment lands at the end of Ep 17.
+- **Arc 3 — The fall (Ep 18–22, MD9–11):** results dip, the squad fractures, the
+  kitty runs dry and the one cure window is used. A kampung training ground is
+  the new set; fines and emergencies push the debt up before Kek Maju's
+  community fund arrives on day 7.
+- **Arc 4 — Champions (Ep 23–27, MD12–14):** all-in over the last three
+  matchdays, with MD14 at home to Hulubalang United deciding the title. A
+  final-day venue set opens, the fourth instalment is paid, the title payout
+  clears the balance (LUNAS) and the first profit lands as the RM5 joke's payoff.
+
+Every episode is 1080x1920 @ 30fps, dialogue-led with at most two narrator
+bridges, bilingual subtitles, a 0–45 hook, a first cut by frame 60 and a hard
+cut to the 72-frame EndCard. No CTA. `npm run verify:season` is the gate.
+
