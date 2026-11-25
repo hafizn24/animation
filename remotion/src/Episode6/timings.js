@@ -10,7 +10,14 @@ export const SCENE_3 = SCENES[2];
 export const SCENE_4 = SCENES[3];
 export const SCENE_5 = SCENES[4];
 
-export const ALL_LINES = SCENES.flatMap((scene) => scene.lines || []);
+export const ALL_LINES = SCENES.flatMap((scene) => (scene.lines || []).map((line) => ({
+  ...line,
+  speaker: line.label,
+  start: line.fromFrame,
+  end: line.toFrame,
+  translation: line.en,
+  narration: line.type === 'narration' || line.type === 'narrator',
+})));
 
 export const HOOK = script.overlays.hook;
 export const DEBT_LEDGER = script.overlays.debtLedger;

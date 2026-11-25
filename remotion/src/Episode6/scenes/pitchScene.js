@@ -1,86 +1,116 @@
-import * as THREE from 'three';
+import {
+  clamp,
+  createSceneDirector,
+  lerp,
+  smooth,
+} from '../../Episode5/sceneKit.js';
 import { StadiumApp } from '../../../../environments/stadium.js';
 import { BossApp } from '../../../../characters/character-boss.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { SquadVariationsApp } from '../../../../characters/character-squad.js';
-import { mountRig } from './mountRig.js';
 
-const clamp01 = (v) => Math.max(0, Math.min(1, v));
-const easeOut = (t) => 1 - Math.pow(1 - clamp01(t), 3);
+const SCENE_3_FROM = 365;
+const E6_04 = 375 - SCENE_3_FROM;
+const E6_05 = 540 - SCENE_3_FROM;
+const E6_06 = 612 - SCENE_3_FROM;
+const SCENE_4_FROM = 635 - SCENE_3_FROM;
+const SCENE_5_FROM = 760 - SCENE_3_FROM;
 
-/**
- * Scene 3, 4 & 5 (frames 365-909): StadiumApp pitch with Coach, Boss, Azam (#7),
- * and SquadVariationsApp. Karim is absent and no captain armband is rendered.
- */
-export async function createPitchScene({ width, height }) {
-  const env = new StadiumApp(null);
-  env.createScene();
-  await env.init();
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(1);
-  renderer.shadowMap.enabled = true;
-
-  const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 200);
-
-  const coach = await mountRig(env.scene, SoccerCoachOutfitApp, 'navyCoach', { x: 0, z: 2.8, rotY: Math.PI });
-  const azam = await mountRig(env.scene, AzamApp, 'matchJersey', { x: 0.75, z: 0.2, rotY: 0.15 });
-  const squad = await mountRig(env.scene, SquadVariationsApp, 'navyOwner', { x: -0.4, z: -0.4, rotY: 0.05 });
-  const boss = await mountRig(env.scene, BossApp, 'navyOwner', { x: -3.2, z: 1.6, rotY: 1.1 });
-
-  return {
-    scene: env.scene,
-    camera,
-    renderer,
-    update(frame) {
-      const t = frame / 30;
-
-      if (coach?.character) {
-        coach.character.position.y = Math.sin(t * 2.0) * 0.012;
-        if (frame >= 375 && frame <= 522) {
-          coach.character.rotation.y = Math.PI + Math.sin(t * 4.0) * 0.08;
-        }
-      }
-      if (azam?.character) {
-        azam.character.position.y = Math.sin(t * 2.2 + 0.8) * 0.012;
-        if (frame >= 540 && frame <= 598) {
-          azam.character.rotation.y = 0.15 + Math.sin(t * 4.5) * 0.07;
-        }
-      }
-      if (boss?.character) {
-        boss.character.visible = frame >= 635;
-        boss.character.position.y = Math.sin(t * 1.8 + 1.5) * 0.01;
-      }
-      if (squad?.character) {
-        squad.character.position.y = Math.sin(t * 1.9 + 0.4) * 0.01;
-      }
-
-      if (frame < 535) {
-        // Scene 3: Coach addressing squad
-        const p = easeOut((frame - 365) / 170);
-        camera.position.set(1.8 - p * 0.5, 1.85, 5.2 - p * 0.6);
-        camera.lookAt(0.1, 1.3, 0.8);
-      } else if (frame < 635) {
-        // Scene 3: Azam #7 & Coach exchange
-        const p = easeOut((frame - 535) / 100);
-        camera.position.set(1.35 - p * 0.25, 1.45, 2.35 - p * 0.35);
-        camera.lookAt(0.55, 1.35, 0.2);
-      } else if (frame < 760) {
-        // Scene 4: Wide-to-medium grass-level unity + push-in on Azam #7
-        const p = easeOut((frame - 635) / 125);
-        camera.position.set(-1.5 + p * 1.8, 0.85 + p * 0.45, 4.5 - p * 2.2);
-        camera.lookAt(0.35, 1.25, 0.2);
-      } else {
-        // Scene 5: Dramatic low-angle hero hold on Azam #7 & squad
-        const p = easeOut((frame - 760) / 150);
-        camera.position.set(0.95 - p * 0.2, 1.05, 2.4 - p * 0.5);
-        camera.lookAt(0.45, 1.35, 0.1);
-      }
+export const createPitchScene = (renderer, size) => createSceneDirector(renderer, {
+  ...size,
+  environment: StadiumApp,
+  actors: [
+    {
+      name: 'coach',
+      Class: SoccerCoachOutfitApp,
+      outfit: 'navyCoach',
+      scale: 0.95,
+      position: [-1.6, 0, 2.4],
+      rotationY: 0.5,
     },
-    dispose() {
-      renderer.dispose();
+    {
+      name: 'azam',
+      Class: AzamApp,
+      outfit: 'matchJersey',
+      scale: 0.95,
+      position: [0.75, 0, 0.2],
+      rotationY: 0.15,
     },
-  };
-}
+    {
+      name: 'squad',
+      Class: SquadVariationsApp,
+      outfit: 'navyOwner',
+      scale: 0.95,
+      position: [-0.4, 0, -0.4],
+      rotationY: 0.05,
+    },
+    {
+      name: 'boss',
+      Class: BossApp,
+      outfit: 'navyOwner',
+      scale: 0.95,
+      position: [1.7, 0, 1.0],
+      rotationY: -0.4,
+    },
+  ],
+  onFrame: ({ frame, actors }) => {
+    const t = frame / 30;
+
+    const coach = actors.find((actor) => actor.name === 'coach');
+    if (coach) {
+      coach.rig.position.y = Math.sin(t * 2.0) * 0.012;
+      if (coach.parts.head) {
+        coach.parts.head.rotation.y =
+          frame >= E6_04 && frame <= 157 ? Math.sin(t * 4.0) * 0.08 : 0;
+      }
+    }
+
+    const azam = actors.find((actor) => actor.name === 'azam');
+    if (azam) {
+      azam.rig.position.y = Math.sin(t * 2.2 + 0.8) * 0.012;
+      if (azam.parts.head) {
+        azam.parts.head.rotation.y =
+          frame >= E6_05 && frame <= 233 ? Math.sin(t * 4.5) * 0.07 : 0;
+      }
+    }
+
+    const squad = actors.find((actor) => actor.name === 'squad');
+    if (squad) squad.rig.position.y = Math.sin(t * 1.9 + 0.4) * 0.01;
+
+    const boss = actors.find((actor) => actor.name === 'boss');
+    if (boss) {
+      boss.rig.visible = frame >= SCENE_4_FROM && frame < SCENE_5_FROM;
+      boss.rig.position.y = Math.sin(t * 1.8 + 1.5) * 0.01;
+    }
+
+    if (coach?.parts.rightArm) {
+      const gesture =
+        smooth(clamp((frame - E6_04) / 12, 0, 1)) *
+        (1 - smooth(clamp((frame - E6_04 - 120) / 18, 0, 1)));
+      coach.parts.rightArm.rotation.x = lerp(-0.1, -0.85, gesture);
+    }
+    if (azam?.parts.rightArm && frame >= E6_06 && frame <= 268) {
+      azam.parts.rightArm.rotation.x = -0.4;
+    }
+  },
+  camera: {
+    fov: 42,
+    ease: smooth,
+    keys: [
+      [0, [1.6, 1.85, 6.4], [-0.5, 1.4, 0.8], 42],
+      [5.6667, [1.2, 1.85, 5.8], [-0.4, 1.4, 0.8], 42],
+      [5.6667, [1.35, 1.5, 4.6], [0.55, 1.4, 0.2], 42],
+      [SCENE_4_FROM / 30, [1.15, 1.5, 4.2], [0.55, 1.4, 0.2], 42],
+      [SCENE_4_FROM / 30, [2.6, 1.6, 4.5], [1.7, 1.4, 1.0], 42],
+      [SCENE_5_FROM / 30, [2.2, 1.5, 4.3], [1.7, 1.4, 1.0], 42],
+      [SCENE_5_FROM / 30, [1.5, 1.1, 4.4], [0.45, 1.35, 0.1], 40],
+      [545 / 30, [1.2, 1.1, 4.0], [0.45, 1.35, 0.1], 40],
+    ],
+  },
+  postCamera: ({ camera, frame }) => {
+    if (frame > 3 || frame >= SCENE_4_FROM) return;
+    const k = 1 - frame / 3;
+    camera.position.x += Math.sin(frame * 9.1) * 0.014 * k;
+  },
+});

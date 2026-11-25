@@ -3,94 +3,113 @@ import { Episode6OfficeApp } from '../../../../environments/episode6-office.js';
 import { BossApp } from '../../../../characters/character-boss.js';
 import { LawyerApp } from '../../../../characters/character-lawyer.js';
 import { SoccerCoachOutfitApp } from '../../../../characters/character-coach.js';
-import { mountRig } from './mountRig.js';
+import {
+  applyOfficeGrade,
+  clamp,
+  createSceneDirector,
+  easeOut,
+  lerp,
+  smooth,
+} from '../../Episode5/sceneKit.js';
 
-const clamp01 = (v) => Math.max(0, Math.min(1, v));
-const easeOut = (t) => 1 - Math.pow(1 - clamp01(t), 3);
+const E6_02 = 135;
+const E6_03 = 272;
+const SCENE_2_START = 125;
 
-/**
- * Scene 1 & 2 (frames 0-364): Episode6OfficeApp with Lawyer, Boss, and Coach.
- * Opens bright on frame 0 with legal paper slam onto the desk (frames 0-8).
- */
-export async function createOfficeScene({ width, height }) {
-  const env = new Episode6OfficeApp(null);
-  env.createScene();
-  await env.init();
-  env.scene.background = new THREE.Color(0x1b2028);
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(1);
-  renderer.shadowMap.enabled = true;
-
-  const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-
-  const lawyer = await mountRig(env.scene, LawyerApp, 'navyOwner', { x: 0.95, z: -0.95, rotY: -0.45 });
-  const boss = await mountRig(env.scene, BossApp, 'navyOwner', { x: -0.95, z: 0.95, rotY: 2.65 });
-  const coach = await mountRig(env.scene, SoccerCoachOutfitApp, 'navyCoach', { x: -1.85, z: 0.35, rotY: 1.9 });
-
-  const legalPaper = env.anchors?.legalAgreement;
-  const basePaperY = legalPaper ? legalPaper.position.y : 0.87;
-
-  return {
-    scene: env.scene,
-    camera,
-    renderer,
-    update(frame) {
-      const t = frame / 30;
-
-      // Legal document slam on frames 0-8
-      if (legalPaper) {
-        const slamT = clamp01(frame / 8);
-        legalPaper.position.y = basePaperY + (1 - easeOut(slamT)) * 0.45;
-      }
-
-      // Subtle idle breathing & speaking cues
-      if (lawyer?.character) {
-        lawyer.character.position.y = Math.sin(t * 2.1) * 0.01;
-        if (frame < 125) {
-          lawyer.character.rotation.y = -0.45 + Math.sin(t * 3.5) * 0.05;
-        }
-      }
-      if (boss?.character) {
-        boss.character.position.y = Math.sin(t * 1.9 + 1) * 0.01;
-        if (frame >= 135 && frame <= 252) {
-          boss.character.rotation.y = 2.65 + Math.sin(t * 4.0) * 0.06;
-        }
-      }
-      if (coach?.character) {
-        coach.character.visible = frame >= 125;
-        coach.character.position.y = Math.sin(t * 2.0 + 2) * 0.01;
-        if (frame >= 272 && frame <= 353) {
-          coach.character.rotation.y = 1.9 + Math.sin(t * 4.2) * 0.06;
-        }
-      }
-
-      // Camera choreography (9:16 vertical, never static > 2x)
-      if (frame < 45) {
-        // Tight on desk & legal paper slam, pushing in
-        const p = easeOut(frame / 45);
-        camera.position.set(0.65 - p * 0.15, 1.38 - p * 0.08, 0.75 - p * 0.25);
-        camera.lookAt(0.75, 0.92, -0.2);
-      } else if (frame < 125) {
-        // Cut to Lawyer across the desk
-        const p = easeOut((frame - 45) / 80);
-        camera.position.set(-0.35 + p * 0.2, 1.58, 1.35 - p * 0.25);
-        camera.lookAt(0.85, 1.45, -0.85);
-      } else if (frame < 260) {
-        // Scene 2: Boss looking at ledger
-        const p = easeOut((frame - 125) / 135);
-        camera.position.set(0.55 - p * 0.2, 1.65, -0.55 + p * 0.15);
-        camera.lookAt(-0.85, 1.38, 0.75);
-      } else {
-        // Scene 2: Coach & Boss two-shot
-        const p = easeOut((frame - 260) / 105);
-        camera.position.set(0.95 - p * 0.25, 1.62, -0.65);
-        camera.lookAt(-1.25, 1.42, 0.65);
-      }
+export const createOfficeScene = (renderer, size) => createSceneDirector(renderer, {
+  ...size,
+  environment: Episode6OfficeApp,
+  grade: (scene, env) => {
+    scene.background = new THREE.Color(0x1b2028);
+    applyOfficeGrade(scene, env, 'scene1');
+  },
+  extra: (scene, { env }) => {
+    env.addEpisode6Dressing();
+    const legalPaper = env.anchors.legalAgreement;
+    return { legalPaper, basePaperY: legalPaper ? legalPaper.position.y : 0.87 };
+  },
+  actors: [
+    {
+      name: 'lawyer',
+      Class: LawyerApp,
+      outfit: 'navyOwner',
+      scale: 0.95,
+      position: [1.75, 0, -3.4],
+      rotationY: 0.16,
     },
-    dispose() {
-      renderer.dispose();
+    {
+      name: 'boss',
+      Class: BossApp,
+      outfit: 'navyOwner',
+      scale: 0.95,
+      position: [0.15, 0, -1.6],
+      rotationY: 0.06,
     },
-  };
-}
+    {
+      name: 'coach',
+      Class: SoccerCoachOutfitApp,
+      outfit: 'navyCoach',
+      scale: 0.95,
+      position: [-1.3, 0, -2.6],
+      rotationY: -0.1,
+    },
+  ],
+  onFrame: ({ frame, scene, env, actors, extra }) => {
+    const t = frame / 30;
+    applyOfficeGrade(scene, env, frame < SCENE_2_START ? 'scene1' : 'scene2');
+
+    if (extra.legalPaper) {
+      const slam = easeOut(clamp(frame / 8, 0, 1));
+      extra.legalPaper.position.y = lerp(extra.basePaperY + 0.45, extra.basePaperY, slam);
+      extra.legalPaper.rotation.z = lerp(0.34, 0.18, slam);
+    }
+
+    const lawyer = actors.find((actor) => actor.name === 'lawyer');
+    if (lawyer) {
+      lawyer.rig.position.y = Math.sin(t * 2.1) * 0.01;
+      if (lawyer.parts.head) {
+        lawyer.parts.head.rotation.y = frame < 125 ? Math.sin(t * 3.5) * 0.05 : 0;
+      }
+    }
+
+    const boss = actors.find((actor) => actor.name === 'boss');
+    if (boss) {
+      boss.rig.position.y = Math.sin(t * 1.9 + 1) * 0.01;
+      if (boss.parts.head && frame >= E6_02 && frame <= 252) {
+        boss.parts.head.rotation.y = Math.sin(t * 4.0) * 0.06;
+      }
+      if (boss.parts.rightArm && frame >= E6_02 && frame <= 252) {
+        boss.parts.rightArm.rotation.x = -0.12 - smooth(clamp((frame - E6_02) / 40, 0, 1)) * 0.42;
+      }
+    }
+
+    const coach = actors.find((actor) => actor.name === 'coach');
+    if (coach) {
+      coach.rig.visible = frame >= SCENE_2_START;
+      coach.rig.position.y = Math.sin(t * 2.0 + 2) * 0.01;
+      if (coach.parts.head && frame >= E6_03 && frame <= 353) {
+        coach.parts.head.rotation.y = Math.sin(t * 4.2) * 0.06;
+      }
+    }
+  },
+  camera: {
+    fov: 40,
+    ease: smooth,
+    keys: [
+      [0, [1.0, 1.7, 1.8], [0.78, 0.9, -0.18], 48],
+      [1.5, [0.9, 1.65, 1.5], [0.78, 0.9, -0.18], 46],
+      [1.5, [1.9, 1.62, 0.2], [1.75, 1.4, -3.4], 44],
+      [4.1667, [1.75, 1.62, -0.2], [1.75, 1.4, -3.4], 42],
+      [4.1667, [0.15, 1.62, 1.5], [0.15, 1.4, -1.6], 44],
+      [8.6667, [0.05, 1.62, 1.15], [0.15, 1.4, -1.6], 42],
+      [8.6667, [-0.2, 1.7, 1.7], [-0.6, 1.45, -2.2], 46],
+      [12.1667, [-0.35, 1.7, 1.4], [-0.6, 1.45, -2.2], 44],
+    ],
+  },
+  postCamera: ({ camera, frame }) => {
+    if (frame > 4) return;
+    const k = 1 - frame / 4;
+    camera.position.x += Math.sin(frame * 11.3) * 0.016 * k;
+    camera.position.y += Math.cos(frame * 8.7) * 0.012 * k;
+  },
+});

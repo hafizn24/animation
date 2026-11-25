@@ -175,23 +175,22 @@ export const Episode6Composition = () => {
     <AbsoluteFill style={{ backgroundColor: '#000000' }}>
       {/* Scenes 1 & 2: Episode 6 Office */}
       <Sequence from={0} durationInFrames={officeDuration}>
-        <Scene3D createScene={createOfficeScene} />
+        <Scene3D director={createOfficeScene} />
         <CutFlash />
       </Sequence>
 
       {/* Scenes 3, 4 & 5: Stadium Pitch */}
       <Sequence from={SCENE_3.fromFrame} durationInFrames={pitchDuration}>
-        <Scene3D createScene={createPitchScene} />
+        <Scene3D director={createPitchScene} />
         <CutFlash />
       </Sequence>
 
       {/* HUD Overlays */}
-      <SafeArea>
-        <HookTitleE5 title={HOOK.title} pill={HOOK.pill} fromFrame={HOOK.fromFrame} toFrame={HOOK.toFrame} />
-        <DebtLedgerOverlay frame={frame} />
-        <DivisionHudOverlay frame={frame} />
-        <FixtureRevealOverlay frame={frame} />
-      </SafeArea>
+      <SafeArea />
+      <HookTitleE5 title={HOOK.title} pill={HOOK.pill} fromFrame={HOOK.fromFrame} toFrame={HOOK.toFrame} />
+      <DebtLedgerOverlay frame={frame} />
+      <DivisionHudOverlay frame={frame} />
+      <FixtureRevealOverlay frame={frame} />
 
       {/* Dual Subtitles */}
       <Episode5Subtitles lines={ALL_LINES} />
@@ -202,7 +201,7 @@ export const Episode6Composition = () => {
       </Sequence>
 
       {/* Audio: BGM & SFX */}
-      <Audio src={staticFile('audio/bgm/tense-drone.wav')} volume={bgmVolume} loop />
+      <Audio src={staticFile('audio/bgm/tense.wav')} volume={bgmVolume} loop />
       <Sequence from={0} durationInFrames={24}>
         <Audio src={staticFile('audio/sfx/stamp.wav')} volume={0.85} />
       </Sequence>
