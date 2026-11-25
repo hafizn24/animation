@@ -14,7 +14,7 @@ export class Episode6OfficeApp extends ClubOfficeApp {
     return this;
   }
 
-  makeLabelTexture(title, lines, accent = '#9d2929') {
+  makeLabelTexture(title, lines, accent = '#9d2929', amount = 'RM326,500') {
     const canvas = document.createElement('canvas');
     canvas.width = 768;
     canvas.height = 512;
@@ -38,10 +38,12 @@ export class Episode6OfficeApp extends ClubOfficeApp {
     ctx.fillStyle = '#625d52';
     ctx.font = '24px Arial, sans-serif';
     lines.forEach((line, index) => ctx.fillText(line, 62, 174 + index * 58));
-    ctx.fillStyle = accent;
-    ctx.font = 'bold 48px Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('RM326,500', canvas.width / 2, 424);
+    if (amount) {
+      ctx.fillStyle = accent;
+      ctx.font = 'bold 48px Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(amount, canvas.width / 2, 424);
+    }
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.needsUpdate = true;
@@ -130,7 +132,7 @@ export class Episode6OfficeApp extends ClubOfficeApp {
 
     const legalPaper = new THREE.Mesh(
       new THREE.PlaneGeometry(0.72, 0.52),
-      new THREE.MeshBasicMaterial({ map: this.makeLabelTexture('PERJANJIAN BERSYARAT', ['NOTIS LANJUTAN TEMPOH', 'PEMBEKUAN PENYITAAN STADIUM', 'SAH SEHINGGA TAMAT MUSIM']) })
+      new THREE.MeshBasicMaterial({ map: this.makeLabelTexture('PERJANJIAN BERSYARAT', ['NOTIS LANJUTAN TEMPOH', 'PEMBEKUAN PENYITAAN STADIUM', 'SAH SEHINGGA TAMAT MUSIM'], '#9d2929', null) })
     );
     legalPaper.rotation.x = -Math.PI / 2;
     legalPaper.rotation.z = 0.18;
