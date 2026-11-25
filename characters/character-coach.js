@@ -52,13 +52,33 @@ export class SoccerCoachOutfitApp {
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xfcf9e8);
+
+    // Soft studio backdrop – keeps the near-white skin and trainers readable
+    if (typeof document === 'undefined') {
+      this.scene.background = new THREE.Color(0xd7d2c4);
+      return;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = 8;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#9fb0ba');
+    grad.addColorStop(0.5, '#d7d2c4');
+    grad.addColorStop(1, '#efe9da');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 8, 256);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    this.scene.background = texture;
   }
 
   setupCamera() {
     const aspect = this.container.clientWidth / this.container.clientHeight;
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
     this.camera.position.set(0, 1.8, 4.2);
+    this.homeCamera = [0, 1.8, 4.2];
+    this.homeTarget = [0, 1.3, 0];
   }
 
   setupRenderer() {
@@ -89,7 +109,7 @@ export class SoccerCoachOutfitApp {
     this.scene.add(directionalLight);
   }
 
-  createToonMaterial(colorHex, map = null) {
+  createToonMaterial(colorHex) {
     const colors = new Uint8Array([215, 255]);
     const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
     gradientMap.minFilter = THREE.NearestFilter;
@@ -98,7 +118,6 @@ export class SoccerCoachOutfitApp {
 
     return new THREE.MeshToonMaterial({
       color: colorHex,
-      map: map,
       gradientMap: gradientMap
     });
   }
@@ -150,6 +169,7 @@ export class SoccerCoachOutfitApp {
 
     this.materials = {
       hair: this.createToonMaterial(0x9a7a52),
+      skin: this.createToonMaterial(0xf1e5d4),
       white: this.createToonMaterial(0xffffff),
       tracksuit: this.createToonMaterial(palette.tracksuit),
       ribbing: this.createToonMaterial(palette.ribbing),
@@ -168,7 +188,7 @@ export class SoccerCoachOutfitApp {
     headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.46, 32, 32);
-    const head = this.createOutlinedMesh(headGeom, this.materials.white, 0.03);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
 
@@ -177,7 +197,7 @@ export class SoccerCoachOutfitApp {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.white, 0.025);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.025);
     neck.position.y = -0.02;
     headGroup.add(neck);
     group.add(headGroup);
@@ -291,7 +311,7 @@ export class SoccerCoachOutfitApp {
       handGroup.position.set(0, -0.68, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.white, 0.035);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.035);
       palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
@@ -346,7 +366,7 @@ export class SoccerCoachOutfitApp {
     const rightLeg = createLeg(false);
     group.add(leftLeg, rightLeg);
 
-    this.characterParts = { head: headGroup, torso: torsoGroup, leftArm, rightArm, leftLeg, rightLeg };
+    this.characterParts = { head: headGroup, torso: torsoGroup, pelvis: pelvisGroup, leftArm, rightArm, leftLeg, rightLeg };
     this.character = group;
     this.scene.add(this.character);
     return group;
@@ -459,5 +479,7 @@ export class SoccerCoachOutfitApp {
     }
     this.character = null;
     this.characterParts = {};
+    this.animations = {};
+    this.props = {};
   }
 }

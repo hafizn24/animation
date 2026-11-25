@@ -64,7 +64,7 @@ export class SponsorOfficeApp {
     this.controls.target.set(0, 1.2, -0.8);
     this.controls.maxPolarAngle = Math.PI / 2.05;
     this.controls.minDistance = 2;
-    this.controls.maxDistance = 24;
+    this.controls.maxDistance = 30;
   }
 
   addLights() {
@@ -79,6 +79,7 @@ export class SponsorOfficeApp {
     key.shadow.camera.right = 10;
     key.shadow.camera.top = 10;
     key.shadow.camera.bottom = -10;
+    key.shadow.camera.near = 0.5;
     key.shadow.camera.far = 28;
     key.shadow.bias = -0.0004;
     this.scene.add(key);
@@ -574,6 +575,7 @@ export class SponsorOfficeApp {
   animate() {
     if (this._dead) return;
     requestAnimationFrame(() => this.animate());
+    if (this.wallCull) this.updateWallVisibility();
     if (this.controls) this.controls.update();
     if (this.renderer) this.renderer.render(this.scene, this.camera);
   }
@@ -612,5 +614,6 @@ export class SponsorOfficeApp {
     }
     this.character = null;
     this.characterParts = {};
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
   }
 }

@@ -250,7 +250,7 @@ export class NewOwnerApp {
     const palette = this.outfits.navyOwner;
 
     this.materials = {
-      hair: this.createToonMaterial(0x5b3a25),
+      hair: this.createToonMaterial(this.hairColor || 0x5b3a25),
       skin: this.createToonMaterial(palette.skin),
       sweater: this.createToonMaterial(palette.sweater),
       sweaterDark: this.createToonMaterial(palette.sweaterDark),

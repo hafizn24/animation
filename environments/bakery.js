@@ -20,6 +20,7 @@ export class BakeryApp {
     this.clock = new THREE.Clock();
     this._dead = false;
     this.roomBounds = { halfW: 5, halfD: 4, height: 3.4 };
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
   }
 
   async init() {
@@ -66,7 +67,7 @@ export class BakeryApp {
     this.controls.target.set(0, 1.2, 0);
     this.controls.maxPolarAngle = Math.PI / 2.05;
     this.controls.minDistance = 2;
-    this.controls.maxDistance = 20;
+    this.controls.maxDistance = 30;
   }
 
   addLights() {
@@ -84,6 +85,7 @@ export class BakeryApp {
     warmKey.shadow.camera.right = 8;
     warmKey.shadow.camera.top = 8;
     warmKey.shadow.camera.bottom = -8;
+    warmKey.shadow.camera.near = 0.5;
     warmKey.shadow.camera.far = 26;
     warmKey.shadow.bias = -0.0004;
     this.scene.add(warmKey);
@@ -102,7 +104,7 @@ export class BakeryApp {
   createStdMaterial(colorHex, opts = {}) {
     return new THREE.MeshStandardMaterial({
       color: colorHex,
-      roughness: opts.roughness ?? 0.75,
+      roughness: opts.roughness ?? 0.7,
       metalness: opts.metalness ?? 0,
       ...opts,
     });
@@ -116,8 +118,24 @@ export class BakeryApp {
     draw(ctx, width, height);
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 8;
+    texture.anisotropy = 4;
     return texture;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /*  Wall culling – hides whichever wall the camera is standing behind  */
+  /* ------------------------------------------------------------------ */
+
+  updateWallVisibility() {
+    if (!this.wallCull) return;
+    const p = this.camera.position;
+    const { halfW, halfD, height } = this.roomBounds;
+
+    this.wallCull.back.forEach(o => { o.visible = p.z > -halfD - 0.05; });
+    this.wallCull.front.forEach(o => { o.visible = p.z < halfD + 0.05; });
+    this.wallCull.left.forEach(o => { o.visible = p.x > -halfW - 0.05; });
+    this.wallCull.right.forEach(o => { o.visible = p.x < halfW + 0.05; });
+    this.wallCull.ceiling.forEach(o => { o.visible = p.y < height + 0.05; });
   }
 
   makeSignTexture() {
@@ -165,6 +183,7 @@ export class BakeryApp {
     const root = new THREE.Group();
     root.name = 'Bakery';
     const { halfW: W, halfD: D, height: H } = this.roomBounds;
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
 
     const mat = {
       floor: this.createStdMaterial(0xffffff, { map: this.makeTileTexture(), roughness: 0.9 }),
@@ -214,12 +233,15 @@ export class BakeryApp {
     // Shell (front wall omitted — this is an open film set).
     const floor = box(W * 2, 0.12, D * 2, mat.floor, 0, -0.06, 0);
     floor.castShadow = false;
-    box(W * 2, H, 0.14, mat.wall, 0, H / 2, -D);
-    box(0.14, H, D * 2, mat.wall, -W, H / 2, 0);
-    box(0.14, H, D * 2, mat.wall, W, H / 2, 0);
-    box(W * 2, 1.1, 0.15, mat.wallLower, 0, 0.55, -D + 0.02);
-    box(0.15, 1.1, D * 2, mat.wallLower, -W + 0.02, 0.55, 0);
-    box(0.15, 1.1, D * 2, mat.wallLower, W - 0.02, 0.55, 0);
+    const backWall = box(W * 2, H, 0.14, mat.wall, 0, H / 2, -D);
+    const leftWall = box(0.14, H, D * 2, mat.wall, -W, H / 2, 0);
+    const rightWall = box(0.14, H, D * 2, mat.wall, W, H / 2, 0);
+    const backDado = box(W * 2, 1.1, 0.15, mat.wallLower, 0, 0.55, -D + 0.02);
+    const leftDado = box(0.15, 1.1, D * 2, mat.wallLower, -W + 0.02, 0.55, 0);
+    const rightDado = box(0.15, 1.1, D * 2, mat.wallLower, W - 0.02, 0.55, 0);
+    this.wallCull.back.push(backWall, backDado);
+    this.wallCull.left.push(leftWall, leftDado);
+    this.wallCull.right.push(rightWall, rightDado);
 
     // Wall-mounted KEK MAJU sign (no post, no outdoor board).
     const sign = new THREE.Group();
@@ -329,6 +351,7 @@ export class BakeryApp {
   animate() {
     if (this._dead) return;
     requestAnimationFrame(() => this.animate());
+    if (this.wallCull) this.updateWallVisibility();
     if (this.controls) this.controls.update();
     if (this.renderer) this.renderer.render(this.scene, this.camera);
   }
@@ -366,5 +389,6 @@ export class BakeryApp {
     }
     this.character = null;
     this.characterParts = {};
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
   }
 }

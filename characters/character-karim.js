@@ -11,7 +11,9 @@ export class KarimApp {
     this.controls = null;
     this.character = null;
     this.characterParts = {};
+    this.animations = {};
     this.clock = new THREE.Clock();
+    this.isWalking = false;
     this._dead = false;
     this.headRadius = 0.46;
     this.headOffsetY = 0;
@@ -27,7 +29,7 @@ export class KarimApp {
         cleats: 0x1b1e26,
         studs: 0xf2f2ee,
         armband: 0xd8b26a,
-        skin: 0xa9aab0,
+        skin: 0xf1e5d4,
       },
     };
   }
@@ -45,22 +47,39 @@ export class KarimApp {
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xfcf9e8);
+
+    // Soft studio backdrop – keeps the near-white skin and trainers readable
+    if (typeof document === 'undefined') {
+      this.scene.background = new THREE.Color(0xd7d2c4);
+      return;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = 8;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#9fb0ba');
+    grad.addColorStop(0.5, '#d7d2c4');
+    grad.addColorStop(1, '#efe9da');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 8, 256);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    this.scene.background = texture;
   }
 
   setupCamera() {
     const aspect = this.container.clientWidth / this.container.clientHeight;
-    this.camera = new THREE.PerspectiveCamera(42, aspect, 0.1, 1000);
-    this.camera.position.set(0, 1.55, 4.3);
+    this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
+    this.camera.position.set(0, 1.8, 4.2);
+    this.homeCamera = [0, 1.8, 4.2];
+    this.homeTarget = [0, 1.3, 0];
   }
 
   setupRenderer() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.08;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.container.appendChild(this.renderer.domElement);
@@ -70,22 +89,23 @@ export class KarimApp {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
-    this.controls.target.set(0, 1.35, 0);
+    this.controls.target.set(0, 1.3, 0);
   }
 
   addLights() {
-    this.scene.add(new THREE.AmbientLight(0xffffff, 2.0));
-    const key = new THREE.DirectionalLight(0xffffff, 1.5);
-    key.position.set(3, 6, 5);
-    key.castShadow = true;
-    key.shadow.mapSize.width = 2048;
-    key.shadow.mapSize.height = 2048;
-    key.shadow.bias = -0.0005;
-    this.scene.add(key);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+    this.scene.add(ambientLight);
+
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    directionalLight.position.set(4, 8, 5);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
+    this.scene.add(directionalLight);
   }
 
   createToonMaterial(colorHex, map = null) {
-    const colors = new Uint8Array([225, 255]);
+    const colors = new Uint8Array([215, 255]);
     const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
     gradientMap.minFilter = THREE.NearestFilter;
     gradientMap.magFilter = THREE.NearestFilter;
@@ -97,7 +117,7 @@ export class KarimApp {
       gradientMap,
       emissive: baseColor,
       emissiveMap: map,
-      emissiveIntensity: 0.3,
+      emissiveIntensity: 0,
     });
   }
 
@@ -190,7 +210,7 @@ export class KarimApp {
     return texture;
   }
 
-  createOutlinedMesh(geometry, material, outlineThickness = 0.028) {
+  createOutlinedMesh(geometry, material, outlineThickness = 0.022) {
     const group = new THREE.Group();
     const mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
@@ -202,7 +222,7 @@ export class KarimApp {
         geometry,
         new THREE.MeshBasicMaterial({ color: 0x0b0b0b, side: THREE.BackSide })
       );
-      outlineMesh.scale.set(1 + outlineThickness, 1 + outlineThickness * 0.8, 1 + outlineThickness);
+      outlineMesh.scale.setScalar(1 + outlineThickness);
       group.add(outlineMesh);
     }
     return group;
@@ -239,7 +259,7 @@ export class KarimApp {
 
     const headGroup = new THREE.Group();
     headGroup.name = 'Head';
-    headGroup.position.set(0, 1.96, 0);
+    headGroup.position.set(0, 1.95, 0);
     const head = this.createOutlinedMesh(new THREE.SphereGeometry(0.46, 32, 32), this.materials.skin, 0.032);
     head.position.y = 0.37;
     headGroup.add(head);
@@ -406,6 +426,7 @@ export class KarimApp {
     this.characterParts = {
       head: headGroup,
       torso: torsoGroup,
+      pelvis: pelvisGroup,
       leftArm: left.armPivot,
       rightArm: right.armPivot,
       leftHand: left.handGroup,
@@ -432,7 +453,10 @@ export class KarimApp {
   }
 
   changeHairStyle(style) {
-    if (!HAIR_STYLES.includes(style)) return;
+    if (!HAIR_STYLES.includes(style)) {
+      console.warn(`Hair style "${style}" not found.`);
+      return;
+    }
     this.hairStyle = style;
     const head = this.characterParts.head;
     if (!head) return;
@@ -450,13 +474,61 @@ export class KarimApp {
     if (this.characterParts.boots) this.characterParts.boots.visible = visible;
   }
 
+  changeOutfit(outfitName) {
+    const palette = this.outfits[outfitName];
+    if (!palette) return;
+
+    if (this.materials.jerseyStriped && this.materials.jerseyStriped.map) {
+      this.materials.jerseyStriped.map.dispose();
+    }
+    const newStripeTex = this.createStripedTexture(palette.jerseyPrimary, palette.jerseySecondary);
+    if (this.materials.jerseyStriped) {
+      this.materials.jerseyStriped.map = newStripeTex;
+      this.materials.jerseyStriped.emissiveMap = newStripeTex;
+      this.materials.jerseyStriped.needsUpdate = true;
+    }
+
+    const setMatColor = (mat, hex) => {
+      if (!mat) return;
+      mat.color.setHex(hex);
+      if (mat.emissive) mat.emissive.setHex(hex);
+    };
+
+    setMatColor(this.materials.skin, palette.skin);
+    setMatColor(this.materials.jerseySolid, palette.jerseyPrimary);
+    setMatColor(this.materials.shorts, palette.shorts);
+    setMatColor(this.materials.socks, palette.socks);
+    setMatColor(this.materials.sockStripes, palette.sockStripes);
+    setMatColor(this.materials.cleats, palette.cleats);
+    setMatColor(this.materials.studs, palette.studs);
+  }
+
+  setWalking(walking) {
+    this.isWalking = walking;
+  }
+
+  onWindowResize() {
+    const width = this.container.clientWidth;
+    const height = this.container.clientHeight;
+    this.camera.aspect = width / height;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
+  }
+
+  resetScene() {
+    this.dispose();
+    this.setupScene();
+    this.addLights();
+    this.createProceduralCharacter();
+  }
+
   animate() {
     if (this._dead) return;
     requestAnimationFrame(() => this.animate());
     const elapsed = this.clock.getElapsedTime();
     if (this.character && this.characterParts.head) {
       const { head, torso, leftArm, rightArm } = this.characterParts;
-      head.position.y = 1.96 + Math.sin(elapsed * 1.8) * 0.015;
+      head.position.y = 1.95 + Math.sin(elapsed * 1.8) * 0.015;
       torso.scale.y = 1 + Math.sin(elapsed * 1.8) * 0.01;
       leftArm.rotation.z = -0.28 - Math.sin(elapsed * 1.8) * 0.02;
       rightArm.rotation.z = 0.28 + Math.sin(elapsed * 1.8) * 0.02;
@@ -485,8 +557,9 @@ export class KarimApp {
     }
     this.character = null;
     this.characterParts = {};
+    this.animations = {};
+    this.props = {};
     this.materials = {};
     this.hairGroup = null;
-    this._dead = true;
   }
 }

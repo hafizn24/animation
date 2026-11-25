@@ -65,7 +65,7 @@ export class LenderBoardroomApp {
     this.controls.target.set(0, 1.2, -0.6);
     this.controls.maxPolarAngle = Math.PI / 2.05;
     this.controls.minDistance = 2;
-    this.controls.maxDistance = 24;
+    this.controls.maxDistance = 30;
   }
 
   addLights() {
@@ -80,6 +80,7 @@ export class LenderBoardroomApp {
     key.shadow.camera.right = 9;
     key.shadow.camera.top = 9;
     key.shadow.camera.bottom = -9;
+    key.shadow.camera.near = 0.5;
     key.shadow.camera.far = 26;
     key.shadow.bias = -0.0004;
     this.scene.add(key);
@@ -357,6 +358,7 @@ export class LenderBoardroomApp {
   animate() {
     if (this._dead) return;
     requestAnimationFrame(() => this.animate());
+    if (this.wallCull) this.updateWallVisibility();
     if (this.controls) this.controls.update();
     if (this.renderer) this.renderer.render(this.scene, this.camera);
   }
@@ -369,6 +371,13 @@ export class LenderBoardroomApp {
       this.camera.updateProjectionMatrix();
     }
     if (this.renderer) this.renderer.setSize(width, height);
+  }
+
+  resetScene() {
+    this.dispose();
+    this.setupScene();
+    this.addLights();
+    this.createProceduralCharacter();
   }
 
   dispose() {
@@ -388,5 +397,6 @@ export class LenderBoardroomApp {
     }
     this.character = null;
     this.characterParts = {};
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
   }
 }

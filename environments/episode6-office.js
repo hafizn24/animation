@@ -91,9 +91,9 @@ export class Episode6OfficeApp extends ClubOfficeApp {
     group.name = 'Episode6OfficeDressing';
 
     // Window sits on the existing back wall section, clear of the doorway.
-    const windowX = -2.35;
-    const windowY = 1.95;
-    const windowZ = -4.56;
+    const windowX = -4.35;
+    const windowY = 2.25;
+    const windowZ = -5.06;
     const frameMat = new THREE.MeshStandardMaterial({ color: 0x292b2c, roughness: 0.58, metalness: 0.18 });
     const glass = new THREE.Mesh(
       new THREE.PlaneGeometry(2.35, 1.3),

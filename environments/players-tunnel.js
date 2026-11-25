@@ -84,6 +84,7 @@ export class PlayersTunnelApp {
     exitLight.shadow.camera.right = 16;
     exitLight.shadow.camera.top = 16;
     exitLight.shadow.camera.bottom = -16;
+    exitLight.shadow.camera.near = 0.5;
     exitLight.shadow.camera.far = 70;
     this.scene.add(exitLight);
   }
@@ -91,7 +92,7 @@ export class PlayersTunnelApp {
   createStdMaterial(colorHex, opts = {}) {
     return new THREE.MeshStandardMaterial({
       color: colorHex,
-      roughness: opts.roughness ?? 0.8,
+      roughness: opts.roughness ?? 0.7,
       metalness: opts.metalness ?? 0,
       ...opts,
     });
@@ -305,6 +306,13 @@ export class PlayersTunnelApp {
       this.camera.updateProjectionMatrix();
     }
     if (this.renderer) this.renderer.setSize(width, height);
+  }
+
+  resetScene() {
+    this.dispose();
+    this.setupScene();
+    this.addLights();
+    this.createProceduralCharacter();
   }
 
   dispose() {

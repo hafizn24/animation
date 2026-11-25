@@ -12,7 +12,8 @@ export class ClubOfficeApp {
     this.characterParts = {};
     this.clock = new THREE.Clock();
     this._dead = false;
-    this.roomBounds = { halfW: 4.2, halfD: 4.7, height: 3.0 };
+    this.roomBounds = { halfW: 6.2, halfD: 5.2, height: 3.3 };
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
     this.anchors = {};
     this.lights = {};
   }
@@ -30,15 +31,16 @@ export class ClubOfficeApp {
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x0d0e12);
-    this.scene.fog = new THREE.Fog(0x0d0e12, 12, 30);
+    this.scene.background = new THREE.Color(0x2a2723);
+    this.scene.fog = new THREE.Fog(0x2a2723, 28, 65);
   }
 
   setupCamera() {
     const aspect = this.container.clientWidth / this.container.clientHeight;
-    this.camera = new THREE.PerspectiveCamera(56, aspect, 0.1, 200);
-    this.camera.position.set(2.4, 1.7, 3.0);
-    this.camera.lookAt(0, 1.35, -1.0);
+    this.camera = new THREE.PerspectiveCamera(52, aspect, 0.1, 200);
+    this.camera.position.set(4.4, 3.4, 8.2);
+    this.homeCamera = [4.4, 3.4, 8.2];
+    this.homeTarget = [0, 1.2, -0.8];
   }
 
   setupRenderer() {
@@ -57,24 +59,40 @@ export class ClubOfficeApp {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
-    this.controls.target.set(0, 1.35, -1.0);
+    this.controls.target.set(0, 1.2, -0.8);
     this.controls.maxPolarAngle = Math.PI / 2.05;
-    this.controls.minDistance = 1.5;
-    this.controls.maxDistance = 14;
+    this.controls.minDistance = 2;
+    this.controls.maxDistance = 30;
   }
 
   addLights() {
-    const ambient = new THREE.AmbientLight(0x6b7280, 0.34);
+    const ambient = new THREE.AmbientLight(0xf0e6d8, 0.9);
     ambient.name = 'officeAmbient';
     this.scene.add(ambient);
     this.lights.ambient = ambient;
 
-    const hemi = new THREE.HemisphereLight(0x8fa0b8, 0x3a2a1c, 0.32);
+    const key = new THREE.DirectionalLight(0xfff0d6, 1.45);
+    key.name = 'officeKey';
+    key.position.set(-6, 8, 7);
+    key.castShadow = true;
+    key.shadow.mapSize.width = 2048;
+    key.shadow.mapSize.height = 2048;
+    key.shadow.camera.left = -10;
+    key.shadow.camera.right = 10;
+    key.shadow.camera.top = 10;
+    key.shadow.camera.bottom = -10;
+    key.shadow.camera.near = 0.5;
+    key.shadow.camera.far = 28;
+    key.shadow.bias = -0.0004;
+    this.scene.add(key);
+    this.lights.key = key;
+
+    const hemi = new THREE.HemisphereLight(0xfdf6ea, 0x4a3f33, 0.55);
     hemi.name = 'officeHemi';
     this.scene.add(hemi);
     this.lights.hemi = hemi;
 
-    const lamp = new THREE.PointLight(0xffc078, 7.5, 9, 2);
+    const lamp = new THREE.PointLight(0xffd9a0, 16, 9, 2);
     lamp.name = 'deskLamp';
     lamp.position.set(-1.05, 1.5, -0.35);
     lamp.castShadow = true;
@@ -86,16 +104,57 @@ export class ClubOfficeApp {
 
     const hallway = new THREE.SpotLight(0xbcd4f0, 4.2, 16, 0.58, 0.75, 1.4);
     hallway.name = 'hallway';
-    hallway.position.set(1.75, 2.1, -5.15);
+    hallway.position.set(1.75, 2.1, -5.65);
     hallway.target.position.set(1.35, 1.0, -1.6);
     this.scene.add(hallway, hallway.target);
     this.lights.hallway = hallway;
 
-    const fill = new THREE.DirectionalLight(0x8892a6, 0.28);
+    const fill = new THREE.DirectionalLight(0xc8d8ef, 0.55);
     fill.name = 'officeFill';
-    fill.position.set(3, 3.4, 6);
+    fill.position.set(-8, 5, -6);
     this.scene.add(fill);
     this.lights.fill = fill;
+  }
+
+  createToonMaterial(colorHex) {
+    const colors = new Uint8Array([200, 240, 255]);
+    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
+    gradientMap.minFilter = THREE.NearestFilter;
+    gradientMap.magFilter = THREE.NearestFilter;
+    gradientMap.needsUpdate = true;
+    return new THREE.MeshToonMaterial({ color: colorHex, gradientMap });
+  }
+
+  createStdMaterial(colorHex, opts = {}) {
+    return new THREE.MeshStandardMaterial({
+      color: colorHex,
+      roughness: opts.roughness ?? 0.7,
+      metalness: opts.metalness ?? 0.0,
+      ...opts,
+    });
+  }
+
+  makeCanvasTexture(width, height, draw) {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    draw(ctx, width, height);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.anisotropy = 4;
+    return texture;
+  }
+
+  updateWallVisibility() {
+    if (!this.wallCull || !this.camera) return;
+    const p = this.camera.position;
+    const { halfW, halfD, height } = this.roomBounds;
+    this.wallCull.back.forEach((o) => { o.visible = p.z > -halfD - 0.05; });
+    this.wallCull.front.forEach((o) => { o.visible = p.z < halfD + 0.05; });
+    this.wallCull.left.forEach((o) => { o.visible = p.x > -halfW - 0.05; });
+    this.wallCull.right.forEach((o) => { o.visible = p.x < halfW + 0.05; });
+    this.wallCull.ceiling.forEach((o) => { o.visible = p.y < height + 0.05; });
   }
 
   createWoodTexture() {
@@ -128,7 +187,7 @@ export class ClubOfficeApp {
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.RepeatWrapping;
-    texture.repeat.set(2.4, 2.4);
+    texture.repeat.set(3.2, 3.2);
     texture.needsUpdate = true;
     return texture;
   }
@@ -213,6 +272,7 @@ export class ClubOfficeApp {
     const group = new THREE.Group();
     group.name = 'ClubOffice';
     const { halfW, halfD, height } = this.roomBounds;
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
 
     const wallMat = new THREE.MeshStandardMaterial({ color: 0x272a31, roughness: 0.96, metalness: 0 });
     const floorMat = new THREE.MeshStandardMaterial({ map: this.createWoodTexture(), roughness: 0.82 });
@@ -227,20 +287,24 @@ export class ClubOfficeApp {
     ceiling.rotation.x = Math.PI / 2;
     ceiling.position.y = height;
     group.add(ceiling);
+    this.wallCull.ceiling.push(ceiling);
 
     const leftWall = new THREE.Mesh(new THREE.BoxGeometry(0.16, height, halfD * 2), wallMat);
     leftWall.position.set(-halfW, height / 2, 0);
     leftWall.receiveShadow = true;
     group.add(leftWall);
+    this.wallCull.left.push(leftWall);
 
     const rightWall = new THREE.Mesh(new THREE.BoxGeometry(0.16, height, halfD * 2), wallMat);
     rightWall.position.set(halfW, height / 2, 0);
     rightWall.receiveShadow = true;
     group.add(rightWall);
+    this.wallCull.right.push(rightWall);
 
     const frontWall = new THREE.Mesh(new THREE.BoxGeometry(halfW * 2, height, 0.16), wallMat);
     frontWall.position.set(0, height / 2, halfD);
     group.add(frontWall);
+    this.wallCull.front.push(frontWall);
 
     const doorLeftX = 1.175;
     const doorRightX = 2.325;
@@ -248,15 +312,18 @@ export class ClubOfficeApp {
     backLeft.position.set((-halfW + doorLeftX) / 2, height / 2, -halfD);
     backLeft.receiveShadow = true;
     group.add(backLeft);
+    this.wallCull.back.push(backLeft);
 
     const backRight = new THREE.Mesh(new THREE.BoxGeometry(halfW - doorRightX, height, 0.16), wallMat);
     backRight.position.set((doorRightX + halfW) / 2, height / 2, -halfD);
     backRight.receiveShadow = true;
     group.add(backRight);
+    this.wallCull.back.push(backRight);
 
     const lintel = new THREE.Mesh(new THREE.BoxGeometry(doorRightX - doorLeftX, height - 2.3, 0.16), wallMat);
     lintel.position.set((doorLeftX + doorRightX) / 2, 2.3 + (height - 2.3) / 2, -halfD);
     group.add(lintel);
+    this.wallCull.back.push(lintel);
 
     const doorFrameMat = new THREE.MeshStandardMaterial({ color: 0x3a2c22, roughness: 0.7 });
     [-1, 1].forEach((dir) => {
@@ -304,7 +371,7 @@ export class ClubOfficeApp {
       })
     );
     floorWedge.rotation.x = -Math.PI / 2;
-    floorWedge.position.set(1.8, 0.014, -3.4);
+    floorWedge.position.set(1.8, 0.014, -3.9);
     group.add(floorWedge);
     this.anchors.floorWedge = floorWedge;
 
@@ -396,12 +463,57 @@ export class ClubOfficeApp {
     group.add(skirting);
 
     const backShelves = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.05, 0.28), deskLegMat);
-    backShelves.position.set(-2.6, 1.65, -halfD + 0.2);
+    backShelves.position.set(-4.6, 1.65, -halfD + 0.2);
     group.add(backShelves);
+
+    const rug = new THREE.Mesh(
+      new THREE.PlaneGeometry(5.4, 3.8),
+      new THREE.MeshStandardMaterial({ color: 0x3b2f26, roughness: 0.95 })
+    );
+    rug.rotation.x = -Math.PI / 2;
+    rug.position.set(0, 0.012, 0.4);
+    rug.receiveShadow = true;
+    group.add(rug);
+    this.anchors.rug = rug;
+
+    const cabinet = new THREE.Mesh(
+      new THREE.BoxGeometry(0.7, 1.25, 0.95),
+      this.createStdMaterial(0x4a3524, { roughness: 0.7 })
+    );
+    cabinet.position.set(halfW - 0.42, 0.625, 1.6);
+    cabinet.castShadow = true;
+    group.add(cabinet);
+    [0.4, 0.75, 1.1].forEach((y) => {
+      const drawer = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.02, 0.02), trimMat);
+      drawer.position.set(halfW - 0.42, y, 1.6 - 0.49);
+      group.add(drawer);
+    });
+
+    const chairMat = this.createStdMaterial(0x4a3a2c, { roughness: 0.85 });
+    [[3.3, 2.4, -0.35], [4.7, 1.1, 0.25]].forEach(([x, z, rotation]) => {
+      const chair = new THREE.Group();
+      chair.position.set(x, 0, z);
+      chair.rotation.y = rotation;
+      const seat = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.16, 0.78), chairMat);
+      seat.position.y = 0.48;
+      seat.castShadow = true;
+      chair.add(seat);
+      const backRest = new THREE.Mesh(new THREE.BoxGeometry(0.82, 0.72, 0.14), chairMat);
+      backRest.position.set(0, 0.82, -0.32);
+      backRest.castShadow = true;
+      chair.add(backRest);
+      [-0.38, 0.38].forEach((side) => {
+        const arm = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.12, 0.72), chairMat);
+        arm.position.set(side, 0.62, 0);
+        chair.add(arm);
+      });
+      group.add(chair);
+    });
 
     this.character = group;
     this.characterParts = { ...this.anchors };
     this.scene.add(this.character);
+    this.updateWallVisibility();
     return group;
   }
 
@@ -409,9 +521,24 @@ export class ClubOfficeApp {
     if (this._dead) return;
     requestAnimationFrame(() => this.animate());
     const elapsed = this.clock.getElapsedTime();
-    if (this.lights.lamp) this.lights.lamp.intensity = 7.5 + Math.sin(elapsed * 2.3) * 0.12;
+    if (this.lights.lamp) this.lights.lamp.intensity = 16 + Math.sin(elapsed * 2.3) * 0.12;
+    if (this.wallCull) this.updateWallVisibility();
     if (this.controls) this.controls.update();
     if (this.renderer) this.renderer.render(this.scene, this.camera);
+  }
+
+  onWindowResize() {
+    if (!this.camera || !this.renderer) return;
+    this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
+  }
+
+  resetScene() {
+    this.dispose();
+    this.setupScene();
+    this.addLights();
+    this.createProceduralCharacter();
   }
 
   dispose() {
@@ -445,6 +572,6 @@ export class ClubOfficeApp {
     this.characterParts = {};
     this.anchors = {};
     this.lights = {};
-    this._dead = true;
+    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
   }
 }

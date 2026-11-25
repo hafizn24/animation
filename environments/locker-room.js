@@ -83,7 +83,7 @@ export class LockerRoomApp {
     this.controls.target.set(0, 1.2, -1.4);
     this.controls.maxPolarAngle = Math.PI / 2.05;  // prevent going underground
     this.controls.minDistance = 2;
-    this.controls.maxDistance = 32;
+    this.controls.maxDistance = 30;
   }
 
   addLights() {

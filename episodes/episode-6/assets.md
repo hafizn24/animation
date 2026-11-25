@@ -10,9 +10,9 @@ This asset map follows the established Buluh FC design language. New assets must
 | `LawyerApp` | Scene 1 | Charcoal suit, white shirt, dark tie and glasses; formal silhouette in the same toon style |
 | Existing Coach | Scenes 2 and 3 | Preserve the current Coach identity and model |
 | Existing Azam (#7) | Scenes 3–5 | Preserve the current Azam identity, swept hairstyle and Buluh FC kit |
-| `SquadVariationsApp` | Scenes 3 and 4 | Reusable background lineup with varied shirt shades, skin tones and body scale; no need to create 12 individually unique player assets yet |
+| `SquadVariationsApp` | Scenes 3 and 4 | Reusable background lineup with varied shirt shades and body scale; no need to create 12 individually unique player assets yet |
 
-The new character modules share `characters/character-base.js`, which uses the project's existing hairstyle builder and the same outlined toon-rendering approach as Karim and Azam.
+The new character modules extend `NewOwnerApp` in `characters/character-new-owner.js`, so every character shares the same body rig, proportions and skin tone (`0xf1e5d4`). Only outfit colours, hair and props vary. `characters/character-base.js` now re-exports `NewOwnerApp` as a deprecated alias for older imports.
 
 ## Environment continuity
 

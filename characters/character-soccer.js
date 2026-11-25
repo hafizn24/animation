@@ -75,20 +75,39 @@ export class SoccerOutfitApp {
 
   setupScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0xfcf9e8);
+
+    // Soft studio backdrop – keeps the near-white skin and trainers readable
+    if (typeof document === 'undefined') {
+      this.scene.background = new THREE.Color(0xd7d2c4);
+      return;
+    }
+    const canvas = document.createElement('canvas');
+    canvas.width = 8;
+    canvas.height = 256;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createLinearGradient(0, 0, 0, 256);
+    grad.addColorStop(0, '#9fb0ba');
+    grad.addColorStop(0.5, '#d7d2c4');
+    grad.addColorStop(1, '#efe9da');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 8, 256);
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    this.scene.background = texture;
   }
 
   setupCamera() {
     const aspect = this.container.clientWidth / this.container.clientHeight;
-    this.camera = new THREE.PerspectiveCamera(40, aspect, 0.1, 1000);
-    this.camera.position.set(0, 1.55, 4.3);
+    this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 1000);
+    this.camera.position.set(0, 1.8, 4.2);
+    this.homeCamera = [0, 1.8, 4.2];
+    this.homeTarget = [0, 1.3, 0];
   }
 
   setupRenderer() {
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.container.appendChild(this.renderer.domElement);
@@ -98,24 +117,23 @@ export class SoccerOutfitApp {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
-    this.controls.target.set(0, 1.35, 0);
+    this.controls.target.set(0, 1.3, 0);
   }
 
   addLights() {
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     this.scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.4);
-    directionalLight.position.set(3, 6, 5);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    directionalLight.position.set(4, 8, 5);
     directionalLight.castShadow = true;
     directionalLight.shadow.mapSize.width = 2048;
     directionalLight.shadow.mapSize.height = 2048;
-    directionalLight.shadow.bias = -0.0005;
     this.scene.add(directionalLight);
   }
 
   createToonMaterial(colorHex, map = null) {
-    const colors = new Uint8Array([230, 255]);
+    const colors = new Uint8Array([215, 255]);
     const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
     gradientMap.minFilter = THREE.NearestFilter;
     gradientMap.magFilter = THREE.NearestFilter;
@@ -129,7 +147,7 @@ export class SoccerOutfitApp {
       gradientMap: gradientMap,
       emissive: baseColor,
       emissiveMap: map,
-      emissiveIntensity: 0.35
+      emissiveIntensity: 0
     });
   }
 
@@ -161,7 +179,7 @@ export class SoccerOutfitApp {
     return texture;
   }
 
-  createOutlinedMesh(geometry, material, outlineThickness = 0.026) {
+  createOutlinedMesh(geometry, material, outlineThickness = 0.022) {
     const group = new THREE.Group();
     const mesh = new THREE.Mesh(geometry, material);
     mesh.castShadow = true;
@@ -175,11 +193,7 @@ export class SoccerOutfitApp {
         side: THREE.BackSide
       });
       const outlineMesh = new THREE.Mesh(geometry, outlineMat);
-      outlineMesh.scale.set(
-        1 + outlineThickness,
-        1 + outlineThickness * 0.85,
-        1 + outlineThickness
-      );
+      outlineMesh.scale.setScalar(1 + outlineThickness);
       outlineMesh.castShadow = false;
       outlineMesh.receiveShadow = false;
       group.add(outlineMesh);
@@ -196,7 +210,7 @@ export class SoccerOutfitApp {
 
     this.materials = {
       hair: this.createToonMaterial(0x2b2119),
-      graySkin: this.createToonMaterial(0x9ca3af), // Warna kulit kelabu kartun
+      skin: this.createToonMaterial(0xf1e5d4),
       white: this.createToonMaterial(0xffffff),
       jerseyStriped: this.createToonMaterial(0xffffff, stripedTex),
       jerseySolid: this.createToonMaterial(palette.jerseyPrimary),
@@ -211,10 +225,10 @@ export class SoccerOutfitApp {
     // ==================== 1. FACELESS HEAD & NECK ====================
     const headGroup = new THREE.Group();
     headGroup.name = 'Head';
-    headGroup.position.set(0, 1.96, 0);
+    headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.47, 36, 36);
-    const head = this.createOutlinedMesh(headGeom, this.materials.graySkin, 0.032);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.032);
     head.position.y = 0.37;
     headGroup.add(head);
 
@@ -223,7 +237,7 @@ export class SoccerOutfitApp {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.115, 0.125, 0.20, 20);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.graySkin, 0.028);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.028);
     neck.position.y = -0.04;
     headGroup.add(neck);
 
@@ -312,7 +326,7 @@ export class SoccerOutfitApp {
       armPivot.add(trim);
 
       const forearmGeom = new THREE.CylinderGeometry(0.095, 0.105, 0.34, 20);
-      const forearm = this.createOutlinedMesh(forearmGeom, this.materials.graySkin, 0.03);
+      const forearm = this.createOutlinedMesh(forearmGeom, this.materials.skin, 0.03);
       forearm.position.set(dir * 0.02, -0.44, 0);
       armPivot.add(forearm);
 
@@ -321,7 +335,7 @@ export class SoccerOutfitApp {
       handGroup.position.set(dir * 0.02, -0.64, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.115, 20, 20);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.graySkin, 0.032);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.032);
       palm.scale.set(1.12, 1.08, 0.70);
       handGroup.add(palm);
 
@@ -347,7 +361,7 @@ export class SoccerOutfitApp {
       legPivot.add(shortLeg);
 
       const kneeGeom = new THREE.CylinderGeometry(0.115, 0.112, 0.18, 20);
-      const knee = this.createOutlinedMesh(kneeGeom, this.materials.graySkin, 0.03);
+      const knee = this.createOutlinedMesh(kneeGeom, this.materials.skin, 0.03);
       knee.position.y = -0.32;
       legPivot.add(knee);
 
@@ -399,6 +413,7 @@ export class SoccerOutfitApp {
     this.characterParts = {
       head: headGroup,
       torso: torsoGroup,
+      pelvis: pelvisGroup,
       leftArm,
       rightArm,
       leftLeg,
@@ -485,7 +500,7 @@ export class SoccerOutfitApp {
         rightArm.rotation.x = Math.sin(elapsed * speed) * 0.45;
         this.character.position.y = Math.abs(Math.cos(elapsed * speed)) * 0.07;
       } else {
-        head.position.y = 1.96 + Math.sin(elapsed * 2) * 0.015;
+        head.position.y = 1.95 + Math.sin(elapsed * 2) * 0.015;
         leftArm.rotation.z = -0.28 - Math.sin(elapsed * 2) * 0.02;
         rightArm.rotation.z = 0.28 + Math.sin(elapsed * 2) * 0.02;
         this.character.position.y = 0;
@@ -525,5 +540,7 @@ export class SoccerOutfitApp {
     }
     this.character = null;
     this.characterParts = {};
+    this.animations = {};
+    this.props = {};
   }
 }

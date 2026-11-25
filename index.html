@@ -486,6 +486,7 @@ class App {
     this.materials = {
       hair: this.createToonMaterial(0x6b4a2f),
       white: this.createToonMaterial(0xffffff),
+      skin: this.createToonMaterial(0xf1e5d4),
       hoodie: this.createToonMaterial(defaultColors.hoodie),
       pocket: this.createToonMaterial(defaultColors.pocket),
       pants: this.createToonMaterial(defaultColors.pants),
@@ -501,7 +502,7 @@ class App {
     headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.46, 32, 32);
-    const head = this.createOutlinedMesh(headGeom, this.materials.white, 0.03);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
 
@@ -510,7 +511,7 @@ class App {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.white, 0.025);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.025);
     neck.position.y = -0.02;
     headGroup.add(neck);
     group.add(headGroup);
@@ -602,7 +603,7 @@ class App {
       handGroup.position.set(0, -0.68, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.white, 0.035);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.035);
       palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
@@ -918,6 +919,7 @@ class SuitOutfitApp {
     this.materials = {
       hair: this.createToonMaterial(0x3f2b1c),
       white: this.createToonMaterial(0xffffff),
+      skin: this.createToonMaterial(0xf1e5d4),
       jacket: this.createToonMaterial(palette.jacket),
       vest: this.createToonMaterial(palette.vest),
       lapel: this.createToonMaterial(palette.lapel),
@@ -933,7 +935,7 @@ class SuitOutfitApp {
     headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.46, 32, 32);
-    const head = this.createOutlinedMesh(headGeom, this.materials.white, 0.03);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
 
@@ -942,7 +944,7 @@ class SuitOutfitApp {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.white, 0.025);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.025);
     neck.position.y = -0.02;
     headGroup.add(neck);
     group.add(headGroup);
@@ -1053,7 +1055,7 @@ class SuitOutfitApp {
       handGroup.position.set(0, -0.68, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.white, 0.035);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.035);
       palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
@@ -1358,6 +1360,7 @@ class SoccerCoachOutfitApp {
     this.materials = {
       hair: this.createToonMaterial(0x9a7a52),
       white: this.createToonMaterial(0xffffff),
+      skin: this.createToonMaterial(0xf1e5d4),
       tracksuit: this.createToonMaterial(palette.tracksuit),
       ribbing: this.createToonMaterial(palette.ribbing),
       poloShirt: this.createToonMaterial(palette.poloShirt),
@@ -1375,7 +1378,7 @@ class SoccerCoachOutfitApp {
     headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.46, 32, 32);
-    const head = this.createOutlinedMesh(headGeom, this.materials.white, 0.03);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
 
@@ -1384,7 +1387,7 @@ class SoccerCoachOutfitApp {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.white, 0.025);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.025);
     neck.position.y = -0.02;
     headGroup.add(neck);
     group.add(headGroup);
@@ -1498,7 +1501,7 @@ class SoccerCoachOutfitApp {
       handGroup.position.set(0, -0.68, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.white, 0.035);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.035);
       palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
@@ -1843,7 +1846,7 @@ class SoccerOutfitApp {
 
     this.materials = {
       hair: this.createToonMaterial(0x2b2119),
-      graySkin: this.createToonMaterial(0x9ca3af), // Warna kulit kelabu kartun
+      skin: this.createToonMaterial(0xf1e5d4),
       white: this.createToonMaterial(0xffffff),
       jerseyStriped: this.createToonMaterial(0xffffff, stripedTex),
       jerseySolid: this.createToonMaterial(palette.jerseyPrimary),
@@ -1861,7 +1864,7 @@ class SoccerOutfitApp {
     headGroup.position.set(0, 1.96, 0);
 
     const headGeom = new THREE.SphereGeometry(0.47, 36, 36);
-    const head = this.createOutlinedMesh(headGeom, this.materials.graySkin, 0.032);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.032);
     head.position.y = 0.37;
     headGroup.add(head);
 
@@ -1870,7 +1873,7 @@ class SoccerOutfitApp {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.115, 0.125, 0.20, 20);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.graySkin, 0.028);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.028);
     neck.position.y = -0.04;
     headGroup.add(neck);
 
@@ -1959,7 +1962,7 @@ class SoccerOutfitApp {
       armPivot.add(trim);
 
       const forearmGeom = new THREE.CylinderGeometry(0.095, 0.105, 0.34, 20);
-      const forearm = this.createOutlinedMesh(forearmGeom, this.materials.graySkin, 0.03);
+      const forearm = this.createOutlinedMesh(forearmGeom, this.materials.skin, 0.03);
       forearm.position.set(dir * 0.02, -0.44, 0);
       armPivot.add(forearm);
 
@@ -1968,7 +1971,7 @@ class SoccerOutfitApp {
       handGroup.position.set(dir * 0.02, -0.64, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.115, 20, 20);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.graySkin, 0.032);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.032);
       palm.scale.set(1.12, 1.08, 0.70);
       handGroup.add(palm);
 
@@ -1994,7 +1997,7 @@ class SoccerOutfitApp {
       legPivot.add(shortLeg);
 
       const kneeGeom = new THREE.CylinderGeometry(0.115, 0.112, 0.18, 20);
-      const knee = this.createOutlinedMesh(kneeGeom, this.materials.graySkin, 0.03);
+      const knee = this.createOutlinedMesh(kneeGeom, this.materials.skin, 0.03);
       knee.position.y = -0.32;
       legPivot.add(knee);
 
@@ -2345,6 +2348,7 @@ class AnotherCasualOutfitApp {
     this.materials = {
       hair: this.createToonMaterial(0x8a4a2a),
       white: this.createToonMaterial(0xffffff),
+      skin: this.createToonMaterial(0xf1e5d4),
       sweaterKnit: this.createToonMaterial(0xffffff, knitTex),
       knitRibbing: this.createToonMaterial(palette.knitRibbing),
       jeans: this.createToonMaterial(palette.jeans),
@@ -2360,7 +2364,7 @@ class AnotherCasualOutfitApp {
     headGroup.position.set(0, 1.95, 0);
 
     const headGeom = new THREE.SphereGeometry(0.46, 32, 32);
-    const head = this.createOutlinedMesh(headGeom, this.materials.white, 0.03);
+    const head = this.createOutlinedMesh(headGeom, this.materials.skin, 0.03);
     head.position.y = 0.36;
     headGroup.add(head);
 
@@ -2369,7 +2373,7 @@ class AnotherCasualOutfitApp {
     headGroup.add(this.hairGroup);
 
     const neckGeom = new THREE.CylinderGeometry(0.11, 0.13, 0.22, 16);
-    const neck = this.createOutlinedMesh(neckGeom, this.materials.white, 0.025);
+    const neck = this.createOutlinedMesh(neckGeom, this.materials.skin, 0.025);
     neck.position.y = -0.02;
     headGroup.add(neck);
     group.add(headGroup);
@@ -2460,7 +2464,7 @@ class AnotherCasualOutfitApp {
       handGroup.position.set(0, -0.68, 0);
 
       const palmGeom = new THREE.SphereGeometry(0.11, 16, 16);
-      const palm = this.createOutlinedMesh(palmGeom, this.materials.white, 0.035);
+      const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.035);
       palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
