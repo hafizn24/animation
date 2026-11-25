@@ -120,7 +120,7 @@ function restoreHierarchyOffsets(parts) {
 }
 
 /**
- * Installs the strict hierarchy and shared face on an already-built character.
+ * Installs the strict hierarchy on an already-built faceless character.
  * Safe to call more than once; returns the same characterParts object.
  */
 export function normalizeRig(root, parts, { app = null } = {}) {
