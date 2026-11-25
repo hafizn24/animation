@@ -1,0 +1,160 @@
+{
+  "season": 1,
+  "division": "Divisyen 5",
+  "format": {
+    "teams": 6,
+    "matchdays": 5,
+    "points": { "win": 3, "draw": 1, "loss": 0 },
+    "promotionSpots": 1,
+    "promotionTo": "Divisyen 4",
+    "tiebreak": "Head-to-head, then goal difference"
+  },
+  "teams": [
+    {
+      "short": "BUL",
+      "name": "Buluh FC",
+      "formation": "5-3-2",
+      "kit": { "primary": "#de1326", "secondary": "#ffffff", "shorts": "#b80f20" },
+      "identity": "Kelab berhutang RM331.5k, disokong KEK MAJU & PENAJA (Nexus Sports).",
+      "players": [
+        { "no": 1,  "name": "Danial",   "pos": "GK",  "featured": "DanialApp",   "voice": "voice_6" },
+        { "no": 2,  "name": "Rizal",    "pos": "RB",  "voice": "voice_1" },
+        { "no": 3,  "name": "Hakim",    "pos": "CB",  "voice": "voice_1" },
+        { "no": 4,  "name": "Taufik",   "pos": "CB",  "voice": "voice_2" },
+        { "no": 5,  "name": "Manap",    "pos": "LB",  "voice": "voice_2" },
+        { "no": 6,  "name": "Salleh",   "pos": "RM",  "voice": "voice_4" },
+        { "no": 7,  "name": "Azam",     "pos": "CB",  "featured": "AzamApp",     "voice": "voice_5", "note": "Gaji RM5" },
+        { "no": 8,  "name": "Karim",    "pos": "CM",  "voice": "voice_4", "active": false, "note": "Berpindah ke Divisyen 4 selepas Ep. 5 — kekal dalam data sejarah sahaja" },
+        { "no": 9,  "name": "Farid",    "pos": "ST",  "featured": "FaridApp",    "voice": "voice_4" },
+        { "no": 10, "name": "Nizam",    "pos": "ST",  "voice": "voice_5" },
+        { "no": 11, "name": "Iskandar", "pos": "LM",  "voice": "voice_1" },
+        { "no": 12, "name": "Aiman",    "pos": "CM",  "voice": "voice_2", "note": "Gantian Karim dari Ep. 6" }
+      ]
+    },
+    {
+      "short": "TKJ",
+      "name": "Taktik Jaya FC",
+      "formation": "4-3-3",
+      "kit": { "primary": "#39ff88", "secondary": "#0b0b0b", "shorts": "#0b0b0b" },
+      "identity": "Try-hard Divisyen 5 dengan clipboard dan drill ketat.",
+      "players": [
+        { "no": 1,  "name": "Faiz",    "pos": "GK" },  { "no": 2,  "name": "Ravi",   "pos": "RB" },
+        { "no": 3,  "name": "Dawn",   "pos": "CB" },  { "no": 4,  "name": "Kumar",  "pos": "CB" },
+        { "no": 5,  "name": "Alif",    "pos": "LB" },  { "no": 6,  "name": "Harith", "pos": "CM" },
+        { "no": 7,  "name": "Jey",     "pos": "CM" },  { "no": 8,  "name": "Arif",   "pos": "CM" },
+        { "no": 9,  "name": "Shah",    "pos": "RW" },  { "no": 10, "name": "Zaki",   "pos": "ST", "featured": "ZakiApp", "voice": "voice_2", "note": "Kapten — headband neon + clipboard" },
+        { "no": 11, "name": "Danish",  "pos": "LW" }
+      ]
+    },
+    {
+      "short": "OTK",
+      "name": "Otai Kampung FC",
+      "formation": "4-5-1",
+      "kit": { "primary": "#7b1c2b", "secondary": "#d8b26a", "shorts": "#3a0e17" },
+      "identity": "Otai-uncle veteran, stamina kosong tapi mind games mematikan.",
+      "players": [
+        { "no": 1,  "name": "Pak Mat",  "pos": "GK" }, { "no": 2,  "name": "Abu",     "pos": "RB" },
+        { "no": 3,  "name": "Pak Semi", "pos": "CB" }, { "no": 4,  "name": "Tok Man", "pos": "CB" },
+        { "no": 5,  "name": "Pak Long", "pos": "LB" }, { "no": 6,  "name": "Pak Din", "pos": "CM", "featured": "PakDinApp", "voice": "voice_2", "note": "Kapten — torso 1.12, rambut putih, stoking retro" },
+        { "no": 7,  "name": "Pak Samad", "pos": "RM" }, { "no": 8,  "name": "Pak Wan",  "pos": "CM" },
+        { "no": 9,  "name": "Pak Chot", "pos": "CM" }, { "no": 10, "name": "Pak Kadir","pos": "LM" },
+        { "no": 11, "name": "Pak Ali",  "pos": "ST" }
+      ]
+    },
+    {
+      "short": "VGE",
+      "name": "Vanguard Elite FC",
+      "formation": "4-2-3-1",
+      "kit": { "primary": "#ffffff", "secondary": "#1e3a8a", "shorts": "#1e3a8a" },
+      "identity": "Rich kids dengan gear mahal — suka ejek hutang & gaji Buluh FC.",
+      "players": [
+        { "no": 1,  "name": "Adrian",  "pos": "GK" },  { "no": 2,  "name": "Troy",   "pos": "RB" },
+        { "no": 3,  "name": "Ethan",   "pos": "CB" },  { "no": 4,  "name": "Bryan",  "pos": "CB" },
+        { "no": 5,  "name": "Kelvin",  "pos": "LB" },  { "no": 6,  "name": "Marcus", "pos": "DM" },
+        { "no": 7,  "name": "Darius",  "pos": "DM" },  { "no": 8,  "name": "Jordan", "pos": "AM" },
+        { "no": 9,  "name": "Cole",    "pos": "ST" },  { "no": 10, "name": "Lucas",  "pos": "RW" },
+        { "no": 11, "name": "Rayyan",  "pos": "LW", "featured": "RayyanApp", "voice": "voice_4", "note": "Kapten — trim emas, visor, boot emas" }
+      ]
+    },
+    {
+      "short": "KLT",
+      "name": "Kilat Rovers",
+      "formation": "3-4-3",
+      "kit": { "primary": "#ff7a00", "secondary": "#0b0b0b", "shorts": "#0b0b0b" },
+      "identity": "Chaos total — serangan gila, pertahanan kosong, perlawanan skor tinggi.",
+      "players": [
+        { "no": 1,  "name": "Hafiz",   "pos": "GK" },  { "no": 2,  "name": "Reddy",  "pos": "CB" },
+        { "no": 3,  "name": "Slim",    "pos": "CB" },  { "no": 4,  "name": "Bono",   "pos": "CB" },
+        { "no": 5,  "name": "Yan",     "pos": "RM" },  { "no": 6,  "name": "Kuz",    "pos": "CM" },
+        { "no": 7,  "name": "Fizzy",   "pos": "CM" },  { "no": 8,  "name": "Lazer",  "pos": "LM" },
+        { "no": 9,  "name": "Bob",     "pos": "ST", "featured": "BobApp", "voice": "voice_5", "note": "Kapten — bouncy gila, spiky hair" },
+        { "no": 10, "name": "Blitz",   "pos": "ST" },  { "no": 11, "name": "Flash",  "pos": "ST" }
+      ]
+    },
+    {
+      "short": "BSW",
+      "name": "Besi Waja FC",
+      "formation": "4-4-2",
+      "kit": { "primary": "#111111", "secondary": "#b3121f", "shorts": "#111111" },
+      "identity": "Senyap, disciplined, tidak kalah sebelum Matchday 5 — boss terakhir Divisyen 5.",
+      "players": [
+        { "no": 1,  "name": "Penjaga Gol Besi", "pos": "GK", "featured": "BesiKeeperApp", "voice": "voice_2", "note": "Dark grey/red, glove besar, crouch rendah" },
+        { "no": 2,  "name": "Razak",  "pos": "RB" },  { "no": 3,  "name": "Ishak",  "pos": "CB" },
+        { "no": 4,  "name": "Malik",  "pos": "CB", "featured": "MalikApp", "voice": "voice_3", "note": "Kapten — armband merah, bahu lebar, 1.08skala" },
+        { "no": 5,  "name": "Jamil",  "pos": "LB" },  { "no": 6,  "name": "Sofian", "pos": "RM" },
+        { "no": 7,  "name": "Hakimi", "pos": "CM" },  { "no": 8,  "name": "Nordin", "pos": "CM" },
+        { "no": 9,  "name": "Taufan", "pos": "ST" },  { "no": 10, "name": "Firdaus","pos": "LM" },
+        { "no": 11, "name": "Zul",    "pos": "ST" }
+      ]
+    }
+  ],
+  "schedule": [
+    { "matchday": 1, "episode": 6,  "fixtures": [["BUL", 0, "TKJ", 2], ["OTK", 1, "KLT", 1], ["VGE", 0, "BSW", 2]] },
+    { "matchday": 2, "episode": 7,  "fixtures": [["BUL", 1, "OTK", 0], ["TKJ", 1, "BSW", 2], ["VGE", 2, "KLT", 2]] },
+    { "matchday": 3, "episode": 8,  "fixtures": [["BUL", 2, "VGE", 1], ["TKJ", 2, "OTK", 0], ["KLT", 0, "BSW", 3]] },
+    { "matchday": 4, "episode": 10, "fixtures": [["BUL", 4, "KLT", 3], ["TKJ", 1, "VGE", 2], ["OTK", 0, "BSW", 3]] },
+    { "matchday": 5, "episode": "11-12", "fixtures": [["BUL", 3, "BSW", 2, "0-2 (HT)"], ["TKJ", 1, "KLT", 1], ["OTK", 2, "VGE", 1]] }
+  ],
+  "standings": {
+    "1": [
+      { "pos": 1, "club": "TKJ", "played": 1, "points": 3 },
+      { "pos": 2, "club": "BSW", "played": 1, "points": 3 },
+      { "pos": 3, "club": "KLT", "played": 1, "points": 1 },
+      { "pos": 4, "club": "OTK", "played": 1, "points": 1 },
+      { "pos": 5, "club": "VGE", "played": 1, "points": 0 },
+      { "pos": 6, "club": "BUL", "played": 1, "points": 0 }
+    ],
+    "2": [
+      { "pos": 1, "club": "BSW", "played": 2, "points": 6 },
+      { "pos": 2, "club": "TKJ", "played": 2, "points": 3 },
+      { "pos": 3, "club": "BUL", "played": 2, "points": 3 },
+      { "pos": 4, "club": "KLT", "played": 2, "points": 2 },
+      { "pos": 5, "club": "OTK", "played": 2, "points": 1 },
+      { "pos": 6, "club": "VGE", "played": 2, "points": 1 }
+    ],
+    "3": [
+      { "pos": 1, "club": "BSW", "played": 3, "points": 9 },
+      { "pos": 2, "club": "TKJ", "played": 3, "points": 6 },
+      { "pos": 3, "club": "BUL", "played": 3, "points": 6 },
+      { "pos": 4, "club": "KLT", "played": 3, "points": 2 },
+      { "pos": 5, "club": "OTK", "played": 3, "points": 1 },
+      { "pos": 6, "club": "VGE", "played": 3, "points": 1 }
+    ],
+    "4": [
+      { "pos": 1, "club": "BSW", "played": 4, "points": 12 },
+      { "pos": 2, "club": "BUL", "played": 4, "points": 9 },
+      { "pos": 3, "club": "TKJ", "played": 4, "points": 6 },
+      { "pos": 4, "club": "VGE", "played": 4, "points": 4 },
+      { "pos": 5, "club": "KLT", "played": 4, "points": 2 },
+      { "pos": 6, "club": "OTK", "played": 4, "points": 1 }
+    ],
+    "5": [
+      { "pos": 1, "club": "BUL", "played": 5, "points": 12, "note": "JUARA — head-to-head 3-2 ke atas BSW" },
+      { "pos": 2, "club": "BSW", "played": 5, "points": 12 },
+      { "pos": 3, "club": "TKJ", "played": 5, "points": 7 },
+      { "pos": 4, "club": "OTK", "played": 5, "points": 4 },
+      { "pos": 5, "club": "VGE", "played": 5, "points": 4 },
+      { "pos": 6, "club": "KLT", "played": 5, "points": 3 }
+    ]
+  }
+}

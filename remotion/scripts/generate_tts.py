@@ -17,6 +17,8 @@ FPS = 30
 
 VOICES = {
     "narrator": "voice_5",
+    # Season 1 narrator is a separate key so regenerating Ep1–5 TTS stays unchanged.
+    "narrator_s1": "voice_1",
     "peguam": "voice_2",
     "pemilik": "voice_3",
     "jurulatih": "voice_2",
@@ -39,6 +41,17 @@ VOICES = {
     "azam": "voice_5",
     "teammate1": "voice_4",
     "teammate2": "voice_1",
+    # Season 1 (Episode 6-12) — new matchday cast. Existing voices are reused
+    # for BOS / JURULATIH / PEGUAM / AZAM; newcomers get distinct voices.
+    "farid": "voice_4",
+    "danial": "voice_5",
+    "zaki": "voice_2",
+    "pakdin": "voice_2",
+    "rayyan": "voice_4",
+    "bob": "voice_5",
+    "malik": "voice_3",
+    "besikeeper": "voice_2",
+    "pengadil": "voice_2",
 }
 
 VOICE_STYLE = {
@@ -53,7 +66,15 @@ VOICE_STYLE = {
     "azam": {"speed": 1.06, "pitch": 1.06},
     "teammate1": {"speed": 1.06, "pitch": 1.05},
     "teammate2": {"speed": 1.08, "pitch": 1.05},
+    # Season 1 — the narrator never shares a voice ID with a character, and the
+    # three voice_2 speakers are separated by pace/pitch.
+    "narrator_s1": {"speed": 0.98, "pitch": 0.92},
+    "pakdin": {"speed": 0.88, "pitch": 0.82},
     "peguam": {"speed": 0.94, "pitch": 0.88},
+    "zaki": {"speed": 1.1, "pitch": 1.08},
+    "coach": {"speed": 1.04, "pitch": 1.0},
+    "bob": {"speed": 1.12, "pitch": 0.86},
+    "azam": {"speed": 1.06, "pitch": 1.06},
 }
 
 # Episode 5 onward is generated at natural speed only. No fit-to-budget pass
@@ -65,7 +86,17 @@ NATURAL_SPEEDS = {
     "teammate1": 1.0,
     "teammate2": 1.0,
     "azam": 1.0,
+    "narrator_s1": 1.0,
     "peguam": 1.0,
+    "farid": 1.0,
+    "danial": 1.0,
+    "zaki": 1.0,
+    "pakdin": 1.0,
+    "rayyan": 1.0,
+    "bob": 1.0,
+    "malik": 1.0,
+    "besikeeper": 1.0,
+    "pengadil": 1.0,
 }
 
 # Kept as an alias for older callers / documentation.
@@ -144,15 +175,118 @@ MANIFEST = [
     ("e5_15", "bos", 1154, 1175, "Lima ringgit."),
     ("e5_16", "coach", 1178, 1195, "Lima ribu?!"),
     ("e5_17", "bos", 1198, 1279, "Lima ringgit. Duit Karim semua bayar hutang."),
+<<<<<<< HEAD
+    # Season 1 — Episodes 6-12 mirror their audio-script.json line budgets.
+    # Frames are locked to the JSON; the standard fitting path trims/fits each
+    # clip to those budgets so timed subtitles stay aligned.
+    # Episode 6 — Janji Bank & Matchday 1 (1290f / 43s).
+    ("e6_01", "narrator", 0, 93, "Cop merah. Meja ni bukan lagi milik kita."),
+    ("e6_02", "peguam", 93, 201, "Tujuh hari, bos. Juara atau sita. Awak yang sign."),
+    ("e6_03", "bos", 201, 309, "Kasih satu musim. Juara Divisyen 5, hutang lunas."),
+    ("e6_04", "bos", 309, 423, "Armband Karim kekal atas meja ni. Sampai kita juara."),
+    ("e6_05", "peguam", 423, 516, "Armband tak bayar hutang. Gol yang bayar."),
+    ("e6_06", "narrator", 524, 617, "Matchday satu. Tanpa kapten, tanpa Karim."),
+    ("e6_07", "zaki", 617, 725, "Tak ada kapten? Aku ada clipboard. Itu beza kita."),
+    ("e6_08", "azam", 725, 820, "Hutang bukan mati, bro. Aku jaga belakang."),
+    ("e6_09", "danial", 820, 907, "Belakang!! Siapa jaga lurus belakang?!"),
+    ("e6_10", "coach", 907, 990, "Fokus! Susun balik! Belum mati lagi!"),
+    ("e6_11", "narrator", 998, 1073, "Minit ke-89. Zaki nak satu lagi."),
+    ("e6_13", "azam", 1073, 1144, "Tak lepas. Hari ini tak lepas."),
+    ("e6_14", "narrator", 1144, 1231, "Peguam catat semua. Tanpa sepatah pun."),
+    ("e7_01", "narrator", 0, 93, "Otai Kampung FC. Kaki lambat, mulut laju."),
+    ("e7_02", "pakdin", 95, 205, "Gaji lima ringgit? Kasut aku pun lebih mahal, bro."),
+    ("e7_03", "azam", 207, 311, "Gaji aku lima ringgit. Blok aku free. Nak rasa?"),
+    ("e7_04", "pakdin", 313, 406, "Otai tak panas. Otai tunggu korang silap."),
+    ("e7_06", "coach", 414, 487, "Tinggi! Press! Paksa dia silap!"),
+    ("e7_07", "narrator", 489, 603, "Pak Din pass biasa. Azam dah baca lima langkah awal."),
+    ("e7_08", "azam", 605, 642, "Farid! Bola!"),
+    ("e7_09", "narrator", 644, 727, "Satu sentuhan... terus penjuru atas."),
+    ("e7_10", "farid", 729, 802, "AKHIRNYA! Gol pertama musim ni!"),
+    ("e7_12", "narrator", 810, 918, "Whistle panjang. Gerbang penuh. Kek Maju menyala."),
+    ("e7_13", "bos", 920, 1028, "Duit tiket ni... orang datang sebab percaya kita."),
+    ("e7_14", "coach", 1030, 1111, "Bos, Azam tanya bila gaji dia naik."),
+    ("e7_15", "bos", 1113, 1204, "Dia kata — lepas juara, baru ambil duit."),
+    ("e8_01", "narrator", 0, 114, "Vanguard Elite. Kasut emas... dan satu sampul tebal."),
+    ("e8_02", "rayyan", 116, 224, "Kelab kau hutang kan? Ambil ni. Kalah je hari ni."),
+    ("e8_03", "bos", 226, 332, "Kau fikir kami jual maruah sekali dengan hutang?"),
+    ("e8_05", "bos", 334, 454, "Kalau karam, kami karam berdiri. Ni aku simpan — bukti."),
+    ("e8_06", "narrator", 462, 543, "Rayyan main cantik. Macam iklan TV."),
+    ("e8_07", "rayyan", 545, 649, "Nampak beza kelas? Bukan padang kampung, budak."),
+    ("e8_09", "azam", 651, 719, "Kelas? Saya jaga kelas, bro."),
+    ("e8_10", "azam", 721, 765, "Farid! Sekarang!"),
+    ("e8_12", "narrator", 767, 856, "Counter terakhir. Farid, sekali lagi..."),
+    ("e8_13", "farid", 858, 937, "MARUAH TAK DIJUAL — GOL JE DIJUAL!"),
+    ("e8_14", "narrator", 945, 1044, "Dua menang berturut. Buluh FC mula memanjat."),
+    ("e8_15", "coach", 1046, 1125, "Yang ni menang dengan maruah, bos."),
+    ("e8_16", "bos", 1127, 1245, "Sampul tu dalam laci aku. Bukti kita tak jual apa-apa."),
+    ("e9_01", "narrator", 0, 95, "Sepuluh malam latihan extra. Lampu terang."),
+    ("e9_02", "azam", 97, 188, "Lagi sekali! Blok, halau, langkah balik!"),
+    ("e9_03", "danial", 190, 252, "Eh?! Lampu! LAMPU PADAM!!"),
+    ("e9_04", "coach", 254, 353, "Tiang letup. Padang tutup sampai kita bayar."),
+    ("e9_05", "narrator", 355, 434, "Dua puluh lima ribu. Atau forfeit."),
+    ("e9_07", "bos", 442, 546, "Peguam. Lampu kelab aku mati. Top-up satu lagi."),
+    ("e9_08", "peguam", 548, 650, "Satu langkah depan, dua langkah belakang, bos."),
+    ("e9_09", "peguam", 652, 776, "Tapi budak-budak kau latihan malam. Duit aku hantar esok."),
+    ("e9_11", "narrator", 784, 884, "Dua hari lepas. Lampu balik. Hutang pun naik."),
+    ("e9_12", "azam", 886, 946, "Lampu ni mahal kan, bos?"),
+    ("e9_13", "bos", 948, 1054, "Mahal. Tapi sebab korang nak belajar, aku bayar."),
+    ("e9_14", "azam", 1056, 1151, "Lampu ni kita bayar balik... dengan trofi."),
+    ("e9_15", "narrator", 1153, 1244, "RM321,500. Tapi kelab ni tak mudah mati."),
+    ("e10_01", "narrator", 0, 100, "Kilat Rovers. Serang gila. Pertahanan? Tiada."),
+    ("e10_02", "bob", 102, 201, "Pertahanan buat apa?! Gol lagi best, brader!"),
+    ("e10_03", "danial", 203, 284, "TIGA TIGA?! Aku penat jerit, Azam!!"),
+    ("e10_04", "azam", 286, 381, "Semua dengar aku! Satu blok — kita menang!"),
+    ("e10_05", "coach", 389, 495, "Semua naik! Minit 88 — sekarang atau takda esok!"),
+    ("e10_06", "narrator", 497, 594, "Kilat serang lagi. Azam baca... dan potong."),
+    ("e10_07", "azam", 596, 635, "Farid! Jalan!"),
+    ("e10_08", "farid", 637, 691, "Kau blok, aku settle!"),
+    ("e10_09", "narrator", 693, 770, "Empat tiga. Buluh FC masih hidup!"),
+    ("e10_11", "azam", 772, 851, "Lima ringgit. Lepas ni jadi mahal."),
+    ("e10_12", "narrator", 859, 961, "Tempat kedua. Tiga mata di belakang Besi Waja."),
+    ("e10_13", "coach", 963, 1048, "Diorang tak senyum. Main macam mesin."),
+    ("e10_14", "bos", 1050, 1133, "Mesin boleh rosak. Kita ada jantung."),
+    ("e10_15", "narrator", 1135, 1243, "RM300,000 tepat. Matchday lima — juara atau sita."),
+    ("e11_01", "narrator", 0, 116, "Besi Waja. Tak kalah satu pun. Datang nak tanam kita."),
+    ("e11_02", "malik", 118, 170, "Tekan. Halau. Ulang."),
+    ("e11_03", "pengadil", 172, 218, "Kad kuning! Azam!"),
+    ("e11_04", "azam", 220, 315, "Hampir lima ribu sebab kad aku. Maaf, bos."),
+    ("e11_06", "narrator", 323, 425, "Bilik ganti sunyi. Baju basah. Lampu berkelip."),
+    ("e11_07", "farid", 427, 520, "Kita tak boleh lawan diorang tanpa Karim."),
+    ("e11_09", "azam", 522, 615, "Karim dah pergi. Kita masih kena berdiri."),
+    ("e11_10", "narrator", 617, 688, "Pintu buka. Bos masuk. Senyap."),
+    ("e11_11", "bos", 696, 804, "Karim tinggal armband ni. Aku tunggu siapa layak."),
+    ("e11_12", "bos", 806, 885, "Azam. Hari ni kau kapten Buluh FC."),
+    ("e11_13", "azam", 887, 987, "Kad kuning aku tadi hampir tenggelamkan kita."),
+    ("e11_14", "bos", 989, 1105, "Sebab tu aku pilih kau. Yang rasa berat takkan silap."),
+    ("e11_15", "azam", 1107, 1221, "Gaji aku lima ringgit. Baju ni aku jaga sampai mati."),
+    ("e12_01", "azam", 0, 100, "Diorang tanam kita. Sekarang kita gali balik!"),
+    ("e12_04", "narrator", 100, 187, "Corner. Semua naik... termasuk kapten."),
+    ("e12_05", "azam", 187, 284, "SETARAF! Sekarang diorang yang tengok kita!"),
+    ("e12_07", "narrator", 292, 392, "Minit ke-90. Dua dua. Satu serangan terakhir."),
+    ("e12_08", "azam", 392, 436, "FARID! SEKARANG!"),
+    ("e12_09", "narrator", 436, 525, "Stadium diam. Satu peluang. Satu nafas."),
+    ("e12_10", "farid", 525, 561, "MASUK!!"),
+    ("e12_11", "azam", 561, 617, "JUARA!!! KITA JUARA!!!"),
+    ("e12_12", "malik", 617, 692, "Kita kalah... pada kelab hutang."),
+    ("e12_13", "narrator", 700, 797, "Kat tribun... satu siluet dah lama berdiri."),
+    ("e12_14", "bos", 797, 839, "Rim...? KARIM?!"),
+    ("e12_15", "karim", 839, 945, "Aku kata dulu — jangan jual kapten. Lagi garang!"),
+    ("e12_16", "peguam", 945, 1047, "Hadiah juara masuk. Bonus penaja masuk. LUNAS."),
+    ("e12_17", "bos", 1047, 1128, "Kita lunas!! Buluh FC hidup balik!!"),
+    ("e12_18", "karim", 1128, 1223, "Divisyen 4 tunggu. Jumpa kat sana, kapten."),
+=======
+>>>>>>> parent of 392afeb (feat: Add Season 1 overlays and debt tracking for Divisyen 5 episodes)
 ]
 
 
-def is_natural(name):
-    match = re.match(r"^e(\d+)_", name)
-    return bool(match) and int(match.group(1)) >= 5
+S1_PREFIXES = {f"e{n}" for n in range(6, 13)}
+NATURAL_PREFIXES = {"e5"} | S1_PREFIXES
 
 
 def voice_profile(name, speaker):
+    """Season 1 uses a dedicated narrator voice so Ep1–5 TTS is unchanged."""
+    if name.split("_", 1)[0] in S1_PREFIXES and speaker == "narrator":
+        return "narrator_s1"
     return speaker
 
 
@@ -229,137 +363,73 @@ def duration(path):
     return int(hours) * 3600 + int(minutes) * 60 + float(seconds)
 
 
-CAST_FILE = ROOT / "story" / "cast.json"
-EPISODES_DIR = ROOT / "episodes"
-
-
-def episode_number(prefix):
-    match = re.match(r"^e(\d+)_", prefix)
-    return int(match.group(1)) if match else 0
-
-
-def load_cast():
-    data = json.loads(CAST_FILE.read_text(encoding="utf-8"))
-    lookup = {}
-    for character in data["characters"]:
-        lookup[character["id"].lower()] = character
-        lookup[character["name"].lower()] = character
-        lookup[character["name"].split(" (")[0].lower()] = character
-    return lookup
-
-
-def episode_rows(number, cast_lookup):
-    script = EPISODES_DIR / f"episode-{number}" / "audio-script.json"
-    data = json.loads(script.read_text(encoding="utf-8"))
-    rows = []
-    for scene in data.get("scenes", []):
-        for line in scene.get("lines", []):
-            speaker = str(line.get("speaker", "")).lower()
-            character = cast_lookup.get(speaker)
-            if not character:
-                raise SystemExit(f"Episode {number}: speaker {speaker!r} is not in story/cast.json")
-            rows.append({
-                "name": line.get("file") or line["id"],
-                "speaker": character["id"],
-                "text": line["text"],
-                "voice": character["voice"],
-                "speed": character["speed"],
-                "pitch": character["pitch"],
-            })
-    return rows
-
-
 def main():
-    dry_run = "--dry-run" in sys.argv
-    args = [arg for arg in sys.argv[1:] if arg != "--dry-run"]
-    prefix = args[0] if args else ""
-    number = episode_number(prefix)
-    key = None
+    key = load_key()
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    raw_dir = OUT_DIR / "_raw"
+    raw_dir.mkdir(exist_ok=True)
 
-    if number >= 6:
-        rows = [row for row in episode_rows(number, load_cast()) if row["name"].startswith(prefix)]
-        entries = [
-            (row["name"], row["speaker"], 0, 0, row["text"], row["voice"], row["speed"], row["pitch"])
-            for row in rows
-        ]
-    else:
-        entries = [
-            (name, speaker, start, end, text, None, None, None)
-            for name, speaker, start, end, text in MANIFEST
-            if name.startswith(prefix)
-        ]
-
+    prefix = sys.argv[1] if len(sys.argv) > 1 else ""
+    entries = [row for row in MANIFEST if row[0].startswith(prefix)]
     if not entries:
         raise SystemExit(f"No TTS entries match prefix {prefix!r}")
 
-    if not dry_run:
-        OUT_DIR.mkdir(parents=True, exist_ok=True)
-        raw_dir = OUT_DIR / "_raw"
-        raw_dir.mkdir(exist_ok=True)
-        key = load_key()
-
-    print(f"{'file':20} {'voice':9} {'speed':>6} {'pitch':>6} {'chars':>6}")
-    for name, speaker, start, end, text, cast_voice, cast_speed, cast_pitch in entries:
-        if cast_voice:
-            voice_id = cast_voice
-            speed = cast_speed
-            pitch = cast_pitch
-        else:
-            voice_id = voice_profile(name, speaker)
-            style = VOICE_STYLE.get(voice_id, {})
-            speed = style.get("speed", 1.0)
-            pitch = style.get("pitch", 1.0)
-            if is_natural(name):
-                speed = NATURAL_SPEEDS.get(voice_id, 1.0)
-
-        if dry_run:
-            print(f"{name + '.mp3':20} {voice_id:9} {speed:6.2f} {pitch:6.2f} {len(text):6}")
-            continue
-
+    print(f"{'file':20} {'budget':>7} {'duration':>9} {'speed':>6}")
+    for name, speaker, start, end, text in entries:
         budget = (end - start) / FPS
         raw = raw_dir / f"{name}.mp3"
         final = OUT_DIR / f"{name}.mp3"
-        api_voice = voice_id if voice_id.startswith("voice_") else VOICES[voice_id]
+        voice_id = voice_profile(name, speaker)
+        style = VOICE_STYLE.get(voice_id, {})
+        base_speed = style.get("speed", 1.0)
+        pitch = style.get("pitch", 1.0)
+        speed = base_speed
 
-        if not cast_voice and not is_natural(name):
-            synthesize(key, text, api_voice, speed, raw)
+        if name.split("_", 1)[0] in NATURAL_PREFIXES:
+            # Natural-speed path for Ep5–12: no fitting, no atempo stretching.
+            speed = NATURAL_SPEEDS[voice_id]
+            synthesize(key, text, VOICES[voice_id], speed, raw)
             normalize(raw, final, pitch)
+            strip_leading_silence(final)
             length = duration(final)
-            for candidate in (speed * 1.05, speed * 1.1):
-                if length <= budget + 0.15:
-                    break
-                speed = min(candidate, 1.2)
-                synthesize(key, text, api_voice, speed, raw)
-                normalize(raw, final, pitch)
-                length = duration(final)
-            if length > budget + 0.15:
-                tempo = min(length / budget, 1.9)
-                fitted = raw_dir / f"{name}_fit.mp3"
-                subprocess.run(
-                    [FFMPEG, "-y", "-loglevel", "error", "-i", str(final),
-                     "-filter:a", f"atempo={tempo:.4f}", "-ar", "44100", "-b:a", "160k", str(fitted)],
-                    check=True,
-                )
-                fitted.replace(final)
-                length = duration(final)
-                speed = round(speed * tempo, 2)
-            if name == "e3_01" or name.startswith("e4_"):
-                strip_leading_silence(final)
-                length = duration(final)
-            flag = "OK" if length <= budget + 0.15 else "OVER"
+            flag = "NATURAL"
             print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x {flag}")
             continue
 
-        synthesize(key, text, api_voice, speed, raw)
+        synthesize(key, text, VOICES[voice_id], speed, raw)
         normalize(raw, final, pitch)
-        strip_leading_silence(final)
         length = duration(final)
-        print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x NATURAL")
 
-    if not dry_run:
-        for stale in raw_dir.glob("*.mp3"):
-            stale.unlink()
-        raw_dir.rmdir()
+        for candidate in (base_speed * 1.05, base_speed * 1.1):
+            if length <= budget + 0.15:
+                break
+            speed = min(candidate, 1.2)
+            synthesize(key, text, VOICES[voice_id], speed, raw)
+            normalize(raw, final, pitch)
+            length = duration(final)
+
+        if length > budget + 0.15:
+            tempo = min(length / budget, 1.9)
+            fitted = raw_dir / f"{name}_fit.mp3"
+            subprocess.run(
+                [FFMPEG, "-y", "-loglevel", "error", "-i", str(final),
+                 "-filter:a", f"atempo={tempo:.4f}", "-ar", "44100", "-b:a", "160k", str(fitted)],
+                check=True,
+            )
+            fitted.replace(final)
+            length = duration(final)
+            speed = round(speed * tempo, 2)
+
+        if name == "e3_01" or name.startswith("e4_"):
+            strip_leading_silence(final)
+            length = duration(final)
+
+        flag = "OK" if length <= budget + 0.15 else "OVER"
+        print(f"{name + '.mp3':20} {budget:6.2f}s {length:8.2f}s {speed:5.2f}x {flag}")
+
+    for stale in raw_dir.glob("*.mp3"):
+        stale.unlink()
+    raw_dir.rmdir()
 
 
 if __name__ == "__main__":

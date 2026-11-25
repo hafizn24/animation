@@ -1,0 +1,492 @@
+{
+ "episode": 10,
+ "title": "Hidup Mati",
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "totalDurationSeconds": 44.1,
+ "totalFrames": 1323,
+ "language": "ms",
+ "subtitles": "ms+en",
+ "notes": "Source of truth for Episode 10 (rework). The chaos match is played by characters: Bob's happy-hooligan Kilat Rovers, Danial's fury, Azam organising like a captain before he is one. The 88th-minute winner runs Azam-block -> Farid-finish with the RM5 legend spreading to the enemy camp. Besi Waja's machine is planted. Debt RM321,500 -> RM300,000.",
+ "cast": {
+  "narrator": {
+   "voice": "voice_1",
+   "label": "NARRATOR"
+  },
+  "kapten_bob": {
+   "class": "BobApp",
+   "label": "KAPTEN BOB",
+   "voice": "voice_5"
+  },
+  "danial": {
+   "class": "DanialApp",
+   "label": "DANIAL",
+   "voice": "voice_5"
+  },
+  "azam": {
+   "class": "AzamApp",
+   "outfit": "matchJersey",
+   "label": "AZAM",
+   "voice": "voice_5"
+  },
+  "jurulatih": {
+   "class": "SoccerCoachOutfitApp",
+   "outfit": "navyCoach",
+   "label": "JURULATIH",
+   "voice": "voice_2"
+  },
+  "farid": {
+   "class": "FaridApp",
+   "label": "FARID",
+   "voice": "voice_4"
+  },
+  "bos": {
+   "class": "NewOwnerApp",
+   "outfit": "charcoalOwner",
+   "label": "BOS",
+   "voice": "voice_3"
+  }
+ },
+ "bgm": [
+  {
+   "file": "match.wav",
+   "from": 0,
+   "to": 1251,
+   "level": 0.18,
+   "duck": 0.05
+  },
+  {
+   "file": "warm.wav",
+   "from": 859,
+   "to": 1251,
+   "level": 0.15,
+   "duck": 0.05
+  }
+ ],
+ "overlays": {
+  "hook": {
+   "title": "PERLAWANAN PALING GILA!",
+   "pill": "EP. 10 • MATCHDAY 4",
+   "fromFrame": 0,
+   "toFrame": 45
+  },
+  "matchHUD": {
+   "scene": "act-2-last-gasp",
+   "fromFrame": 389,
+   "toFrame": 853,
+   "matchday": 4,
+   "homeShort": "BUL",
+   "awayShort": "KIL",
+   "homeColor": "#de1326",
+   "awayColor": "#3ab6e8",
+   "steps": [
+    {
+     "frame": 393,
+     "home": 3,
+     "away": 3,
+     "clock": "83'"
+    },
+    {
+     "frame": 700,
+     "home": 3,
+     "away": 3,
+     "clock": "88'"
+    },
+    {
+     "frame": 759,
+     "home": 4,
+     "away": 3,
+     "clock": "89'"
+    },
+    {
+     "frame": 806,
+     "home": 4,
+     "away": 3,
+     "clock": "FT"
+    }
+   ]
+  },
+  "leagueTable": {
+   "scene": "act-3-second-place",
+   "fromFrame": 867,
+   "toFrame": 997,
+   "matchday": 4
+  },
+  "debtTicker": {
+   "scene": "act-3-second-place",
+   "fromFrame": 1117,
+   "toFrame": 1241,
+   "label": "HUTANG KELAB",
+   "from": 321500,
+   "to": 300000,
+   "direction": "down",
+   "currency": "RM",
+   "note": "BONUS MENANG + KUTIPAN TIKET"
+  },
+  "outroCard": {
+   "fromFrame": 1251,
+   "toFrame": 1323,
+   "durationFrames": 72,
+   "label": "EPISOD 10"
+  }
+ },
+ "scenes": [
+  {
+   "id": "act-1-chaos",
+   "name": "Act 1 — Serangan Gila",
+   "from": 0.0,
+   "to": 12.967,
+   "fromFrame": 0,
+   "durationFrames": 389,
+   "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
+   "director": "createChaosScene",
+   "visual": "Hook: the scoreboard flips 1-0 -> 1-1 -> 2-2 -> 3-3 inside the first 1.4 seconds. Kapten Bob of Kilat Rovers laughs through the chaos — defence is for cowards. Danial is done shouting; Azam takes command of the backline like a captain who has not yet been handed the armband.",
+   "sfx": "whistle at 0; three quick net swishes on the hook; crowd-big bed; Danial scream.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "whistle.wav",
+     "frame": 0,
+     "volume": 0.85
+    },
+    {
+     "file": "net.wav",
+     "frame": 14,
+     "volume": 0.5
+    },
+    {
+     "file": "net.wav",
+     "frame": 28,
+     "volume": 0.5
+    },
+    {
+     "file": "net.wav",
+     "frame": 42,
+     "volume": 0.5
+    },
+    {
+     "file": "crowd-big.wav",
+     "frame": 46,
+     "volume": 0.45
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    },
+    {
+     "type": "cut",
+     "frame": 54,
+     "note": "First cut within the hook window."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e10_01",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Kilat Rovers. Serang gila. Pertahanan? Tiada.",
+     "translation": "Kilat Rovers. Crazy attacks. Defence? None.",
+     "start": 0.0,
+     "end": 3.067,
+     "startFrame": 0,
+     "endFrame": 100,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_02",
+     "type": "dialogue",
+     "speaker": "KAPTEN BOB",
+     "text": "Pertahanan buat apa?! Gol lagi best, brader!",
+     "translation": "Who needs defence?! Goals are more fun, lads!",
+     "start": 3.4,
+     "end": 6.433,
+     "startFrame": 102,
+     "endFrame": 201,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_03",
+     "type": "dialogue",
+     "speaker": "DANIAL",
+     "text": "TIGA TIGA?! Aku penat jerit, Azam!!",
+     "translation": "THREE-ALL?! I'm done shouting, Azam!!",
+     "start": 6.767,
+     "end": 9.2,
+     "startFrame": 203,
+     "endFrame": 284,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_04",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "Semua dengar aku! Satu blok — kita menang!",
+     "translation": "Everyone listen! One block — we win this!",
+     "start": 9.533,
+     "end": 12.433,
+     "startFrame": 286,
+     "endFrame": 381,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "act-2-last-gasp",
+   "name": "Act 2 — Minit ke-88",
+   "from": 12.967,
+   "to": 28.633,
+   "fromFrame": 389,
+   "durationFrames": 470,
+   "environment": "PitchPenaltyBoxApp (environments/modular-pitch-zone.js)",
+   "director": "createLastGaspScene",
+   "visual": "Minute 88: Jurulatih sends everyone forward. Kilat attack once more; Azam reads it, blocks it clean and releases Farid on the counter. One strike — 4-3. Bob's reply spreads the RM5 legend to the enemy camp; Azam's answer makes it a warning.",
+   "sfx": "block thud (bass-hit); kick + net.wav on the winner; crowd-big roar; comic thud on Bob's collapse.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "whistle.wav",
+     "frame": 389,
+     "volume": 0.55
+    },
+    {
+     "file": "bass-hit.wav",
+     "frame": 588,
+     "volume": 0.65
+    },
+    {
+     "file": "kick.wav",
+     "frame": 678,
+     "volume": 0.8
+    },
+    {
+     "file": "net.wav",
+     "frame": 686,
+     "volume": 0.7
+    },
+    {
+     "file": "crowd-big.wav",
+     "frame": 686,
+     "volume": 0.55
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    },
+    {
+     "type": "goal",
+     "frame": 686,
+     "note": "net.wav goal 1 lands mid-gap."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e10_05",
+     "type": "dialogue",
+     "speaker": "JURULATIH",
+     "text": "Semua naik! Minit 88 — sekarang atau takda esok!",
+     "translation": "Everyone forward! Minute 88 — now or never!",
+     "start": 12.967,
+     "end": 16.233,
+     "startFrame": 389,
+     "endFrame": 495,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_06",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Kilat serang lagi. Azam baca... dan potong.",
+     "translation": "Kilat attack again. Azam reads it… and cuts it out.",
+     "start": 16.567,
+     "end": 19.533,
+     "startFrame": 497,
+     "endFrame": 594,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_07",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "Farid! Jalan!",
+     "translation": "Farid! Run!",
+     "start": 19.867,
+     "end": 20.9,
+     "startFrame": 596,
+     "endFrame": 635,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_08",
+     "type": "dialogue",
+     "speaker": "FARID",
+     "text": "Kau blok, aku settle!",
+     "translation": "You block, I finish!",
+     "start": 21.233,
+     "end": 22.767,
+     "startFrame": 637,
+     "endFrame": 691,
+     "voice": "voice_4",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_09",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Empat tiga. Buluh FC masih hidup!",
+     "translation": "Four-three. Buluh FC are still alive!",
+     "start": 23.1,
+     "end": 25.4,
+     "startFrame": 693,
+     "endFrame": 770,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_11",
+     "type": "dialogue",
+     "speaker": "AZAM",
+     "text": "Lima ringgit. Lepas ni jadi mahal.",
+     "translation": "Five ringgit. About to get expensive.",
+     "start": 25.733,
+     "end": 28.1,
+     "startFrame": 772,
+     "endFrame": 851,
+     "voice": "voice_5",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "act-3-second-place",
+   "name": "Act 3 — Bayang Besi Waja",
+   "from": 28.633,
+   "to": 41.7,
+   "fromFrame": 859,
+   "durationFrames": 392,
+   "environment": "PitchTouchlineApp (environments/modular-pitch-zone.js)",
+   "director": "createSecondPlaceScene",
+   "visual": "Full-time table: second place, three points behind an undefeated side. Jurulatih describes the machine that never smiles; Bos answers with the season's thesis — machines break, Buluh FC has a heart. LeagueTableOverlay (MD4) and a GREEN debt roll RM321,500 -> RM300,000 close the act.",
+   "sfx": "long whistle; table slide-up whoosh; green HUD bell.",
+   "bgm": "Ducked under dialogue.",
+   "cues": [
+    {
+     "file": "whistle.wav",
+     "frame": 859,
+     "volume": 0.7
+    },
+    {
+     "file": "whoosh.wav",
+     "frame": 867,
+     "volume": 0.4
+    },
+    {
+     "file": "bell.wav",
+     "frame": 1117,
+     "volume": 0.5
+    }
+   ],
+   "events": [
+    {
+     "type": "hook",
+     "frame": 0,
+     "note": "HookTitle spring-pop, clears by frame 45."
+    }
+   ],
+   "lines": [
+    {
+     "id": "e10_12",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "Tempat kedua. Tiga mata di belakang Besi Waja.",
+     "translation": "Second place. Three points behind Besi Waja.",
+     "start": 28.633,
+     "end": 31.767,
+     "startFrame": 859,
+     "endFrame": 961,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_13",
+     "type": "dialogue",
+     "speaker": "JURULATIH",
+     "text": "Diorang tak senyum. Main macam mesin.",
+     "translation": "They never smile. They play like a machine.",
+     "start": 32.1,
+     "end": 34.667,
+     "startFrame": 963,
+     "endFrame": 1048,
+     "voice": "voice_2",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_14",
+     "type": "dialogue",
+     "speaker": "BOS",
+     "text": "Mesin boleh rosak. Kita ada jantung.",
+     "translation": "Machines break. We have a heart.",
+     "start": 35.0,
+     "end": 37.5,
+     "startFrame": 1050,
+     "endFrame": 1133,
+     "voice": "voice_3",
+     "trimLeadingSilence": true
+    },
+    {
+     "id": "e10_15",
+     "type": "narrator",
+     "speaker": "NARRATOR",
+     "text": "RM300,000 tepat. Matchday lima — juara atau sita.",
+     "translation": "RM300,000 exactly. Matchday five — champions or seized.",
+     "start": 37.833,
+     "end": 41.167,
+     "startFrame": 1135,
+     "endFrame": 1243,
+     "voice": "voice_1",
+     "trimLeadingSilence": true
+    }
+   ]
+  },
+  {
+   "id": "outro-card",
+   "name": "Buluh FC Series Outro",
+   "from": 41.7,
+   "to": 44.1,
+   "fromFrame": 1251,
+   "durationFrames": 72,
+   "environment": null,
+   "director": null,
+   "visual": "Standard black Buluh FC / EPISOD 10 card. No CTA.",
+   "sfx": "kick.wav + bass-hit.wav on the cut.",
+   "bgm": null,
+   "cues": [
+    {
+     "file": "kick.wav",
+     "frame": 1251,
+     "volume": 0.9
+    },
+    {
+     "file": "bass-hit.wav",
+     "frame": 1251,
+     "volume": 0.9
+    }
+   ],
+   "events": [],
+   "lines": []
+  }
+ ]
+}

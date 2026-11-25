@@ -1,102 +1,58 @@
-# Episode 6 — Janji Bank (draft)
+# Episode 6 — *Janji Bank* (Script)
 
-**Status:** Gate 2 draft — script approval and TTS go-ahead required before audio generation.
-**Format:** 1080x1920 @ 30fps, **1397 frames / 46.6s**, MS + EN subtitles, 72-frame EndCard.
-**Source of truth:** `audio-script.json` wins over this file and over code.
+> **Reworked Season 1 script.** Governed by [`PRODUCTION_RULES.md`](../../PRODUCTION_RULES.md), including the Section 0 0–2s hook standard. Dialogue carries the story; the narrator only bridges. No HUD digits are spoken — numbers live in the overlays.
 
-## Hook options (first 1.5s)
-- **A (chosen): `BLOK! JANGAN KASI RUANG!`** — pill `EP. 6 • FREEZE`. Opens on live training action; matches the frame-0 boot transient.
-- **B: `HARI X DAH TAK ADA`** — pill `EP. 6 • PERJANJIAN BARU`. Slower, more expositional; offered as the alternative.
+- **Runtime:** 00:00 – 00:43.7 (1,311 frames @ 30fps), 1080×1920 vertical.
+- **Debt:** RM331,500 → RM331,500 (FLAT — KALAH MATCHDAY 1 = TIADA BONUS).
+- **Result:** Matchday 1 — BUL 0–2 TKJ (89').
+- **Structure:** narrator bridges only; every act is carried by named character dialogue. **No CTAs.**
+- **Hook:** JANJI JUARA ATAU SITA! — spring-pop frames 0–45, first cut at frame 54, frame-0 SFX transient.
+- **Ending:** hard cut to the standard 72-frame **Buluh FC / EPISOD 6** EndCard. No credits, no CTA.
 
-First cut is at frame 45. Hook overlay runs frames 0–45.
+**Machine-readable source of truth:** [`audio-script.json`](./audio-script.json) and `story/season1-debt.json`. The JSON wins on conflict; `npm run retime` rebuilds all frames from the measured e6_* MP3s after regeneration.
 
-## HUD change
-`BULAN 1 • MD 1`, `HUTANG RM331,500`. No `KITI` this episode — the kitty first
-appears in an instalment episode. The number is never read aloud; Peguam speaks
-the *rule* (monthly payment, freeze conditional), not the balance.
+---
 
-## New assets
-- **Manaf (#1)** — goalkeeper, `voice_2` / speed 0.90 / pitch 0.82, shared `soccer` rig, keeper jersey. Body-language gag: waves both arms at the backline and jabs a finger at the post.
-- **Iskandar (#8)** — midfielder taking Karim's old role, `voice_3`, shared `soccer` rig, quiet orchestrator.
-- **Bank branch** — new set in `story/environments.json` (Arc 1): cold glass counter, queue ticker, gold foreclosure stamp, seeded motion only.
-- Karim is absent; his gold armband sits on Bos's desk as a standing motif.
+## Act 1 — Janji Bank (dengan Armband) — frames 0–524 | `ClubOfficeApp`
 
-## Cut list
-1. Frame 0 — full-brightness training block, Azam's block, whistle transient, HookTitle enters.
-2. Frame 45 — cut to the bank counter; Peguam explains the freeze by frame ~450.
-3. Frame 240 — HUD enters (`BULAN 1 • MD 1`, `HUTANG RM331,500`); holds to frame 720.
-4. Frame 600 — cut to the locker-room huddle / squad setup; Iskandar and Manaf beats.
-5. Frame 1181 — hard cut to the 72-frame black `Buluh FC / EPISOD 6` card. No CTA.
+- **Visual:** Frame 0: the heavy red stamp slams onto the NOTIS SITA folder; Karim's gold armband sits beside it. Peguam gives the ultimatum; Bos signs the one-season freeze and points at the armband — it stays on the desk until Buluh FC lift the trophy. Peguam's answer defines the season: armbands don't pay debt — goals do.
+- **SFX:** stamp slam at frame 0; paper slide; pen-tap ticks on the signing.
+- **Cues:** stamp.wav@0, paper.wav@93, pen-tap.wav@309, pen-tap.wav@321
 
-## SFX / BGM cues
-- Frame 0: whistle + boot-on-ball transient.
-- Bank beat: paper slide, stamp, pen scratch; low office drone under dialogue.
-- Squad beat: locker click, rising crowd swell, bass hit on the EndCard cut.
-- Warm unresolved bed under the closing line.
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e6_01 | 0–93 | NARRATOR | "Cop merah. Meja ni bukan lagi milik kita." | "A red stamp. This desk isn't ours anymore." |
+| e6_02 | 93–201 | PEGUAM | "Tujuh hari, bos. Juara atau sita. Awak yang sign." | "Seven days, boss. Champions or seized. You're the one signing." |
+| e6_03 | 201–309 | BOS | "Kasih satu musim. Juara Divisyen 5, hutang lunas." | "Give us one season. Win Divisyen 5, debt cleared." |
+| e6_04 | 309–423 | BOS | "Armband Karim kekal atas meja ni. Sampai kita juara." | "Karim's armband stays on this desk. Until we're champions." |
+| e6_05 | 423–516 | PEGUAM | "Armband tak bayar hutang. Gol yang bayar." | "Armbands don't pay debt. Goals do." |
 
-## Dialogue (Malay + English)
+## Act 2 — Matchday 1 vs Taktik Jaya — frames 524–998 | `PitchCenterCircleApp`
 
-- **e6_01 — AZAM (voice_5)**  
-  MS: Blok! Jangan bagi dia ruang!  
-  EN: Block! Don't give him space!
-- **e6_02 — MANAF (voice_2)**  
-  MS: Azam! Kiri kau! KIRI!  
-  EN: Azam! Your left! LEFT!
-- **e6_03 — NARRATOR (voice_4)**  
-  MS: Latihan pagi. Meja depan dah tunggu.  
-  EN: Morning training. The desk up front is already waiting.
-- **e6_04 — PEGUAM (voice_2)**  
-  MS: Countdown tiga puluh hari dah tak ada. Bank tukar cara.  
-  EN: The thirty-day countdown is gone. The bank changed tack.
-- **e6_05 — PEGUAM (voice_2)**  
-  MS: Dorang tak nak stadium kosong. Dorang nak bayar setiap bulan.  
-  EN: They don't want an empty stadium. They want payment every month.
-- **e6_06 — BOS (voice_3)**  
-  MS: Berapa?  
-  EN: How much?
-- **e6_07 — PEGUAM (voice_2)**  
-  MS: Satu ansuran tetap. Bayar, freeze kekal. Lepat, stadium hilang.  
-  EN: One fixed instalment. Pay and the freeze holds. Miss it, the stadium's gone.
-- **e6_08 — AZAM (voice_5)**  
-  MS: Armband Karim atas meja. Tak siapa pakai lagi.  
-  EN: Karim's armband's on the desk. Nobody's wearing it now.
-- **e6_09 — BOS (voice_3)**  
-  MS: Kita bayar. Bulan depan aku cari duitnya.  
-  EN: We pay. I'll find the money by month-end.
-- **e6_10 — NARRATOR (voice_4)**  
-  MS: Peguam catat. Satu tandatangan, satu janji.  
-  EN: Peguam writes it down. One signature, one promise.
-- **e6_11 — ISKANDAR (voice_3)**  
-  MS: Aku ambil tengah. Tempat Karim.  
-  EN: I'll take midfield. Karim's spot.
-- **e6_12 — JURULATIH (voice_2)**  
-  MS: Manaf, jerit lagi. Kau jaga tiang, kami jaga depan.  
-  EN: Manaf, shout again. You mind the post, we mind the front.
-- **e6_13 — MANAF (voice_2)**  
-  MS: Aku jaga tiang! Azam, blok kau tinggi sikit!  
-  EN: I've got the post! Azam, your block's a bit high!
-- **e6_14 — BOS (voice_3)**  
-  MS: Esok lawan Tanjung Rhu. MD satu. Kita start.  
-  EN: Tomorrow: Tanjung Rhu. Matchday one. We start.
+- **Visual:** Kickoff vs neon-green Taktik Jaya. Kapten Zaki struts with his clipboard — a try-hard tactician, not a one-line extra. Danial screams at the backline as Taktik Jaya score twice; Azam organises, Jurulatih refuses to let heads drop. The loss lands through the players' voices.
+- **SFX:** kickoff whistle; crowd murmur; boot-on-ball kicks; net swish on both conceded goals.
+- **Cues:** whistle.wav@524, crowd-small.wav@617, kick.wav@807, net.wav@815, kick.wav@894, net.wav@902
 
-## Timing table (regenerated by `node scripts/retime.mjs 6`)
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e6_06 | 524–617 | NARRATOR | "Matchday satu. Tanpa kapten, tanpa Karim." | "Matchday one. No captain, no Karim." |
+| e6_07 | 617–725 | KAPTEN ZAKI | "Tak ada kapten? Aku ada clipboard. Itu beza kita." | "No captain? I have a clipboard. That's the difference." |
+| e6_08 | 725–820 | AZAM | "Hutang bukan mati, bro. Aku jaga belakang." | "Debt isn't death, bro. I guard the back." |
+| e6_09 | 820–907 | DANIAL | "Belakang!! Siapa jaga lurus belakang?!" | "Backline!! Who's holding the line?!" |
+| e6_10 | 907–990 | JURULATIH | "Fokus! Susun balik! Belum mati lagi!" | "Focus! Line up again! Not dead yet!" |
 
-<!-- TIMING_TABLE_START -->
-| Line | Speaker | In | Out | Frames | Gap | Beat |
-| --- | --- | ---: | ---: | ---: | ---: | ---: |
-| e6_01 | AZAM | 0 | 53 | 53 | 6 | 0 |
-| e6_02 | MANAF | 59 | 153 | 94 | 6 | 0 |
-| e6_03 | NARRATOR | 159 | 248 | 89 | 6 | 0 |
-| e6_04 | PEGUAM | 254 | 361 | 107 | 6 | 0 |
-| e6_05 | PEGUAM | 367 | 466 | 99 | 6 | 0 |
-| e6_06 | BOS | 472 | 489 | 17 | 6 | 0 |
-| e6_07 | PEGUAM | 495 | 646 | 151 | 6 | 0 |
-| e6_08 | AZAM | 652 | 736 | 84 | 6 | 0 |
-| e6_09 | BOS | 742 | 828 | 86 | 6 | 0 |
-| e6_10 | NARRATOR | 834 | 931 | 97 | 6 | 0 |
-| e6_11 | ISKANDAR | 937 | 1001 | 64 | 6 | 0 |
-| e6_12 | JURULATIH | 1007 | 1098 | 91 | 6 | 0 |
-| e6_13 | MANAF | 1104 | 1204 | 100 | 6 | 0 |
-| e6_14 | BOS | 1210 | 1319 | 109 | 6 | 0 |
-| EndCard | — | 1325 | 1397 | 72 | — | — |
-<!-- TIMING_TABLE_END -->
+## Act 3 — Blok Terakhir & Skrip Peguam — frames 998–1239 | `PitchTouchlineApp`
+
+- **Visual:** Minute 89, Zaki wants a third for his clipboard. Azam throws his body in front of the shot — his line, his responsibility. On the touchline Peguam writes it all down without a word. DebtTickerHUD flashes NEUTRAL at RM331,500 — a loss pays RM0.
+- **SFX:** block thud (bass-hit); sharp whistle; pen-tap as the lawyer writes.
+- **Cues:** whistle.wav@998, bass-hit.wav@1067, pen-tap.wav@1144, pen-tap.wav@1158
+
+| Line | Frames | Speaker | Malay | English |
+|---|---|---|---|---|
+| e6_11 | 998–1073 | NARRATOR | "Minit ke-89. Zaki nak satu lagi." | "Minute 89. Zaki wants one more." |
+| e6_13 | 1073–1144 | AZAM | "Tak lepas. Hari ini tak lepas." | "Not through. Not today." |
+| e6_14 | 1144–1231 | NARRATOR | "Peguam catat semua. Tanpa sepatah pun." | "The lawyer writes it all down. Not one word." |
+
+## Ending
+
+Frame 1239: hard cut to **Buluh FC / EPISOD 6** (72 frames). No CTA.
