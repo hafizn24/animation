@@ -17,44 +17,15 @@ import * as THREE from 'three';
  *          └─ rightLeg
  *
  * Vertical bounce/jump offsets must always be applied to characterRoot.position.y,
- * never to the torso. normalizeRig() also adds the shared minimalist face and a
- * collar plug so no hollow torso interior can show when the head turns.
+ * never to the torso. normalizeRig() also adds a collar plug so no hollow
+ * torso interior can show when the head turns.
  */
 
 export const MIN_CHARACTER_SEPARATION = 0.95;
 
-export const FACE_EMOTIONS = ['neutral', 'happy', 'hyped', 'angry', 'shocked', 'worried', 'stressed'];
-
-export const POSE_EMOTION = {
-  idle: 'neutral',
-  talk: 'neutral',
-  stride: 'neutral',
-  point: 'angry',
-  block: 'angry',
-  intercept: 'angry',
-  panic: 'shocked',
-  celebrate: 'happy',
-  crouch: 'worried',
-  offer: 'neutral',
-  document: 'worried',
-  keys: 'neutral',
-  coffee: 'neutral',
-  phone: 'neutral',
-};
-
-const EMOTION_PRESETS = {
-  neutral: { eyeX: 1, eyeY: 1, browY: 0, browAngle: 0, mouth: 'line', mouthScale: 1 },
-  happy: { eyeX: 1.04, eyeY: 1.1, browY: 0.022, browAngle: 0.04, mouth: 'smile', mouthScale: 1.05 },
-  hyped: { eyeX: 1.12, eyeY: 1.2, browY: 0.034, browAngle: 0.02, mouth: 'smile', mouthScale: 1.18 },
-  angry: { eyeX: 1.02, eyeY: 0.64, browY: -0.006, browAngle: 0.36, mouth: 'line', mouthScale: 0.88 },
-  shocked: { eyeX: 1.22, eyeY: 1.34, browY: 0.04, browAngle: 0, mouth: 'o', mouthScale: 1.12 },
-  worried: { eyeX: 0.96, eyeY: 0.8, browY: 0.012, browAngle: -0.28, mouth: 'line', mouthScale: 0.9 },
-  stressed: { eyeX: 0.9, eyeY: 0.72, browY: 0.008, browAngle: -0.34, mouth: 'line', mouthScale: 0.84 },
-};
-
 const fract = (value) => value - Math.floor(value);
 
-/** Deterministic 0..1 hash used for blinks, crowd jitter and spark seeds. */
+/** Deterministic 0..1 hash used for crowd jitter and spark seeds. */
 export function seededUnit(seed = 0) {
   return fract(Math.sin(seed * 12.9898 + 78.233) * 43758.5453);
 }
@@ -119,157 +90,10 @@ const headSphere = (headGroup) => {
   };
 };
 
-const surfaceZ = (radius, x, y) => {
-  const depth = radius * radius - x * x - y * y;
-  return Math.sqrt(Math.max(0.0025, depth)) + 0.012;
-};
-
-const faceMaterial = () => new THREE.MeshBasicMaterial({
-  color: 0x14171c,
-  polygonOffset: true,
-  polygonOffsetFactor: -2,
-  polygonOffsetUnits: -2,
-  depthWrite: false,
-});
-
 /**
- * Adds the shared 2D-on-3D face. Features sit just outside the head sphere and
- * use polygonOffset, so there is never any hair/face z-fighting.
+ * Installs the strict hierarchy on an already-built faceless character.
+ * Safe to call more than once; returns the same characterParts object.
  */
-export function createFace(headGroup, { id = 'character' } = {}) {
-  if (!headGroup) return null;
-  const sphere = headSphere(headGroup);
-  const radius = sphere.radius;
-  const centerY = sphere.centerY;
-  const material = faceMaterial();
-
-  const face = new THREE.Group();
-  face.name = 'Face';
-  face.userData.seed = hashSeed(id);
-
-  const makeEye = (side) => {
-    const x = side * 0.145;
-    const y = 0.045;
-    const z = surfaceZ(radius, x, y);
-    const group = new THREE.Group();
-    group.name = side < 0 ? 'EyeL' : 'EyeR';
-    group.position.set(x, centerY + y, z);
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.058, 12, 10), material);
-    eye.scale.set(1.08, 0.8, 0.3);
-    eye.renderOrder = 3;
-    group.add(eye);
-    group.userData.base = group.position.clone();
-    face.add(group);
-    return group;
-  };
-
-  const makeBrow = (side) => {
-    const x = side * 0.145;
-    const y = 0.13;
-    const z = surfaceZ(radius, x, y);
-    const group = new THREE.Group();
-    group.name = side < 0 ? 'BrowL' : 'BrowR';
-    group.position.set(x, centerY + y, z);
-    const brow = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.024, 0.018), material);
-    brow.renderOrder = 4;
-    group.add(brow);
-    group.userData.base = group.position.clone();
-    group.userData.side = side;
-    face.add(group);
-    return group;
-  };
-
-  const eyeL = makeEye(-1);
-  const eyeR = makeEye(1);
-  const browL = makeBrow(-1);
-  const browR = makeBrow(1);
-
-  const mouth = new THREE.Group();
-  mouth.name = 'Mouth';
-  mouth.position.set(0, centerY - 0.135, surfaceZ(radius, 0, -0.135));
-  const line = new THREE.Mesh(new THREE.BoxGeometry(0.115, 0.018, 0.014), material);
-  line.renderOrder = 3;
-  const smile = new THREE.Mesh(new THREE.TorusGeometry(0.06, 0.011, 6, 16, Math.PI), material);
-  smile.rotation.z = Math.PI;
-  smile.position.y = 0.028;
-  smile.renderOrder = 3;
-  const oMouth = new THREE.Mesh(new THREE.RingGeometry(0.018, 0.038, 16), material);
-  oMouth.renderOrder = 3;
-  mouth.add(line, smile, oMouth);
-  face.add(mouth);
-
-  headGroup.add(face);
-
-  const faceState = {
-    group: face,
-    material,
-    eyeL,
-    eyeR,
-    browL,
-    browR,
-    mouth,
-    mouthLine: line,
-    mouthSmile: smile,
-    mouthO: oMouth,
-    emotion: 'neutral',
-    preset: EMOTION_PRESETS.neutral,
-    seed: face.userData.seed,
-  };
-  setFaceEmotion({ face: faceState }, 'neutral');
-  return faceState;
-}
-
-export function setFaceEmotion(parts, emotion = 'neutral') {
-  const face = parts?.face || parts;
-  if (!face || !face.group) return;
-  const preset = EMOTION_PRESETS[emotion] || EMOTION_PRESETS.neutral;
-  face.emotion = emotion;
-  face.preset = preset;
-
-  face.eyeL.scale.set(preset.eyeX, preset.eyeY, 1);
-  face.eyeR.scale.set(preset.eyeX, preset.eyeY, 1);
-  face.browL.position.y = face.browL.userData.base.y + preset.browY;
-  face.browR.position.y = face.browR.userData.base.y + preset.browY;
-  face.browL.rotation.z = -preset.browAngle;
-  face.browR.rotation.z = preset.browAngle;
-
-  face.mouthLine.visible = preset.mouth === 'line';
-  face.mouthSmile.visible = preset.mouth === 'smile';
-  face.mouthO.visible = preset.mouth === 'o';
-  face.mouth.scale.setScalar(preset.mouthScale);
-}
-
-/** Deterministic blink + emotion update driven purely by the Remotion frame. */
-export function updateFace(parts, frame = 0, emotion = 'neutral', seed = 'character') {
-  const face = parts?.face;
-  if (!face) return;
-  if (emotion && emotion !== face.emotion) setFaceEmotion(parts, emotion);
-  const preset = face.preset || EMOTION_PRESETS.neutral;
-  const seedValue = hashSeed(seed);
-  const period = 92 + (seedValue % 53);
-  const phase = (frame + (seedValue % period)) % period;
-  const blink = phase < 5 ? Math.sin((phase / 5) * Math.PI) : 0;
-  const lid = 1 - 0.86 * blink;
-  face.eyeL.scale.y = preset.eyeY * lid;
-  face.eyeR.scale.y = preset.eyeY * lid;
-}
-
-export function beatEmotion(frame, beats = []) {
-  const active = [...beats].reverse().find((beat) =>
-    beat.emotion && frame >= beat.from && frame < beat.to
-  );
-  return active ? active.emotion : null;
-}
-
-export function resolveEmotion(actor, frame, pose) {
-  if (actor && typeof actor.emotion === 'function') {
-    return actor.emotion({ frame, pose }) || POSE_EMOTION[pose] || 'neutral';
-  }
-  if (actor && typeof actor.emotion === 'string') return actor.emotion;
-  const fromBeat = actor ? beatEmotion(frame, actor.beats) : null;
-  return fromBeat || POSE_EMOTION[pose] || 'neutral';
-}
-
 function addTorsoCap(torso, headGroup) {
   if (!torso || torso.getObjectByName('TorsoCap')) return;
   let top = 0.34;
@@ -296,10 +120,10 @@ function restoreHierarchyOffsets(parts) {
 }
 
 /**
- * Installs the strict hierarchy and shared face on an already-built character.
+ * Installs the strict hierarchy on an already-built faceless character.
  * Safe to call more than once; returns the same characterParts object.
  */
-export function normalizeRig(root, parts, { app = null, id = null } = {}) {
+export function normalizeRig(root, parts, { app = null } = {}) {
   if (!root || !parts) return parts;
   if (parts.__normalized) return parts;
 
@@ -373,7 +197,6 @@ export function normalizeRig(root, parts, { app = null, id = null } = {}) {
   };
 
   addTorsoCap(torso, head);
-  parts.face = createFace(head, { id: id || root.name || 'character' });
 
   if (app && typeof app.setPose === 'function' && !app.__rigPosePatched) {
     const originalSetPose = app.setPose.bind(app);

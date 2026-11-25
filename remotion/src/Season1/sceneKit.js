@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { clamp, createSceneDirector, forEachLight } from '../Episode1/sceneKit.js';
-import { MIN_CHARACTER_SEPARATION, resolveEmotion, updateFace } from '../../../characters/rig-kit.js';
+import { MIN_CHARACTER_SEPARATION } from '../../../characters/rig-kit.js';
 
 export { clamp, lerp, smooth, sampleKeys, forEachLight, createSceneDirector } from '../Episode1/sceneKit.js';
 export * from './cameraKit.js';
@@ -275,9 +275,7 @@ export function createCinematicScene(renderer, size, spec) {
     ...actor,
     animate: ({ frame, rig, parts, app }) => {
       const pose = beatPose(frame, actor.beats, actor.pose || 'idle');
-      microMotion(parts, frame, pose);
-      updateFace(parts, frame, resolveEmotion(actor, frame, pose), actor.name || actor.id || rig.name);
-      if (actor.anim) actor.anim({ frame, rig, parts, app });
+      microMotion(parts, frame, pose);      if (actor.anim) actor.anim({ frame, rig, parts, app });
     },
   }));
 
