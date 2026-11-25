@@ -4,7 +4,7 @@
 A debt-stricken Divisyen 5 club trades a 30-day death sentence for a season-long instalment plan. Buluh FC must turn RM331,500 balloon into a title — paying RM20,000 every month-end from a kitty built out of wins, draws, gate money and community favours — while a land developer waits for one missed payment to take the stadium.
 
 ## Tone
-Casual Malaysian Malay, dialogue-led and funny under pressure. The narrator bridges at most two lines per episode on a voice no speaker in that episode shares. Numbers live in the HUD (`BULAN n • MD m`, `HUTANG`, `KITI`), never in throwaway dialogue — a figure is spoken only when it is the joke or the decision. Every set is visually distinct, every shot face-forward, every episode ends on a hard cut to the 72-frame `Buluh FC / EPISOD X` card. No CTA. Karim is gone: no cameo, no call, no letter, no reunion tease. His gold armband sits on Bos's desk until Azam takes it in Ep 8.
+Casual Malaysian Malay, dialogue-led and funny under pressure. The narrator bridges at most two lines per episode on a distinct voice/speed/pitch signature (the provider supports voice_1–voice_5 only). Numbers live in the HUD (`BULAN n • MD m`, `HUTANG`, `KITI`), never in throwaway dialogue — a figure is spoken only when it is the joke or the decision. Every set is visually distinct, every shot face-forward, every episode ends on a hard cut to the 72-frame `Buluh FC / EPISOD X` card. No CTA. Karim is gone: no cameo, no call, no letter, no reunion tease. His gold armband sits on Bos's desk until Azam takes it in Ep 8.
 
 ## Arc map (22 episodes, 14 matchdays)
 

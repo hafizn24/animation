@@ -14,7 +14,7 @@ export const SeasonHUD = ({ month, matchday, debt, kitty, sceneFrom = 0, toFrame
   const local = frame;
   const enter = spring({ frame: local, fps, config: { damping: 14, stiffness: 200, mass: 0.65 } });
   const scale = interpolate(enter, [0, 1], [0.82, 1], clamp);
-  const opacity = interpolate(local, [0, 4], [0, 1], clamp);
+  const opacity = interpolate(local, [0, 2], [0, 1], clamp);
 
   const row = {
     display: 'flex',

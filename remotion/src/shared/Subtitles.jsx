@@ -11,7 +11,7 @@ export const Subtitles = ({ lines = [], bilingual = true, bottomPadding = 538, r
   if (!activeLine) return null;
 
   const opacityFor = (start, end) =>
-    Math.max(0, Math.min(Math.min(1, (frame - start) / 10), Math.min(1, (end - frame) / 10)));
+    Math.max(0, Math.min(Math.min(1, (frame - start) / 4), Math.min(1, (end - frame) / 4)));
   const opacity = opacityFor(activeLine.startFrame, activeLine.endFrame);
   const isNarration = Boolean(activeLine.narration);
   const isEmphasis = Boolean(activeLine.emphasis);

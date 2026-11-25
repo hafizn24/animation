@@ -16,7 +16,7 @@ for (const entry of ENTRIES) {
     continue;
   }
   const source = fs.readFileSync(modulePath, 'utf8');
-  if (!new RegExp(`export\\s+class\\s+${entry.exportName}\\b`).test(source)) {
+  if (!new RegExp(`export\\s+(?:class|const)\\s+${entry.exportName}\\b`).test(source)) {
     problems.push(`${entry.id}: ${entry.exportName} not exported by ${entry.module}`);
   }
 }

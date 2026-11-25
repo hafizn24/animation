@@ -1,0 +1,416 @@
+{
+  "episode": 6,
+  "title": "Janji Bank",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "language": "ms+en",
+  "totalDurationSeconds": 46.567,
+  "totalFrames": 1397,
+  "hookOptions": [
+    {
+      "id": "A",
+      "title": "BLOK! JANGAN KASI RUANG!",
+      "pill": "EP. 6 • FREEZE",
+      "chosen": true
+    },
+    {
+      "id": "B",
+      "title": "HARI X DAH TAK ADA",
+      "pill": "EP. 6 • PERJANJIAN BARU",
+      "chosen": false
+    }
+  ],
+  "overlays": {
+    "hook": {
+      "title": "BLOK! JANGAN KASI RUANG!",
+      "pill": "EP. 6 • FREEZE",
+      "fromFrame": 0,
+      "toFrame": 45
+    },
+    "hud": {
+      "month": 1,
+      "matchday": 1,
+      "debt": 331500,
+      "fromFrame": 240,
+      "toFrame": 720,
+      "showKiti": false
+    },
+    "titleCard": {
+      "text": "Buluh FC / EPISOD 6",
+      "fromFrame": 1325,
+      "toFrame": 1397
+    }
+  },
+  "cast": {
+    "azam": {
+      "label": "AZAM",
+      "voice": "voice_5",
+      "rig": "azam"
+    },
+    "manaf": {
+      "label": "MANAF",
+      "voice": "voice_2",
+      "rig": "soccer"
+    },
+    "narrator": {
+      "label": "NARRATOR",
+      "voice": "voice_6",
+      "rig": "none"
+    },
+    "peguam": {
+      "label": "PEGUAM",
+      "voice": "voice_2",
+      "rig": "suit"
+    },
+    "bos": {
+      "label": "BOS",
+      "voice": "voice_3",
+      "rig": "new-owner"
+    },
+    "iskandar": {
+      "label": "ISKANDAR",
+      "voice": "voice_3",
+      "rig": "soccer"
+    },
+    "jurulatih": {
+      "label": "JURULATIH",
+      "voice": "voice_2",
+      "rig": "coach"
+    }
+  },
+  "scenes": [
+    {
+      "id": "act-1-hook",
+      "name": "Training hook",
+      "fromFrame": 0,
+      "durationFrames": 45,
+      "environment": "StadiumApp",
+      "director": "createTrainingHookScene",
+      "lines": [
+        {
+          "id": "e6_01",
+          "type": "dialogue",
+          "speaker": "AZAM",
+          "text": "Blok! Jangan bagi dia ruang!",
+          "translation": "Block! Don't give him space!",
+          "start": 0,
+          "end": 1.767,
+          "startFrame": 0,
+          "endFrame": 53,
+          "durationFrames": 53,
+          "gapBefore": 6,
+          "voice": "voice_5",
+          "speed": 1.06,
+          "pitch": 1.04,
+          "trimLeadingSilence": true,
+          "narration": false
+        }
+      ],
+      "visual": "Full-brightness training block; Azam blocks at frame 0, hook overlay and whistle transient.",
+      "sfx": "Frame-0 whistle + boot thud.",
+      "bgm": "Low tense bed.",
+      "cues": [
+        {
+          "file": "whistle.wav",
+          "frame": 0,
+          "volume": 0.8
+        }
+      ]
+    },
+    {
+      "id": "act-1-cut",
+      "name": "Training reverse cut",
+      "fromFrame": 45,
+      "durationFrames": 114,
+      "environment": "StadiumApp",
+      "director": "createTrainingCutScene",
+      "lines": [
+        {
+          "id": "e6_02",
+          "type": "dialogue",
+          "speaker": "MANAF",
+          "text": "Azam! Kiri kau! KIRI!",
+          "translation": "Azam! Your left! LEFT!",
+          "start": 1.967,
+          "end": 5.1,
+          "startFrame": 59,
+          "endFrame": 153,
+          "durationFrames": 94,
+          "gapBefore": 6,
+          "voice": "voice_2",
+          "speed": 0.9,
+          "pitch": 0.82,
+          "trimLeadingSilence": true,
+          "narration": false
+        }
+      ],
+      "visual": "First camera cut by frame 45: Manaf's goal-mouth arm-wave gag, Azam still blocking.",
+      "sfx": "Crowd murmur, goalpost rattle.",
+      "bgm": "Low tense bed.",
+      "cues": []
+    },
+    {
+      "id": "act-2-freeze",
+      "name": "Bank freeze deal",
+      "fromFrame": 159,
+      "durationFrames": 675,
+      "environment": "BankBranchApp (new)",
+      "director": "createBankFreezeScene",
+      "lines": [
+        {
+          "id": "e6_03",
+          "type": "narration",
+          "speaker": "NARRATOR",
+          "text": "Latihan pagi. Meja depan dah tunggu.",
+          "translation": "Morning training. The desk up front is already waiting.",
+          "start": 5.3,
+          "end": 8.267,
+          "startFrame": 159,
+          "endFrame": 248,
+          "durationFrames": 89,
+          "gapBefore": 6,
+          "voice": "voice_6",
+          "speed": 0.96,
+          "pitch": 0.92,
+          "trimLeadingSilence": true,
+          "narration": true
+        },
+        {
+          "id": "e6_04",
+          "type": "dialogue",
+          "speaker": "PEGUAM",
+          "text": "Countdown tiga puluh hari dah tak ada. Bank tukar cara.",
+          "translation": "The thirty-day countdown is gone. The bank changed tack.",
+          "start": 8.467,
+          "end": 12.033,
+          "startFrame": 254,
+          "endFrame": 361,
+          "durationFrames": 107,
+          "gapBefore": 6,
+          "voice": "voice_2",
+          "speed": 0.94,
+          "pitch": 0.88,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_05",
+          "type": "dialogue",
+          "speaker": "PEGUAM",
+          "text": "Dorang tak nak stadium kosong. Dorang nak bayar setiap bulan.",
+          "translation": "They don't want an empty stadium. They want payment every month.",
+          "start": 12.233,
+          "end": 15.533,
+          "startFrame": 367,
+          "endFrame": 466,
+          "durationFrames": 99,
+          "gapBefore": 6,
+          "voice": "voice_2",
+          "speed": 0.94,
+          "pitch": 0.88,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_06",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Berapa?",
+          "translation": "How much?",
+          "start": 15.733,
+          "end": 16.3,
+          "startFrame": 472,
+          "endFrame": 489,
+          "durationFrames": 17,
+          "gapBefore": 6,
+          "voice": "voice_3",
+          "speed": 0.99,
+          "pitch": 0.97,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_07",
+          "type": "dialogue",
+          "speaker": "PEGUAM",
+          "text": "Satu ansuran tetap. Bayar, freeze kekal. Lepat, stadium hilang.",
+          "translation": "One fixed instalment. Pay and the freeze holds. Miss it, the stadium's gone.",
+          "start": 16.5,
+          "end": 21.533,
+          "startFrame": 495,
+          "endFrame": 646,
+          "durationFrames": 151,
+          "gapBefore": 6,
+          "voice": "voice_2",
+          "speed": 0.94,
+          "pitch": 0.88,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_08",
+          "type": "dialogue",
+          "speaker": "AZAM",
+          "text": "Armband Karim atas meja. Tak siapa pakai lagi.",
+          "translation": "Karim's armband's on the desk. Nobody's wearing it now.",
+          "start": 21.733,
+          "end": 24.533,
+          "startFrame": 652,
+          "endFrame": 736,
+          "durationFrames": 84,
+          "gapBefore": 6,
+          "voice": "voice_5",
+          "speed": 1.06,
+          "pitch": 1.04,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_09",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Kita bayar. Bulan depan aku cari duitnya.",
+          "translation": "We pay. I'll find the money by month-end.",
+          "start": 24.733,
+          "end": 27.6,
+          "startFrame": 742,
+          "endFrame": 828,
+          "durationFrames": 86,
+          "gapBefore": 6,
+          "voice": "voice_3",
+          "speed": 0.99,
+          "pitch": 0.97,
+          "trimLeadingSilence": true,
+          "narration": false
+        }
+      ],
+      "visual": "Cold bank counter, gold stamp, Peguam's folder; gold armband on Bos's desk insert. HUD enters at 240.",
+      "sfx": "Paper slide, stamp, pen scratch.",
+      "bgm": "Office drone under dialogue.",
+      "cues": [
+        {
+          "file": "paper.wav",
+          "frame": 255,
+          "volume": 0.7
+        },
+        {
+          "file": "stamp.wav",
+          "frame": 690,
+          "volume": 0.6
+        }
+      ]
+    },
+    {
+      "id": "act-3-squad",
+      "name": "Squad set-up",
+      "fromFrame": 834,
+      "durationFrames": 491,
+      "environment": "LockerRoomApp",
+      "director": "createSquadScene",
+      "lines": [
+        {
+          "id": "e6_10",
+          "type": "narration",
+          "speaker": "NARRATOR",
+          "text": "Peguam catat. Satu tandatangan, satu janji.",
+          "translation": "Peguam writes it down. One signature, one promise.",
+          "start": 27.8,
+          "end": 31.033,
+          "startFrame": 834,
+          "endFrame": 931,
+          "durationFrames": 97,
+          "gapBefore": 6,
+          "voice": "voice_6",
+          "speed": 0.96,
+          "pitch": 0.92,
+          "trimLeadingSilence": true,
+          "narration": true
+        },
+        {
+          "id": "e6_11",
+          "type": "dialogue",
+          "speaker": "ISKANDAR",
+          "text": "Aku ambil tengah. Tempat Karim.",
+          "translation": "I'll take midfield. Karim's spot.",
+          "start": 31.233,
+          "end": 33.367,
+          "startFrame": 937,
+          "endFrame": 1001,
+          "durationFrames": 64,
+          "gapBefore": 6,
+          "voice": "voice_3",
+          "speed": 1.02,
+          "pitch": 0.9,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_12",
+          "type": "dialogue",
+          "speaker": "JURULATIH",
+          "text": "Manaf, jerit lagi. Kau jaga tiang, kami jaga depan.",
+          "translation": "Manaf, shout again. You mind the post, we mind the front.",
+          "start": 33.567,
+          "end": 36.6,
+          "startFrame": 1007,
+          "endFrame": 1098,
+          "durationFrames": 91,
+          "gapBefore": 6,
+          "voice": "voice_2",
+          "speed": 1.04,
+          "pitch": 1,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_13",
+          "type": "dialogue",
+          "speaker": "MANAF",
+          "text": "Aku jaga tiang! Azam, blok kau tinggi sikit!",
+          "translation": "I've got the post! Azam, your block's a bit high!",
+          "start": 36.8,
+          "end": 40.133,
+          "startFrame": 1104,
+          "endFrame": 1204,
+          "durationFrames": 100,
+          "gapBefore": 6,
+          "voice": "voice_2",
+          "speed": 0.9,
+          "pitch": 0.82,
+          "trimLeadingSilence": true,
+          "narration": false
+        },
+        {
+          "id": "e6_14",
+          "type": "dialogue",
+          "speaker": "BOS",
+          "text": "Esok lawan Tanjung Rhu. MD satu. Kita start.",
+          "translation": "Tomorrow: Tanjung Rhu. Matchday one. We start.",
+          "start": 40.333,
+          "end": 43.967,
+          "startFrame": 1210,
+          "endFrame": 1319,
+          "durationFrames": 109,
+          "gapBefore": 6,
+          "voice": "voice_3",
+          "speed": 0.99,
+          "pitch": 0.97,
+          "trimLeadingSilence": true,
+          "narration": false
+        }
+      ],
+      "visual": "Locker-room huddle, Iskandar in Karim's midfield slot, Manaf's gesture, Bos's final line.",
+      "sfx": "Locker click, crowd swell, bass hit on the cut.",
+      "bgm": "Warm unresolved bed.",
+      "cues": [
+        {
+          "file": "bass-hit.wav",
+          "frame": 1325,
+          "volume": 0.5
+        }
+      ]
+    }
+  ],
+  "notes": "Draft only. Peguam explains the freeze before frame 750. Gold armband on Bos's desk. Manaf (#1 GK) introduced. MD1 vs Tanjung Rhu set up. Hard cut to EndCard; no CTA."
+}

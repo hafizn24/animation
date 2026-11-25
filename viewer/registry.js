@@ -9,6 +9,8 @@ export const ENTRIES = [
   { id: 'sponsor', label: '💼 Sponsor Executive', name: 'Sponsor Executive', group: 'Characters', module: '../characters/character-sponsor.js', exportName: 'SponsorApp' },
   { id: 'karim', label: '⭐ Karim (Captain #8 — Match Jersey)', name: 'Karim – Captain #8 (Match Jersey)', group: 'Characters', module: '../characters/character-karim.js', exportName: 'KarimApp' },
   { id: 'azam', label: '🙅 Azam (#7 Defender)', name: 'Azam – Defender #7 (RM5)', group: 'Characters', module: '../characters/character-azam.js', exportName: 'AzamApp' },
+  { id: 'manaf', label: '🧤 Manaf (#1 Goalkeeper)', name: 'Manaf – Goalkeeper #1', group: 'Characters', module: '../characters/character-squad.js', exportName: 'ManafApp' },
+  { id: 'iskandar', label: '⚽ Iskandar (#8 Midfielder)', name: 'Iskandar – Midfielder #8', group: 'Characters', module: '../characters/character-squad.js', exportName: 'IskandarApp' },
   { id: 'stadium', label: '⚽ Stadium (Buluh FC)', name: 'Stadium – Buluh FC', group: 'Environments', module: '../environments/stadium.js', exportName: 'StadiumApp' },
   { id: 'locker', label: '🚿 Locker Room', name: 'Locker Room', group: 'Environments', module: '../environments/locker-room.js', exportName: 'LockerRoomApp' },
   { id: 'managerOffice', label: '🏢 Manager Office', name: 'Manager Office', group: 'Environments', module: '../environments/manager-office.js', exportName: 'ManagerOfficeApp' },
@@ -17,6 +19,7 @@ export const ENTRIES = [
   { id: 'sponsorOffice', label: '🏢 Sponsor Office (Nexus Sports)', name: 'Sponsor Office – Nexus Sports', group: 'Environments', module: '../environments/sponsor-office.js', exportName: 'SponsorOfficeApp' },
   { id: 'bakery', label: '🥐 Bakery (Kek Maju)', name: 'Bakery – Kek Maju', group: 'Environments', module: '../environments/bakery.js', exportName: 'BakeryApp' },
   { id: 'clubOffice', label: '🚪 Club Office (Episode 4)', name: 'Club Office – Episode 4', group: 'Environments', module: '../environments/club-office.js', exportName: 'ClubOfficeApp' },
+  { id: 'bankBranch', label: '🏦 Bank Branch (Episode 6)', name: 'Bank Branch – Foreclosure Freeze', group: 'Environments', module: '../environments/bank-branch.js', exportName: 'BankBranchApp' },
 ];
 
 export const BY_ID = new Map(ENTRIES.map((entry) => [entry.id, entry]));

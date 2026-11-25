@@ -4,8 +4,7 @@
     "voice_2",
     "voice_3",
     "voice_4",
-    "voice_5",
-    "voice_6"
+    "voice_5"
   ],
   "collisionRule": "No two speakers in a scene share a voice within +/-0.04 speed and +/-0.04 pitch; narrator never shares an episode voice.",
   "characters": [
@@ -141,7 +140,7 @@
       "role": "Goalkeeper",
       "voice": "voice_2",
       "speed": 0.9,
-      "pitch": 0.84,
+      "pitch": 0.82,
       "rig": "soccer",
       "outfit": "keeper jersey",
       "quirk": "Shouts at the backline",
@@ -223,8 +222,8 @@
       "id": "narrator",
       "name": "Narrator",
       "role": "Bridge voice",
-      "voice": "voice_6",
-      "speed": 0.96,
+      "voice": "voice_4",
+      "speed": 0.9,
       "pitch": 0.92,
       "rig": "none",
       "outfit": "none",

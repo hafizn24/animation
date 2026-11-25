@@ -5,7 +5,7 @@ const GOLD = '#d8b26a';
 const S = 1.5;
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' };
 
-export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45 }) => {
+export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45, top = 0.06 }) => {
   const frame = useCurrentFrame();
   const { fps, height, width } = useVideoConfig();
   const local = frame - fromFrame;
@@ -22,7 +22,7 @@ export const HookTitle = ({ title, pill, fromFrame = 0, toFrame = 45 }) => {
       <div
         style={{
           position: 'absolute',
-          top: Math.round(height * 0.18),
+          top: Math.round(height * top),
           left: 56 * S,
           right: 180,
           opacity,

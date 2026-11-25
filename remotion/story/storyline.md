@@ -124,6 +124,15 @@ Azam takes it in Episode 8.
   month-end. Ep 6 explains the change in Peguam's dialogue inside its first 25
   seconds, introduces the expanded squad and settles on a bank-branch set; the
   captaincy is resolved by Ep 8; the first instalment is paid at the end of Ep 11.
+  **Ep 6 — Janji Bank** is built: 1,397 frames / 46.6s, 1080x1920, 14 bilingual
+  lines, natural 1.0x TTS (both-end silence trimmed, no stretching), hook
+  `BLOK! JANGAN KASI RUANG!`, HUD `BULAN 1 • MD 1 / HUTANG RM331,500`, MD1 vs
+  Tanjung Rhu set up, and a hard cut to the `Buluh FC / EPISOD 6` EndCard.
+  `episodes/episode-6/` holds the source of truth; TTS files are `e6_01`–`e6_14`,
+  the composition is `remotion/src/Episode6/`, and new assets are
+  `environments/bank-branch.js` plus `characters/character-squad.js` (Manaf #1,
+  Iskandar #8) — all registered in the viewer. Karim's gold armband stays on
+  Bos's desk with no explanation.
 - **Arc 2 — Antagonist (Ep 12–17, MD5–8):** a recurring off-pitch antagonist makes
   his first move, a squad member is tempted away, and Hulubalang United's first
   leg is played. Rival-clubhouse and press-room sets join the rotation; the

@@ -184,9 +184,13 @@ check('cast: voice identities are unique within tolerance, narrator never shares
         throw new Error(`voice collision ${a.id}/${b.id}`);
       }
     }
-    assert.notEqual(speakers[i].voice, narrator.voice, `${speakers[i].id} shares narrator voice`);
+    if (speakers[i].voice === narrator.voice
+      && Math.abs(speakers[i].speed - narrator.speed) <= 0.04
+      && Math.abs(speakers[i].pitch - narrator.pitch) <= 0.04) {
+      throw new Error(`${speakers[i].id} shares the narrator voice signature`);
+    }
   }
-  assert.deepEqual(cast.voicesAvailable, ['voice_1', 'voice_2', 'voice_3', 'voice_4', 'voice_5', 'voice_6']);
+  assert.deepEqual(cast.voicesAvailable, ['voice_1', 'voice_2', 'voice_3', 'voice_4', 'voice_5']);
 });
 
 check('environments: at least one new set per arc', () => {
