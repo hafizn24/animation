@@ -1,0 +1,179 @@
+{
+  "episode": 6,
+  "title": "Peluang Terakhir",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalDurationSeconds": 32.73,
+  "totalFrames": 982,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 6. All timings locked to measured 1.0x e6_* TTS durations with <= 0.8s (24f) gaps.",
+  "cast": {
+    "peguam": { "class": "LawyerApp", "voice": "voice_2", "label": "PEGUAM" },
+    "bos": { "class": "BossApp", "voice": "voice_3", "label": "BOS" },
+    "coach": { "class": "SoccerCoachOutfitApp", "voice": "voice_2", "label": "JURULATIH" },
+    "azam": { "class": "AzamApp", "voice": "voice_5", "label": "AZAM" },
+    "narrator": { "class": "Narrator", "voice": "voice_5", "label": "NARRATOR" }
+  },
+  "overlays": {
+    "hook": {
+      "title": "PELUANG TERAKHIR.",
+      "pill": "EP. 6 • PELUANG TERAKHIR",
+      "fromFrame": 0,
+      "toFrame": 45
+    },
+    "debtLedger": {
+      "fromFrame": 125,
+      "toFrame": 365,
+      "debt": "RM326,500",
+      "kekMaju": "-RM5,000",
+      "salaryCut": "-35%"
+    },
+    "divisionHud": {
+      "fromFrame": 365,
+      "toFrame": 635,
+      "text": "DIVISION 5: 12 KELAB | 11 PERLAWANAN | JUARA -> DIV 4"
+    },
+    "fixtureReveal": {
+      "fromFrame": 760,
+      "toFrame": 910,
+      "title": "PERLAWANAN 1",
+      "matchup": "BULUH FC vs HARIMAU LEMBAH FC"
+    },
+    "outroCard": {
+      "fromFrame": 910,
+      "toFrame": 982,
+      "durationFrames": 72,
+      "brand": "Buluh FC",
+      "label": "EPISOD 6"
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-1-warning",
+      "name": "Scene 1 — The Warning",
+      "fromFrame": 0,
+      "durationFrames": 125,
+      "environment": "Episode6OfficeApp",
+      "lines": [
+        {
+          "id": "e6_01",
+          "speaker": "peguam",
+          "label": "PEGUAM",
+          "type": "dialogue",
+          "fromFrame": 6,
+          "toFrame": 113,
+          "text": "Ini peluang terakhir kamu. Jangan sampai stadium ni terlepas.",
+          "en": "This is your last chance. Don't let this stadium slip away."
+        }
+      ]
+    },
+    {
+      "id": "scene-2-debt",
+      "name": "Scene 2 — The Debt",
+      "fromFrame": 125,
+      "durationFrames": 240,
+      "environment": "Episode6OfficeApp",
+      "lines": [
+        {
+          "id": "e6_02",
+          "speaker": "bos",
+          "label": "BOS",
+          "type": "dialogue",
+          "fromFrame": 135,
+          "toFrame": 252,
+          "text": "Hutang kita masih RM326,500...",
+          "en": "Our debt is still RM326,500..."
+        },
+        {
+          "id": "e6_03",
+          "speaker": "coach",
+          "label": "JURULATIH",
+          "type": "dialogue",
+          "fromFrame": 272,
+          "toFrame": 353,
+          "text": "Kalau macam tu, kita memang kena naik Division 4.",
+          "en": "If that's the case, we really have to get promoted to Division 4."
+        }
+      ]
+    },
+    {
+      "id": "scene-3-challenge",
+      "name": "Scene 3 — The New Challenge",
+      "fromFrame": 365,
+      "durationFrames": 270,
+      "environment": "StadiumApp",
+      "lines": [
+        {
+          "id": "e6_04",
+          "speaker": "coach",
+          "label": "JURULATIH",
+          "type": "dialogue",
+          "fromFrame": 375,
+          "toFrame": 522,
+          "text": "Musim ni ada 12 pasukan. Semua lawan sekali. Kita ada 11 perlawanan.",
+          "en": "This season has 12 teams. Everyone plays once. We have 11 matches."
+        },
+        {
+          "id": "e6_05",
+          "speaker": "azam",
+          "label": "AZAM",
+          "type": "dialogue",
+          "fromFrame": 540,
+          "toFrame": 598,
+          "text": "Jadi, tak ada ruang untuk main-main?",
+          "en": "So, there's no room to mess around?"
+        },
+        {
+          "id": "e6_06",
+          "speaker": "coach",
+          "label": "JURULATIH",
+          "type": "dialogue",
+          "fromFrame": 612,
+          "toFrame": 627,
+          "text": "Memang tak ada.",
+          "en": "None at all."
+        }
+      ]
+    },
+    {
+      "id": "scene-4-beginning",
+      "name": "Scene 4 — A New Beginning",
+      "fromFrame": 635,
+      "durationFrames": 125,
+      "environment": "StadiumApp",
+      "lines": [
+        {
+          "id": "e6_07",
+          "speaker": "bos",
+          "label": "BOS",
+          "type": "dialogue",
+          "fromFrame": 649,
+          "toFrame": 749,
+          "text": "Karim dah pergi. Tapi Buluh FC masih ada.",
+          "en": "Karim is gone. But Buluh FC is still here."
+        }
+      ]
+    },
+    {
+      "id": "scene-5-cliffhanger",
+      "name": "Scene 5 — The Cliffhanger & End Card",
+      "fromFrame": 760,
+      "durationFrames": 222,
+      "environment": "StadiumApp",
+      "lines": [
+        {
+          "id": "e6_08",
+          "speaker": "narrator",
+          "label": "NARRATOR",
+          "type": "narration",
+          "fromFrame": 771,
+          "toFrame": 890,
+          "text": "Perjalanan Division 5 bermula. Tapi lawan pertama mereka bukan calang-calang...",
+          "en": "The Division 5 journey begins. But their first opponent is no pushover..."
+        }
+      ]
+    }
+  ]
+}

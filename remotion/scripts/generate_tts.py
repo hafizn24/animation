@@ -139,6 +139,15 @@ MANIFEST = [
     ("e5_15", "bos", 1154, 1175, "Lima ringgit."),
     ("e5_16", "coach", 1178, 1195, "Lima ribu?!"),
     ("e5_17", "bos", 1198, 1279, "Lima ringgit. Duit Karim semua bayar hutang."),
+    # Episode 6 — mirrors episodes/episode-6/audio-script.json
+    ("e6_01", "peguam", 12, 150, "Ini peluang terakhir kamu. Jangan sampai stadium ni terlepas."),
+    ("e6_02", "bos", 192, 276, "Hutang kita masih tiga ratus dua puluh enam ribu lima ratus ringgit..."),
+    ("e6_03", "coach", 290, 380, "Kalau macam tu, kita memang kena naik Divisyen empat."),
+    ("e6_04", "coach", 405, 545, "Musim ni ada dua belas pasukan. Semua lawan sekali. Kita ada sebelas perlawanan."),
+    ("e6_05", "azam", 560, 635, "Jadi, tak ada ruang untuk main-main?"),
+    ("e6_06", "coach", 648, 684, "Memang tak ada."),
+    ("e6_07", "bos", 710, 820, "Karim dah pergi. Tapi Buluh FC masih ada."),
+    ("e6_08", "narrator", 975, 1150, "Perjalanan Divisyen lima bermula. Tapi lawan pertama mereka bukan calang-calang..."),
 ]
 
 
@@ -236,9 +245,9 @@ def main():
         pitch = style.get("pitch", 1.0)
         speed = base_speed
 
-        if name.startswith("e5_"):
+        if name.startswith("e5_") or name.startswith("e6_"):
             # Natural-speed path: no budget fitting, no stretching of any kind.
-            speed = E5_NATURAL_SPEEDS[speaker]
+            speed = E5_NATURAL_SPEEDS.get(speaker, 1.0)
             synthesize(key, text, VOICES[speaker], speed, raw)
             normalize(raw, final, pitch)
             strip_leading_silence(final)
