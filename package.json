@@ -5,12 +5,15 @@
   "scripts": {
     "start": "npx live-server --port=3000 --watch=. --open=index.html",
     "serve": "npx serve .",
-    "test": "node test.mjs"
+    "test": "node test.mjs",
+    "test:viewer": "node scripts/smoke-viewer.mjs",
+    "check:viewer-registry": "node scripts/check-viewer-registry.mjs"
   },
   "dependencies": {
     "three": "^0.162.0"
   },
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "live-server": "^1.2.2",
+    "playwright-core": "^1.65.1"
   }
 }
