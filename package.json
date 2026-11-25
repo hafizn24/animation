@@ -5,11 +5,7 @@
   "scripts": {
     "start": "npx live-server --port=3000 --watch=. --open=index.html",
     "serve": "npx serve .",
-    "test": "node test.mjs && node test-pose.mjs && node scripts/check-league.mjs && node scripts/verify-season1.mjs",
-    "verify:season1": "node scripts/verify-season1.mjs",
-    "tts:sync": "node scripts/sync-voices.mjs",
-    "retime": "node scripts/retime-from-audio.mjs",
-    "check:league": "node scripts/check-league.mjs"
+    "test": "node test.mjs"
   },
   "dependencies": {
     "three": "^0.162.0"

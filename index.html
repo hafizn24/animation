@@ -117,7 +117,6 @@
         <option value="sponsor">💼 Sponsor Executive</option>
         <option value="karim">⭐ Karim (Captain #8 — Match Jersey)</option>
         <option value="azam">🙅 Azam (#7 Defender)</option>
-        <option value="karimAway">🏟️ Karim Away Kit</option>
       </optgroup>
       <optgroup label="Environments">
         <option value="stadium">⚽ Stadium (Buluh FC)</option>
@@ -128,9 +127,6 @@
         <option value="sponsorOffice">🏢 Sponsor Office (Nexus Sports)</option>
         <option value="bakery">🥐 Bakery (Kek Maju)</option>
         <option value="clubOffice">🚪 Club Office (Episode 4)</option>
-        <option value="pitchHeroStand">🏆 Pitch Hero Stand (Finale)</option>
-        <option value="pitchCrisisNight">⛈️ Pitch Crisis Night</option>
-        <option value="modularPitchZone">📐 Modular Pitch Zone</option>
       </optgroup>
     </select>
     <button id="btn-procedural">Load Selected</button>
@@ -149,11 +145,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { KarimApp } from './characters/character-karim.js';
 import { AzamApp } from './characters/character-azam.js';
-import { KarimAwayApp } from './characters/character-karim-away.js';
 import { ClubOfficeApp } from './environments/club-office.js';
-import { PitchHeroStandApp } from './environments/pitch-hero-stand.js';
-import { PitchCrisisNightApp } from './environments/pitch-crisis-night.js';
-import { ModularPitchZoneApp } from './environments/modular-pitch-zone.js';
 
 /**
  * Shared hairstyle builder used by every character in the viewer.
@@ -10116,7 +10108,6 @@ const characterClasses = {
   // Season 1 Characters (imported)
   karim: KarimApp,
   azam: AzamApp,
-  karimAway: KarimAwayApp,
   // Environments (locally defined + imported)
   stadium: StadiumApp,
   locker: LockerRoomApp,
@@ -10125,10 +10116,7 @@ const characterClasses = {
   playersTunnel: PlayersTunnelApp,
   sponsorOffice: SponsorOfficeApp,
   bakery: BakeryApp,
-  clubOffice: ClubOfficeApp,
-  pitchHeroStand: PitchHeroStandApp,
-  pitchCrisisNight: PitchCrisisNightApp,
-  modularPitchZone: ModularPitchZoneApp
+  clubOffice: ClubOfficeApp
 };
 const characterLabels = {
   // Basic Characters
@@ -10143,7 +10131,6 @@ const characterLabels = {
   // Season 1 Characters
   karim: 'Karim – Captain #8 (Match Jersey)',
   azam: 'Azam – Defender #7 (RM5)',
-  karimAway: 'Karim Away – Divisyen 4 Kit (Ep. 12)',
   // Environments
   stadium: 'Stadium – Buluh FC',
   locker: 'Locker Room',
@@ -10152,10 +10139,7 @@ const characterLabels = {
   playersTunnel: 'Players Tunnel',
   sponsorOffice: 'Sponsor Office – Nexus Sports',
   bakery: 'Bakery – Kek Maju',
-  clubOffice: 'Club Office – Episode 4',
-  pitchHeroStand: 'Pitch Hero Stand – Finale Set',
-  pitchCrisisNight: 'Pitch Crisis Night – Floodlight Emergency',
-  modularPitchZone: 'Modular Pitch Zone'
+  clubOffice: 'Club Office – Episode 4'
 };
 
 let manager = null;
