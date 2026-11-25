@@ -130,7 +130,7 @@ There is no pure-black exception and no CTA.
 
 - Never repeat the same static camera angle more than twice in a scene. Use
   smooth eased push-ins, pans, cutaways and over-the-shoulder shots like Ep. 1.
-- Every dialogue line needs a **face-forward** angle: three-quarter speaker,
+- Every dialogue line needs a **speaker-facing** angle: three-quarter speaker,
   over-the-shoulder reverse, or angled two-shot. Never open a line on the back
   of a head. Use the shared helpers in `remotion/src/Season1/cameraKit.js`:
   `getSpeakerThreeQuarterShot`, `getOverTheShoulderShot`, `getTwoShot`,
@@ -139,10 +139,10 @@ There is no pure-black exception and no CTA.
   `({ actors, extra, env }) => keys`; use the function form for actor-derived
   dialogue shots. All Season 1 shots still pass through `sanitizeCamera()`
   (FOV 38–42, target Y 1.25–1.45, minimum 4.6m actor distance).
-- Characters are faceless: exaggerate body language — head shakes on Y axis,
-  nods, shoulder slumps, hand gestures, subtle idle breathing. Season 1 adds the
-  shared minimalist face in `characters/rig-kit.js`; emotion is derived from
-  pose or an explicit `emotion` field on a beat. Do not build per-episode faces.
+- Characters are always fully faceless in every episode: no eyes, eyebrows,
+  mouths, facial textures or expression meshes. Exaggerate body language — head
+  shakes on Y axis, nods, shoulder slumps, hand gestures and subtle idle
+  breathing. Express emotion only through poses, head movement and full-body acting.
 - Rig contract: `root → pelvis → torso → head/arms`, legs under pelvis.
   `normalizeRig()` installs it at scene-director level only; do not change the
   standalone character hierarchy (tests assert 7 root children). **Vertical
@@ -203,15 +203,13 @@ the end of Episode 5**. Season 1 (Episodes 6–12) continues in Section 11.
 
 Use these shared modules instead of copying fixes into individual scenes.
 
-### 10.1 Rig, faces and separation — `characters/rig-kit.js`
-- `normalizeRig(root, parts, { app, id })` runs once per actor inside
+### 10.1 Faceless rig and separation — `characters/rig-kit.js`
+- `normalizeRig(root, parts, { app })` runs once per actor inside
   `createSceneDirector()`. It reparents the flat character into
-  `root → pelvis → torso → head/arms`, adds a torso cap and the shared face,
-  and wraps `app.setPose()` so the torso offset survives outfit/pose changes.
-- `updateFace(parts, frame, emotion, seed)` is called every frame by
-  `createCinematicScene()`. Emotions: `neutral`, `happy`, `hyped`, `angry`,
-  `shocked`, `worried`, `stressed`. Pose-to-emotion defaults live in
-  `POSE_EMOTION`; override with `{ from, to, pose, emotion }` on a beat.
+  `root → pelvis → torso → head/arms`, adds a torso cap, and wraps
+  `app.setPose()` so the torso offset survives outfit/pose changes.
+- Facial features and facial-expression animation are prohibited. Use the
+  scene pose beats and full-body animation to communicate emotion.
 - `resolveActorSeparation(actors, 0.95)` runs after all actor animation and
   before the camera sample. It is deterministic; do not disable it to hide a
   bad waypoint.
