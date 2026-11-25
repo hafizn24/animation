@@ -1,4 +1,4 @@
-import { PitchTouchlineApp } from '../../../../environments/modular-pitch-zone.js';
+import { FullSizeStadiumApp } from '../FullSizeStadiumApp.js';
 import { AzamApp } from '../../../../characters/character-azam.js';
 import { SuitOutfitApp } from '../../../../characters/character-suit.js';
 import { ZakiApp } from '../../../../characters/character-variants.js';
@@ -27,7 +27,7 @@ const END = ACT_3.durationFrames;
  * ticker holds NEUTRAL at RM331,500 — a loss pays RM0.
  */
 export const createDesperateBlockScene = (renderer, size) => createCinematicScene(renderer, size, {
-  environment: PitchTouchlineApp,
+  environment: FullSizeStadiumApp,
   grade: (scene, env) => pitchGrade(scene, env, 'day'),
   extra: (scene, { env, actors }) => {
     const azam = findActor(actors, 'azam');
@@ -41,7 +41,7 @@ export const createDesperateBlockScene = (renderer, size) => createCinematicScen
   actors: [
     {
       name: 'azam', Class: AzamApp, outfit: 'matchJersey',
-      scale: 0.98, position: [0.4, 0, 0.4], rotationY: 0.4,
+      scale: 0.98, position: [27.0, 0, 2.0], rotationY: 0.4,
       beats: [
         { from: 0, to: L('e6_13'), pose: 'intercept' },
         { from: L('e6_13'), to: END, pose: 'block', emotion: 'angry' },
@@ -49,7 +49,7 @@ export const createDesperateBlockScene = (renderer, size) => createCinematicScen
     },
     {
       name: 'zaki', Class: ZakiApp,
-      scale: 0.96, position: [-1.5, 0, -0.6], rotationY: Math.PI + 0.15,
+      scale: 0.96, position: [23.5, 0, 1.0], rotationY: Math.PI + 0.15,
       beats: [
         { from: 0, to: L('e6_13'), pose: 'talk', emotion: 'hyped' },
         { from: L('e6_13'), to: END, pose: 'panic', emotion: 'shocked' },
@@ -57,7 +57,7 @@ export const createDesperateBlockScene = (renderer, size) => createCinematicScen
     },
     {
       name: 'peguam', Class: SuitOutfitApp,
-      scale: 0.92, position: [2.6, 0, 4.2], rotationY: -0.55,
+      scale: 0.92, position: [31.5, 0, 7.0], rotationY: -0.55,
       beats: [
         { from: 0, to: L('e6_14'), pose: 'idle' },
         { from: L('e6_14'), to: END, pose: 'document', emotion: 'neutral' },
@@ -70,10 +70,10 @@ export const createDesperateBlockScene = (renderer, size) => createCinematicScen
     if (!ball || !azam) return;
     // The shot flies in from Zaki's side and dies at Azam's block.
     if (frame < L('e6_13') - 6) {
-      ball.position.set(-1.0, 0.22, -0.4);
+      ball.position.set(22.0, 0.22, 0.2);
     } else {
       const t = smooth(clamp((frame - L('e6_13') - 6) / 10, 0, 1));
-      ball.position.set(lerp(-1.0, 0.05, t), lerp(0.5, 0.22, t), lerp(-0.4, 0.9, t));
+      ball.position.set(lerp(22.0, 26.6, t), lerp(0.5, 0.22, t), lerp(0.2, 2.5, t));
     }
   },
   camera: {
@@ -84,13 +84,13 @@ export const createDesperateBlockScene = (renderer, size) => createCinematicScen
       const peguam = findActor(actors, 'peguam');
       return [
         // 89th minute wide: the block is about to happen on the touchline side.
-        [0, [3.6, 1.9, 6.6], [-0.4, 1.3, 0.2], 44],
+        [0, [34.0, 8.0, 10.0], [27.0, 1.3, 2.0], 42],
         shotKey(getTwoShot(azam, zaki, { distance: 4.6 }), sec(L('e6_11')) + 0.01),
-        [sec(L('e6_13') - 8), [1.7, 1.5, 3.2], [0.4, 1.3, 0.4], 42],
+        [sec(L('e6_13') - 8), [31.0, 4.5, 7.0], [27.0, 1.3, 2.0], 40],
         shotKey(getSpeakerThreeQuarterShot(azam, zaki, { distance: 3.9 }), sec(L('e6_13'))),
         // The lawyer writes it all down — no words needed.
         shotKey(getSpeakerThreeQuarterShot(peguam, azam, { distance: 4.1 }), sec(L('e6_14'))),
-        [sec(END), [0.8, 1.8, 6.0], [0.2, 1.25, 1.4], 46],
+        [sec(END), [34.0, 7.0, 10.0], [27.0, 1.25, 3.0], 42],
       ];
     },
   },
