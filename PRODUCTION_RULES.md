@@ -170,7 +170,7 @@ Before an episode is called finished:
       white dialogue).
 - [ ] Final line hard-cuts to the black `Buluh FC / EPISOD X` title card.
 - [ ] No silent gap over 0.8s; no repeated static angle; no clipping.
-- [ ] Dialogue shots are face-forward; no back-of-head staging.
+- [ ] Dialogue shots are speaker-facing; no back-of-head staging.
 - [ ] Character feet stay on the floor; bounce/crouch uses the root, not torso.
 - [ ] Actors do not overlap (`MIN_CHARACTER_SEPARATION`); goal ball never
       crosses shins or the net.
