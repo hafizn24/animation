@@ -5,6 +5,5 @@ out/**/*.png
 out/check/
 out/verify/
 *.log
-*.mp4
 __pycache__/
 *.pyc
