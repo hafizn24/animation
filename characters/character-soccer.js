@@ -1,20 +1,20 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { createHairstyle, HAIR_STYLES } from './character-hair.js';
+import { BaseCharacterApp } from './core/BaseCharacterApp.js';
+import { SOCCER_MOTION } from './core/motion.js';
+import {
+  createArmbandTexture,
+  createBackNameTexture,
+  createFrontNameTexture,
+  createStripedTexture,
+  replacePrintTexture,
+} from './core/kits.js';
 
-export class SoccerOutfitApp {
+export class SoccerOutfitApp extends BaseCharacterApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.clock = new THREE.Clock();
-    this.isWalking = false;
-    this._dead = false;
+    super(container);
+    this.motion = { ...SOCCER_MOTION };
+    this.outlineOpts = { receiveShadow: false };
 
     this.headRadius = 0.47;   // head sphere radius the hair is built around
     this.headOffsetY = 0.01;  // vertical offset of the head centre
@@ -60,17 +60,6 @@ export class SoccerOutfitApp {
         studs: 0xffffff
       }
     };
-  }
-
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();
-    this.animate();
-    return this;
   }
 
   setupScene() {
@@ -132,73 +121,13 @@ export class SoccerOutfitApp {
     this.scene.add(directionalLight);
   }
 
-  createToonMaterial(colorHex, map = null) {
-    const colors = new Uint8Array([215, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
-
-    const baseColor = new THREE.Color(colorHex);
-
-    return new THREE.MeshToonMaterial({
-      color: baseColor,
-      map: map,
-      gradientMap: gradientMap,
-      emissive: baseColor,
-      emissiveMap: map,
-      emissiveIntensity: 0
-    });
-  }
-
   createStripedTexture(primaryHex, secondaryHex) {
-    const canvas = document.createElement('canvas');
-    canvas.width = 1024;
-    canvas.height = 1024;
-    const ctx = canvas.getContext('2d');
-    const c1 = '#' + new THREE.Color(primaryHex).getHexString();
-    const c2 = '#' + new THREE.Color(secondaryHex).getHexString();
-
-    const stripes = 14;
-    const stripeWidth = canvas.width / stripes;
-    for (let i = 0; i < stripes; i++) {
-      ctx.fillStyle = i % 2 === 0 ? c1 : c2;
-      ctx.fillRect(Math.floor(i * stripeWidth), 0, Math.ceil(stripeWidth), canvas.height);
-    }
-
-    ctx.fillStyle = '#111111';
-    ctx.fillRect(0, canvas.height - 22, canvas.width, 22);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.wrapS = THREE.RepeatWrapping;
-    texture.wrapT = THREE.ClampToEdgeWrapping;
-    texture.minFilter = THREE.NearestFilter;
-    texture.magFilter = THREE.NearestFilter;
-    texture.needsUpdate = true;
-    return texture;
-  }
-
-  createOutlinedMesh(geometry, material, outlineThickness = 0.022) {
-    const group = new THREE.Group();
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = false;
-    group.add(mesh);
-    group.userData = { mainMesh: mesh };
-
-    if (outlineThickness > 0) {
-      const outlineMat = new THREE.MeshBasicMaterial({
-        color: 0x0b0b0b,
-        side: THREE.BackSide
-      });
-      const outlineMesh = new THREE.Mesh(geometry, outlineMat);
-      outlineMesh.scale.setScalar(1 + outlineThickness);
-      outlineMesh.castShadow = false;
-      outlineMesh.receiveShadow = false;
-      group.add(outlineMesh);
-    }
-    return group;
+    return createStripedTexture(primaryHex, secondaryHex, {
+      size: 1024,
+      stripes: 14,
+      hemHex: 0x111111,
+      hemRatio: 22 / 1024,
+    });
   }
 
   createProceduralCharacter() {
@@ -219,6 +148,15 @@ export class SoccerOutfitApp {
       sockStripes: this.createToonMaterial(palette.sockStripes),
       cleats: this.createToonMaterial(palette.cleats),
       studs: this.createToonMaterial(palette.studs),
+      // Print textures stay blank until setPlayerPrint() is called; the
+      // panels themselves ship hidden so existing renders are untouched.
+      backName: new THREE.MeshBasicMaterial({ map: createBackNameTexture('', '') }),
+      frontName: new THREE.MeshBasicMaterial({
+        map: createFrontNameTexture('', ''),
+        transparent: true,
+        depthWrite: false,
+      }),
+      armband: new THREE.MeshBasicMaterial({ map: createArmbandTexture('C') }),
       black: new THREE.MeshBasicMaterial({ color: 0x0b0b0b })
     };
 
@@ -283,6 +221,21 @@ export class SoccerOutfitApp {
     collar.scale.set(1.05, 0.95, 1.0);
     torsoGroup.add(collar);
 
+    // Rear name plaque + front chest print. Hidden until setPlayerPrint().
+    const backPanel = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.28, 0.30, 0.50, 24, 1, true, Math.PI * 0.72, Math.PI * 0.56),
+      this.materials.backName
+    );
+    backPanel.position.set(0, -0.02, -0.01);
+    backPanel.scale.set(1.06, 1, 0.88);
+    backPanel.visible = false;
+    torsoGroup.add(backPanel);
+
+    const frontPanel = new THREE.Mesh(new THREE.PlaneGeometry(0.34, 0.34), this.materials.frontName);
+    frontPanel.position.set(0, -0.02, 0.225);
+    frontPanel.visible = false;
+    torsoGroup.add(frontPanel);
+
     group.add(torsoGroup);
 
     // ==================== 3. SOCCER SHORTS ====================
@@ -304,6 +257,7 @@ export class SoccerOutfitApp {
     group.add(pelvisGroup);
 
     // ==================== 4. SLEEVES & GRAY SKIN ARMS ====================
+    let armband = null;
     const createArm = (isLeft) => {
       const dir = isLeft ? -1 : 1;
       const armPivot = new THREE.Group();
@@ -319,6 +273,17 @@ export class SoccerOutfitApp {
       const shortSleeve = this.createOutlinedMesh(shortSleeveGeom, this.materials.jerseySolid, 0.03);
       shortSleeve.position.set(dir * 0.02, -0.15, 0);
       armPivot.add(shortSleeve);
+
+      if (isLeft) {
+        armband = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.152, 0.152, 0.11, 20, 1, true),
+          this.materials.armband
+        );
+        armband.name = 'Armband';
+        armband.position.set(dir * 0.02, -0.15, 0);
+        armband.visible = false;
+        armPivot.add(armband);
+      }
 
       const trimGeom = new THREE.CylinderGeometry(0.153, 0.153, 0.038, 20);
       const trim = this.createOutlinedMesh(trimGeom, this.materials.white, 0.028);
@@ -338,7 +303,6 @@ export class SoccerOutfitApp {
       const palm = this.createOutlinedMesh(palmGeom, this.materials.skin, 0.032);
       palm.scale.set(1.12, 1.08, 0.70);
       handGroup.add(palm);
-
 
       armPivot.add(handGroup);
       armPivot.rotation.z = dir * 0.28;
@@ -378,6 +342,7 @@ export class SoccerOutfitApp {
       });
 
       const cleatGroup = new THREE.Group();
+      cleatGroup.name = 'Cleats';
       cleatGroup.position.set(0, -0.80, 0.06);
       cleatGroup.rotation.y = dir * 0.18;
 
@@ -410,14 +375,34 @@ export class SoccerOutfitApp {
     const rightLeg = createLeg(false);
     group.add(leftLeg, rightLeg);
 
+    const leftCleat = leftLeg.getObjectByName('Cleats');
+    const rightCleat = rightLeg.getObjectByName('Cleats');
+    const boots = {
+      left: leftCleat,
+      right: rightCleat,
+      get visible() {
+        return !!leftCleat && leftCleat.visible && !!rightCleat && rightCleat.visible;
+      },
+      set visible(value) {
+        if (leftCleat) leftCleat.visible = value;
+        if (rightCleat) rightCleat.visible = value;
+      },
+    };
+
     this.characterParts = {
       head: headGroup,
       torso: torsoGroup,
       pelvis: pelvisGroup,
       leftArm,
       rightArm,
+      leftHand: leftArm.getObjectByName('Hand'),
+      rightHand: rightArm.getObjectByName('Hand'),
       leftLeg,
-      rightLeg
+      rightLeg,
+      boots,
+      backPanel,
+      frontPanel,
+      armband
     };
 
     this.character = group;
@@ -425,38 +410,22 @@ export class SoccerOutfitApp {
     return group;
   }
 
-  /**
-   * Builds a hairstyle for the head rig using the shared style library.
-   * @param {string} style one of HAIR_STYLES
-   */
-  buildHairstyle(style) {
-    return createHairstyle(style, this.materials.hair,
-      (geometry, material, thickness) => this.createOutlinedMesh(geometry, material, thickness),
-      this.headRadius, this.headOffsetY);
+  /** Stamps SURNAME + number onto the shirt and reveals the print panels. */
+  setPlayerPrint(name, number, show = true) {
+    if (!this.characterParts || !this.materials) return;
+    replacePrintTexture(this.materials.backName, createBackNameTexture(name, number));
+    replacePrintTexture(this.materials.frontName, createFrontNameTexture(name, number));
+    this.characterParts.backPanel.visible = !!show;
+    this.characterParts.frontPanel.visible = !!show;
   }
 
-  /**
-   * Swaps the character's hairstyle.
-   * @param {string} style one of HAIR_STYLES
-   */
-  changeHairStyle(style) {
-    if (!HAIR_STYLES.includes(style)) {
-      console.warn(`Hair style "${style}" not found.`);
-      return;
-    }
-    this.hairStyle = style;
+  /** Captaincy is vacant after Karim leaves – the squad's band stays hidden. */
+  setArmbandVisible(visible) {
+    if (this.characterParts.armband) this.characterParts.armband.visible = !!visible;
+  }
 
-    const head = this.characterParts.head;
-    if (!head) return;
-
-    if (this.hairGroup) {
-      head.remove(this.hairGroup);
-      this.hairGroup.traverse((child) => {
-        if (child.isMesh) child.geometry.dispose();
-      });
-    }
-    this.hairGroup = this.buildHairstyle(style);
-    head.add(this.hairGroup);
+  setBootsVisible(visible) {
+    if (this.characterParts.boots) this.characterParts.boots.visible = !!visible;
   }
 
   changeOutfit(outfitName) {
@@ -479,68 +448,5 @@ export class SoccerOutfitApp {
     setMatColor(this.materials.sockStripes, palette.sockStripes);
     setMatColor(this.materials.cleats, palette.cleats);
     setMatColor(this.materials.studs, palette.studs);
-  }
-
-  setWalking(walking) {
-    this.isWalking = walking;
-  }
-
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
-    const elapsed = this.clock.getElapsedTime();
-
-    if (this.character && this.characterParts.head) {
-      const { head, leftArm, rightArm, leftLeg, rightLeg } = this.characterParts;
-      if (this.isWalking) {
-        const speed = 7;
-        leftLeg.rotation.x = Math.sin(elapsed * speed) * 0.6;
-        rightLeg.rotation.x = -Math.sin(elapsed * speed) * 0.6;
-        leftArm.rotation.x = -Math.sin(elapsed * speed) * 0.45;
-        rightArm.rotation.x = Math.sin(elapsed * speed) * 0.45;
-        this.character.position.y = Math.abs(Math.cos(elapsed * speed)) * 0.07;
-      } else {
-        head.position.y = 1.95 + Math.sin(elapsed * 2) * 0.015;
-        leftArm.rotation.z = -0.28 - Math.sin(elapsed * 2) * 0.02;
-        rightArm.rotation.z = 0.28 + Math.sin(elapsed * 2) * 0.02;
-        this.character.position.y = 0;
-      }
-    }
-
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-  }
-
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
-
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          if (child.material) {
-            Array.isArray(child.material) ? child.material.forEach(m => m.dispose()) : child.material.dispose();
-          }
-        }
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.props = {};
   }
 }

@@ -1,25 +1,17 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { createHairstyle, HAIR_STYLES } from './character-hair.js';
+import { BaseCharacterApp } from './core/BaseCharacterApp.js';
+import { SPONSOR_MOTION } from './core/motion.js';
 
 /**
  * SponsorApp – a slick corporate sponsor (Malaysian sports sponsorship exec).
  * Sharp navy/charcoal suit, gold tie, slicked side part, smartphone,
  * slim sponsorship folder and an expensive gold wristwatch.
  */
-export class SponsorApp {
+export class SponsorApp extends BaseCharacterApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.clock = new THREE.Clock();
-    this.isWalking = false;
-    this.currentPose = 'idle';
+    super(container);
+    this.motion = { ...SPONSOR_MOTION };
 
     this.headRadius = 0.46;
     this.headOffsetY = 0;
@@ -110,17 +102,6 @@ export class SponsorApp {
     };
   }
 
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();
-    this.animate();
-    return this;
-  }
-
   setupScene() {
     this.scene = new THREE.Scene();
 
@@ -177,41 +158,6 @@ export class SponsorApp {
     directionalLight.shadow.mapSize.width = 2048;
     directionalLight.shadow.mapSize.height = 2048;
     this.scene.add(directionalLight);
-  }
-
-  createToonMaterial(colorHex) {
-    const colors = new Uint8Array([215, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
-
-    return new THREE.MeshToonMaterial({
-      color: colorHex,
-      gradientMap: gradientMap
-    });
-  }
-
-  createOutlinedMesh(geometry, material, outlineThickness = 0.022) {
-    const group = new THREE.Group();
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    group.add(mesh);
-
-    group.userData = { mainMesh: mesh };
-
-    if (outlineThickness > 0) {
-      const outlineMat = new THREE.MeshBasicMaterial({
-        color: 0x0b0b0b,
-        side: THREE.BackSide
-      });
-      const outlineMesh = new THREE.Mesh(geometry, outlineMat);
-      outlineMesh.scale.setScalar(1 + outlineThickness);
-      group.add(outlineMesh);
-    }
-
-    return group;
   }
 
   createFolderLabelMaterial() {
@@ -497,6 +443,8 @@ export class SponsorApp {
       pelvis: pelvisGroup,
       leftArm,
       rightArm,
+      leftHand: leftArm.getObjectByName('Hand'),
+      rightHand: rightArm.getObjectByName('Hand'),
       leftLeg,
       rightLeg
     };
@@ -534,32 +482,6 @@ export class SponsorApp {
     });
   }
 
-  buildHairstyle(style) {
-    return createHairstyle(style, this.materials.hair,
-      (geometry, material, thickness) => this.createOutlinedMesh(geometry, material, thickness),
-      this.headRadius, this.headOffsetY);
-  }
-
-  changeHairStyle(style) {
-    if (!HAIR_STYLES.includes(style)) {
-      console.warn(`Hair style "${style}" not found.`);
-      return;
-    }
-    this.hairStyle = style;
-
-    const head = this.characterParts.head;
-    if (!head) return;
-
-    if (this.hairGroup) {
-      head.remove(this.hairGroup);
-      this.hairGroup.traverse((child) => {
-        if (child.isMesh) child.geometry.dispose();
-      });
-    }
-    this.hairGroup = this.buildHairstyle(style);
-    head.add(this.hairGroup);
-  }
-
   changeOutfit(outfitName) {
     const palette = this.outfits[outfitName];
     if (!palette) return;
@@ -574,69 +496,5 @@ export class SponsorApp {
     this.materials.cuffs.color.setHex(palette.cuffs);
     this.materials.shoes.color.setHex(palette.shoes);
     this.materials.skin.color.setHex(palette.skin);
-  }
-
-  setWalking(walking) {
-    this.isWalking = walking;
-  }
-
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
-    const elapsed = this.clock.getElapsedTime();
-
-    if (this.character && this.characterParts.head) {
-      const { head, leftArm, rightArm, leftLeg, rightLeg } = this.characterParts;
-
-      if (this.isWalking) {
-        const speed = 4.6;
-        leftLeg.rotation.x = Math.sin(elapsed * speed) * 0.44;
-        rightLeg.rotation.x = -Math.sin(elapsed * speed) * 0.44;
-        leftArm.rotation.x = -Math.sin(elapsed * speed) * 0.32;
-        rightArm.rotation.x = Math.sin(elapsed * speed) * 0.32;
-        this.character.position.y = Math.abs(Math.cos(elapsed * speed)) * 0.05;
-      } else {
-        head.position.y = 1.95 + Math.sin(elapsed * 2) * 0.015;
-        this.character.position.y = 0;
-      }
-    }
-
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-  }
-
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
-
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          if (child.material) {
-            Array.isArray(child.material)
-              ? child.material.forEach(m => m.dispose())
-              : child.material.dispose();
-          }
-        }
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.props = {};
   }
 }

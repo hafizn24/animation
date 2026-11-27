@@ -1,19 +1,12 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { createHairstyle, HAIR_STYLES } from './character-hair.js';
+import { BaseCharacterApp } from './core/BaseCharacterApp.js';
+import { SUIT_MOTION } from './core/motion.js';
 
-export class SuitOutfitApp {
+export class SuitOutfitApp extends BaseCharacterApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.clock = new THREE.Clock();
-    this.isWalking = false;
+    super(container);
+    this.motion = { ...SUIT_MOTION };
 
     this.headRadius = 0.46;   // head sphere radius the hair is built around
     this.headOffsetY = 0;  // vertical offset of the head centre
@@ -39,17 +32,6 @@ export class SuitOutfitApp {
         shoes: 0x451a03
       }
     };
-  }
-
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();
-    this.animate();
-    return this;
   }
 
   setupScene() {
@@ -109,39 +91,6 @@ export class SuitOutfitApp {
     directionalLight.shadow.mapSize.width = 2048;
     directionalLight.shadow.mapSize.height = 2048;
     this.scene.add(directionalLight);
-  }
-
-  createToonMaterial(colorHex) {
-    const colors = new Uint8Array([215, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
-
-    return new THREE.MeshToonMaterial({
-      color: colorHex,
-      gradientMap: gradientMap
-    });
-  }
-
-  createOutlinedMesh(geometry, material, outlineThickness = 0.022) {
-    const group = new THREE.Group();
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    group.add(mesh);
-    group.userData = { mainMesh: mesh };
-
-    if (outlineThickness > 0) {
-      const outlineMat = new THREE.MeshBasicMaterial({
-        color: 0x0b0b0b,
-        side: THREE.BackSide
-      });
-      const outlineMesh = new THREE.Mesh(geometry, outlineMat);
-      outlineMesh.scale.setScalar(1 + outlineThickness);
-      group.add(outlineMesh);
-    }
-    return group;
   }
 
   createProceduralCharacter() {
@@ -293,7 +242,6 @@ export class SuitOutfitApp {
       palm.scale.set(1.08, 1.14, 0.72);
       handGroup.add(palm);
 
-
       armPivot.add(handGroup);
       armPivot.rotation.z = dir * 0.30;
       return armPivot;
@@ -330,44 +278,20 @@ export class SuitOutfitApp {
     const rightLeg = createLeg(false);
     group.add(leftLeg, rightLeg);
 
-    this.characterParts = { head: headGroup, torso: torsoGroup, pelvis: pelvisGroup, leftArm, rightArm, leftLeg, rightLeg };
+    this.characterParts = {
+      head: headGroup,
+      torso: torsoGroup,
+      pelvis: pelvisGroup,
+      leftArm,
+      rightArm,
+      leftHand: leftArm.getObjectByName('Hand'),
+      rightHand: rightArm.getObjectByName('Hand'),
+      leftLeg,
+      rightLeg
+    };
     this.character = group;
     this.scene.add(this.character);
     return group;
-  }
-
-  /**
-   * Builds a hairstyle for the head rig using the shared style library.
-   * @param {string} style one of HAIR_STYLES
-   */
-  buildHairstyle(style) {
-    return createHairstyle(style, this.materials.hair,
-      (geometry, material, thickness) => this.createOutlinedMesh(geometry, material, thickness),
-      this.headRadius, this.headOffsetY);
-  }
-
-  /**
-   * Swaps the character's hairstyle.
-   * @param {string} style one of HAIR_STYLES
-   */
-  changeHairStyle(style) {
-    if (!HAIR_STYLES.includes(style)) {
-      console.warn(`Hair style "${style}" not found.`);
-      return;
-    }
-    this.hairStyle = style;
-
-    const head = this.characterParts.head;
-    if (!head) return;
-
-    if (this.hairGroup) {
-      head.remove(this.hairGroup);
-      this.hairGroup.traverse((child) => {
-        if (child.isMesh) child.geometry.dispose();
-      });
-    }
-    this.hairGroup = this.buildHairstyle(style);
-    head.add(this.hairGroup);
   }
 
   changeOutfit(outfitName) {
@@ -381,68 +305,5 @@ export class SuitOutfitApp {
     this.materials.tie.color.setHex(palette.tie);
     this.materials.pants.color.setHex(palette.pants);
     this.materials.shoes.color.setHex(palette.shoes);
-  }
-
-  setWalking(walking) {
-    this.isWalking = walking;
-  }
-
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
-    const elapsed = this.clock.getElapsedTime();
-
-    if (this.character && this.characterParts.head) {
-      const { head, leftArm, rightArm, leftLeg, rightLeg } = this.characterParts;
-      if (this.isWalking) {
-        const speed = 5.5;
-        leftLeg.rotation.x = Math.sin(elapsed * speed) * 0.45;
-        rightLeg.rotation.x = -Math.sin(elapsed * speed) * 0.45;
-        leftArm.rotation.x = -Math.sin(elapsed * speed) * 0.35;
-        rightArm.rotation.x = Math.sin(elapsed * speed) * 0.35;
-        this.character.position.y = Math.abs(Math.cos(elapsed * speed)) * 0.05;
-      } else {
-        head.position.y = 1.95 + Math.sin(elapsed * 2) * 0.015;
-        leftArm.rotation.z = -0.30 - Math.sin(elapsed * 2) * 0.02;
-        rightArm.rotation.z = 0.30 + Math.sin(elapsed * 2) * 0.02;
-        this.character.position.y = 0;
-      }
-    }
-
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-  }
-
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
-
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          if (child.material) {
-            Array.isArray(child.material) ? child.material.forEach(m => m.dispose()) : child.material.dispose();
-          }
-        }
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.props = {};
   }
 }

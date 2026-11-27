@@ -1,0 +1,187 @@
+{
+  "episode": 7,
+  "title": "12 Pasukan, Satu Impian",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalDurationSeconds": 41.9,
+  "totalFrames": 1257,
+  "language": "ms",
+  "subtitles": "ms+en",
+  "notes": "Source of truth for Episode 7. Timings locked to the measured 1.0x e7_* TTS durations with 22f (0.73s) buffers between lines. Debt stays RM326,500; stadium seizure stays frozen; captaincy stays vacant.",
+  "cast": {
+    "coach": { "class": "SoccerCoachOutfitApp", "voice": "voice_2", "label": "JURULATIH" },
+    "bos": { "class": "BossApp", "voice": "voice_3", "label": "BOS" },
+    "rizal": { "class": "SoccerOutfitApp", "voice": "voice_3", "label": "RIZAL", "number": 10, "print": "RIZAL" },
+    "azam": { "class": "AzamApp", "voice": "voice_5", "label": "AZAM", "number": 7 },
+    "narrator": { "class": "Narrator", "voice": "voice_5", "label": "NARRATOR" }
+  },
+  "overlays": {
+    "hook": {
+      "title": "12 PASUKAN, SATU IMPIAN.",
+      "pill": "EP. 7 • 12 PASUKAN, SATU IMPIAN",
+      "fromFrame": 0,
+      "toFrame": 45
+    },
+    "agreementHud": {
+      "fromFrame": 170,
+      "toFrame": 435,
+      "header": "PERJANJIAN BERSYARAT",
+      "lines": ["PEMBEKUAN PENYITAAN STADIUM", "SAH SEHINGGA TAMAT MUSIM", "BAKI HUTANG: RM326,500"]
+    },
+    "leagueBoard": {
+      "fromFrame": 1040,
+      "toFrame": 1163,
+      "title": "DIVISYEN 5 — MUSIM BARU",
+      "subtitle": "12 KELAB · 11 PERLAWANAN · 1 TEMPAT NAIK",
+      "clubs": [
+        "BULUH FC",
+        "HARIMAU LEMBAH FC",
+        "PUTRA PELABUHAN FC",
+        "METRO SELATAN FC",
+        "KOTA TUA FC",
+        "SRI ANGGERIK FC",
+        "PUNCAK BUMI FC",
+        "BINTANG TIMUR FC",
+        "RIMBA RAYA FC",
+        "SUNGAI BUNYI FC",
+        "PADANG LALANG FC",
+        "MENARA GADING FC"
+      ]
+    },
+    "outroCard": {
+      "fromFrame": 1185,
+      "toFrame": 1257,
+      "durationFrames": 72,
+      "brand": "Buluh FC",
+      "label": "EPISOD 7"
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-1-hook",
+      "name": "Scene 1 — Matchday Mindset",
+      "fromFrame": 0,
+      "durationFrames": 148,
+      "environment": "StadiumApp",
+      "lines": [
+        {
+          "id": "e7_01",
+          "speaker": "coach",
+          "label": "JURULATIH",
+          "type": "dialogue",
+          "fromFrame": 0,
+          "toFrame": 126,
+          "text": "Gerak, gerak! Musim ni kita takde masa nak main-main. Cepat sikit!",
+          "en": "Move, move! This season we have no time to mess around. Faster!"
+        }
+      ]
+    },
+    {
+      "id": "scene-2-agreement",
+      "name": "Scene 2 — The Agreement",
+      "fromFrame": 148,
+      "durationFrames": 309,
+      "environment": "ClubOfficeApp",
+      "lines": [
+        {
+          "id": "e7_02",
+          "speaker": "narrator",
+          "label": "NARRATOR",
+          "type": "narration",
+          "fromFrame": 148,
+          "toFrame": 268,
+          "text": "Divisyen lima. Dua belas kelab, satu tempat je naik. Tekanan baru.",
+          "en": "Division five. Twelve clubs, only one goes up. New pressure."
+        },
+        {
+          "id": "e7_03",
+          "speaker": "bos",
+          "label": "BOS",
+          "type": "dialogue",
+          "fromFrame": 290,
+          "toFrame": 435,
+          "text": "Perjanjian cakap jelas. Stadium beku sampai musim tamat. Kita takde pilihan.",
+          "en": "The agreement is clear. The stadium stays frozen until the season ends. We have no choice."
+        }
+      ]
+    },
+    {
+      "id": "scene-3-locker",
+      "name": "Scene 3 — The Rumour",
+      "fromFrame": 457,
+      "durationFrames": 292,
+      "environment": "LockerRoomApp",
+      "lines": [
+        {
+          "id": "e7_04",
+          "speaker": "rizal",
+          "label": "RIZAL",
+          "type": "dialogue",
+          "fromFrame": 457,
+          "toFrame": 612,
+          "text": "Weh, dengar tak? Metro Selatan beli striker luar. Siapa nak lawan?",
+          "en": "Hey, did you hear? Metro Selatan bought a foreign striker. Who's going to face them?"
+        },
+        {
+          "id": "e7_05",
+          "speaker": "azam",
+          "label": "AZAM",
+          "type": "dialogue",
+          "fromFrame": 634,
+          "toFrame": 727,
+          "text": "Dengar. Kita lawan diorang kat padang, bukan kat kedai kopi.",
+          "en": "I heard. We face them on the pitch, not at the coffee shop."
+        }
+      ]
+    },
+    {
+      "id": "scene-4-training",
+      "name": "Scene 4 — Like Matchday",
+      "fromFrame": 749,
+      "durationFrames": 273,
+      "environment": "StadiumApp",
+      "lines": [
+        {
+          "id": "e7_06",
+          "speaker": "coach",
+          "label": "JURULATIH",
+          "type": "dialogue",
+          "fromFrame": 749,
+          "toFrame": 840,
+          "text": "Latihan ni macam matchday. Satu silap, terus kena marah.",
+          "en": "This training is like matchday. One mistake and you get an earful."
+        },
+        {
+          "id": "e7_07",
+          "speaker": "bos",
+          "label": "BOS",
+          "type": "dialogue",
+          "fromFrame": 862,
+          "toFrame": 1000,
+          "text": "Tiket semua dah jual. Tinggal kau orang kat padang. Buktikan dekat aku.",
+          "en": "The tickets are all sold. All that's left is you on the pitch. Prove it to me."
+        }
+      ]
+    },
+    {
+      "id": "scene-5-league",
+      "name": "Scene 5 — The League & End Card",
+      "fromFrame": 1022,
+      "durationFrames": 235,
+      "environment": "StadiumApp",
+      "lines": [
+        {
+          "id": "e7_08",
+          "speaker": "narrator",
+          "label": "NARRATOR",
+          "type": "narration",
+          "fromFrame": 1022,
+          "toFrame": 1163,
+          "text": "Dua belas kelab, satu impian. Jalan keluar? Cuma satu. Siapa jatuh dulu?",
+          "en": "Twelve clubs, one dream. And the way out? Only one. Who falls first?"
+        }
+      ]
+    }
+  ]
+}

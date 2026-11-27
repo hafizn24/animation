@@ -7,6 +7,7 @@ import { Episode3Composition } from './Episode3/Episode3Composition.jsx';
 import { Episode4Composition } from './Episode4/Episode4Composition.jsx';
 import { Episode5Composition, EPISODE_5_FRAMES } from './Episode5/Episode5Composition.jsx';
 import { Episode6Composition, EPISODE_6_FRAMES } from './Episode6/Episode6Composition.jsx';
+import { Episode7Composition, EPISODE_7_FRAMES } from './Episode7/Episode7Composition.jsx';
 
 export const RemotionRoot = () => {
   return (
@@ -63,6 +64,14 @@ export const RemotionRoot = () => {
         id="Episode6"
         component={Episode6Composition}
         durationInFrames={EPISODE_6_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="Episode7"
+        component={Episode7Composition}
+        durationInFrames={EPISODE_7_FRAMES}
         fps={30}
         width={1080}
         height={1920}

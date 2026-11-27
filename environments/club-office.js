@@ -1,33 +1,18 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { BaseEnvironmentApp } from './core/BaseEnvironmentApp.js';
 
-export class ClubOfficeApp {
+export class ClubOfficeApp extends BaseEnvironmentApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;
-    this.characterParts = {};
-    this.clock = new THREE.Clock();
-    this._dead = false;
+    super(container);
+    this.envId = 'club-office';
+    this.isIndoor = true;
     this.roomBounds = { halfW: 6.2, halfD: 5.2, height: 3.3 };
     this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
     this.anchors = {};
     this.lights = {};
   }
 
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();
-    this.animate();
-    return this;
-  }
 
   setupScene() {
     this.scene = new THREE.Scene();
@@ -36,24 +21,13 @@ export class ClubOfficeApp {
   }
 
   setupCamera() {
-    const aspect = this.container.clientWidth / this.container.clientHeight;
+    const aspect = this.cameraAspect();
     this.camera = new THREE.PerspectiveCamera(52, aspect, 0.1, 200);
     this.camera.position.set(4.4, 3.4, 8.2);
     this.homeCamera = [4.4, 3.4, 8.2];
     this.homeTarget = [0, 1.2, -0.8];
   }
 
-  setupRenderer() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.02;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.container.appendChild(this.renderer.domElement);
-  }
 
   setupControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -116,46 +90,9 @@ export class ClubOfficeApp {
     this.lights.fill = fill;
   }
 
-  createToonMaterial(colorHex) {
-    const colors = new Uint8Array([200, 240, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
-    return new THREE.MeshToonMaterial({ color: colorHex, gradientMap });
-  }
 
-  createStdMaterial(colorHex, opts = {}) {
-    return new THREE.MeshStandardMaterial({
-      color: colorHex,
-      roughness: opts.roughness ?? 0.7,
-      metalness: opts.metalness ?? 0.0,
-      ...opts,
-    });
-  }
 
-  makeCanvasTexture(width, height, draw) {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    draw(ctx, width, height);
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 4;
-    return texture;
-  }
 
-  updateWallVisibility() {
-    if (!this.wallCull || !this.camera) return;
-    const p = this.camera.position;
-    const { halfW, halfD, height } = this.roomBounds;
-    this.wallCull.back.forEach((o) => { o.visible = p.z > -halfD - 0.05; });
-    this.wallCull.front.forEach((o) => { o.visible = p.z < halfD + 0.05; });
-    this.wallCull.left.forEach((o) => { o.visible = p.x > -halfW - 0.05; });
-    this.wallCull.right.forEach((o) => { o.visible = p.x < halfW + 0.05; });
-    this.wallCull.ceiling.forEach((o) => { o.visible = p.y < height + 0.05; });
-  }
 
   createWoodTexture() {
     const canvas = document.createElement('canvas');
@@ -267,7 +204,7 @@ export class ClubOfficeApp {
   }
 
   createProceduralCharacter() {
-    if (this.character) this.dispose();
+    if (this.character) this.disposeCharacter();
 
     const group = new THREE.Group();
     group.name = 'ClubOffice';
@@ -514,64 +451,14 @@ export class ClubOfficeApp {
     this.characterParts = { ...this.anchors };
     this.scene.add(this.character);
     this.updateWallVisibility();
+    this.applyDressing(this.character);
     return group;
   }
 
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
-    const elapsed = this.clock.getElapsedTime();
+  onAnimateFrame(elapsed) {
     if (this.lights.lamp) this.lights.lamp.intensity = 16 + Math.sin(elapsed * 2.3) * 0.12;
-    if (this.wallCull) this.updateWallVisibility();
-    if (this.controls) this.controls.update();
-    if (this.renderer) this.renderer.render(this.scene, this.camera);
   }
 
-  onWindowResize() {
-    if (!this.camera || !this.renderer) return;
-    this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-  }
 
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
 
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      const materials = new Set();
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          const mats = Array.isArray(child.material) ? child.material : [child.material];
-          mats.filter(Boolean).forEach((material) => materials.add(material));
-        }
-      });
-      materials.forEach((material) => {
-        ['map', 'emissiveMap', 'gradientMap', 'alphaMap', 'normalMap', 'aoMap'].forEach((key) => {
-          if (material[key]) material[key].dispose();
-        });
-        material.dispose();
-      });
-    }
-    Object.values(this.lights || {}).forEach((light) => light?.shadow?.dispose?.());
-    if (this.scene) {
-      [...this.scene.children]
-        .filter((child) => child.isLight)
-        .forEach((light) => {
-          light.shadow?.dispose?.();
-          this.scene.remove(light);
-        });
-    }
-    this.character = null;
-    this.characterParts = {};
-    this.anchors = {};
-    this.lights = {};
-    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
-  }
 }

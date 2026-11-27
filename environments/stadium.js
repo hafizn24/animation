@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { BaseEnvironmentApp } from './core/BaseEnvironmentApp.js';
 
 /**
  * StadiumApp – Procedural 3D model of a small English non-league football ground
@@ -16,29 +17,14 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
  *   8. Dirt/gravel standing area behind the railings
  *   9. Surrounding grass embankment
  */
-export class StadiumApp {
+export class StadiumApp extends BaseEnvironmentApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;      // root group – named "character" for inspector compat
-    this.characterParts = {};
-    this.clock = new THREE.Clock();
-    this._dead = false;
+    super(container);
+    this.envId = 'stadium';
+    this.isIndoor = false;
+    this.bounds = { minX: -70, maxX: 70, minZ: -70, maxZ: 70, floorY: 0, ceilingY: 45 };
   }
 
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();   // builds the stadium
-    this.animate();
-    return this;
-  }
 
   /* ------------------------------------------------------------------ */
   /*  Boilerplate (same pattern as existing character apps)              */
@@ -51,7 +37,7 @@ export class StadiumApp {
   }
 
   setupCamera() {
-    const aspect = this.container.clientWidth / this.container.clientHeight;
+    const aspect = this.cameraAspect();
     this.camera = new THREE.PerspectiveCamera(45, aspect, 0.1, 500);
     // Bird's-eye-ish view showing the pitch, grandstand and clubhouse complex
     this.camera.position.set(-42, 27, -30);
@@ -59,17 +45,6 @@ export class StadiumApp {
     this.homeTarget = [-8, 2, 27];
   }
 
-  setupRenderer() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.02;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.container.appendChild(this.renderer.domElement);
-  }
 
   setupControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -116,27 +91,7 @@ export class StadiumApp {
   /*  Toon-style material helpers (matching existing codebase)          */
   /* ------------------------------------------------------------------ */
 
-  createToonMaterial(colorHex) {
-    const colors = new Uint8Array([200, 240, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
 
-    return new THREE.MeshToonMaterial({
-      color: colorHex,
-      gradientMap: gradientMap,
-    });
-  }
-
-  createStdMaterial(colorHex, opts = {}) {
-    return new THREE.MeshStandardMaterial({
-      color: colorHex,
-      roughness: opts.roughness ?? 0.7,
-      metalness: opts.metalness ?? 0.0,
-      ...opts,
-    });
-  }
 
   /**
    * Builds a CanvasTexture from a 2D drawing callback.
@@ -144,24 +99,13 @@ export class StadiumApp {
    * @param {number} height texture height in px
    * @param {Function} draw receives (ctx, width, height)
    */
-  makeCanvasTexture(width, height, draw) {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    draw(ctx, width, height);
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 4;
-    return texture;
-  }
 
   /* ------------------------------------------------------------------ */
   /*  MAIN BUILD                                                        */
   /* ------------------------------------------------------------------ */
 
   createProceduralCharacter() {
-    if (this.character) this.dispose();
+    if (this.character) this.disposeCharacter();
 
     const root = new THREE.Group();
     root.name = 'Stadium';
@@ -1613,6 +1557,7 @@ export class StadiumApp {
 
     this.character = root;
     this.scene.add(this.character);
+    this.applyDressing(this.character);
     return root;
   }
 
@@ -1620,47 +1565,7 @@ export class StadiumApp {
   /*  Animation loop                                                    */
   /* ------------------------------------------------------------------ */
 
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
 
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-  }
 
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
 
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
-
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          if (child.material) {
-            const mats = Array.isArray(child.material) ? child.material : [child.material];
-            mats.forEach(m => {
-              if (m.map) m.map.dispose();
-              if (m.gradientMap) m.gradientMap.dispose();
-              m.dispose();
-            });
-          }
-        }
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-  }
 }

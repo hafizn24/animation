@@ -1,35 +1,21 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { BaseEnvironmentApp } from './core/BaseEnvironmentApp.js';
 
 /**
  * PlayersTunnelApp – Procedural 3D model of the Buluh FC players' tunnel.
  * Dark brick corridor opening onto a floodlit pitch – a natural vertical
  * "emerge into the light" shot for short-form drama.
  */
-export class PlayersTunnelApp {
+export class PlayersTunnelApp extends BaseEnvironmentApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;
-    this.characterParts = {};
-    this.clock = new THREE.Clock();
-    this._dead = false;
+    super(container);
+    this.envId = 'players-tunnel';
+    this.isIndoor = false;
+    this.bounds = { minX: -4, maxX: 4, minZ: -14, maxZ: 14, floorY: 0, ceilingY: 3.5 };
     this.tunnel = { halfW: 3.0, height: 3.5, length: 20 };
   }
 
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();
-    this.animate();
-    return this;
-  }
 
   setupScene() {
     this.scene = new THREE.Scene();
@@ -37,24 +23,13 @@ export class PlayersTunnelApp {
   }
 
   setupCamera() {
-    const aspect = this.container.clientWidth / this.container.clientHeight;
+    const aspect = this.cameraAspect();
     this.camera = new THREE.PerspectiveCamera(58, aspect, 0.1, 250);
     this.camera.position.set(0, 1.65, -8.5);
     this.homeCamera = [0, 1.65, -8.5];
     this.homeTarget = [0, 1.5, 9];
   }
 
-  setupRenderer() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.02;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.container.appendChild(this.renderer.domElement);
-  }
 
   setupControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -89,29 +64,10 @@ export class PlayersTunnelApp {
     this.scene.add(exitLight);
   }
 
-  createStdMaterial(colorHex, opts = {}) {
-    return new THREE.MeshStandardMaterial({
-      color: colorHex,
-      roughness: opts.roughness ?? 0.7,
-      metalness: opts.metalness ?? 0,
-      ...opts,
-    });
-  }
 
-  makeCanvasTexture(width, height, draw) {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    draw(ctx, width, height);
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 4;
-    return texture;
-  }
 
   createProceduralCharacter() {
-    if (this.character) this.dispose();
+    if (this.character) this.disposeCharacter();
 
     const root = new THREE.Group();
     root.name = 'PlayersTunnel';
@@ -288,49 +244,11 @@ export class PlayersTunnelApp {
     this.characterParts = { strips, board, pitch, crowd, portalFrame };
     this.character = root;
     this.scene.add(root);
+    this.applyDressing(this.character);
     return root;
   }
 
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
-    if (this.controls) this.controls.update();
-    if (this.renderer) this.renderer.render(this.scene, this.camera);
-  }
 
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    if (this.camera) {
-      this.camera.aspect = width / height;
-      this.camera.updateProjectionMatrix();
-    }
-    if (this.renderer) this.renderer.setSize(width, height);
-  }
 
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
 
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          const mats = Array.isArray(child.material) ? child.material : [child.material];
-          mats.forEach((m) => {
-            if (m.map) m.map.dispose();
-            if (m.gradientMap) m.gradientMap.dispose();
-            m.dispose();
-          });
-        }
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-  }
 }

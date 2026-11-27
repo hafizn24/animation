@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { BaseEnvironmentApp } from './core/BaseEnvironmentApp.js';
 
 /**
  * ManagerOfficeApp – Procedural 3D model of the Buluh FC manager's
@@ -20,31 +21,15 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
  * Walls are hidden automatically when the camera moves outside of them so the
  * office can always be inspected from any angle.
  */
-export class ManagerOfficeApp {
+export class ManagerOfficeApp extends BaseEnvironmentApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;      // root group – named "character" for inspector compat
-    this.characterParts = {};
-    this.clock = new THREE.Clock();
-    this._dead = false;
+    super(container);
+    this.envId = 'manager-office';
+    this.isIndoor = true;
     this.roomBounds = { halfW: 6.2, halfD: 5.2, height: 3.3 };
     this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
   }
 
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();   // builds the office
-    this.animate();
-    return this;
-  }
 
   /* ------------------------------------------------------------------ */
   /*  Boilerplate (same pattern as existing character apps)              */
@@ -57,24 +42,13 @@ export class ManagerOfficeApp {
   }
 
   setupCamera() {
-    const aspect = this.container.clientWidth / this.container.clientHeight;
+    const aspect = this.cameraAspect();
     this.camera = new THREE.PerspectiveCamera(52, aspect, 0.1, 200);
     this.camera.position.set(4.9, 4.1, 9.0);
     this.homeCamera = [4.9, 4.1, 9.0];
     this.homeTarget = [0, 1.2, -0.8];
   }
 
-  setupRenderer() {
-    this.renderer = new THREE.WebGLRenderer({ antialias: true });
-    this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.renderer.outputColorSpace = THREE.SRGBColorSpace;
-    this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    this.renderer.toneMappingExposure = 1.02;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    this.container.appendChild(this.renderer.domElement);
-  }
 
   setupControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -128,66 +102,24 @@ export class ManagerOfficeApp {
   /*  Toon-style material helpers (matching existing codebase)          */
   /* ------------------------------------------------------------------ */
 
-  createToonMaterial(colorHex) {
-    const colors = new Uint8Array([200, 240, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
 
-    return new THREE.MeshToonMaterial({
-      color: colorHex,
-      gradientMap: gradientMap,
-    });
-  }
-
-  createStdMaterial(colorHex, opts = {}) {
-    return new THREE.MeshStandardMaterial({
-      color: colorHex,
-      roughness: opts.roughness ?? 0.7,
-      metalness: opts.metalness ?? 0.0,
-      ...opts,
-    });
-  }
 
   /* ------------------------------------------------------------------ */
   /*  Small texture helpers                                              */
   /* ------------------------------------------------------------------ */
 
-  makeCanvasTexture(width, height, draw) {
-    const canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    const ctx = canvas.getContext('2d');
-    draw(ctx, width, height);
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.anisotropy = 4;
-    return texture;
-  }
 
   /* ------------------------------------------------------------------ */
   /*  Wall culling – hides whichever wall the camera is standing behind  */
   /* ------------------------------------------------------------------ */
 
-  updateWallVisibility() {
-    if (!this.wallCull) return;
-    const p = this.camera.position;
-    const { halfW, halfD, height } = this.roomBounds;
-
-    this.wallCull.back.forEach(o => { o.visible = p.z > -halfD - 0.05; });
-    this.wallCull.front.forEach(o => { o.visible = p.z < halfD + 0.05; });
-    this.wallCull.left.forEach(o => { o.visible = p.x > -halfW - 0.05; });
-    this.wallCull.right.forEach(o => { o.visible = p.x < halfW + 0.05; });
-    this.wallCull.ceiling.forEach(o => { o.visible = p.y < height + 0.05; });
-  }
 
   /* ------------------------------------------------------------------ */
   /*  MAIN BUILD                                                        */
   /* ------------------------------------------------------------------ */
 
   createProceduralCharacter() {
-    if (this.character) this.dispose();
+    if (this.character) this.disposeCharacter();
 
     const root = new THREE.Group();
     root.name = 'ManagerOffice';
@@ -991,6 +923,7 @@ export class ManagerOfficeApp {
     this.character = root;
     this.scene.add(this.character);
     this.updateWallVisibility();
+    this.applyDressing(this.character);
     return root;
   }
 
@@ -998,49 +931,7 @@ export class ManagerOfficeApp {
   /*  Animation loop                                                    */
   /* ------------------------------------------------------------------ */
 
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
 
-    this.updateWallVisibility();
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
-  }
 
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
 
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
-  }
-
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          if (child.material) {
-            const mats = Array.isArray(child.material) ? child.material : [child.material];
-            mats.forEach(m => {
-              if (m.map) m.map.dispose();
-              if (m.gradientMap) m.gradientMap.dispose();
-              m.dispose();
-            });
-          }
-        }
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-    this.wallCull = { back: [], front: [], left: [], right: [], ceiling: [] };
-  }
 }

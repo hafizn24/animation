@@ -8,10 +8,9 @@ import { ClubOfficeApp } from './club-office.js';
  * extension papers. The original office asset remains unchanged for continuity.
  */
 export class Episode6OfficeApp extends ClubOfficeApp {
-  async init() {
-    await super.init();
+  /** Story dressing runs after the base room is built, on every rebuild. */
+  applyDressing() {
     this.addEpisode6Dressing();
-    return this;
   }
 
   makeLabelTexture(title, lines, accent = '#9d2929', amount = 'RM326,500') {

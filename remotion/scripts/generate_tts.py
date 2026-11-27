@@ -66,6 +66,16 @@ E5_NATURAL_SPEEDS = {
     "azam": 1.0,
 }
 
+# Episode 7 — same natural-speed contract. Rizal and Azam keep the slightly
+# quicker, brighter delivery they had in Episodes 3 and 5.
+E7_NATURAL_SPEEDS = {
+    "narrator": 1.0,
+    "coach": 1.0,
+    "bos": 1.0,
+    "rizal": 1.06,
+    "azam": 1.06,
+}
+
 MANIFEST = [
     ("b1_narrator", "narrator", 0, 196, "Malam ni, dalam bilik kerja yang sejuk, satu folder merah kena ketuk atas meja. Nampak macam biasa... tapi ada yang nak berakhir."),
     ("b1_peguam", "peguam", 196, 340, "RM450,000 tertunggak. Tiga puluh hari. Atau stadium ini milik kami."),
@@ -148,6 +158,17 @@ MANIFEST = [
     ("e6_06", "coach", 648, 684, "Memang tak ada."),
     ("e6_07", "bos", 710, 820, "Karim dah pergi. Tapi Buluh FC masih ada."),
     ("e6_08", "narrator", 975, 1150, "Perjalanan Divisyen lima bermula. Tapi lawan pertama mereka bukan calang-calang..."),
+    # Episode 7 — mirrors episodes/episode-7/audio-script.json (1257 frames).
+    # Natural-speed clips; frames below are re-locked from the measured
+    # durations before the composition is built.
+    ("e7_01", "coach", 0, 126, "Gerak, gerak! Musim ni kita takde masa nak main-main. Cepat sikit!"),
+    ("e7_02", "narrator", 148, 268, "Divisyen lima. Dua belas kelab, satu tempat je naik. Tekanan baru."),
+    ("e7_03", "bos", 290, 435, "Perjanjian cakap jelas. Stadium beku sampai musim tamat. Kita takde pilihan."),
+    ("e7_04", "rizal", 457, 612, "Weh, dengar tak? Metro Selatan beli striker luar. Siapa nak lawan?"),
+    ("e7_05", "azam", 634, 727, "Dengar. Kita lawan diorang kat padang, bukan kat kedai kopi."),
+    ("e7_06", "coach", 749, 840, "Latihan ni macam matchday. Satu silap, terus kena marah."),
+    ("e7_07", "bos", 862, 1000, "Tiket semua dah jual. Tinggal kau orang kat padang. Buktikan dekat aku."),
+    ("e7_08", "narrator", 1022, 1163, "Dua belas kelab, satu impian. Jalan keluar? Cuma satu. Siapa jatuh dulu?"),
 ]
 
 
@@ -248,6 +269,17 @@ def main():
         if name.startswith("e5_") or name.startswith("e6_"):
             # Natural-speed path: no budget fitting, no stretching of any kind.
             speed = E5_NATURAL_SPEEDS.get(speaker, 1.0)
+            synthesize(key, text, VOICES[speaker], speed, raw)
+            normalize(raw, final, pitch)
+            strip_leading_silence(final)
+            length = duration(final)
+            flag = "NATURAL"
+            print(f"{name + '.mp3':20} {'n/a':>7} {length:8.2f}s {speed:5.2f}x {flag}")
+            continue
+
+        if name.startswith("e7_"):
+            # Episode 7 is audio-locked the same way: measure, then place.
+            speed = E7_NATURAL_SPEEDS.get(speaker, 1.0)
             synthesize(key, text, VOICES[speaker], speed, raw)
             normalize(raw, final, pitch)
             strip_leading_silence(final)

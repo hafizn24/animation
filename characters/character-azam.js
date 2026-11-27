@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { createHairstyle, HAIR_STYLES } from './character-hair.js';
+import { BaseCharacterApp } from './core/BaseCharacterApp.js';
+import { AZAM_MOTION } from './core/motion.js';
+import { createArmbandTexture } from './core/kits.js';
 
 /**
  * AzamApp — Buluh FC's new #7 defender (Episode 5).
@@ -13,19 +15,11 @@ import { createHairstyle, HAIR_STYLES } from './character-hair.js';
  * captain armband, no boots prop in hand, and an energetic, slightly cocky
  * default stance. Poses: idle, stride, reveal, flex, point.
  */
-export class AzamApp {
+export class AzamApp extends BaseCharacterApp {
   constructor(container) {
-    this.container = container;
-    this.scene = null;
-    this.camera = null;
-    this.renderer = null;
-    this.controls = null;
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.clock = new THREE.Clock();
-    this.isWalking = false;
-    this._dead = false;
+    super(container);
+    this.motion = { ...AZAM_MOTION };
+
     this.headRadius = 0.46;
     this.headOffsetY = 0;
     this.hairStyle = 'swept';
@@ -43,17 +37,6 @@ export class AzamApp {
         skin: 0xf1e5d4,
       },
     };
-  }
-
-  async init() {
-    this.setupScene();
-    this.setupCamera();
-    this.setupRenderer();
-    this.setupControls();
-    this.addLights();
-    this.createProceduralCharacter();
-    this.animate();
-    return this;
   }
 
   setupScene() {
@@ -113,23 +96,6 @@ export class AzamApp {
     directionalLight.shadow.mapSize.width = 2048;
     directionalLight.shadow.mapSize.height = 2048;
     this.scene.add(directionalLight);
-  }
-
-  createToonMaterial(colorHex, map = null) {
-    const colors = new Uint8Array([215, 255]);
-    const gradientMap = new THREE.DataTexture(colors, colors.length, 1, THREE.RedFormat);
-    gradientMap.minFilter = THREE.NearestFilter;
-    gradientMap.magFilter = THREE.NearestFilter;
-    gradientMap.needsUpdate = true;
-    const baseColor = new THREE.Color(colorHex);
-    return new THREE.MeshToonMaterial({
-      color: baseColor,
-      map,
-      gradientMap,
-      emissive: baseColor,
-      emissiveMap: map,
-      emissiveIntensity: 0,
-    });
   }
 
   createStripedTexture(primaryHex, secondaryHex) {
@@ -203,24 +169,6 @@ export class AzamApp {
     return texture;
   }
 
-  createOutlinedMesh(geometry, material, outlineThickness = 0.022) {
-    const group = new THREE.Group();
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    group.add(mesh);
-    group.userData = { mainMesh: mesh };
-    if (outlineThickness > 0) {
-      const outlineMesh = new THREE.Mesh(
-        geometry,
-        new THREE.MeshBasicMaterial({ color: 0x0b0b0b, side: THREE.BackSide })
-      );
-      outlineMesh.scale.setScalar(1 + outlineThickness);
-      group.add(outlineMesh);
-    }
-    return group;
-  }
-
   createProceduralCharacter() {
     if (this.character) this.dispose();
 
@@ -246,6 +194,8 @@ export class AzamApp {
         transparent: true,
         depthWrite: false,
       }),
+      // Captaincy is vacant from Episode 5 on, so Azam's band ships hidden.
+      armband: new THREE.MeshBasicMaterial({ map: createArmbandTexture('C') }),
       black: new THREE.MeshBasicMaterial({ color: 0x0b0b0b }),
     };
 
@@ -318,6 +268,7 @@ export class AzamApp {
     pelvisGroup.add(hips);
     group.add(pelvisGroup);
 
+    let armband = null;
     const createArm = (isLeft) => {
       const dir = isLeft ? -1 : 1;
       const armPivot = new THREE.Group();
@@ -330,6 +281,13 @@ export class AzamApp {
       const sleeve = this.createOutlinedMesh(new THREE.CylinderGeometry(0.12, 0.15, 0.3, 20), this.materials.jerseySolid, 0.03);
       sleeve.position.set(dir * 0.02, -0.16, 0);
       armPivot.add(sleeve);
+      if (isLeft) {
+        armband = new THREE.Mesh(new THREE.CylinderGeometry(0.152, 0.152, 0.11, 20, 1, true), this.materials.armband);
+        armband.name = 'Armband';
+        armband.position.set(dir * 0.02, -0.15, 0);
+        armband.visible = false;
+        armPivot.add(armband);
+      }
       const trim = this.createOutlinedMesh(new THREE.CylinderGeometry(0.153, 0.153, 0.038, 20), this.materials.white, 0.028);
       trim.position.set(dir * 0.02, -0.31, 0);
       armPivot.add(trim);
@@ -408,6 +366,7 @@ export class AzamApp {
       boots,
       backPanel,
       frontPanel,
+      armband,
     };
     this.character = group;
     this.scene.add(this.character);
@@ -415,36 +374,13 @@ export class AzamApp {
     return group;
   }
 
-  buildHairstyle(style) {
-    return createHairstyle(
-      style,
-      this.materials.hair,
-      (geometry, material, thickness) => this.createOutlinedMesh(geometry, material, thickness),
-      this.headRadius,
-      this.headOffsetY
-    );
-  }
-
-  changeHairStyle(style) {
-    if (!HAIR_STYLES.includes(style)) {
-      console.warn(`Hair style "${style}" not found.`);
-      return;
-    }
-    this.hairStyle = style;
-    const head = this.characterParts.head;
-    if (!head) return;
-    if (this.hairGroup) {
-      head.remove(this.hairGroup);
-      this.hairGroup.traverse((child) => {
-        if (child.isMesh) child.geometry.dispose();
-      });
-    }
-    this.hairGroup = this.buildHairstyle(style);
-    head.add(this.hairGroup);
-  }
-
   setBootsVisible(visible) {
     if (this.characterParts.boots) this.characterParts.boots.visible = visible;
+  }
+
+  /** Captaincy is vacant after Karim leaves – Azam's band stays hidden by default. */
+  setArmbandVisible(visible) {
+    if (this.characterParts.armband) this.characterParts.armband.visible = !!visible;
   }
 
   changeOutfit(outfitName) {
@@ -474,25 +410,6 @@ export class AzamApp {
     setMatColor(this.materials.sockStripes, palette.sockStripes);
     setMatColor(this.materials.cleats, palette.cleats);
     setMatColor(this.materials.studs, palette.studs);
-  }
-
-  setWalking(walking) {
-    this.isWalking = walking;
-  }
-
-  onWindowResize() {
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight;
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-  }
-
-  resetScene() {
-    this.dispose();
-    this.setupScene();
-    this.addLights();
-    this.createProceduralCharacter();
   }
 
   setPose(pose) {
@@ -534,51 +451,5 @@ export class AzamApp {
       if (leftLeg) leftLeg.rotation.z = -0.03;
       if (rightLeg) rightLeg.rotation.z = 0.03;
     }
-  }
-
-  animate() {
-    if (this._dead) return;
-    requestAnimationFrame(() => this.animate());
-    const elapsed = this.clock.getElapsedTime();
-    const { head, torso, leftArm, rightArm } = this.characterParts;
-    if (head && torso) {
-      const bounce = Math.sin(elapsed * 2.3);
-      head.position.y = 1.95 + bounce * 0.018;
-      torso.scale.y = 1 + bounce * 0.014;
-      if (leftArm && rightArm && this.currentPose === 'idle') {
-        leftArm.rotation.x = 0.06 + bounce * 0.035;
-        rightArm.rotation.x = -0.04 - bounce * 0.035;
-        torso.rotation.z = Math.sin(elapsed * 1.1) * 0.012;
-        head.rotation.z = Math.sin(elapsed * 1.1 + 0.5) * 0.01;
-      }
-    }
-    if (this.controls) this.controls.update();
-    if (this.renderer) this.renderer.render(this.scene, this.camera);
-  }
-
-  dispose() {
-    if (this.scene && this.character) {
-      this.scene.remove(this.character);
-      const materials = new Set();
-      this.character.traverse((child) => {
-        if (child.isMesh) {
-          child.geometry.dispose();
-          const mats = Array.isArray(child.material) ? child.material : [child.material];
-          mats.filter(Boolean).forEach((material) => materials.add(material));
-        }
-      });
-      materials.forEach((material) => {
-        ['map', 'emissiveMap', 'gradientMap', 'alphaMap', 'normalMap', 'aoMap'].forEach((key) => {
-          if (material[key]) material[key].dispose();
-        });
-        material.dispose();
-      });
-    }
-    this.character = null;
-    this.characterParts = {};
-    this.animations = {};
-    this.props = {};
-    this.materials = {};
-    this.hairGroup = null;
   }
 }

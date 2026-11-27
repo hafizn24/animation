@@ -15,7 +15,8 @@
     "render:episode6": "remotion render Episode6 out/episode-6.mp4 --gl=angle --codec=h264",
     "render:ep6": "remotion render Episode6 out/episode-6.mp4 --gl=angle --codec=h264",
     "render:matchday": "remotion render FootballMatch out/matchday-v2.mp4",
-    "render:still": "remotion still Episode1 out/episode-1-still.png"
+    "render:still": "remotion still Episode1 out/episode-1-still.png",
+    "render:ep7": "remotion render Episode7 out/episode-7.mp4 --gl=angle --codec=h264"
   },
   "dependencies": {
     "@remotion/cli": "4.0.543",
