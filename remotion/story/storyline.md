@@ -93,5 +93,18 @@ Episodes 1–5 are the established backstory and remain described in their origi
 - **Key Events:** Karim accepts the transfer; RM50,000 is applied to debt, reducing it from RM381,500 to RM331,500. Karim leaves his armband behind and asks Boss to take Buluh FC to Division 1. Azam (#7), a defender, joins on RM5 salary.
 - **Roster after Episode 5:** Karim departed; Azam joined; captaincy vacant.
 
-### Episodes 6–22 — Next Season
-See the [Episode 6–22 Season Roadmap](./episode-6-to-22-roadmap.md) for the episode-by-episode plan, league format, financial continuity rules and development order.
+### Episode 6 — *Peluang Terakhir* (Published)
+- **Status:** Released — `remotion/src/Episode6/`; 982 frames / 32.7s @ 30fps, 1080x1920.
+- **Key Events:** The lawyer delivers a conditional written agreement: stadium seizure is frozen until the end of the Division 5 season. Debt confirmed at **RM326,500** (Kek Maju's RM5,000 already deducted). Wage costs stay -35%.
+- **League reveal:** Division 5 format established on screen — 12 clubs, 11 matches each, champion promoted to Division 4. Matchday 1 fixture revealed: **Buluh FC vs Harimau Lembah FC**.
+- **Cliffhanger:** Their first opponent is no pushover.
+
+### Episode 7 — *12 Pasukan, Satu Impian* (Published)
+- **Status:** Released — `remotion/src/Episode7/`; 1,257 frames / 41.9s @ 30fps, 1080x1920.
+- **Context:** Final pre-season training and pre-Matchday preparation (Matchday 1 kicks off in Episode 8).
+- **Key Events:** Jurulatih drills the squad with the 12-club stakes; the conditional agreement keeps the stadium frozen until the season ends. Rizal (#10) spreads the Metro Selatan foreign-striker rumour; Azam (#7) answers — the league will be decided on the pitch. Boss confirms tickets are sold and demands the squad prove it.
+- **Continuity:** Debt unchanged at **RM326,500**; stadium seizure still frozen; captaincy still vacant (unworn armband shown on Boss's desk and the locker bench); Karim never appears; no Buluh FC player wears an armband.
+- **Cliffhanger:** The full 12-club Division 5 board — *"Siapa jatuh dulu?"*
+
+### Episodes 8–22 — The Division 5 Season
+See the [Episode 6–22 Season Roadmap](./episode-6-to-22-roadmap.md) and the locked [Division 5 fixtures](./division-5-fixtures.md) for the episode-by-episode plan, league format, financial continuity rules and development order.

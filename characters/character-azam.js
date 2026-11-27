@@ -441,6 +441,21 @@ export class AzamApp extends BaseCharacterApp {
       if (rightArm) rightArm.rotation.set(-0.18, 0, 0.36);
       if (leftLeg) leftLeg.rotation.z = -0.08;
       if (rightLeg) rightLeg.rotation.z = 0.08;
+    } else if (pose === 'flex') {
+      // Double-biceps celebrate — arms punched up, chest out.
+      torso.rotation.x = -0.08;
+      head.rotation.x = -0.06;
+      head.rotation.y = 0.04;
+      if (leftArm) leftArm.rotation.set(-2.15, 0.1, -0.55);
+      if (rightArm) rightArm.rotation.set(-2.15, -0.1, 0.55);
+      if (leftHand) leftHand.rotation.x = -0.55;
+      if (rightHand) rightHand.rotation.x = -0.55;
+    } else if (pose === 'point') {
+      // Sharp single-arm point — rallying the back line.
+      torso.rotation.y = -0.12;
+      head.rotation.y = 0.12;
+      if (rightArm) rightArm.rotation.set(-1.45, -0.2, -0.3);
+      if (leftArm) leftArm.rotation.set(0.08, 0, -0.2);
     } else {
       // idle — relaxed, arms lowered at the sides with a subtle weight shift.
       // Never a stiff arms-out/T-pose: used for the whole final RM5 exchange.

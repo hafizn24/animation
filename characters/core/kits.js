@@ -123,3 +123,32 @@ export function replacePrintTexture(material, texture) {
   if ('emissiveMap' in material && material.emissiveMap) material.emissiveMap = texture;
   material.needsUpdate = true;
 }
+
+/**
+ * Division 5 club kit palettes — locked to `remotion/story/division-5-clubs.md`.
+ * `buluh` mirrors the existing red/white Buluh FC kit; the other eleven are
+ * the opponent sides introduced when each club first appears on screen.
+ */
+export const DIVISION_5_CLUBS = {
+  buluh: { name: 'Buluh FC', primary: 0xde1326, secondary: 0xffffff },
+  'harimau-lembah': { name: 'Harimau Lembah FC', primary: 0xf2a71b, secondary: 0x15171c },
+  'putra-pelabuhan': { name: 'Putra Pelabuhan FC', primary: 0x1d3a6e, secondary: 0xffffff },
+  'metro-selatan': { name: 'Metro Selatan FC', primary: 0x0f8f8f, secondary: 0xc9ced6 },
+  'kota-tua': { name: 'Kota Tua FC', primary: 0x7a1f2b, secondary: 0xf3ead8 },
+  'sri-anggerik': { name: 'Sri Anggerik FC', primary: 0x6d3fa0, secondary: 0xd8b26a },
+  'puncak-bumi': { name: 'Puncak Bumi FC', primary: 0x1e5c31, secondary: 0xf2c744 },
+  'bintang-timur': { name: 'Bintang Timur FC', primary: 0xc21f2c, secondary: 0xffffff },
+  'rimba-raya': { name: 'Rimba Raya FC', primary: 0x14532d, secondary: 0xe8641c },
+  'sungai-bunyi': { name: 'Sungai Bunyi FC', primary: 0xf2c744, secondary: 0x1d4ed8 },
+  'padang-lalang': { name: 'Padang Lalang FC', primary: 0xb02a2a, secondary: 0x15803d },
+  'menara-gading': { name: 'Menara Gading FC', primary: 0xf3efe2, secondary: 0x1e3a6e },
+};
+
+/** Builds the striped jersey texture for one of the 12 Division 5 clubs. */
+export function createClubKitTexture(clubId, opts = {}) {
+  const club = DIVISION_5_CLUBS[clubId];
+  if (!club) {
+    throw new Error(`Unknown Division 5 club "${clubId}". Known: ${Object.keys(DIVISION_5_CLUBS).join(', ')}`);
+  }
+  return createStripedTexture(club.primary, club.secondary, opts);
+}

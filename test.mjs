@@ -18,6 +18,8 @@ import {
   createBackNameTexture,
   createFrontNameTexture,
   createStripedTexture,
+  DIVISION_5_CLUBS,
+  createClubKitTexture,
 } from './characters/core/kits.js';
 import { SHARED_POSES, WALK_POSES } from './characters/core/poses.js';
 import { CHARACTER_IDS, createActor } from './characters/index.js';
@@ -274,5 +276,66 @@ const late = sampleKeys(stageSceneKeys, 99);
 assert.deepStrictEqual(early.pos, stageSceneKeys[0][1], 'sampleKeys clamps below the first key');
 assert.deepStrictEqual(late.pos, stageSceneKeys[stageSceneKeys.length - 1][1], 'sampleKeys clamps past the last key');
 assert.ok(mid.pos[0] < early.pos[0] && mid.pos[0] > late.pos[0], 'sampleKeys interpolates between keys');
+
+// --- Episode 7: Azam's flex/point poses are distinct from idle ---
+{
+  const azamStage = createStage({ render() {} }, {
+    width: 320,
+    height: 180,
+    environment: 'clubOffice',
+    camera: { fov: 50, keys: stageSceneKeys },
+    actors: [{ id: 'azam', position: [0, 0, 0] }],
+  });
+  const azamApp = azamStage.actors[0].app;
+  const armSnapshot = () => {
+    const { leftArm, rightArm, leftHand, rightHand, torso } = azamApp.characterParts;
+    return [
+      leftArm.rotation.x, leftArm.rotation.z,
+      rightArm.rotation.x, rightArm.rotation.z,
+      leftHand.rotation.x, rightHand.rotation.x,
+      torso.rotation.x, torso.rotation.y,
+    ];
+  };
+  azamApp.setPose('idle');
+  const idleArms = armSnapshot();
+  azamApp.setPose('flex');
+  const flexArms = armSnapshot();
+  azamApp.setPose('point');
+  const pointArms = armSnapshot();
+  assert.ok(
+    flexArms.some((v, i) => Math.abs(v - idleArms[i]) > 0.05),
+    `azam 'flex' differs from 'idle'`
+  );
+  assert.ok(
+    pointArms.some((v, i) => Math.abs(v - idleArms[i]) > 0.05),
+    `azam 'point' differs from 'idle'`
+  );
+  assert.ok(
+    flexArms.some((v, i) => Math.abs(v - pointArms[i]) > 0.05),
+    `azam 'flex' differs from 'point'`
+  );
+  assert.strictEqual(azamApp.characterParts.armband.visible, false, 'azam armband stays hidden');
+  azamStage.dispose();
+}
+
+// --- Episode 7: all 12 Division 5 clubs build valid kit textures ---
+{
+  const clubs = Object.keys(DIVISION_5_CLUBS);
+  assert.strictEqual(clubs.length, 12, '12 Division 5 clubs registered');
+  assert.ok(clubs.includes('buluh') && clubs.includes('harimau-lembah'), 'canon clubs present');
+  for (const clubId of clubs) {
+    const texture = createClubKitTexture(clubId);
+    assert.ok(texture, `${clubId} builds a kit texture`);
+    assert.strictEqual(typeof texture.dispose, 'function', `${clubId} texture is disposable`);
+    texture.dispose();
+  }
+  let threw = false;
+  try {
+    createClubKitTexture('not-a-club');
+  } catch {
+    threw = true;
+  }
+  assert.ok(threw, 'unknown club id throws');
+}
 
 console.log('ALL CHECKS PASSED');

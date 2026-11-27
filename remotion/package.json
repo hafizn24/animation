@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Remotion project – Buluh FC cinematic football stories",
+  "description": "Remotion project \u2013 Buluh FC cinematic football stories",
   "scripts": {
     "studio": "remotion studio",
     "render": "remotion render Episode1 out/episode-1.mp4",
@@ -16,7 +16,7 @@
     "render:ep6": "remotion render Episode6 out/episode-6.mp4 --gl=angle --codec=h264",
     "render:matchday": "remotion render FootballMatch out/matchday-v2.mp4",
     "render:still": "remotion still Episode1 out/episode-1-still.png",
-    "render:ep7": "remotion render Episode7 out/episode-7.mp4 --gl=angle --codec=h264"
+    "render:ep7": "remotion render src/index.js Episode7 out/episode-7.mp4 --gl=angle --codec=h264"
   },
   "dependencies": {
     "@remotion/cli": "4.0.543",

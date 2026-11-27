@@ -634,7 +634,9 @@ export class LockerRoomApp extends BaseEnvironmentApp {
       ctx.font = `bold ${Math.round(h * 0.09)}px Arial, sans-serif`;
       ctx.fillText('FIXTURES', w * 0.08, h * 0.2);
       ctx.fillText('SQUAD LIST', w * 0.55, h * 0.2);
-      ctx.fillText('MATCH REPORT v BULUH FC', w * 0.08, h * 0.66);
+      ctx.fillText('PERLAWANAN 1', w * 0.08, h * 0.62);
+      ctx.fillText('BULUH FC', w * 0.08, h * 0.76);
+      ctx.fillText('v HARIMAU LEMBAH FC', w * 0.08, h * 0.88);
     });
     const noticePanel = new THREE.Mesh(
       new THREE.PlaneGeometry(1.34, 0.96),

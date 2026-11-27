@@ -5,7 +5,9 @@
   "scripts": {
     "start": "npx live-server --port=3000 --watch=. --open=index.html",
     "serve": "npx serve .",
-    "render:ep6": "npm --prefix remotion run render:ep6"
+    "test": "node test.mjs",
+    "render:ep6": "npm --prefix remotion run render:ep6",
+    "render:ep7": "npm --prefix remotion run render:ep7"
   },
   "dependencies": {
     "three": "^0.162.0"

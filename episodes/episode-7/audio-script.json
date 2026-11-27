@@ -82,7 +82,7 @@
       "name": "Scene 2 — The Agreement",
       "fromFrame": 148,
       "durationFrames": 309,
-      "environment": "ClubOfficeApp",
+      "environment": "Episode6OfficeApp",
       "lines": [
         {
           "id": "e7_02",

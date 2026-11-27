@@ -33,7 +33,7 @@ Azam wears **#7**. Rizal wears **#10**.
 | 6 | `sri-anggerik` | **Sri Anggerik FC** | Purple / gold | Taman Anggerik | Technical, short passing | Academy side, youngest squad. |
 | 7 | `puncak-bumi` | **Puncak Bumi FC** | Forest green / yellow | Padang Puncak | Direct, aerial | Coldest ground in the league. |
 | 8 | `bintang-timur` | **Bintang Timur FC** | Red / white | Stadium Bintang | Disciplined, low block | Best defence last season. |
-| 9 | `rimba-raja` | **Rimba Raya FC** | Dark green / orange | Padang Rimba | Rugged, set pieces | Toughest away trip. |
+| 9 | `rimba-raya` | **Rimba Raya FC** | Dark green / orange | Padang Rimba | Rugged, set pieces | Toughest away trip. |
 | 10 | `sungai-bunyi` | **Sungai Bunyi FC** | Yellow / blue | Padang Sungai Bunyi | Wing play, crossing | loudest support. |
 | 11 | `padang-lalang` | **Padang Lalang FC** | Red / green | Padang Lalang | Grassroots, fearless | Promoted from Divisyen 6. |
 | 12 | `menara-gading` | **Menara Gading FC** | Ivory / navy | Kolej Menara | Tactical, set-piece | Coached by a former internationals. |
@@ -51,17 +51,17 @@ every round as listed. **Matchday 1 is canon** from the Episode 6 reveal:
 
 | MD | Fixtures |
 |---|---|
-| 1 | buluh vs harimau-lembah · putra-pelabuhan vs menara-gading · metro-selatan vs padang-lalang · kota-tua vs sungai-bunyi · sri-anggerik vs rimba-raja · puncak-bumi vs bintang-timur |
-| 2 | buluh vs menara-gading · harimau-lembah vs padang-lalang · putra-pelabuhan vs sungai-bunyi · metro-selatan vs rimba-raja · kota-tua vs bintang-timur · sri-anggerik vs puncak-bumi |
-| 3 | buluh vs padang-lalang · menara-gading vs sungai-bunyi · harimau-lembah vs rimba-raja · putra-pelabuhan vs bintang-timur · metro-selatan vs puncak-bumi · kota-tua vs sri-anggerik |
-| 4 | buluh vs sungai-bunyi · padang-lalang vs rimba-raja · menara-gading vs bintang-timur · harimau-lembah vs puncak-bumi · putra-pelabuhan vs sri-anggerik · metro-selatan vs kota-tua |
-| 5 | buluh vs rimba-raja · sungai-bunyi vs bintang-timur · padang-lalang vs puncak-bumi · menara-gading vs sri-anggerik · harimau-lembah vs kota-tua · putra-pelabuhan vs metro-selatan |
-| 6 | buluh vs bintang-timur · rimba-raja vs puncak-bumi · sungai-bunyi vs sri-anggerik · padang-lalang vs kota-tua · menara-gading vs metro-selatan · harimau-lembah vs putra-pelabuhan |
-| 7 | buluh vs puncak-bumi · bintang-timur vs sri-anggerik · rimba-raja vs kota-tua · sungai-bunyi vs metro-selatan · padang-lalang vs putra-pelabuhan · menara-gading vs harimau-lembah |
-| 8 | buluh vs sri-anggerik · puncak-bumi vs kota-tua · bintang-timur vs metro-selatan · rimba-raja vs putra-pelabuhan · sungai-bunyi vs harimau-lembah · padang-lalang vs menara-gading |
-| 9 | buluh vs kota-tua · sri-anggerik vs metro-selatan · puncak-bumi vs putra-pelabuhan · bintang-timur vs harimau-lembah · rimba-raja vs menara-gading · sungai-bunyi vs padang-lalang |
-| 10 | buluh vs metro-selatan · kota-tua vs putra-pelabuhan · sri-anggerik vs harimau-lembah · puncak-bumi vs menara-gading · bintang-timur vs padang-lalang · rimba-raja vs sungai-bunyi |
-| 11 | buluh vs putra-pelabuhan · metro-selatan vs harimau-lembah · kota-tua vs menara-gading · sri-anggerik vs padang-lalang · puncak-bumi vs sungai-bunyi · bintang-timur vs rimba-raja |
+| 1 | buluh vs harimau-lembah · putra-pelabuhan vs menara-gading · metro-selatan vs padang-lalang · kota-tua vs sungai-bunyi · sri-anggerik vs rimba-raya · puncak-bumi vs bintang-timur |
+| 2 | buluh vs menara-gading · harimau-lembah vs padang-lalang · putra-pelabuhan vs sungai-bunyi · metro-selatan vs rimba-raya · kota-tua vs bintang-timur · sri-anggerik vs puncak-bumi |
+| 3 | buluh vs padang-lalang · menara-gading vs sungai-bunyi · harimau-lembah vs rimba-raya · putra-pelabuhan vs bintang-timur · metro-selatan vs puncak-bumi · kota-tua vs sri-anggerik |
+| 4 | buluh vs sungai-bunyi · padang-lalang vs rimba-raya · menara-gading vs bintang-timur · harimau-lembah vs puncak-bumi · putra-pelabuhan vs sri-anggerik · metro-selatan vs kota-tua |
+| 5 | buluh vs rimba-raya · sungai-bunyi vs bintang-timur · padang-lalang vs puncak-bumi · menara-gading vs sri-anggerik · harimau-lembah vs kota-tua · putra-pelabuhan vs metro-selatan |
+| 6 | buluh vs bintang-timur · rimba-raya vs puncak-bumi · sungai-bunyi vs sri-anggerik · padang-lalang vs kota-tua · menara-gading vs metro-selatan · harimau-lembah vs putra-pelabuhan |
+| 7 | buluh vs puncak-bumi · bintang-timur vs sri-anggerik · rimba-raya vs kota-tua · sungai-bunyi vs metro-selatan · padang-lalang vs putra-pelabuhan · menara-gading vs harimau-lembah |
+| 8 | buluh vs sri-anggerik · puncak-bumi vs kota-tua · bintang-timur vs metro-selatan · rimba-raya vs putra-pelabuhan · sungai-bunyi vs harimau-lembah · padang-lalang vs menara-gading |
+| 9 | buluh vs kota-tua · sri-anggerik vs metro-selatan · puncak-bumi vs putra-pelabuhan · bintang-timur vs harimau-lembah · rimba-raya vs menara-gading · sungai-bunyi vs padang-lalang |
+| 10 | buluh vs metro-selatan · kota-tua vs putra-pelabuhan · sri-anggerik vs harimau-lembah · puncak-bumi vs menara-gading · bintang-timur vs padang-lalang · rimba-raya vs sungai-bunyi |
+| 11 | buluh vs putra-pelabuhan · metro-selatan vs harimau-lembah · kota-tua vs menara-gading · sri-anggerik vs padang-lalang · puncak-bumi vs sungai-bunyi · bintang-timur vs rimba-raya |
 
 Buluh FC's own run: **MD1 Harimau Lembah (H) · MD2 Menara Gading (H) ·
 MD3 Padang Lalang (H) · MD4 Sungai Bunyi (H) · MD5 Rimba Raya (H) ·
